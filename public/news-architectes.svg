@@ -1,0 +1,45 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gridBg" x1="200" y1="40" x2="760" y2="620" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2C1F4A" />
+      <stop offset="0.55" stop-color="#1C0F3A" />
+      <stop offset="1" stop-color="#120910" />
+    </linearGradient>
+    <linearGradient id="arc" x1="140" y1="160" x2="760" y2="560" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FDBA74" stop-opacity="0.8" />
+      <stop offset="1" stop-color="#F97316" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="panel" x1="320" y1="260" x2="640" y2="460" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1F2937" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#111827" stop-opacity="0.6" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="640" fill="url(#gridBg)" />
+  <g opacity="0.28" stroke="#F59E0B">
+    <path d="M0 480H960" stroke-opacity="0.4" />
+    <path d="M0 420H960" stroke-opacity="0.3" />
+    <path d="M0 360H960" stroke-opacity="0.25" />
+    <path d="M0 300H960" stroke-opacity="0.2" />
+    <path d="M0 240H960" stroke-opacity="0.2" />
+    <path d="M0 180H960" stroke-opacity="0.15" />
+    <path d="M0 120H960" stroke-opacity="0.1" />
+    <path d="M200 0V640" stroke-opacity="0.2" />
+    <path d="M320 0V640" stroke-opacity="0.25" />
+    <path d="M440 0V640" stroke-opacity="0.3" />
+    <path d="M560 0V640" stroke-opacity="0.25" />
+    <path d="M680 0V640" stroke-opacity="0.2" />
+    <path d="M800 0V640" stroke-opacity="0.1" />
+  </g>
+  <path d="M120 520C220 360 380 260 520 240C640 224 760 260 840 320" stroke="url(#arc)" stroke-width="28" stroke-linecap="round" />
+  <g opacity="0.65">
+    <rect x="320" y="240" width="320" height="220" rx="28" fill="url(#panel)" />
+    <rect x="340" y="268" width="120" height="8" rx="4" fill="#FBBF24" fill-opacity="0.8" />
+    <rect x="340" y="300" width="220" height="10" rx="5" fill="#FBBF24" fill-opacity="0.6" />
+    <rect x="340" y="340" width="260" height="10" rx="5" fill="#F97316" fill-opacity="0.45" />
+    <rect x="340" y="380" width="180" height="8" rx="4" fill="#FDBA74" fill-opacity="0.4" />
+  </g>
+  <g opacity="0.35" stroke="#FDE68A" stroke-width="2">
+    <path d="M620 180C660 220 720 240 800 240" />
+    <path d="M660 140C700 180 760 200 820 200" />
+  </g>
+</svg>

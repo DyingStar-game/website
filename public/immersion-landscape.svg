@@ -1,0 +1,39 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="640" y1="0" x2="640" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0F172A" />
+      <stop offset="0.4" stop-color="#1A1030" />
+      <stop offset="1" stop-color="#F59E0B" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(980 220) scale(320)">
+      <stop offset="0" stop-color="#FFE29A" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#FFE29A" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="sand1" x1="640" y1="360" x2="640" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F5B256" stop-opacity="0.95" />
+      <stop offset="1" stop-color="#C26A2C" />
+    </linearGradient>
+    <linearGradient id="sand2" x1="420" y1="420" x2="860" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D47C34" stop-opacity="0.85" />
+      <stop offset="1" stop-color="#5C2A17" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="mountain" x1="240" y1="280" x2="780" y2="580" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1F2937" />
+      <stop offset="1" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="mountain2" x1="780" y1="320" x2="1120" y2="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2B2E3F" />
+      <stop offset="1" stop-color="#10131F" />
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#skyGradient)" />
+  <circle cx="980" cy="220" r="320" fill="url(#sunGlow)" />
+  <path d="M0 420C160 340 300 320 460 360C620 400 760 420 910 380C1030 348 1140 300 1280 320V720H0V420Z" fill="url(#sand1)" />
+  <path d="M120 500C260 420 460 390 650 430C780 456 910 470 1120 450C1200 442 1280 430 1280 430V720H0V520C20 520 60 520 120 500Z" fill="url(#sand2)" />
+  <path d="M120 500L260 360L460 440L620 360L760 420L820 360L940 460L1000 420L1160 520V720H0V520C40 520 80 520 120 500Z" fill="url(#mountain)" opacity="0.7" />
+  <path d="M820 360L900 320L1100 420L1280 360V720H820V360Z" fill="url(#mountain2)" opacity="0.75" />
+  <g opacity="0.35" stroke="#FFE29A" stroke-width="3">
+    <path d="M200 460C300 420 420 420 540 460C640 490 740 500 820 480C900 460 980 420 1080 420" />
+    <path d="M240 520C360 480 500 500 620 540C720 574 840 580 960 560C1040 546 1120 520 1200 520" />
+  </g>
+</svg>
