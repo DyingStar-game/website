@@ -1,80 +1,141 @@
-import Navigation from '@/components/Navigation';
-import Hero from '@/components/Hero';
-import FeaturedNews, { FeaturedNewsItem } from '@/components/FeaturedNews';
-import ProjectDescription from '@/components/ProjectDescription';
-import ImmersionShowcase from '@/components/ImmersionShowcase';
-import Footer from '@/components/Footer';
-import { getAllNews } from '@/lib/news';
-
-const featuredNewsPresets = [
-  {
-    slug: '20250203-colonisation-des-premieres-planetes',
-    fallbackTitle: 'Colonisation des premières planètes',
-    fallbackMarkdown:
-      "Les premières colonies dressent leurs dômes autonomes autour de la ceinture intérieure. L'organisation des routes et des stations d'énergie ouvre la voie à une expansion durable.",
-    image: '/news-colonisation.svg',
-    badge: 'Nouveau',
-  },
-  {
-    slug: '20250202-archives-vivantes-du-dyingstar',
-    fallbackTitle: 'Archives vivantes du DyingStar',
-    fallbackMarkdown:
-      "Les journaux de bord sont désormais reliés par un réseau quantique. Les équipages peuvent revivre les événements en réalité mixte pour préparer les missions à venir.",
-    image: '/news-archives.svg',
-    badge: 'Archive',
-  },
-  {
-    slug: '20250201-observatoire-des-fragments',
-    fallbackTitle: 'Observatoire des fragments stellaires',
-    fallbackMarkdown:
-      "Les chercheurs cartographient les fragments stellaires et anticipent les tempêtes magnétiques pour sécuriser les routes d'approvisionnement.",
-    image: '/news-observatoire.svg',
-    badge: 'Observatoire',
-  },
-  {
-    slug: '20250130-architectes-des-cites-modulaires',
-    fallbackTitle: 'Architectes des cités modulaires',
-    fallbackMarkdown:
-      "Les plans modulaires des futurs hubs communautaires sont publiés. Les avant-postes suspendus peuvent être assemblés et adaptés par chaque faction.",
-    image: '/news-architectes.svg',
-    badge: 'Construction',
-  },
-  {
-    slug: '20250128-expedition-des-dunes-solaires',
-    fallbackTitle: 'Expédition dans les dunes solaires',
-    fallbackMarkdown:
-      "L'escouade des éclaireurs cartographie les vallées de sable luminescent pour installer les premières balises d'approche. Les drones rapportent des panoramas inédits sur les tempêtes magnétisées.",
-    image: '/news-expedition.svg',
-    badge: 'Exploration',
-  },
-] as const;
+import { Footer } from "@components/DS/layout/footer";
+import { CTASectionCard } from "@feat/landing/cta/cta-card-section";
+import { CTAImageSection } from "@feat/landing/cta/cta-image-section";
+import { CtaSection } from "@feat/landing/cta/cta-section";
+import { FAQSection } from "@feat/landing/faq-section";
+import { FeaturesSection } from "@feat/landing/feature-section";
+import { Hero } from "@feat/landing/hero";
+import { LandingHeader } from "@feat/landing/landing-header";
+import { SectionDivider } from "@feat/landing/section-divider";
+import Image from "next/image";
 
 export default function HomePage() {
-  const news = getAllNews();
-
-  const latestNews = news[0];
-  const presetMatch = latestNews
-    ? featuredNewsPresets.find((preset) => preset.slug === latestNews.slug) ?? featuredNewsPresets[0]
-    : featuredNewsPresets[0];
-
-  const featuredNews: FeaturedNewsItem[] = [
-    {
-      title: latestNews?.title ?? presetMatch.fallbackTitle,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Praesent nec lorem at dui volutpat dapibus, sed pharetra libero.',
-      image: presetMatch.image,
-      badge: presetMatch.badge,
-    },
-  ];
-
   return (
-    <main className="min-h-screen text-amber-50">
-      <Navigation />
+    <div className="bg-background text-foreground relative flex h-fit flex-col">
+      <div className="mt-16"></div>
+
+      <LandingHeader />
+
       <Hero />
-      <FeaturedNews items={featuredNews} />
-      <ProjectDescription />
-      <ImmersionShowcase />
+
+      <SectionDivider />
+
+      <FeaturesSection
+        features={[
+          {
+            badge: "⏰ Schedule",
+            title: "Schedule your post",
+            description: "Schedule your post on the Threader in a few clicks.",
+            component: (
+              <Image
+                src="/images/placeholder1.gif"
+                alt=""
+                width={200}
+                height={100}
+                className="h-auto w-full object-cover"
+                unoptimized
+              />
+            ),
+          },
+          {
+            badge: "📅 Calendar",
+            title: "See what you scheduled",
+            description:
+              "With the calendar view, you can see what you scheduled and when.",
+            component: (
+              <Image
+                src="/images/placeholder1.gif"
+                alt=""
+                width={200}
+                height={100}
+                className="h-auto w-full object-cover"
+              />
+            ),
+          },
+          {
+            badge: "👁️ Preview",
+            title: "Preview your post",
+            description:
+              "Preview your post before scheduling it to see how it will look like.",
+            component: (
+              <Image
+                src="/images/placeholder1.gif"
+                alt=""
+                width={200}
+                height={100}
+                className="h-auto w-full object-cover"
+                unoptimized
+              />
+            ),
+          },
+          {
+            badge: "🔄 Repost",
+            title: "Schedule repost",
+            description:
+              "Automatically repost your post after a certain amount of time.",
+            component: (
+              <Image
+                src="/images/placeholder1.gif"
+                alt=""
+                width={200}
+                height={100}
+                className="h-auto w-full object-cover"
+                unoptimized
+              />
+            ),
+          },
+        ]}
+      />
+
+      <CTAImageSection />
+
+      <CTASectionCard />
+
+      <CtaSection />
+
+      <FAQSection
+        faq={[
+          {
+            question: "What is Threader?",
+            answer:
+              "Threader is an innovative platform designed to help you write, schedule, and publish content to your account with the assistance of AI, enhancing your business's online presence.",
+          },
+          {
+            question: "How does AI Content Generation work?",
+            answer:
+              "Our AI Content Generation feature leverages the power of artificial intelligence to create unique and engaging content for your Threads, making content creation easier and more efficient.",
+          },
+          {
+            question: "Can I schedule my threads in advance?",
+            answer:
+              "Yes, with Threader, you can schedule your threads for a specific time, allowing you to maintain a consistent online presence without the need to manually post every day.",
+          },
+          {
+            question: "What is the Now.TS project?",
+            answer:
+              "Now.TS is a new project announced on our platform that enables users to create professional Next.js applications in days, streamlining the development process.",
+          },
+          {
+            question: "How can I get more followers?",
+            answer:
+              "To gain more followers, focus on creating content related to Next.js, as our analysis shows it's highly engaging. Utilize our research tools to understand trends and improve your content strategy.",
+          },
+          {
+            question: "What are the benefits of posting with Threader?",
+            answer:
+              "Posting with Threader allows you to schedule posts, avoid daily manual postings, track your scheduled content easily, and maintain consistency in your online activity.",
+          },
+          {
+            question: "What pricing plans does Threader offer?",
+            answer:
+              "Threader offers two pricing plans: THREADER FREE, perfect for tiny creators, allowing you to schedule 1 post in advance; and THREADER PREMIUM, ideal for content creators, offering unlimited scheduling, post previews, and auto-reposting features.",
+          },
+        ]}
+      />
+
+      <SectionDivider />
+
       <Footer />
-    </main>
+    </div>
   );
 }

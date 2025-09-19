@@ -1,0 +1,100 @@
+import { Info } from "lucide-react";
+import { z } from "zod";
+import type { GenericLinkSchema, NavigationLink } from "./navigation.type";
+
+// Constantes pour les chemins
+const PATHS = {
+  NEWS: `/news/:newsSlug`,
+};
+
+export const EmptyLinkParamsSchema = z.object({}).strict();
+
+export const NewsLinkParamsSchema = EmptyLinkParamsSchema.extend({
+  newsSlug: z.string(),
+}).strict();
+
+// Fonction utilitaire pour remplacer les paramètres dans les URLs
+const createLinkGenerator = (path: string, needsParams = false) => {
+  if (!needsParams) {
+    return () => path;
+  }
+
+  return (params: Record<string, string> = {}) => {
+    let result = path;
+    Object.entries(params).forEach(([key, value]) => {
+      result = result.replace(`:${key}`, value);
+    });
+    return result;
+  };
+};
+
+// Fonction pour créer un lien de navigation
+const createLink = (
+  href: string,
+  label: string,
+  options: Partial<
+    Omit<NavigationLink, "href" | "label" | "generateLink">
+  > = {},
+  needsParams = false,
+): NavigationLink => ({
+  href: createLinkGenerator(href, needsParams),
+  label,
+  ...options,
+});
+
+// Définition des liens
+export const LINKS = {
+  Landing: {
+    Landing: createLink("/", "Project", undefined, false),
+  },
+  News: {
+    News: createLink(`${PATHS.NEWS}`, "News", { Icon: Info }, true),
+  },
+
+  Project: {
+    Tickets: createLink("/tickets", "Tickets", { disabled: true }, false),
+    Launcher: createLink("/launcher", "Launcher", { disabled: true }, false),
+    Configuration: createLink(
+      "/configuration",
+      "Configuration",
+      { disabled: true },
+      false,
+    ),
+    Changelog: createLink("/changelog", "Changelog", { disabled: true }, false),
+    Roadmap: createLink("/roadmap", "Roadmap", { disabled: true }, false),
+  },
+
+  Lore: {
+    History: createLink("/history", "History", { disabled: true }, false),
+    Items: createLink("/items", "Items", { disabled: true }, false),
+    Fauna: createLink("/fauna", "Fauna", { disabled: true }, false),
+    Tutorials: createLink("/tutorials", "Tutorials", { disabled: true }, false),
+  },
+
+  Community: {
+    Discord: createLink("/discord", "Discord", { disabled: true }, false),
+    Github: createLink("/github", "GitHub", { disabled: true }, false),
+    Youtube: createLink("/youtube", "YouTube", { disabled: true }, false),
+    Forums: createLink("/forums", "Forums", { disabled: true }, false),
+    Wiki: createLink("/wiki", "Wiki", { disabled: true }, false),
+  },
+
+  Support: {
+    help: createLink("/help", "Help", { disabled: true }, false),
+    bugs: createLink("/bugs", "Bugs", { disabled: true }, false),
+    contact: createLink("/contact", "Contact", { disabled: true }, false),
+    faq: createLink("/faq", "FAQ", { disabled: true }, false),
+  },
+
+  Legal: {
+    terms: createLink("/terms", "Terms", { disabled: true }, false),
+    privacy: createLink("/privacy", "Privacy", { disabled: true }, false),
+    cookies: createLink("/cookies", "Cookies", { disabled: true }, false),
+    rgpd: createLink("/rgpd", "RGPD", { disabled: true }, false),
+  },
+
+  Maintenance: createLink("/maintenance", "Maintenance", {
+    hidden: true,
+    disabled: true,
+  }),
+} satisfies GenericLinkSchema;
