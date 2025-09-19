@@ -19,7 +19,7 @@ export const Footer = () => {
               href={LINKS.Landing.Landing.href()}
               className="mx-auto scale-90"
             >
-              <LogoNameSvg />
+              <LogoNameSvg className="h-20 w-auto" />
             </Link>
             <div className="flex justify-around">
               {getFooterLinks().map((group) => (

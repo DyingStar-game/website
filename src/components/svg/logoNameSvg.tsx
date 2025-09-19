@@ -1,13 +1,18 @@
 import type { ComponentPropsWithoutRef } from "react";
 
-type LogoSvgProps = ComponentPropsWithoutRef<"svg"> & { size?: number };
+type LogoSvgProps = ComponentPropsWithoutRef<"svg">;
 
-export const LogoNameSvg = ({ size = 32, ...props }: LogoSvgProps) => {
+export const LogoNameSvg = ({
+  height = 97,
+  width = 478,
+  ...props
+}: LogoSvgProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={478}
-      height={97}
+      width={width}
+      height={height}
+      viewBox="0 0 478 97"
       fill="none"
       {...props}
     >

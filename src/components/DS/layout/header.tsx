@@ -1,3 +1,5 @@
+import { LogoNameSvg } from "@components/svg/logoNameSvg";
+import { LINKS } from "@feat/navigation/Links";
 import { buttonVariants } from "@ui/button";
 import Link from "next/link";
 import { HeaderBase } from "./header-base";
@@ -6,22 +8,31 @@ export function Header() {
   return (
     <HeaderBase>
       <Link
-        href="/docs"
-        className={buttonVariants({ variant: "ghost", size: "sm" })}
+        href={LINKS.Project.Tickets.href()}
+        className={buttonVariants({ variant: "ghost", size: "lg" })}
       >
-        Docs
+        Project
       </Link>
       <Link
-        href="/about"
-        className={buttonVariants({ variant: "ghost", size: "sm" })}
+        href={LINKS.Lore.History.href()}
+        className={buttonVariants({ variant: "ghost", size: "lg" })}
       >
-        About
+        Lore
+      </Link>
+      <Link href={LINKS.Landing.Landing.href()}>
+        <LogoNameSvg className="h-10 w-auto" />
       </Link>
       <Link
-        href="/contact"
-        className={buttonVariants({ variant: "ghost", size: "sm" })}
+        href={LINKS.Community.Forums.href()}
+        className={buttonVariants({ variant: "ghost", size: "lg" })}
       >
-        Contact
+        Forum
+      </Link>
+      <Link
+        href={LINKS.Project.Launcher.href()}
+        className={buttonVariants({ variant: "ghost", size: "lg" })}
+      >
+        Play Now
       </Link>
     </HeaderBase>
   );
