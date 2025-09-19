@@ -11,7 +11,7 @@ import { getFooterLinks } from "./footer.link";
 
 export const Footer = () => {
   return (
-    <footer className="fixed bottom-0 w-screen pb-8">
+    <footer className="w-screen pb-8">
       <Layout size="lg">
         <LayoutContent>
           <div className="flex flex-col gap-4">
@@ -56,7 +56,10 @@ export const Footer = () => {
               viewport={{ once: true }}
             >
               <p className="mb-4 text-sm text-gray-400 md:mb-0">
-                © {new Date().getFullYear()} {SiteConfig.title}. All rights
+                <Link href={LINKS.RickRoll.href()} className="cursor-text">
+                  ©
+                </Link>{" "}
+                {new Date().getFullYear()} {SiteConfig.title}. All rights
                 reserved.
               </p>
               <div className="flex items-center space-x-6 text-sm text-gray-400">

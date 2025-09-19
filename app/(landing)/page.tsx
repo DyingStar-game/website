@@ -1,3 +1,3 @@
 export default function HomePage() {
-  return <div>toto</div>;
+  return <div className="h-[300vh]">toto</div>;
 }

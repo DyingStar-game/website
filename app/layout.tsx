@@ -39,7 +39,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       <body
         suppressHydrationWarning
         className={cn(
-          "bg-background h-full font-sans antialiased",
+          "h-full overflow-x-hidden bg-[url('/images/Background.png')] bg-cover bg-scroll bg-top bg-no-repeat font-sans antialiased",
           GeistMono.variable,
           GeistSans.variable,
           CaptionFont.variable,

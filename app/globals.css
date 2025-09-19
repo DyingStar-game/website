@@ -173,65 +173,6 @@
   .text-gradient {
     @apply bg-clip-text text-transparent;
   }
-
-  .bg-grid {
-    --bg-grid-color: hsl(0 0% 100% / 0.1);
-    background-color: transparent; /* Couleur de fond */
-    background-image:
-      linear-gradient(90deg, var(--bg-grid-color) 1px, transparent 1px),
-      linear-gradient(180deg, var(--bg-grid-color) 1px, transparent 1px);
-    background-size: 64px 64px; /* Taille de la grille */
-  }
-}
-
-/* Other styles */
-
-.citation {
-  position: relative;
-  display: inline-block;
-  padding: 4px;
-  border-radius: 0.5rem;
-  color: var(--foreground);
-  font-style: italic;
-  --gap: -16px;
-}
-
-.citation::before {
-  content: "“";
-  font-size: 3rem;
-  position: absolute;
-  top: -12px;
-  left: -12px;
-  line-height: 1;
-  color: hsl(var(--primary));
-}
-
-.citation::after {
-  content: "”";
-  font-size: 3rem;
-  position: absolute;
-  bottom: -16px;
-  right: -4px;
-  line-height: 1;
-  color: hsl(var(--primary));
-}
-
-.citation strong {
-  font-weight: 700;
-  background: hsl(var(--primary) / 0.5);
-  display: inline;
-  padding: 2px;
-  margin: -2px;
-}
-
-.dot-pattern {
-  background-color: var(--dot-background);
-  opacity: 0.8;
-  background-image: radial-gradient(
-    var(--dot-color) 0.5px,
-    var(--dot-background) 0.5px
-  );
-  background-size: var(--size, 10px) var(--size, 10px);
 }
 
 html.dark .shiki,
@@ -256,18 +197,5 @@ html.dark .shiki span {
     background-color: var(--muted);
     padding: calc(var(--spacing) * 1.5);
     border-radius: var(--radius);
-  }
-}
-.chat-prose {
-  h1,
-  h2,
-  h3 {
-    font-size: 1rem !important;
-  }
-}
-
-.code-example {
-  & pre {
-    margin: 0 !important;
   }
 }
