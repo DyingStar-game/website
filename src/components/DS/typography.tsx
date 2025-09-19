@@ -17,7 +17,7 @@ type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any
   ? Omit<T, TOmitted>
   : never;
 
-export const typographyVariants = cva("", {
+export const typographyVariants = cva("text-primary", {
   variants: {
     variant: {
       h1: "font-caption scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",

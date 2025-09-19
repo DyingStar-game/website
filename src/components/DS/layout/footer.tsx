@@ -1,116 +1,74 @@
 "use client";
 
+import { LogoNameSvg } from "@components/svg/logoNameSvg";
+import { LINKS } from "@feat/navigation/Links";
 import { Layout, LayoutContent } from "@feat/page/layout";
-import { Button } from "@ui/button";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { SiteConfig } from "site-config";
+import { Typography } from "../typography";
+import { getFooterLinks } from "./footer.link";
 
-export function Footer() {
+export const Footer = () => {
   return (
-    <footer className="bg-background border-t pb-8">
-      <Layout className="my-14">
+    <footer className="fixed bottom-0 w-screen pb-8">
+      <Layout size="lg">
         <LayoutContent>
-          <div className="flex flex-col gap-12">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_2fr]">
-              <div className="flex flex-col gap-3">
-                <h3 className="text-lg font-semibold tracking-tight">
-                  {SiteConfig.title}
-                </h3>
-                <p className="text-muted-foreground max-w-xs text-sm">
-                  {SiteConfig.description}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
-                <div className="flex flex-col gap-3">
-                  <h4 className="font-medium">Product</h4>
+          <div className="flex flex-col gap-4">
+            <Link
+              href={LINKS.Landing.Landing.href()}
+              className="mx-auto scale-90"
+            >
+              <LogoNameSvg />
+            </Link>
+            <div className="flex justify-around">
+              {getFooterLinks().map((group) => (
+                <div key={group.title} className="flex flex-col gap-4">
+                  <Typography variant="h2">{group.title}</Typography>
                   <nav className="flex flex-col gap-2">
-                    <Button
-                      asChild
-                      variant="link"
-                      className="h-auto justify-start p-0"
-                    >
-                      <Link href="/news">Blog</Link>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="link"
-                      className="h-auto justify-start p-0"
-                    >
-                      <Link href="/docs">Documentation</Link>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="link"
-                      className="h-auto justify-start p-0"
-                    >
-                      <Link href="/orgs">Dashboard</Link>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="link"
-                      className="h-auto justify-start p-0"
-                    >
-                      <Link href="/account">Account</Link>
-                    </Button>
+                    {group.links.map((link) =>
+                      !link.disabled ? (
+                        <Link key={link.href} href={link.href}>
+                          <Typography variant="large" className="text-primary">
+                            {link.label}
+                          </Typography>
+                        </Link>
+                      ) : (
+                        <Typography
+                          key={link.href}
+                          variant="large"
+                          className="text-muted cursor-not-allowed"
+                        >
+                          {link.label} (Soon)
+                        </Typography>
+                      ),
+                    )}
                   </nav>
                 </div>
-
-                <div className="flex flex-col gap-3">
-                  <h4 className="font-medium">Company</h4>
-                  <nav className="flex flex-col gap-2">
-                    <Button
-                      asChild
-                      variant="link"
-                      className="h-auto justify-start p-0"
-                    >
-                      <Link href="/about">About</Link>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="link"
-                      className="h-auto justify-start p-0"
-                    >
-                      <Link href="/contact">Contact</Link>
-                    </Button>
-                  </nav>
-                </div>
-
-                <div className="flex flex-col gap-3">
-                  <h4 className="font-medium">Legal</h4>
-                  <nav className="flex flex-col gap-2">
-                    <Button
-                      asChild
-                      variant="link"
-                      className="h-auto justify-start p-0"
-                    >
-                      <Link href="/legal/terms">Terms</Link>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="link"
-                      className="h-auto justify-start p-0"
-                    >
-                      <Link href="/legal/privacy">Privacy</Link>
-                    </Button>
-                  </nav>
-                </div>
-              </div>
+              ))}
             </div>
 
-            <div className="flex flex-col gap-4 pt-8 md:flex-row md:items-center md:justify-between">
-              <div className="flex flex-col gap-1">
-                <p className="text-muted-foreground text-sm">
-                  Address not available
-                </p>
-                <p className="text-muted-foreground text-sm">
-                  © {new Date().getFullYear()} Dying Star. All rights reserved.
-                </p>
+            <motion.div
+              className="mt-12 flex flex-col items-center justify-between border-t border-white/10 pt-8 md:flex-row"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              viewport={{ once: true }}
+            >
+              <p className="mb-4 text-sm text-gray-400 md:mb-0">
+                © {new Date().getFullYear()} {SiteConfig.title}. All rights
+                reserved.
+              </p>
+              <div className="flex items-center space-x-6 text-sm text-gray-400">
+                <span>Version 0.1.0</span>
+                <span>•</span>
+                <span>Serveurs: Unknown</span>
+                <div className="h-2 w-2 animate-pulse rounded-full bg-orange-500"></div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </LayoutContent>
       </Layout>
     </footer>
   );
-}
+};

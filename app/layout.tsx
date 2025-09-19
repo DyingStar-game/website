@@ -1,5 +1,5 @@
-import { TailwindIndicator } from "@components/utils/tailwind-indicator";
 import { FloatingLegalFooter } from "@components/DS/legal/floating-legal-footer";
+import { TailwindIndicator } from "@components/utils/tailwind-indicator";
 import { NextTopLoader } from "@feat/page/next-top-loader";
 import { ServerToaster } from "@feat/server-sonner/server-toaster";
 import { getServerUrl } from "@lib/server-url";
