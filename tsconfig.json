@@ -25,7 +25,8 @@
       "@components/*": ["components/*"],
       "@feat/*": ["features/*"],
       "@hooks/*": ["hooks/*"],
-      "@type/*": ["types/*"]
+      "@type/*": ["types/*"],
+      "@i18n/*": ["i18n/*"]
     }
   },
 

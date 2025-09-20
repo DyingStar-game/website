@@ -45,55 +45,55 @@ const createLink = (
 // Définition des liens
 export const LINKS = {
   Landing: {
-    Landing: createLink("/", "Project", undefined, false),
+    Landing: createLink("/", "project", undefined, false),
   },
   News: {
-    News: createLink(`${PATHS.NEWS}`, "News", { Icon: Info }, true),
+    News: createLink(`${PATHS.NEWS}`, "news", { Icon: Info }, true),
   },
 
   Project: {
-    Tickets: createLink("/tickets", "Tickets", { disabled: true }, false),
-    Launcher: createLink("/launcher", "Launcher", { disabled: true }, false),
+    Tickets: createLink("/tickets", "ticket", { disabled: true }, false),
+    Launcher: createLink("/launcher", "launcher", { disabled: true }, false),
     Configuration: createLink(
       "/configuration",
       "Configuration",
       { disabled: true },
       false,
     ),
-    Changelog: createLink("/changelog", "Changelog", { disabled: true }, false),
-    Roadmap: createLink("/roadmap", "Roadmap", { disabled: true }, false),
+    Changelog: createLink("/changelog", "changelog", { disabled: true }, false),
+    Roadmap: createLink("/roadmap", "roadmap", { disabled: true }, false),
   },
 
   Lore: {
-    History: createLink("/history", "History", { disabled: true }, false),
-    Items: createLink("/items", "Items", { disabled: true }, false),
-    Fauna: createLink("/fauna", "Fauna", { disabled: true }, false),
-    Tutorials: createLink("/tutorials", "Tutorials", { disabled: true }, false),
+    History: createLink("/history", "history", { disabled: true }, false),
+    Items: createLink("/items", "item", { disabled: true }, false),
+    Fauna: createLink("/fauna", "fauna", { disabled: true }, false),
+    Tutorials: createLink("/tutorials", "tutorial", { disabled: true }, false),
   },
 
   Community: {
-    Discord: createLink("/discord", "Discord", { disabled: true }, false),
-    Github: createLink("/github", "GitHub", { disabled: true }, false),
-    Youtube: createLink("/youtube", "YouTube", { disabled: true }, false),
-    Forums: createLink("/forums", "Forums", { disabled: true }, false),
-    Wiki: createLink("/wiki", "Wiki", { disabled: true }, false),
+    Discord: createLink("/discord", "discord", { disabled: true }, false),
+    Github: createLink("/github", "github", { disabled: true }, false),
+    Youtube: createLink("/youtube", "youtube", { disabled: true }, false),
+    Forums: createLink("/forums", "forum", { disabled: true }, false),
+    Wiki: createLink("/wiki", "wiki", { disabled: true }, false),
   },
 
   Support: {
-    help: createLink("/help", "Help", { disabled: true }, false),
-    bugs: createLink("/bugs", "Bugs", { disabled: true }, false),
-    contact: createLink("/contact", "Contact", { disabled: true }, false),
-    faq: createLink("/faq", "FAQ", { disabled: true }, false),
+    help: createLink("/help", "help", { disabled: true }, false),
+    bugs: createLink("/bugs", "bug", { disabled: true }, false),
+    contact: createLink("/contact", "contact", { disabled: true }, false),
+    faq: createLink("/faq", "faq", { disabled: true }, false),
   },
 
   Legal: {
-    terms: createLink("/terms", "Terms", { disabled: true }, false),
-    privacy: createLink("/privacy", "Privacy", { disabled: true }, false),
-    cookies: createLink("/cookies", "Cookies", { disabled: true }, false),
-    rgpd: createLink("/rgpd", "RGPD", { disabled: true }, false),
+    terms: createLink("/terms", "terms", { disabled: true }, false),
+    privacy: createLink("/privacy", "privacy", { disabled: true }, false),
+    cookies: createLink("/cookies", "cookie", { disabled: true }, false),
+    rgpd: createLink("/rgpd", "rgpd", { disabled: true }, false),
   },
 
-  Maintenance: createLink("/maintenance", "Maintenance", {
+  Maintenance: createLink("/maintenance", "maintenance", {
     hidden: true,
     disabled: true,
   }),

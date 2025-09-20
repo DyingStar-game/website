@@ -3,6 +3,6 @@ tabWidth: 2
 semi: true
 singleQuote: false
 arrowParens: always
-endOfLine: crlf
+endOfLine: auto
 plugins:
   - prettier-plugin-tailwindcss
