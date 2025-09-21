@@ -5,19 +5,24 @@ import { z } from "zod";
 
 const newsDirectory = path.join(process.cwd(), "content/news");
 
-const AttributeSchema = z.object({
+const NewsAttributeSchema = z.object({
   title: z.string(),
+  titleIcon: z.string().optional(),
+  category: z.string(),
   description: z.string(),
   keywords: z.array(z.string()),
-  status: z.enum(["draft", "published"]),
   coverUrl: z.string(),
-  tags: z.array(z.string()).optional(),
+  tags: z.array(z.string()).max(5),
   date: z.date(),
+  author: z.string(),
+  authorRoles: z.array(z.string()),
+  lang: z.enum([
+    "fr",
+    "en",
+  ]) /** TODO: Utiliser un enum généré à partir des locales i18n utilisés */,
 });
 
-type NewsAttributes = z.infer<typeof AttributeSchema> & {
-  date: Date;
-};
+type NewsAttributes = z.infer<typeof NewsAttributeSchema>;
 
 export type News = {
   slug: string;
@@ -34,21 +39,14 @@ export const getNews = async (tags?: string[]) => {
 
     const matter = fm(fileContents);
 
-    const result = AttributeSchema.safeParse(matter.attributes);
+    const result = NewsAttributeSchema.safeParse(matter.attributes);
 
     if (!result.success) {
       continue;
     }
 
-    if (
-      process.env.VERCEL_ENV === "production" &&
-      result.data.status === "draft"
-    ) {
-      continue;
-    }
-
     if (tags) {
-      if (!result.data.tags?.some((tag) => tags.includes(tag))) {
+      if (!result.data.tags.some((tag) => tags.includes(tag))) {
         continue;
       }
     }
@@ -69,7 +67,7 @@ export const getNewsTags = async () => {
   const news = await getNews();
   const tags = new Set<string>();
   for (const post of news) {
-    if (!post.attributes.tags) {
+    if (post.attributes.tags.length === 0) {
       continue;
     }
     for (const tag of post.attributes.tags) {
@@ -83,3 +81,19 @@ export const getCurrentNews = async (slug: string) => {
   const news = await getNews();
   return news.find((p) => p.slug === slug);
 };
+
+export const getLastNews = async (tags?: string[], limit = 3) => {
+  const news = await getNews(tags);
+
+  if (news.length === 0) return [];
+
+  return news
+    .sort((a, b) => b.attributes.date.getTime() - a.attributes.date.getTime())
+    .slice(0, limit);
+};
+
+export const getLatestNews = async (tags?: string[]) => {
+  const news = await getLastNews(tags, 1);
+  return news.length > 0 ? news[0] : null;
+};
+
