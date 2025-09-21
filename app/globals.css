@@ -1,8 +1,11 @@
 @import "tailwindcss";
-@import "shadcn-prose";
+@import "../src/styles/kibo-typography.css";
+
 @plugin "tailwindcss-animate";
 
-@custom-variant dark (&:is(.dark *));
+@theme {
+  --color-*: initial;
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -45,6 +48,9 @@
   --color-info: var(--info);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-background-1: var(--background-1);
+  --color-background-2: var(--background-2);
+  --color-background-3: var(--background-3);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -72,52 +78,6 @@
 }
 
 :root {
-  --background: hsl(63, 48%, 99%);
-  --foreground: hsl(63, 78%, 5%);
-  --muted: hsl(183, 23%, 85%);
-  --muted-foreground: hsl(183, 1%, 36%);
-  --popover: hsl(63, 48%, 99%);
-  --popover-foreground: hsl(63, 78%, 5%);
-  --card: hsl(63, 48%, 99%);
-  --card-foreground: hsl(63, 78%, 5%);
-  --border: hsl(63, 11%, 89%);
-  --input: hsl(63, 11%, 89%);
-  --primary: hsl(63, 16%, 44%);
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(183, 16%, 44%);
-  --secondary-foreground: hsl(0, 0%, 100%);
-  --accent: hsl(303, 16%, 44%);
-  --accent-foreground: hsl(0, 0%, 100%);
-  --destructive: hsl(14, 80%, 36%);
-  --destructive-foreground: hsl(14, 80%, 96%);
-  --ring: hsl(63, 16%, 44%);
-  --chart-1: hsl(63, 16%, 44%);
-  --chart-2: hsl(183, 16%, 44%);
-  --chart-3: hsl(303, 16%, 44%);
-  --chart-4: hsl(183, 16%, 47%);
-  --chart-5: hsl(63, 19%, 44%);
-  --radius: 0.5rem;
-  /** Custom **/
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-
-  --success: hsl(151, 55%, 41%);
-  --success-foreground: hsl(137deg 72% 94%);
-
-  --warning: hsl(24deg 94% 50%);
-  --warning-foreground: hsl(24deg 97% 93%);
-
-  --info: hsl(221.2 83.2% 53.3%);
-  --info-foreground: hsl(210 40% 98%);
-}
-
-.dark {
   --background: hsl(30, 5%, 7.84%);
   --foreground: hsl(43.24, 100%, 51.57%);
   --muted: hsl(15, 4.88%, 16.08%);
@@ -144,6 +104,8 @@
   --chart-5: hsl(63, 0%, 0%);
 
   /** Custom **/
+  --radius: 0.5rem;
+
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -161,46 +123,9 @@
 
   --info: hsl(217.2 91.2% 59.8%);
   --info-foreground: hsl(222.2 47.4% 11.2%);
-}
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply text-primary;
-  }
-}
-
-@layer utils {
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
-  }
-}
-
-html.dark .shiki,
-html.dark .shiki span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
-  /* Optional, if you also want font styles */
-  font-style: var(--shiki-dark-font-style) !important;
-  font-weight: var(--shiki-dark-font-weight) !important;
-  text-decoration: var(--shiki-dark-text-decoration) !important;
-}
-
-.prose {
-  color: var(--primary);
-  code:not(pre code) {
-    &::after {
-      display: none;
-    }
-    &::before {
-      display: none;
-    }
-
-    background-color: var(--muted);
-    padding: calc(var(--spacing) * 1.5);
-    border-radius: var(--radius);
-  }
+  --background-1: var(--background);
+  --background-2: hsl(231, 82%, 6%);
+  --background-3: hsl(339, 80%, 12%);
 }
 
