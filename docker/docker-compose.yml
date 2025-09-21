@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ..:/app
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ../.env.local
+    command: npm run dev
+    user: "${UID:-1000}:${GID:-1000}"
+    tty: true
