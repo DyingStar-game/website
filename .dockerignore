@@ -1,13 +1,33 @@
+# Dependencies and logs
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Environnements
+.env
+.env.*
+!.env.example
+
+# Git / CI
 .git
 .github
-.next/cache
-node_modules
-Dockerfile*
-*.log
-npm-debug.log*
+
+# Docker
+Dockerfile
+Dockerfile.*
+.dockerignore
+
+# IDE
 .vscode
 .idea
-coverage
-artifacts
+*.swp
+*.swo
+
+# OS
+.DS_Store
+
+# Misc
 **/*.md
   
