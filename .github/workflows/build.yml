@@ -46,6 +46,12 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Recreate .env.production from secret
+        run: |
+          echo "Creating .env.production from secret WEBSITE_ENV_PRODUCTION_FILE"
+          # Secret WEBSITE_ENV_PRODUCTION_FILE must contain full multi-line contents of .env.production
+          printf "%s" "${{ secrets.WEBSITE_ENV_PRODUCTION_FILE }}" > .env.production
+
       - name: Build
         env:
           NODE_OPTIONS: --max-old-space-size=4096
@@ -96,6 +102,7 @@ jobs:
         run: docker build -f docker/Dockerfile.prod -t $IMAGE_NAME:$TAG .
 
       - name: Log in to GitHub Container Registry
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: echo "$GITHUB_TOKEN" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
