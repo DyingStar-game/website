@@ -26,6 +26,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install gnu tar (fix BusyBox tar for cache)
+        run: |
+          apk update && apk add --no-cache tar
+          tar --version || true
+
       - name: Print Node & npm versions
         run: |
           node -v
@@ -52,7 +57,7 @@ jobs:
 
       - name: Upload standalone artifact
         if: success()
-        continue-on-error: true # Permet à `act` de ne pas faire échouer le job si token runtime manquant
+        continue-on-error: false
         uses: actions/upload-artifact@v4
         with:
           name: next-standalone
@@ -93,7 +98,6 @@ jobs:
           ls -R artifact | head -100
       - name: Prepare build context
         run: |
-          # Reconstituer l'arbo attendue par docker/Dockerfile.prod
           mkdir -p .next/standalone .next/static
           cp -a artifact/.next/standalone/* .next/standalone/
           cp -a artifact/.next/static .next/
