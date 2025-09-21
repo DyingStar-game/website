@@ -1,11 +1,15 @@
-import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
+    <Layout>
+      {latestNews && (
+        <LayoutContent>
+          <NewCard key={latestNews.slug} news={latestNews} />
+        </LayoutContent>
+      )}
+      <CtaWithButton
+        size="xs"
+        title="Join us and contribute to the project!"
+        btContent="How to contribute"
+      />
+    </Layout>
 
-export default function HomePage() {
-  return (
-    <CtaWithButton
-      size="xs"
-      title="Join us and contribute to the project!"
-      btContent="How to contribute"
-    />
-  );
 }
+
