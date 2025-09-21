@@ -1,0 +1,13 @@
+.git
+.github
+.next/cache
+node_modules
+Dockerfile*
+*.log
+npm-debug.log*
+.vscode
+.idea
+coverage
+artifacts
+**/*.md
+  

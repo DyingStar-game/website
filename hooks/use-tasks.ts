@@ -380,7 +380,11 @@ export function useTasks(): UseTasksResult {
       .subscribe();
 
     return () => {
-      supabase.removeChannel(channel);
+      try {
+        supabase?.removeChannel?.(channel as any);
+      } catch (e) {
+        console.warn('Cleanup channel supabase échoué (ignoré)', e);
+      }
     };
   }, [loadTasks]);
 
