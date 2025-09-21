@@ -7,7 +7,7 @@ import { create } from "zustand";
 type NextTopLoaderProps = {
   /**
    * Color for the TopLoader.
-   * @default "#29d"
+   * @default "#2299dd" // Blue
    */
   color?: string;
   /**
