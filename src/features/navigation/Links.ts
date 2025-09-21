@@ -104,3 +104,31 @@ export const LINKS = {
     false,
   ),
 } satisfies GenericLinkSchema;
+
+export const FOOTER_LINKS = {
+  project: [
+    LINKS.Project.Roadmap,
+    LINKS.Project.Tickets,
+    LINKS.Project.Launcher,
+    LINKS.Project.Configuration,
+    LINKS.Project.Changelog,
+  ],
+  lore: [
+    LINKS.Lore.History,
+    LINKS.Lore.Items,
+    LINKS.Lore.Fauna,
+    LINKS.Lore.Tutorials,
+  ],
+  community: [
+    LINKS.Community.Discord,
+    LINKS.Community.Github,
+    LINKS.Community.Youtube,
+    LINKS.Community.Forums,
+    LINKS.Community.Wiki,
+  ],
+} as const;
+
+export const HEADER_LINKS = {
+  right: [LINKS.Project.Tickets, LINKS.Lore.History],
+  left: [LINKS.Community.Forums, LINKS.Project.Launcher],
+} as const;

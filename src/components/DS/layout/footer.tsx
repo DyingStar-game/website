@@ -1,15 +1,34 @@
 "use client";
+import { useMemo } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { SiteConfig } from "site-config";
 
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
-import { LINKS } from "@feat/navigation/Links";
+import { FOOTER_LINKS, LINKS } from "@feat/navigation/Links";
 import { Layout, LayoutContent } from "@feat/page/layout";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { SiteConfig } from "site-config";
-import { Typography } from "../typography";
-import { getFooterLinks } from "./footer.link";
 import LocaleSwitcher from "@feat/i18n/locale-switcher";
-import { useTranslations } from "next-intl";
+import type { NavigationLink } from "@feat/navigation/navigation.type";
+import { Typography } from "../typography";
+
+export const FooterLink = ({ link }: { link: NavigationLink }) => {
+  const t = useTranslations();
+  const href = useMemo(() => link.href(), [link]);
+  const label = useMemo(() => t(link.label), [link, t]);
+
+  return link.disabled ? (
+    <Typography variant="large" className="text-muted cursor-not-allowed">
+      {label} ({t("soon")})
+    </Typography>
+  ) : (
+    <Link href={href}>
+      <Typography variant="large" className="text-primary">
+        {label}
+      </Typography>
+    </Link>
+  );
+};
 
 export const Footer = () => {
   const t = useTranslations();
@@ -25,27 +44,13 @@ export const Footer = () => {
               <LogoNameSvg className="h-20 w-auto" />
             </Link>
             <div className="flex justify-around">
-              {getFooterLinks().map((group) => (
-                <div key={group.title} className="flex flex-col gap-4">
-                  <Typography variant="h2">{group.title}</Typography>
+              {Object.entries(FOOTER_LINKS).map(([title, links]) => (
+                <div key={title} className="flex flex-col gap-4">
+                  <Typography variant="h2">{t(title)}</Typography>
                   <nav className="flex flex-col gap-2">
-                    {group.links.map((link) =>
-                      !link.disabled ? (
-                        <Link key={link.href} href={link.href}>
-                          <Typography variant="large" className="text-primary">
-                            {t(link.label, { count: 2 })}
-                          </Typography>
-                        </Link>
-                      ) : (
-                        <Typography
-                          key={link.href}
-                          variant="large"
-                          className="text-muted cursor-not-allowed"
-                        >
-                          {t(link.label, { count: 2 })} ({t("soon")})
-                        </Typography>
-                      ),
-                    )}
+                    {links.map((link: NavigationLink) => (
+                      <FooterLink key={link.href()} link={link} />
+                    ))}
                   </nav>
                 </div>
               ))}
