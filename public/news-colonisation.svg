@@ -1,0 +1,34 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="480" y1="0" x2="480" y2="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B1F3A" />
+      <stop offset="0.45" stop-color="#1B1030" />
+      <stop offset="1" stop-color="#3B1B0C" />
+    </linearGradient>
+    <linearGradient id="dune" x1="480" y1="380" x2="480" y2="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F6B44B" stop-opacity="0.95" />
+      <stop offset="1" stop-color="#B86224" />
+    </linearGradient>
+    <linearGradient id="dune2" x1="180" y1="440" x2="420" y2="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C96D2A" stop-opacity="0.8" />
+      <stop offset="1" stop-color="#462113" stop-opacity="0.6" />
+    </linearGradient>
+    <radialGradient id="sun" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 1 720 128) scale(180)">
+      <stop offset="0" stop-color="#FFCF71" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#FFCF71" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="960" height="640" fill="url(#sky)" />
+  <circle cx="720" cy="128" r="180" fill="url(#sun)" />
+  <path d="M0 410C140 360 240 330 370 350C520 373 650 448 960 390V640H0V410Z" fill="url(#dune)" />
+  <path d="M0 470C80 430 160 420 250 438C380 463 470 515 630 500C740 490 830 450 960 470V640H0V470Z" fill="url(#dune2)" />
+  <g opacity="0.35">
+    <path d="M140 360C180 360 210 335 250 330C305 322 340 360 420 360" stroke="#FFD791" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M480 368C540 352 600 340 650 346C690 350 720 366 780 360" stroke="#FFB347" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g opacity="0.35" stroke="#FFEDD2" stroke-width="2">
+    <path d="M160 260C200 240 220 220 260 210C300 200 360 205 420 236" />
+    <path d="M510 210C560 185 620 180 690 210" />
+    <path d="M570 170C610 150 630 120 640 90" />
+  </g>
+</svg>

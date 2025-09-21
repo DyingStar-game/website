@@ -1,0 +1,37 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="night" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(520 200) scale(520 420)">
+      <stop offset="0" stop-color="#1F3C88" />
+      <stop offset="1" stop-color="#030712" />
+    </radialGradient>
+    <linearGradient id="horizon" x1="480" y1="320" x2="480" y2="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0D1B2A" />
+      <stop offset="1" stop-color="#18181B" />
+    </linearGradient>
+    <radialGradient id="lens" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(700 260) scale(140)">
+      <stop offset="0" stop-color="#9DECF9" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#9DECF9" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="960" height="640" fill="url(#night)" />
+  <path d="M0 360C120 340 220 330 340 350C470 372 560 408 720 404C820 401 900 384 960 372V640H0V360Z" fill="url(#horizon)" />
+  <circle cx="700" cy="260" r="140" fill="url(#lens)" />
+  <g opacity="0.4" stroke="#FDE68A" stroke-width="1.5">
+    <path d="M140 220L300 190L420 240L600 200L760 260" />
+    <path d="M160 260L300 240L440 280L600 260L780 320" />
+    <path d="M200 300L360 300L520 340L700 320L880 360" />
+  </g>
+  <g opacity="0.3" stroke="#38BDF8" stroke-width="1.5">
+    <path d="M240 160L280 140L320 160L360 140L400 160" />
+    <path d="M560 120L600 100L640 120L680 100L720 120" />
+    <path d="M500 420C540 400 600 380 660 384C720 388 780 408 840 430" />
+  </g>
+  <g opacity="0.5" fill="#FDE68A">
+    <circle cx="260" cy="120" r="3" />
+    <circle cx="420" cy="160" r="2.5" />
+    <circle cx="520" cy="110" r="2" />
+    <circle cx="640" cy="80" r="3" />
+    <circle cx="320" cy="60" r="2" />
+    <circle cx="780" cy="120" r="2.5" />
+  </g>
+</svg>

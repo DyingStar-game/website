@@ -1,0 +1,32 @@
+<svg width="600" height="450" viewBox="0 0 600 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="60" x2="560" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFB347" />
+      <stop offset="0.45" stop-color="#F97316" />
+      <stop offset="1" stop-color="#1F1234" />
+    </linearGradient>
+    <radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(460 120) rotate(125) scale(320 260)">
+      <stop stop-color="#FACC15" stop-opacity="0.8" />
+      <stop offset="0.5" stop-color="#EA580C" stop-opacity="0.25" />
+      <stop offset="1" stop-color="#0F172A" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="paint2_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200 60) rotate(65) scale(260 220)">
+      <stop stop-color="#38BDF8" stop-opacity="0.65" />
+      <stop offset="0.7" stop-color="#312E81" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="600" height="450" rx="38" fill="#0B0616" />
+  <rect x="12" y="12" width="576" height="426" rx="30" fill="url(#paint0_linear)" />
+  <ellipse cx="470" cy="130" rx="210" ry="150" fill="url(#paint1_radial)" />
+  <ellipse cx="200" cy="80" rx="190" ry="140" fill="url(#paint2_radial)" />
+  <path d="M48 285C120 242 212 228 280 250C348 272 430 260 516 212" stroke="rgba(255,255,255,0.35)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M60 310C124 272 214 274 276 288C338 302 418 299 510 255" stroke="rgba(255,255,255,0.22)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M42 332C104 304 200 318 262 338C324 358 414 360 516 320" stroke="rgba(17,24,39,0.35)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" />
+  <path d="M120 360C176 328 246 326 298 340C350 354 420 352 480 330" stroke="rgba(15,23,42,0.45)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" opacity="0.7" />
+  <path d="M110 300C160 284 220 286 270 296C320 306 380 304 438 286" stroke="rgba(255,255,255,0.25)" stroke-width="1.8" stroke-linecap="round" />
+  <circle cx="160" cy="180" r="3.5" fill="white" fill-opacity="0.75" />
+  <circle cx="420" cy="210" r="2.8" fill="white" fill-opacity="0.65" />
+  <circle cx="520" cy="160" r="4" fill="white" fill-opacity="0.55" />
+  <circle cx="310" cy="110" r="3.2" fill="white" fill-opacity="0.7" />
+  <circle cx="260" cy="200" r="2.4" fill="white" fill-opacity="0.6" />
+</svg>
