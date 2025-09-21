@@ -12,7 +12,7 @@ const MdxComponent = {} satisfies Record<string, React.ComponentType>;
 
 export const ServerMdx = (props: ServerMdxProps) => {
   return (
-    <div className={cn("prose dark:prose-invert", props.className)}>
+    <div className={cn("typography w-full", props.className)}>
       <RenderMdx {...props} />
     </div>
   );
@@ -33,3 +33,4 @@ const RenderMdx = (props: ServerMdxProps) => {
     />
   );
 };
+

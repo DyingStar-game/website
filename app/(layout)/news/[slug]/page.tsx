@@ -80,7 +80,7 @@ export default async function RoutePage(props: PageProps<"/news/[slug]">) {
         }}
         className="overflow-hidden rounded-lg"
       >
-        <div className="flex w-full flex-col gap-2 bg-black/50 p-10 text-white backdrop-blur">
+        <div className="flex w-full flex-col gap-2 bg-black/50 p-10 backdrop-blur">
           <LayoutTitle className="drop-shadow-sm">
             {attributes.titleIcon} {attributes.title}
           </LayoutTitle>
@@ -98,10 +98,7 @@ export default async function RoutePage(props: PageProps<"/news/[slug]">) {
       </LayoutHeader>
       <Separator />
       <LayoutContent>
-        <ServerMdx
-          className="prose dark:prose-invert lg:prose-lg xl:prose-xl mb-8"
-          source={news.content}
-        />
+        <ServerMdx className="mb-8" source={news.content} />
       </LayoutContent>
     </Layout>
   );
