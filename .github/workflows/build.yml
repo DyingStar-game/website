@@ -3,6 +3,8 @@ name: Build & Image Next.js
 on:
   push:
     branches: [ main, develop, feature/add-docker-stack ]
+    # Push events for version tags (e.g. v1.2.3) will also trigger
+    tags: [ 'v*', 'release-*' ]
   pull_request:
     branches: [ main, develop ]
 
@@ -82,7 +84,6 @@ jobs:
       IMAGE_NAME: dyingstar-website
       REGISTRY: ghcr.io/${{ github.repository_owner }}
       TAG: ${{ github.sha }}
-    if: ${{ needs.build.result == 'success' }}
     steps:
       - name: Checkout (minimal)
         uses: actions/checkout@v4
@@ -109,3 +110,44 @@ jobs:
 
       - name: Show image size
         run: docker images | grep $IMAGE_NAME | head -1
+
+      - name: Log in to GitHub Container Registry
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "$GITHUB_TOKEN" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Tag & Push image to GHCR (only for tags on main)
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        env:
+          REF_NAME: ${{ github.ref_name }} # tag name
+          DEFAULT_BRANCH: main
+        run: |
+          set -euo pipefail
+          IMAGE_FULL="${REGISTRY}/${IMAGE_NAME}"
+
+          echo "Checking that the tagged commit is reachable from main..."
+          git fetch origin $DEFAULT_BRANCH --depth=1
+          if git merge-base --is-ancestor $GITHUB_SHA origin/$DEFAULT_BRANCH; then
+            echo "Commit is on $DEFAULT_BRANCH. Proceeding with push."
+          else
+            echo "Commit is NOT on $DEFAULT_BRANCH. Skipping push to registry." >&2
+            exit 0
+          fi
+
+          echo "Tagging image with commit SHA: $IMAGE_FULL:$TAG"
+            docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:$TAG
+
+          VERSION_TAG="$REF_NAME"
+          echo "Tagging image with version tag: $IMAGE_FULL:$VERSION_TAG"
+          docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:$VERSION_TAG
+
+          echo "Tagging image with latest: $IMAGE_FULL:latest"
+          docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:latest
+
+          echo "Pushing tags..."
+          docker push $IMAGE_FULL:$TAG
+          docker push $IMAGE_FULL:$VERSION_TAG
+          docker push $IMAGE_FULL:latest
+
+          echo "Pushed images:"
+          docker image ls | grep $IMAGE_NAME | head -5
