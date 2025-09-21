@@ -9,13 +9,11 @@ import { usePathname, useRouter } from "@i18n/navigation";
 type Props = {
   children: ReactNode;
   defaultValue: string;
-  label: string;
 };
 
 export default function LocaleSwitcherSelect({
   children,
   defaultValue,
-  label,
 }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -42,7 +40,6 @@ export default function LocaleSwitcherSelect({
         isPending && "transition-opacity [&:disabled]:opacity-30",
       )}
     >
-      <p className="sr-only">{label}</p>
       <select
         className="inline-flex appearance-none bg-transparent py-3 pr-6 pl-2"
         defaultValue={defaultValue}

@@ -8,7 +8,7 @@ import type {
 
 const FOOTER_LINKS: NavigationLinksGroups = [
   {
-    title: "Project",
+    title: "project",
     links: [
       LINKS.Project.Roadmap,
       LINKS.Project.Tickets,
@@ -18,7 +18,7 @@ const FOOTER_LINKS: NavigationLinksGroups = [
     ],
   },
   {
-    title: "Lore",
+    title: "lore",
     links: [
       LINKS.Lore.History,
       LINKS.Lore.Items,
@@ -27,7 +27,7 @@ const FOOTER_LINKS: NavigationLinksGroups = [
     ],
   },
   {
-    title: "Community",
+    title: "community",
     links: [
       LINKS.Community.Discord,
       LINKS.Community.Github,
