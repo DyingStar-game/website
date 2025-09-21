@@ -2,7 +2,7 @@ name: Build & Image Next.js
 
 on:
   push:
-    branches: [ main, develop, add-docker-stack ]
+    branches: [ main, develop, feature/add-docker-stack ]
   pull_request:
     branches: [ main, develop ]
 
