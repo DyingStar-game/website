@@ -5,7 +5,7 @@ const RouteLayout = async ({ children }: LayoutProps<"/">) => {
   return (
     <>
       <Header />
-      {children}
+      <div className="min-h-full flex-1">{children}</div>
       <Footer />
     </>
   );
