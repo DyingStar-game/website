@@ -32,12 +32,6 @@ jobs:
         run: |
           apk update && apk add --no-cache tar
           tar --version || true
-
-      - name: Print Node & npm versions
-        run: |
-          node -v
-          npm -v
-
       - name: Cache npm
         uses: actions/cache@v4
         with:
@@ -70,9 +64,6 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
-      - name: Show artifact size
-        run: du -sh .next/standalone || true
-
   docker-image:
     name: Build production Docker image
     runs-on: ubuntu-latest
@@ -93,10 +84,6 @@ jobs:
         with:
           name: next-standalone
           path: artifact
-
-      - name: Tree artifact
-        run: |
-          ls -R artifact | head -100
       - name: Prepare build context
         run: |
           mkdir -p .next/standalone .next/static
@@ -107,9 +94,6 @@ jobs:
 
       - name: Build image (docker/Dockerfile.prod)
         run: docker build -f docker/Dockerfile.prod -t $IMAGE_NAME:$TAG .
-
-      - name: Show image size
-        run: docker images | grep $IMAGE_NAME | head -1
 
       - name: Log in to GitHub Container Registry
         env:
