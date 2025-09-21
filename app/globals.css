@@ -72,31 +72,32 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
+  --background: hsl(63, 48%, 99%);
+  --foreground: hsl(63, 78%, 5%);
+  --muted: hsl(183, 23%, 85%);
+  --muted-foreground: hsl(183, 1%, 36%);
+  --popover: hsl(63, 48%, 99%);
+  --popover-foreground: hsl(63, 78%, 5%);
+  --card: hsl(63, 48%, 99%);
+  --card-foreground: hsl(63, 78%, 5%);
+  --border: hsl(63, 11%, 89%);
+  --input: hsl(63, 11%, 89%);
+  --primary: hsl(63, 16%, 44%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(183, 16%, 44%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(303, 16%, 44%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(14, 80%, 36%);
+  --destructive-foreground: hsl(14, 80%, 96%);
+  --ring: hsl(63, 16%, 44%);
+  --chart-1: hsl(63, 16%, 44%);
+  --chart-2: hsl(183, 16%, 44%);
+  --chart-3: hsl(303, 16%, 44%);
+  --chart-4: hsl(183, 16%, 47%);
+  --chart-5: hsl(63, 19%, 44%);
+  --radius: 0.5rem;
+  /** Custom **/
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -117,30 +118,32 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.2 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.6801 0.1583 276.9349);
-  --primary-foreground: oklch(0.2077 0.0398 265.7549);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --background: hsl(30, 5%, 7.84%);
+  --foreground: hsl(43.24, 100%, 51.57%);
+  --muted: hsl(15, 4.88%, 16.08%);
+  --muted-foreground: hsl(28, 8.98%, 67.25%);
+  --popover: hsl(15, 4.88%, 16.08%);
+  --popover-foreground: hsl(63, 28%, 97%);
+  --card: hsl(10, 5.88%, 20%);
+  --card-foreground: hsl(43.24, 100%, 51.57%);
+  --border: hsl(12, 5.43%, 36.08%);
+  --input: hsl(15, 5.63%, 27.84%);
+  --primary: hsl(43.24, 100%, 51.57%);
+  --primary-foreground: hsl(15, 4.88%, 16.08%);
+  --secondary: hsl(8.57, 4.29%, 31.96%);
+  --secondary-foreground: hsl(60, 25%, 96.86%);
+  --accent: hsl(8.57, 4.29%, 31.96%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(33.78, 95.2%, 49.02%);
+  --destructive-foreground: hsl(30, 5%, 7.84%);
+  --ring: hsl(15, 5.63%, 27.84%);
+  --chart-1: hsl(63, 0%, 0%);
+  --chart-2: hsl(183, 0%, 0%);
+  --chart-3: hsl(303, 0%, 0%);
+  --chart-4: hsl(183, 0%, 0%);
+  --chart-5: hsl(63, 0%, 0%);
+
+  /** Custom **/
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -186,6 +189,7 @@ html.dark .shiki span {
 }
 
 .prose {
+  color: var(--primary);
   code:not(pre code) {
     &::after {
       display: none;
@@ -199,3 +203,4 @@ html.dark .shiki span {
     border-radius: var(--radius);
   }
 }
+
