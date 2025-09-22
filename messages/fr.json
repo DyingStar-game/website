@@ -33,5 +33,15 @@
   "ticket": "{count, plural, one {Ticket} other {Tickets}}",
   "Landing": {
     "latest-news": "Dernière actualité"
+  },
+  "News": {
+    "title": "Actualités",
+    "notFound": "Actualité non trouvée"
+  },
+  "NewsDetail": {
+    "back": "Retour aux actualités",
+    "publishedAt": "Publié le {date, date, short}",
+    "readingTime": "Temps de lecture {count, plural, one {# minute} other {# minutes}}",
+    "createdBy": "Créé par {author}"
   }
 }

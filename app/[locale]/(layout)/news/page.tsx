@@ -11,6 +11,7 @@ import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
 import { FileQuestion } from "lucide-react";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { SiteConfig } from "site-config";
 
@@ -29,11 +30,12 @@ export const metadata: Metadata = {
 export default async function RoutePage(props: PageProps<"/[locale]/news">) {
   const tags = await getNewsTags();
   const news = await getNews();
+  const t = await getTranslations("News");
 
   return (
     <Layout>
       <LayoutHeader>
-        <LayoutTitle>Blog</LayoutTitle>
+        <LayoutTitle>{t("title")}</LayoutTitle>
       </LayoutHeader>
       <LayoutContent className="flex flex-wrap gap-2">
         {tags.map((tag) => (
@@ -52,7 +54,7 @@ export default async function RoutePage(props: PageProps<"/[locale]/news">) {
         <LayoutContent className="flex flex-col items-center justify-center">
           <div className="flex flex-col items-center rounded-lg border-2 border-dashed p-4 lg:gap-6 lg:p-8">
             <FileQuestion />
-            <Typography variant="h2">No news found</Typography>
+            <Typography variant="h2">{t("notFound")}</Typography>
             <Link className={buttonVariants({ variant: "link" })} href="/news">
               View all news
             </Link>

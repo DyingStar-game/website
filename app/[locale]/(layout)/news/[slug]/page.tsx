@@ -8,13 +8,13 @@ import {
   LayoutHeader,
   LayoutTitle,
 } from "@feat/page/layout";
-import { formatDate } from "@lib/format/date";
 
 import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
 import { Separator } from "@ui/separator";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Dot } from "lucide-react";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -41,7 +41,7 @@ export async function generateMetadata(
     openGraph: {
       title: post.attributes.title,
       description: post.attributes.description,
-      url: `https://www.dyingstar-game.com/news/${params.slug}`,
+      url: `https://www.dyingstar-game.com/${params.locale}/news/${params.slug}`,
       type: "article",
     },
   };
@@ -60,6 +60,10 @@ export default async function RoutePage(
 ) {
   const params = await props.params;
   const news = await getCurrentNews(params.slug);
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "NewsDetail",
+  });
 
   if (!news) {
     notFound();
@@ -71,7 +75,7 @@ export default async function RoutePage(
     <Layout>
       <LayoutContent>
         <Link className={buttonVariants({ variant: "link" })} href="/news">
-          <ArrowLeft size={16} /> Back
+          <ArrowLeft size={16} /> {t("back")}
         </Link>
       </LayoutContent>
       <LayoutHeader
@@ -86,10 +90,12 @@ export default async function RoutePage(
           <LayoutTitle className="drop-shadow-sm">
             {attributes.titleIcon} {attributes.title}
           </LayoutTitle>
-          <LayoutDescription className="drop-shadow-sm">
-            Published at {formatDate(new Date(attributes.date))} · Reading time{" "}
-            {calculateReadingTime(news.content)} minutes · Created by{" "}
-            {attributes.author}
+          <LayoutDescription className="flex flex-row drop-shadow-sm">
+            {t("publishedAt", { date: attributes.date })}
+            <Dot />
+            {t("readingTime", { count: calculateReadingTime(news.content) })}
+            <Dot />
+            {t("createdBy", { author: attributes.author })}
           </LayoutDescription>
           <div className="flex flex-wrap gap-2">
             {attributes.tags.map((tag) => (
