@@ -61,8 +61,9 @@ jobs:
       - name: Install dependencies (pnpm install)
         run: pnpm --reporter=append-only install --frozen-lockfile
 
-      - name: Approve native build scripts
-        run: pnpm --reporter=append-only approve-builds
+      - name: Allow build scripts (non-interactive)
+        run: |
+          pnpm config set allow-scripts "@parcel/watcher,@tailwindcss/oxide,esbuild,sharp"
 
       - name: Lint
         run: pnpm --reporter=append-only lint
