@@ -30,6 +30,7 @@ export function HeaderBase({ children }: PropsWithChildren) {
           variant="ghost"
           size="lg"
           onClick={() => alert("Todo wait for auth tasks")}
+          className="hidden md:inline"
         >
           Auth
         </Button>

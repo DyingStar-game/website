@@ -15,16 +15,15 @@ export const Footer = () => {
       <Layout size="lg">
         <LayoutContent>
           <div className="flex flex-col gap-4">
-            <Link
-              href={LINKS.Landing.Landing.href()}
-              className="mx-auto scale-90"
-            >
-              <LogoNameSvg className="h-12" />
+            <Link href={LINKS.Landing.Landing.href()} className="self-center">
+              <LogoNameSvg className="h-12 w-auto" />
             </Link>
-            <div className="flex justify-around">
+            <div className="flex flex-col justify-around gap-4 md:flex-row">
               {getFooterLinks().map((group) => (
                 <div key={group.title} className="flex flex-col gap-4">
-                  <Typography variant="h2">{group.title}</Typography>
+                  <Typography variant="h2" className="self-center md:self-auto">
+                    {group.title}
+                  </Typography>
                   <nav className="flex flex-col gap-2">
                     {group.links.map((link) =>
                       !link.disabled ? (

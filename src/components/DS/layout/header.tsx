@@ -1,6 +1,9 @@
+//TODO: Remove use client when auth is implemented
+"use client";
+
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
 import { LINKS } from "@feat/navigation/Links";
-import { buttonVariants } from "@ui/button";
+import { Button, buttonVariants } from "@ui/button";
 import Link from "next/link";
 import { HeaderBase } from "./header-base";
 
@@ -37,6 +40,14 @@ export function Header() {
       >
         Play Now
       </Link>
+      <Button
+        variant="ghost"
+        size="lg"
+        onClick={() => alert("Todo wait for auth tasks")}
+        className="md:hidden"
+      >
+        Auth
+      </Button>
     </HeaderBase>
   );
 }

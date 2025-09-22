@@ -111,5 +111,5 @@
     "typescript-eslint": "^8.42.0",
     "unified": "^11.0.5"
   },
-  "packageManager": "pnpm@10.14.0"
+  "packageManager": "pnpm@10.17.1"
 }
