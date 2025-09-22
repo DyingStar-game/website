@@ -18,9 +18,9 @@ ENV_FILE_EXISTS := $(shell test -f .env.local -o -f .env && echo 1 || echo 0)
 # Function to ensure node_modules exists
 define ensure_node_modules
 	@if [ ! -d "node_modules" ]; then \
-		echo "$(YELLOW)Node modules not found. Installing dependencies...$(RESET)"; \
-		$(DOCKER_NODE) npm ci --progress=true; \
-		echo "$(GREEN)Dependencies installed successfully.$(RESET)"; \
+		echo "$(YELLOW)Node modules not found. Installing dependencies (pnpm)...$(RESET)"; \
+		$(DOCKER_NODE) corepack pnpm install --frozen-lockfile; \
+		echo "$(GREEN)Dependencies installed successfully (pnpm).$(RESET)"; \
 	fi
 endef
 
@@ -60,21 +60,21 @@ build:
 	@echo "$(CYAN)Building the application...$(RESET)"
 	$(call ensure_node_modules)
 	$(call ensure_env_file)
-	$(DOCKER_NODE) npm run build
+	$(DOCKER_NODE) corepack pnpm build
 
 # Clean build artifacts
 .PHONY: clean
 clean:
 	@echo "$(CYAN)Cleaning build artifacts...$(RESET)"
 	$(call ensure_node_modules)
-	$(DOCKER_NODE) npm run clean
+	$(DOCKER_NODE) corepack pnpm clean
 
 # Add a dependency
 .PHONY: add-dependency
 add-dependency:
 	@echo "$(CYAN)Adding dependency: $(filter-out $@,$(MAKECMDGOALS))$(RESET)"
 	$(call ensure_node_modules)
-	$(DOCKER_NODE) npm install $(filter-out $@,$(MAKECMDGOALS)) --progress=true
+	$(DOCKER_NODE) corepack pnpm add $(filter-out $@,$(MAKECMDGOALS))
 	@echo "$(GREEN)✅ Dependencies added successfully!$(RESET)"
 	@exit 0
 
@@ -83,7 +83,7 @@ add-dependency:
 add-dev-dependency:
 	@echo "$(CYAN)Adding dev dependency: $(filter-out $@,$(MAKECMDGOALS))$(RESET)"
 	$(call ensure_node_modules)
-	$(DOCKER_NODE) npm install --save-dev $(filter-out $@,$(MAKECMDGOALS)) --progress=true
+	$(DOCKER_NODE) corepack pnpm add -D $(filter-out $@,$(MAKECMDGOALS))
 	@echo "$(GREEN)✅ Dev dependencies added successfully!$(RESET)"
 	@exit 0
 
@@ -92,7 +92,7 @@ add-dev-dependency:
 rm-dependency:
 	@echo "$(CYAN)Removing dependency: $(filter-out $@,$(MAKECMDGOALS))$(RESET)"
 	$(call ensure_node_modules)
-	$(DOCKER_NODE) npm uninstall $(filter-out $@,$(MAKECMDGOALS)) --progress=true
+	$(DOCKER_NODE) corepack pnpm remove $(filter-out $@,$(MAKECMDGOALS))
 	@echo "$(GREEN)✅ Dependencies removed successfully!$(RESET)"
 	@exit 0
 
@@ -101,7 +101,7 @@ rm-dependency:
 lint:
 	@echo "$(CYAN)Running linter...$(RESET)"
 	$(call ensure_node_modules)
-	$(DOCKER_NODE) npm run lint
+	$(DOCKER_NODE) corepack pnpm lint
 
 # Special rule to handle arguments passed to make command
 # This is needed for the filter-out approach to work correctly

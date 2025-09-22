@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+.pnpm-store/
+
 # testing
 /coverage
 
@@ -27,15 +29,20 @@ yarn-error.log*
 .env
 .env.local
 .env.production
+.env*.local
 
-# vercel
-.vercel
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
-# IDEs
-.vscode/
-.idea/
-/.bolt/
+.env
+
+/test-results
+.vercel
+
+src/generated
+
+# CI artifacts
+/ci-artifacts
+
+.playwright-mcp
