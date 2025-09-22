@@ -20,7 +20,7 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        invert: "bg-foreground text-primary",
+        invert: "bg-background text-primary",
         success: "bg-success text-success-foreground hover:bg-success/90",
         warning: "bg-warning text-warning-foreground hover:bg-warning/90",
       },
@@ -28,6 +28,7 @@ const buttonVariants = cva(
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        xl: "h-22 rounded-md px-6 has-[>svg]:px-4 text-3xl uppercase font-light",
         icon: "size-9",
       },
     },
@@ -62,3 +63,4 @@ function Button({
 }
 
 export { Button, buttonVariants };
+

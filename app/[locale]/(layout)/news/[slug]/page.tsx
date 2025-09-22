@@ -9,7 +9,7 @@ import {
   LayoutTitle,
 } from "@feat/page/layout";
 import { formatDate } from "@lib/format/date";
-import { logger } from "@lib/logger";
+
 import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
 import { Separator } from "@ui/separator";
@@ -36,12 +36,12 @@ export async function generateMetadata(
     keywords: post.attributes.keywords,
     authors: {
       name: "DyingStar",
-      url: "https://DyingStar.com",
+      url: "https://www.dyingstar-game.com",
     },
     openGraph: {
       title: post.attributes.title,
       description: post.attributes.description,
-      url: `https://DyingStar.com/news/${params.slug}`,
+      url: `https://www.dyingstar-game.com/news/${params.slug}`,
       type: "article",
     },
   };
@@ -63,13 +63,7 @@ export default async function RoutePage(props: PageProps<"/news/[slug]">) {
     notFound();
   }
 
-  if (
-    news.attributes.status === "draft" &&
-    process.env.VERCEL_ENV === "production"
-  ) {
-    logger.warn(`Post "${news.attributes.title}" is a draft`);
-    notFound();
-  }
+  const attributes = news.attributes;
 
   return (
     <Layout>
@@ -80,34 +74,33 @@ export default async function RoutePage(props: PageProps<"/news/[slug]">) {
       </LayoutContent>
       <LayoutHeader
         style={{
-          backgroundImage: `url(${news.attributes.coverUrl})`,
+          backgroundImage: `url(${attributes.coverUrl})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
         className="overflow-hidden rounded-lg"
       >
-        <div className="flex w-full flex-col gap-2 bg-black/50 p-10 text-white backdrop-blur">
-          {news.attributes.status === "draft" ? (
-            <Badge className="w-fit" variant="secondary">
-              Draft
-            </Badge>
-          ) : null}
+        <div className="flex w-full flex-col gap-2 bg-black/50 p-10 backdrop-blur">
           <LayoutTitle className="drop-shadow-sm">
-            {news.attributes.title}
+            {attributes.titleIcon} {attributes.title}
           </LayoutTitle>
           <LayoutDescription className="drop-shadow-sm">
-            Published by {formatDate(new Date(news.attributes.date))} · Reading
-            time {calculateReadingTime(news.content)} minutes · Created by{" "}
+            Published at {formatDate(new Date(attributes.date))} · Reading time{" "}
+            {calculateReadingTime(news.content)} minutes · Created by{" "}
+            {attributes.author}
           </LayoutDescription>
+          <div className="flex flex-wrap gap-2">
+            {attributes.tags.map((tag) => (
+              <Badge key={tag}>{tag}</Badge>
+            ))}
+          </div>
         </div>
       </LayoutHeader>
       <Separator />
       <LayoutContent>
-        <ServerMdx
-          className="prose dark:prose-invert lg:prose-lg xl:prose-xl mb-8"
-          source={news.content}
-        />
+        <ServerMdx className="mb-8" source={news.content} />
       </LayoutContent>
     </Layout>
   );
 }
+

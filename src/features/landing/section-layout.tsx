@@ -58,7 +58,7 @@ export const SectionLayout = ({
     >
       <div
         className={cn(
-          "m-auto px-4 py-20 lg:py-28",
+          "m-auto px-4 py-20 lg:py-22",
           sectionLayoutVariants({ size }),
           className,
         )}
@@ -68,3 +68,4 @@ export const SectionLayout = ({
     </div>
   );
 };
+

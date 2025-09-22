@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
 export const Footer = () => {
   const t = useTranslations();
   return (
-    <footer className="w-screen pb-8">
+    <footer className="pb-8">
       <Layout size="lg">
         <LayoutContent>
           <div className="flex flex-col gap-4">
@@ -22,7 +22,7 @@ export const Footer = () => {
               href={LINKS.Landing.Landing.href()}
               className="mx-auto scale-90"
             >
-              <LogoNameSvg className="h-20 w-auto" />
+              <LogoNameSvg className="h-12" />
             </Link>
             <div className="flex justify-around">
               {getFooterLinks().map((group) => (
@@ -85,3 +85,4 @@ export const Footer = () => {
     </footer>
   );
 };
+

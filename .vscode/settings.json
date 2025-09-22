@@ -1,15 +1,18 @@
 {
   "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
-    "twc\\.[^`]+`([^`]*)`",
-    "twc\\([^`]*?\\)`([^`]*)`",
-    ["twc\\.[^`]+\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
-    ["twc\\([^`]*?\\).*?\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+    ["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
   "cSpell.words": ["nuqs", "Nuqs", "uploadthing", "utapi", "zustand"],
-  "prettier.requireConfig": true,
+  "editor.tabSize": 2,
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "notebook.codeActionsOnSave": {},
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "prettier.configPath": ".prettierrc.yaml",
+  "prettier.requireConfig": true,
   "i18n-ally.localesPaths": [
     "messages",
     "src/i18n",
@@ -17,3 +20,4 @@
     "src/lib/i18n"
   ]
 }
+
