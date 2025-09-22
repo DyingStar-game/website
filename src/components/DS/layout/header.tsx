@@ -19,7 +19,10 @@ export function Header() {
       >
         Lore
       </Link>
-      <Link href={LINKS.Landing.Landing.href()}>
+      <Link
+        href={LINKS.Landing.Landing.href()}
+        className="order-first md:order-none"
+      >
         <LogoNameSvg className="h-10 w-auto" />
       </Link>
       <Link
@@ -37,3 +40,4 @@ export function Header() {
     </HeaderBase>
   );
 }
+

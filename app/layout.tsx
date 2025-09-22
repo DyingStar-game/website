@@ -5,7 +5,7 @@ import { ServerToaster } from "@feat/server-sonner/server-toaster";
 import { getServerUrl } from "@lib/server-url";
 import { cn } from "@lib/utils";
 import type { Metadata } from "next";
-import { Geist_Mono, Inter, Space_Grotesk } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
 import { SiteConfig } from "site-config";
@@ -18,31 +18,27 @@ export const metadata: Metadata = {
   metadataBase: new URL(getServerUrl()),
 };
 
-const CaptionFont = Space_Grotesk({
+const PoppinsFont = Poppins({
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-caption",
-});
-
-const GeistSans = Inter({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-});
-
-const GeistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
 });
 
 export default function RootLayout({ children, modal }: LayoutProps<"/">) {
   return (
-    <html lang="en" className="h-full" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={cn(
+        PoppinsFont.className,
+        "from-background-1 via-background-2 to-background-3 text-foreground h-full bg-linear-120 bg-fixed",
+      )}
+      suppressHydrationWarning
+    >
       <body
         suppressHydrationWarning
         className={cn(
-          "h-full overflow-x-hidden bg-[url('/images/Background.png')] bg-cover bg-scroll bg-top bg-no-repeat font-sans antialiased",
-          GeistMono.variable,
-          GeistSans.variable,
-          CaptionFont.variable,
+          "min-h-screen antialiased",
+          "before:top-40 before:w-2/3 before:min-w-[1800px] before:bg-[url('/images/bg-circles.svg')]",
+          "before:pointer-events-none before:fixed before:bottom-0 before:left-1/2 before:z-0 before:-translate-x-1/2 before:bg-cover before:bg-top before:bg-no-repeat before:opacity-30 before:content-['']",
         )}
       >
         <NuqsAdapter>
@@ -52,16 +48,19 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
               showSpinner={false}
               color="hsl(var(--primary))"
             />
-            {children}
-            {modal}
-            <TailwindIndicator />
-            <FloatingLegalFooter />
-            <Suspense>
-              <ServerToaster />
-            </Suspense>
+            <div className="relative z-10">
+              {children}
+              {modal}
+              <TailwindIndicator />
+              <FloatingLegalFooter />
+              <Suspense>
+                <ServerToaster />
+              </Suspense>
+            </div>
           </Providers>
         </NuqsAdapter>
       </body>
     </html>
   );
 }
+
