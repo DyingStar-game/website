@@ -59,13 +59,13 @@ jobs:
         run: pnpm store path
 
       - name: Install dependencies (pnpm install)
-        run: pnpm install --frozen-lockfile --reporter=append-only
+        run: pnpm --reporter=append-only install --frozen-lockfile
 
       - name: Approve native build scripts
-        run: pnpm approve-builds
+        run: pnpm --reporter=append-only approve-builds
 
       - name: Lint
-        run: pnpm lint
+        run: pnpm --reporter=append-only lint
 
       - name: Recreate .env.production from secret
         run: |
@@ -76,7 +76,7 @@ jobs:
       - name: Build (Next.js standalone)
         env:
           NODE_OPTIONS: --max-old-space-size=4096
-        run: pnpm build --reporter=append-only
+        run: pnpm --reporter=append-only build
 
       - name: Upload standalone artifact
         if: success()
