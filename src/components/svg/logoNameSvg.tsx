@@ -1,13 +1,10 @@
 import type { ComponentPropsWithoutRef } from "react";
 
-type LogoSvgProps = ComponentPropsWithoutRef<"svg"> & {
-  color?: string;
-};
+type LogoSvgProps = ComponentPropsWithoutRef<"svg">;
 
 export const LogoNameSvg = ({
   height = 97,
   width = 478,
-  color = "#FBB917",
   ...props
 }: LogoSvgProps) => {
   return (
