@@ -9,5 +9,11 @@
   ],
   "cSpell.words": ["nuqs", "Nuqs", "uploadthing", "utapi", "zustand"],
   "prettier.requireConfig": true,
-  "prettier.configPath": ".prettierrc.yaml"
+  "prettier.configPath": ".prettierrc.yaml",
+  "i18n-ally.localesPaths": [
+    "messages",
+    "src/i18n",
+    "src/features/i18n",
+    "src/lib/i18n"
+  ]
 }
