@@ -8,7 +8,7 @@ import { getCurrentDoc, getDocs } from "../doc-manager";
 export const dynamic = "force-static";
 
 export async function generateMetadata(
-  props: PageProps<"/docs/[slug]">,
+  props: PageProps<"/[locale]/docs/[slug]">,
 ): Promise<Metadata> {
   const params = await props.params;
   const doc = await getCurrentDoc(params.slug);
@@ -32,7 +32,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function RoutePage(props: PageProps<"/docs/[slug]">) {
+export default async function RoutePage(
+  props: PageProps<"/[locale]/docs/[slug]">,
+) {
   const params = await props.params;
   const doc = await getCurrentDoc(params.slug);
 

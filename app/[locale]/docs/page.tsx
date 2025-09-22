@@ -16,7 +16,7 @@ export const metadata = {
     "Everything you need to know about using Lumail for your email marketing",
 };
 
-export default async function DocsPage(props: PageProps<"/docs">) {
+export default async function DocsPage(props: PageProps<"/[locale]/docs">) {
   const docs = await getDocs();
 
   const sortedDocs = [...docs].sort((a, b) => {

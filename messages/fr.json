@@ -30,5 +30,8 @@
   "tutorial": "{count, plural, one {Tutoriel} other {Tutoriels}}",
   "bug": "{count, plural, one {Bug} other {Bugs}}",
   "item": "{count, plural, one {Objet} other {Objets}}",
-  "ticket": "{count, plural, one {Ticket} other {Tickets}}"
+  "ticket": "{count, plural, one {Ticket} other {Tickets}}",
+  "Landing": {
+    "latest-news": "Dernière actualité"
+  }
 }

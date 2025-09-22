@@ -21,7 +21,7 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-static";
 
 export async function generateMetadata(
-  props: PageProps<"/news/[slug]">,
+  props: PageProps<"/[locale]/news/[slug]">,
 ): Promise<Metadata> {
   const params = await props.params;
   const post = await getCurrentNews(params.slug);
@@ -55,7 +55,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function RoutePage(props: PageProps<"/news/[slug]">) {
+export default async function RoutePage(
+  props: PageProps<"/[locale]/news/[slug]">,
+) {
   const params = await props.params;
   const news = await getCurrentNews(params.slug);
 
@@ -103,4 +105,3 @@ export default async function RoutePage(props: PageProps<"/news/[slug]">) {
     </Layout>
   );
 }
-
