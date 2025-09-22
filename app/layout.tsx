@@ -36,7 +36,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       <body
         suppressHydrationWarning
         className={cn(
-          "min-h-screen font-sans antialiased",
+          "min-h-screen antialiased",
           "before:top-40 before:w-2/3 before:min-w-[1800px] before:bg-[url('/images/bg-circles.svg')]",
           "before:pointer-events-none before:fixed before:bottom-0 before:left-1/2 before:z-0 before:-translate-x-1/2 before:bg-cover before:bg-top before:bg-no-repeat before:opacity-30 before:content-['']",
         )}

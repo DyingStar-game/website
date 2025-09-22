@@ -1,4 +1,3 @@
-import { AspectRatio } from "@ui/aspect-ratio";
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import Link from "next/link";
 import type { News } from "./news-manager";
 import { Typography } from "@components/DS/typography";
 import { Badge } from "@ui/badge";
+import Image from "next/image";
 
 type NewCardProps = {
   news: News;
@@ -36,13 +36,14 @@ export const NewCard = (props: NewCardProps) => {
           </div>
         </CardHeader>
         <CardContent className="space-y-2">
-          <AspectRatio ratio={16 / 9} className="overflow-hidden">
-            <img
-              src={attributes.coverUrl}
+          <div className="relative aspect-video w-full overflow-hidden">
+            <Image
               alt={attributes.title}
-              className="size-full object-cover"
+              src={attributes.coverUrl}
+              fill
+              className="object-cover"
             />
-          </AspectRatio>
+          </div>
           <CardDescription>
             <Typography variant="p">{attributes.description}</Typography>
           </CardDescription>

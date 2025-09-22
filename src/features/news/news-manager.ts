@@ -19,7 +19,7 @@ const NewsAttributeSchema = z.object({
   lang: z.enum([
     "fr",
     "en",
-  ]) /** TODO: Utiliser un enum généré à partir des locales i18n utilisés */,
+  ]) /** TODO: Use an enum generated from the i18n locales used */,
 });
 
 type NewsAttributes = z.infer<typeof NewsAttributeSchema>;

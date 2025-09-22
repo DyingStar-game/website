@@ -2,19 +2,29 @@
 "use client";
 
 import { Button } from "@ui/button";
-import type { PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 
 export function HeaderBase({ children }: PropsWithChildren) {
   return (
-    <header className="sticky top-0 z-50 flex h-16 items-center justify-between px-4">
-      <nav className="absolute top-1/2 left-1/2 mx-auto flex -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-2 px-4 uppercase">
+    <header
+      className={
+        "from-background/90 to-background/20 sticky inset-x-0 top-0 z-50 flex h-30 items-center justify-center bg-gradient-to-b px-4 shadow-md backdrop-blur"
+      }
+    >
+      <div className="flex-1" />
+      <nav className="flex flex-1 items-center justify-center gap-6 uppercase">
         {children}
       </nav>
-      <div className="ml-auto">
-        <Button size="icon" onClick={() => alert("Todo wait for auth tasks")}>
+      <div className="flex flex-1 justify-end">
+        <Button
+          variant="ghost"
+          size="lg"
+          onClick={() => alert("Todo wait for auth tasks")}
+        >
           Auth
         </Button>
       </div>
     </header>
   );
 }
+
