@@ -1,6 +1,5 @@
 import { Menu } from "lucide-react";
 
-import { ThemeToggle } from "@components/DS/theme-toggle";
 import { Typography } from "@components/DS/typography";
 import { LogoSvg } from "@components/svg/logoSvg";
 import { Button } from "@ui/button";
@@ -62,7 +61,6 @@ export async function NavigationWrapper({
           <div className="w-full flex-1">{topBarChildren}</div>
           <div className="flex items-center gap-2">
             {topBarCornerLeftChildren}
-            <ThemeToggle />
           </div>
         </header>
         <main className="flex flex-1 flex-col gap-4 overflow-auto lg:gap-6 lg:p-6">
@@ -72,3 +70,4 @@ export async function NavigationWrapper({
     </div>
   );
 }
+
