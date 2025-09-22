@@ -24,6 +24,7 @@
   "project": "Project",
   "news": "News",
   "launcher": "Launcher",
+  "community": "Community",
   "cookie": "{count, plural, one {Cookie} other {Cookies}}",
   "server": "{count, plural, one {Server} other {Servers}}",
   "tutorial": "{count, plural, one {Tutorial} other {Tutorials}}",

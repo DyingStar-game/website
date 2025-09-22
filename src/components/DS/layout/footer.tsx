@@ -27,7 +27,7 @@ export const Footer = () => {
             <div className="flex justify-around">
               {getFooterLinks().map((group) => (
                 <div key={group.title} className="flex flex-col gap-4">
-                  <Typography variant="h2">{t("group.title")}</Typography>
+                  <Typography variant="h2">{t(group.title)}</Typography>
                   <nav className="flex flex-col gap-2">
                     {group.links.map((link) =>
                       !link.disabled ? (
@@ -85,4 +85,3 @@ export const Footer = () => {
     </footer>
   );
 };
-
