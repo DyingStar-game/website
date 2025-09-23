@@ -66,6 +66,7 @@ export default [
           argsIgnorePattern: "^_|props|^_error",
         },
       ],
+      "linebreak-style": ["error", "auto"],
       semi: ["error", "always"],
       "no-extra-semi": "error",
       "default-case": 0,
@@ -154,4 +155,3 @@ export default [
     ],
   },
 ];
-
