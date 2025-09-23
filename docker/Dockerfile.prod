@@ -7,7 +7,8 @@ ENV NODE_ENV=production \
 
 RUN apk add --no-cache libc6-compat
 
-COPY .next/standalone ./.next/standalone
+# Copier le contenu standalone à la racine (note le / final)
+COPY .next/standalone/ ./
 COPY public ./public
 COPY .next/static ./.next/static
 
@@ -17,4 +18,4 @@ USER nextjs
 
 EXPOSE 3000
 
-CMD ["node", ".next/standalone/server.js"]
+CMD ["node", "server.js"]
