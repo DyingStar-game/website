@@ -66,7 +66,7 @@ export default [
           argsIgnorePattern: "^_|props|^_error",
         },
       ],
-      "linebreak-style": ["error", "auto"],
+      "linebreak-style": ["error", "unix"],
       semi: ["error", "always"],
       "no-extra-semi": "error",
       "default-case": 0,
