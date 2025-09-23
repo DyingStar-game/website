@@ -82,18 +82,25 @@ jobs:
       - name: Prune dev dependencies from node_modules
         run: pnpm prune --prod
 
-      - name: Upload runtime artifact
+      - name: Pack runtime artifact (preserve pnpm symlinks)
+        if: success()
+        run: |
+          set -euo pipefail
+          echo "Creating runtime.tar.gz (symlinks preserved)"
+          tar -czf runtime.tar.gz \
+            .next/standalone \
+            .next/static \
+            public \
+            package.json \
+            pnpm-lock.yaml
+          tar -tzf runtime.tar.gz | head -40 || true
+
+      - name: Upload runtime artifact (tarball)
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          include-hidden-files: true
           name: next-runtime
-          path: |
-            .next/standalone
-            .next/static
-            public
-            package.json
-            pnpm-lock.yaml
+          path: runtime.tar.gz
           retention-days: 7
           if-no-files-found: error
 
@@ -118,14 +125,14 @@ jobs:
         with:
           name: next-runtime
           path: artifact
-
-      - name: Prepare build context
+      
+      - name: Extract runtime artifact (restore symlinks)
         run: |
-          mkdir -p .next
-          cp -a artifact/.next/standalone ./.next/standalone
-          cp -a artifact/.next/static ./.next/static
-          cp -a artifact/public ./public
-          ls -1 | head -50
+          set -euo pipefail
+          tar -xzf artifact/runtime.tar.gz
+          # Quick sanity check: list symlinks inside node_modules (expect pnpm structure)
+          find .next/standalone/node_modules -maxdepth 1 -type l -printf '%f -> %l\n' | head -20 || true
+          ls -1 .next/standalone/node_modules/.pnpm | head -20 || true
 
       - name: Build image (docker/Dockerfile.prod)
         run: docker build -f docker/Dockerfile.prod -t $IMAGE_NAME:$TAG .
