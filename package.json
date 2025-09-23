@@ -59,6 +59,7 @@
     "next-zod-route": "^1.0.0",
     "nprogress": "^0.2.0",
     "nuqs": "^2.6.0",
+    "styled-jsx": "5.1.7",
     "react": "19.1.1",
     "react-dom": "19.1.1",
     "react-hook-form": "^7.62.0",

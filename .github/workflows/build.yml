@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build standalone artifact
+    name: Build Next.js runtime artifact
     runs-on: ubuntu-latest
     container:
       image: node:22-alpine
@@ -55,9 +55,6 @@ jobs:
           restore-keys: |
             pnpm-
 
-      - name: Show pnpm store path
-        run: pnpm store path
-
       - name: Install dependencies (pnpm install)
         run: pnpm --reporter=append-only install --frozen-lockfile
 
@@ -74,26 +71,34 @@ jobs:
           # Secret WEBSITE_ENV_PRODUCTION_FILE must contain full multi-line contents of .env.production
           printf "%s" "${{ secrets.WEBSITE_ENV_PRODUCTION_FILE }}" > .env.production
 
-      - name: Build (Next.js standalone)
+      - name: Build (Next.js)
         env:
           NODE_OPTIONS: --max-old-space-size=4096
         run: pnpm --reporter=append-only build
+      
+      - name: Clean up .next/cache to reduce artifact size
+        run: rm -rf .next/cache
 
-      - name: Upload standalone artifact
+      - name: Prune dev dependencies from node_modules
+        run: pnpm prune --prod
+
+      - name: Upload runtime artifact
         if: success()
-        continue-on-error: false
         uses: actions/upload-artifact@v4
         with:
-          name: next-standalone
+          include-hidden-files: true
+          name: next-runtime
           path: |
             .next/standalone
             .next/static
             public
+            package.json
+            pnpm-lock.yaml
           retention-days: 7
-          if-no-files-found: warn
+          if-no-files-found: error
 
   docker-image:
-    name: Build production Docker image
+    name: Build production Docker image (runtime)
     runs-on: ubuntu-latest
     needs: build
     permissions:
@@ -101,24 +106,26 @@ jobs:
       packages: write
     env:
       IMAGE_NAME: dyingstar-website
+      # REGISTRY will be rebuilt in lowercase inside the script (GitHub Actions does not provide a toLower function)
       REGISTRY: ghcr.io/${{ github.repository_owner }}
       TAG: ${{ github.sha }}
     steps:
       - name: Checkout (minimal)
         uses: actions/checkout@v4
 
-      - name: Download standalone artifact
+      - name: Download runtime artifact
         uses: actions/download-artifact@v4
         with:
-          name: next-standalone
+          name: next-runtime
           path: artifact
+
       - name: Prepare build context
         run: |
-          mkdir -p .next/standalone .next/static
-          cp -a artifact/.next/standalone/* .next/standalone/
-          cp -a artifact/.next/static .next/
+          mkdir -p .next
+          cp -a artifact/.next/standalone ./.next/standalone
+          cp -a artifact/.next/static ./.next/static
           cp -a artifact/public ./public
-          ls -1 .next | head -20
+          ls -1 | head -50
 
       - name: Build image (docker/Dockerfile.prod)
         run: docker build -f docker/Dockerfile.prod -t $IMAGE_NAME:$TAG .
@@ -138,7 +145,9 @@ jobs:
           DEFAULT_BRANCH: main
         run: |
           set -euo pipefail
-          IMAGE_FULL="${REGISTRY}/${IMAGE_NAME}"
+          # Force owner to lowercase for GHCR (Docker image references must be lowercase)
+          OWNER_LC=$(printf "%s" "${GITHUB_REPOSITORY_OWNER:-${{ github.repository_owner }}}" | tr '[:upper:]' '[:lower:]')
+          IMAGE_FULL="ghcr.io/${OWNER_LC}/${IMAGE_NAME}"
           echo "Event: ${GITHUB_EVENT_NAME} | Ref: ${GITHUB_REF} | Ref name: ${GITHUB_REF_NAME}"
 
           if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then

@@ -19,7 +19,7 @@ ENV_FILE_EXISTS := $(shell test -f .env.local -o -f .env && echo 1 || echo 0)
 define ensure_node_modules
 	@if [ ! -d "node_modules" ]; then \
 		echo "$(YELLOW)Node modules not found. Installing dependencies (pnpm)...$(RESET)"; \
-		$(DOCKER_NODE) corepack pnpm install --frozen-lockfile; \
+		$(DOCKER_NODE) corepack pnpm install; \
 		echo "$(GREEN)Dependencies installed successfully (pnpm).$(RESET)"; \
 	fi
 endef
