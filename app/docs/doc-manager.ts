@@ -29,6 +29,26 @@ export type DocType = {
 
 export async function getDocs(tags?: string[]) {
   try {
+    // Check directory existence first to avoid noisy ENOENT errors during build
+    try {
+      const stat = await fs.stat(docsDirectory);
+      if (!stat.isDirectory()) {
+        logger.warn(`[docs] Path exists but is not a directory: ${docsDirectory}`);
+        return [];
+      }
+    } catch (err: unknown) {
+      const e = err as NodeJS.ErrnoException;
+      if (e.code === "ENOENT") {
+        // Directory intentionally absent -> return empty list silently (debug-level log only)
+        if (process.env.NODE_ENV !== "production") {
+          logger.debug(`[docs] Directory not found: ${docsDirectory}`);
+        }
+        return [];
+      }
+      logger.error("[docs] Unexpected error accessing docs directory:", e);
+      return [];
+    }
+
     const fileNames = await fs.readdir(docsDirectory);
     const docs: DocType[] = [];
 
@@ -36,25 +56,28 @@ export async function getDocs(tags?: string[]) {
       if (!fileName.endsWith(".mdx")) continue;
 
       const fullPath = path.join(docsDirectory, fileName);
-      const fileContents = await fs.readFile(fullPath, "utf8");
-
-      const matter = fm(fileContents);
-
-      const result = AttributeSchema.safeParse(matter.attributes);
-
-      if (!result.success) {
-        logger.error(`Invalid frontmatter in ${fileName}:`, result.error);
+      let fileContents: string;
+      try {
+        fileContents = await fs.readFile(fullPath, "utf8");
+      } catch (readErr) {
+        logger.warn(`[docs] Failed to read file ${fileName}:`, readErr);
         continue;
       }
 
-      if (tags) {
-        if (!result.data.tags?.some((tag) => tags.includes(tag))) {
-          continue;
-        }
+      const matter = fm(fileContents);
+      const result = AttributeSchema.safeParse(matter.attributes);
+
+      if (!result.success) {
+        logger.warn(`[docs] Invalid frontmatter in ${fileName}:`, result.error);
+        continue;
+      }
+
+      if (tags && !result.data.tags?.some((tag) => tags.includes(tag))) {
+        continue;
       }
 
       docs.push({
-        slug: fileName.replace(".mdx", ""),
+        slug: fileName.replace(/\.mdx$/i, ""),
         content: matter.body,
         attributes: result.data,
       });
@@ -62,21 +85,45 @@ export async function getDocs(tags?: string[]) {
 
     return docs;
   } catch (error) {
-    logger.error("Error getting docs:", error);
+    logger.error("[docs] Error while listing docs:", error);
     return [];
   }
 }
 
 export async function getCurrentDoc(slug: string): Promise<DocType | null> {
   try {
+    // Early directory existence check (reuse logic from getDocs but simplified)
+    try {
+      const stat = await fs.stat(docsDirectory);
+      if (!stat.isDirectory()) {
+        logger.warn(`[docs] Path exists but is not a directory: ${docsDirectory}`);
+        return null;
+      }
+    } catch (err: unknown) {
+      const e = err as NodeJS.ErrnoException;
+      if (e.code === "ENOENT") {
+        return null; // Directory missing -> no doc
+      }
+      logger.error(`[docs] Unexpected error accessing docs directory for slug ${slug}:`, e);
+      return null;
+    }
+
     const filePath = path.join(docsDirectory, `${slug}.mdx`);
-    const fileContents = await fs.readFile(filePath, "utf8");
+    let fileContents: string;
+    try {
+      fileContents = await fs.readFile(filePath, "utf8");
+    } catch (readErr: unknown) {
+      const e = readErr as NodeJS.ErrnoException;
+      if (e.code !== "ENOENT") {
+        logger.warn(`[docs] Failed reading doc ${slug}:`, e);
+      }
+      return null;
+    }
 
     const matter = fm(fileContents);
     const result = AttributeSchema.safeParse(matter.attributes);
-
     if (!result.success) {
-      logger.error(`Invalid frontmatter in ${slug}.mdx:`, result.error);
+      logger.warn(`[docs] Invalid frontmatter in ${slug}.mdx:`, result.error);
       return null;
     }
 
@@ -86,7 +133,7 @@ export async function getCurrentDoc(slug: string): Promise<DocType | null> {
       attributes: result.data,
     };
   } catch (error) {
-    logger.error(`Error getting doc ${slug}:`, error);
+    logger.error(`[docs] Fatal error getting doc ${slug}:`, error);
     return null;
   }
 }

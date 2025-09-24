@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+# Images & binaries stay untouched
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg text eol=lf
+*.ico binary
+
+# Keep lockfiles consistent
+pnpm-lock.yaml text eol=lf
