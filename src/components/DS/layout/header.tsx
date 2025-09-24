@@ -36,7 +36,7 @@ export function Header() {
         href={LINKS.Landing.Landing.href()}
         className="order-first lg:order-none"
       >
-        <LogoNameSvg className="h-10 w-auto lg:h-15" />
+        <LogoNameSvg className="h-10 w-auto lg:h-12" />
       </Link>
       <Link
         href={LINKS.Community.Forums.href()}
@@ -67,4 +67,3 @@ export function Header() {
     </HeaderBase>
   );
 }
-

@@ -23,7 +23,7 @@ export function HeaderBase({ children }: PropsWithChildren) {
           onClick={() => setIsOpen(!isOpen)}
         />
       </div>
-      <nav className="flex flex-1 flex-col items-center justify-start gap-6 uppercase lg:flex-row lg:justify-center">
+      <nav className="flex flex-1 flex-col items-center justify-start gap-4 uppercase lg:flex-row lg:justify-center lg:gap-8">
         {children}
       </nav>
       <div className="flex flex-1 justify-end">
@@ -39,4 +39,3 @@ export function HeaderBase({ children }: PropsWithChildren) {
     </header>
   );
 }
-
