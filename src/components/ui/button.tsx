@@ -5,7 +5,7 @@ import * as React from "react";
 import { cn } from "@lib/utils";
 
 const buttonVariants = cva(
-  "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium outline-none transition-all focus-visible:ring disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0 cursor-pointer",
+  "uppercase focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-xs text-sm font-medium outline-none transition-all focus-visible:ring disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0 cursor-pointer font-light w-full lg:w-auto",
   {
     variants: {
       variant: {
@@ -18,17 +18,18 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+          "border border-transparent hover:border-primary [&.active]:bg-foreground [&.active]:text-background font-light",
         link: "text-primary underline-offset-4 hover:underline",
-        invert: "bg-background text-primary",
+        invert:
+          "bg-background text-foreground hover:bg-background/25 hover:text-background border border:transparent hover:border-background",
         success: "bg-success text-success-foreground hover:bg-success/90",
         warning: "bg-warning text-warning-foreground hover:bg-warning/90",
       },
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        sm: "h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        xl: "h-22 rounded-md px-6 has-[>svg]:px-4 text-3xl uppercase font-light",
+        default: "px-6 py-2 has-[>svg]:px-3",
+        sm: "px-5 py-1 has-[>svg]:px-2.5",
+        lg: "py-6 px-10 has-[>svg]:px-4 text-2xl leading-9",
+        xl: "py-6 px-10 has-[>svg]:px-4 text-5xl font-extralight rounded",
         icon: "size-9",
       },
     },
@@ -63,4 +64,3 @@ function Button({
 }
 
 export { Button, buttonVariants };
-
