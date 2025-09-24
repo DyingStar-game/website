@@ -10,7 +10,7 @@ export default async function HomePage() {
   return (
     <>
       <CtaWithButton
-        size="xs"
+        size="sm"
         title="Join us and contribute to the project!"
         btContent="How to contribute"
       />

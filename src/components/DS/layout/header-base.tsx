@@ -11,18 +11,19 @@ export function HeaderBase({ children }: PropsWithChildren) {
   return (
     <header
       className={cn(
-        "from-background/90 to-background/20 sticky inset-x-0 top-0 z-50 flex items-start justify-center overflow-hidden bg-gradient-to-b p-4 shadow-md backdrop-blur md:items-center",
+        "bg-background sticky inset-x-0 top-0 z-50 flex items-start justify-center overflow-hidden p-4 shadow-md lg:items-center lg:p-7",
         "transition-all duration-300 ease-in-out",
-        isOpen ? "max-h-screen" : "max-h-18 md:max-h-30",
+        "border-border border-b",
+        isOpen ? "max-h-screen" : "max-h-18 lg:max-h-35",
       )}
     >
-      <div className="visible flex size-10 flex-1 items-center md:invisible">
+      <div className="visible flex size-10 flex-1 items-center lg:invisible">
         <Menu
           className="hover:cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         />
       </div>
-      <nav className="flex flex-1 flex-col items-center justify-start gap-6 uppercase md:flex-row md:justify-center">
+      <nav className="flex flex-1 flex-col items-center justify-start gap-6 uppercase lg:flex-row lg:justify-center">
         {children}
       </nav>
       <div className="flex flex-1 justify-end">
@@ -30,7 +31,7 @@ export function HeaderBase({ children }: PropsWithChildren) {
           variant="ghost"
           size="lg"
           onClick={() => alert("Todo wait for auth tasks")}
-          className="hidden md:inline"
+          className="hidden lg:inline"
         >
           Auth
         </Button>
