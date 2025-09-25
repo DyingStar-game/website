@@ -34,7 +34,7 @@ export function Header() {
       </Link>
       <Link
         href={LINKS.Landing.Landing.href()}
-        className="order-first lg:order-none"
+        className="order-first transition-all hover:scale-95 lg:order-none"
       >
         <LogoNameSvg className="h-10 w-auto lg:h-12" />
       </Link>

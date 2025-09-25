@@ -20,7 +20,7 @@ type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any
 export const typographyVariants = cva("text-foreground", {
   variants: {
     variant: {
-      h1: "font-caption scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+      h1: "font-caption scroll-m-20 text-4xl font-extrabold tracking-tight",
       h2: "font-caption scroll-m-20 text-3xl font-semibold tracking-tight transition-colors",
       h3: "font-caption scroll-m-20 text-xl font-semibold tracking-tight",
       p: "leading-7 [&:not(:first-child)]:mt-6",
@@ -111,4 +111,3 @@ const InnerTypography = <
 };
 
 export const Typography = fixedForwardRef(InnerTypography);
-

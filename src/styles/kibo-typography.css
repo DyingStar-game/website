@@ -3,22 +3,24 @@
 @layer base {
   .typography {
     max-width: var(--max-w-full);
-    color: var(--color-foreground);
+    color: var(--color-white);
   }
   .typography h1:not(.not-typography h1) {
+    color: var(--color-foreground);
     scroll-margin: calc(var(--spacing) * 20);
     font-size: var(--text-4xl);
     line-height: var(--text-4xl--line-height);
-    font-weight: 800;
+    font-weight: var(--font-weight-medium);
     letter-spacing: var(--tracking-tight);
   }
   .typography h2:not(.not-typography h2) {
+    color: var(--color-foreground);
     scroll-margin: calc(var(--spacing) * 20);
     border-bottom: 1px solid var(--color-border);
     padding-bottom: calc(var(--spacing) * 2);
     font-size: var(--text-3xl);
     line-height: var(--text-3xl--line-height);
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     letter-spacing: var(--tracking-tight);
     margin-top: calc(var(--spacing) * 12);
   }
@@ -26,10 +28,11 @@
     margin-top: 0;
   }
   .typography h3:not(.not-typography h3) {
+    color: var(--color-foreground);
     scroll-margin: calc(var(--spacing) * 20);
     font-size: var(--text-2xl);
     line-height: var(--text-2xl--line-height);
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     letter-spacing: var(--tracking-tight);
     margin-top: calc(var(--spacing) * 12);
   }
@@ -37,10 +40,11 @@
     margin-top: 0;
   }
   .typography h4:not(.not-typography h4) {
+    color: var(--color-foreground);
     scroll-margin: calc(var(--spacing) * 20);
     font-size: var(--text-xl);
     line-height: var(--text-xl--line-height);
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     letter-spacing: var(--tracking-tight);
     margin-top: calc(var(--spacing) * 12);
   }
@@ -48,10 +52,11 @@
     margin-top: 0;
   }
   .typography h5:not(.not-typography h5) {
+    color: var(--color-foreground);
     scroll-margin: calc(var(--spacing) * 20);
     font-size: var(--text-lg);
     line-height: var(--text-lg--line-height);
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     letter-spacing: var(--tracking-tight);
     margin-top: calc(var(--spacing) * 12);
   }
@@ -59,10 +64,11 @@
     margin-top: 0;
   }
   .typography h6:not(.not-typography h6) {
+    color: var(--color-foreground);
     scroll-margin: calc(var(--spacing) * 20);
     font-size: var(--text-base);
     line-height: var(--text-base--line-height);
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     letter-spacing: var(--tracking-tight);
     margin-top: calc(var(--spacing) * 12);
   }
@@ -79,6 +85,8 @@
   }
   .typography p:not(.not-typography p) {
     line-height: 1.75;
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-light);
   }
   .typography p:not(.not-typography p):not(:first-child) {
     margin-top: calc(var(--spacing) * 6);
@@ -87,7 +95,7 @@
     line-height: 1.75;
   }
   .typography a:not(.not-typography a) {
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     color: var(--color-primary);
     text-decoration: underline;
     text-underline-offset: var(--spacing);
@@ -202,7 +210,7 @@
   .typography .small:not(.not-typography .small) {
     font-size: var(--text-sm);
     line-height: 1;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
   }
   .typography .muted:not(.not-typography .muted) {
     font-size: var(--text-sm);

@@ -48,6 +48,7 @@ export const LINKS = {
     Landing: createLink("/", "Project", undefined, false),
   },
   News: {
+    All: createLink("/news", "All News", undefined, false),
     News: createLink(`${PATHS.NEWS}`, "News", { Icon: Info }, true),
   },
 

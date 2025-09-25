@@ -1,21 +1,16 @@
+import { Typography } from "@components/DS/typography";
 import { ServerMdx } from "@feat/markdown/server-mdx";
-import { calculateReadingTime } from "@feat/news/calculate-reading-time";
+import { LINKS } from "@feat/navigation/Links";
+import { NewsItemAuthor, NewsItemTags } from "@feat/news/news-item";
 import { getCurrentNews, getNews } from "@feat/news/news-manager";
-import {
-  Layout,
-  LayoutContent,
-  LayoutDescription,
-  LayoutHeader,
-  LayoutTitle,
-} from "@feat/page/layout";
-import { formatDate } from "@lib/format/date";
-
-import { Badge } from "@ui/badge";
+import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
-import { Separator } from "@ui/separator";
-import { ArrowLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
+
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-static";
@@ -66,40 +61,39 @@ export default async function RoutePage(props: PageProps<"/news/[slug]">) {
   const attributes = news.attributes;
 
   return (
-    <Layout>
-      <LayoutContent>
-        <Link className={buttonVariants({ variant: "link" })} href="/news">
-          <ArrowLeft size={16} /> Back
-        </Link>
-      </LayoutContent>
-      <LayoutHeader
-        style={{
-          backgroundImage: `url(${attributes.coverUrl})`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-        className="overflow-hidden rounded-lg"
+    <main className="container mx-auto flex flex-col gap-8 px-4 py-20 lg:py-22">
+      <Link
+        href={LINKS.News.All.href()}
+        className={cn(
+          buttonVariants({
+            variant: "outline",
+          }),
+          "self-end",
+        )}
       >
-        <div className="flex w-full flex-col gap-2 bg-black/50 p-10 backdrop-blur">
-          <LayoutTitle className="drop-shadow-sm">
-            {attributes.titleIcon} {attributes.title}
-          </LayoutTitle>
-          <LayoutDescription className="drop-shadow-sm">
-            Published at {formatDate(new Date(attributes.date))} · Reading time{" "}
-            {calculateReadingTime(news.content)} minutes · Created by{" "}
-            {attributes.author}
-          </LayoutDescription>
-          <div className="flex flex-wrap gap-2">
-            {attributes.tags.map((tag) => (
-              <Badge key={tag}>{tag}</Badge>
-            ))}
-          </div>
+        <ChevronLeft />
+        Back to news
+      </Link>
+      <section className="border-input flex flex-col gap-8 border-b pb-8">
+        <Typography
+          variant="h1"
+          className="flex items-center gap-4 text-3xl font-medium"
+        >
+          <span className="text-5xl">{attributes.titleIcon}</span>
+          {attributes.title}
+        </Typography>
+        <div className="relative aspect-video w-full self-center">
+          <Image
+            src={attributes.coverUrl}
+            alt={attributes.title}
+            fill
+            className="object-cover"
+          />
         </div>
-      </LayoutHeader>
-      <Separator />
-      <LayoutContent>
         <ServerMdx className="mb-8" source={news.content} />
-      </LayoutContent>
-    </Layout>
+        <NewsItemTags tags={attributes.tags} />
+        <NewsItemAuthor author={attributes.author} date={attributes.date} />
+      </section>
+    </main>
   );
 }
