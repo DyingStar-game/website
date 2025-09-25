@@ -12,12 +12,12 @@ export const CtaWithButton = (props: CtaWithButtonProps) => {
   return (
     <SectionLayout
       variant="primary"
-      className="flex flex-col items-center justify-center gap-10 uppercase"
+      className="flex flex-col items-center justify-center gap-22 uppercase"
       size={props.size ?? "sm"}
     >
       <Typography
         variant="h2"
-        className="text-primary-foreground line-clamp-3 text-center text-4xl uppercase"
+        className="text-primary-foreground text-center text-6xl font-medium"
       >
         {props.title}
       </Typography>
