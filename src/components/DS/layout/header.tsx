@@ -8,18 +8,19 @@ import Link from "next/link";
 import { HeaderBase } from "./header-base";
 import { getTranslations } from "next-intl/server";
 import { cn } from "@lib/utils";
-import { usePathname } from "next/navigation";
+// TODO : Modify when merge feat/news
+// import { usePathname } from "next/navigation";
 
 export async function Header() {
   const t = await getTranslations();
-  const pathname = usePathname();
+  // const pathname = usePathname();
   return (
     <HeaderBase>
       <Link
         href={LINKS.Project.Tickets.href()}
         className={cn(
           buttonVariants({ variant: "ghost", size: "lg" }),
-          pathname.startsWith(LINKS.Project.Tickets.href()) && "active",
+          // pathname.startsWith(LINKS.Project.Tickets.href()) && "active",
         )}
       >
         {t("project")}
@@ -28,7 +29,7 @@ export async function Header() {
         href={LINKS.Lore.History.href()}
         className={cn(
           buttonVariants({ variant: "ghost", size: "lg" }),
-          pathname.startsWith(LINKS.Lore.History.href()) && "active",
+          // pathname.startsWith(LINKS.Lore.History.href()) && "active",
         )}
       >
         {t("lore")}
@@ -43,7 +44,7 @@ export async function Header() {
         href={LINKS.Community.Forums.href()}
         className={cn(
           buttonVariants({ variant: "ghost", size: "lg" }),
-          pathname.startsWith(LINKS.Community.Forums.href()) && "active",
+          // pathname.startsWith(LINKS.Community.Forums.href()) && "active",
         )}
       >
         {t("forum")}
@@ -52,7 +53,7 @@ export async function Header() {
         href={LINKS.Project.Launcher.href()}
         className={cn(
           buttonVariants({ variant: "ghost", size: "lg" }),
-          pathname.startsWith(LINKS.Project.Launcher.href()) && "active",
+          // pathname.startsWith(LINKS.Project.Launcher.href()) && "active",
         )}
       >
         {t("playNow")}
