@@ -18,7 +18,7 @@ export default async function HomePage() {
       <main className="container mx-auto px-4 py-20 lg:py-22">
         <section className="flex flex-col gap-14">
           <ContentTitle title="News" btnTitle="Toutes les news" href="/news" />
-          <div className="divide-solide divide-foreground flex flex-col gap-7 divide-y border-b">
+          <div className="divide-solide divide-input border-input flex flex-col gap-7 divide-y border-b">
             {lastNews.map((news, index) =>
               index < 2 ? (
                 <NewsItem key={news.slug} news={news} className="pb-7" />

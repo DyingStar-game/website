@@ -25,7 +25,7 @@ export function HeaderBase({ children }: PropsWithChildren) {
         style={{ height, backgroundColor: bg }}
         className={cn(
           "fixed inset-x-0 top-0 z-50 flex items-start justify-center overflow-hidden p-4 shadow-md lg:items-center lg:p-7",
-          "border-border min-h-[72px] border-b",
+          "border-input min-h-[72px] border-b",
           isOpen
             ? "bg-background! h-auto! max-h-screen"
             : "max-h-18! lg:max-h-35!",

@@ -37,6 +37,7 @@ const NewsItem = ({ news, className }: NewsItemProps) => {
           <Typography
             variant="p"
             className="line-clamp-6 flex-1 overflow-hidden text-justify text-2xl font-light text-ellipsis text-white"
+            title={news.attributes.description}
           >
             {news.attributes.description}
           </Typography>
@@ -87,7 +88,7 @@ export const NewsItemAuthor = ({
         <AvatarFallback>{author.slice(0, 2).toUpperCase()}</AvatarFallback>
       </Avatar>
       {author}
-      <Minus className="rotate-90" />
+      <Minus className="text-input rotate-90" />
       {/* TODO : Change with i18n */}
       {date.toLocaleDateString("fr-FR")}
     </div>
