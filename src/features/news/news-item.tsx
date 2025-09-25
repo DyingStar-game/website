@@ -17,7 +17,10 @@ export type NewsItemProps = {
 const NewsItem = ({ news, className }: NewsItemProps) => {
   return (
     <article className={cn("flex flex-col gap-8", className)}>
-      <Typography variant="h2" className="flex items-center gap-4 font-medium">
+      <Typography
+        variant="h3"
+        className="flex items-center gap-4 text-3xl font-medium"
+      >
         <span className="text-5xl">{news.attributes.titleIcon}</span>
         {news.attributes.title}
       </Typography>

@@ -1,5 +1,5 @@
 import { Typography } from "@components/DS/typography";
-import { NewCard } from "@feat/news/new-card";
+import NewsItem from "@feat/news/news-item";
 import { getNews, getNewsTags } from "@feat/news/news-manager";
 import {
   Layout,
@@ -33,7 +33,7 @@ export default async function RoutePage(props: PageProps<"/news">) {
   return (
     <Layout>
       <LayoutHeader>
-        <LayoutTitle>Blog</LayoutTitle>
+        <LayoutTitle>News</LayoutTitle>
       </LayoutHeader>
       <LayoutContent className="flex flex-wrap gap-2">
         {tags.map((tag) => (
@@ -59,9 +59,9 @@ export default async function RoutePage(props: PageProps<"/news">) {
           </div>
         </LayoutContent>
       ) : (
-        <LayoutContent className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <LayoutContent className="flex flex-col gap-16">
           {news.map((post) => (
-            <NewCard key={post.slug} news={post} />
+            <NewsItem key={post.slug} news={post} />
           ))}
         </LayoutContent>
       )}

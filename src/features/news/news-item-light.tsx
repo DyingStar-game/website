@@ -21,7 +21,7 @@ const NewsItemLight = ({ news, className }: NewsItemLightProps) => {
       )}
     >
       <Typography
-        variant="h2"
+        variant="h3"
         className="flex flex-1 items-center gap-4 overflow-hidden text-2xl font-medium"
       >
         <span className="text-3xl">{news.attributes.titleIcon}</span>
