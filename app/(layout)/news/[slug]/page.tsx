@@ -57,7 +57,7 @@ export async function generateStaticParams() {
 
 export default async function RoutePage(props: PageProps<"/news/[slug]">) {
   const params = await props.params;
-  const news = await getCurrentNews(params.slug);
+  const news = await getCurrentNews(params.slug); // TODO: Add locale from i18n
 
   if (!news) {
     notFound();
@@ -103,4 +103,3 @@ export default async function RoutePage(props: PageProps<"/news/[slug]">) {
     </Layout>
   );
 }
-

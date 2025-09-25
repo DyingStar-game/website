@@ -14,28 +14,34 @@ export const Footer = () => {
     <footer className="pb-8">
       <Layout size="lg">
         <LayoutContent>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5">
             <Link href={LINKS.Landing.Landing.href()} className="self-center">
-              <LogoNameSvg className="h-12 w-auto" />
+              <LogoNameSvg className="h-10 w-auto" />
             </Link>
-            <div className="flex flex-col justify-around gap-4 md:flex-row">
+            <div className="flex flex-col justify-around gap-8 md:flex-row">
               {getFooterLinks().map((group) => (
                 <div key={group.title} className="flex flex-col gap-4">
-                  <Typography variant="h2" className="self-center md:self-auto">
+                  <Typography
+                    variant="h2"
+                    className="self-center text-xl font-normal md:self-auto"
+                  >
                     {group.title}
                   </Typography>
                   <nav className="flex flex-col gap-2">
                     {group.links.map((link) =>
                       !link.disabled ? (
                         <Link key={link.href} href={link.href}>
-                          <Typography variant="large" className="text-primary">
+                          <Typography
+                            variant="default"
+                            className="text-foreground/40"
+                          >
                             {link.label}
                           </Typography>
                         </Link>
                       ) : (
                         <Typography
                           key={link.href}
-                          variant="large"
+                          variant="default"
                           className="text-muted cursor-not-allowed"
                         >
                           {link.label} (Soon)
@@ -48,7 +54,7 @@ export const Footer = () => {
             </div>
 
             <motion.div
-              className="mt-12 flex flex-col items-center justify-between border-t border-white/10 pt-8 md:flex-row"
+              className="border-border text-foreground mt-12 flex flex-col items-center justify-between border-t pt-8 md:flex-row"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.7 }}
@@ -74,4 +80,3 @@ export const Footer = () => {
     </footer>
   );
 };
-

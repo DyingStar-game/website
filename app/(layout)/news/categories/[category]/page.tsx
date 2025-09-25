@@ -35,7 +35,7 @@ export default async function RoutePage(
 ) {
   const tags = await getNewsTags();
   const params = await props.params;
-  const news = await getNews([params.category]);
+  const news = await getNews("en", [params.category]);
 
   return (
     <Layout>
