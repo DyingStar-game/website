@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { buttonVariants } from "@ui/button";
 import { cn } from "@lib/utils";
-import { NewsItemAuthor, NewsItemTags } from "./news-item";
+import { NewsItemAuthor, NewsItemTags } from "./newsItem";
 
 export type NewsItemLightProps = {
   news: News;

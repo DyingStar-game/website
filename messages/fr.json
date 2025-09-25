@@ -1,0 +1,8 @@
+{
+  "news": {
+    "newsItem": {
+      "moreInfo": "Informations supplémentaires",
+      "publishedAt": "{date, date, short}"
+    }
+  }
+}

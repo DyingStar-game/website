@@ -1,5 +1,5 @@
 import { Typography } from "@components/DS/typography";
-import NewsItem from "@feat/news/news-item";
+import NewsItem from "@feat/news/newsItem";
 import { getNews, getNewsTags } from "@feat/news/news-manager";
 import {
   Layout,
@@ -15,7 +15,7 @@ import Link from "next/link";
 import { SiteConfig } from "site-config";
 
 export async function generateMetadata(
-  props: PageProps<"/news/categories/[category]">,
+  props: PageProps<"/[locale]/news/categories/[category]">,
 ): Promise<Metadata> {
   const params = await props.params;
   return {
@@ -31,7 +31,7 @@ export async function generateMetadata(
 }
 
 export default async function RoutePage(
-  props: PageProps<"/news/categories/[category]">,
+  props: PageProps<"/[locale]/news/categories/[category]">,
 ) {
   const tags = await getNewsTags();
   const params = await props.params;

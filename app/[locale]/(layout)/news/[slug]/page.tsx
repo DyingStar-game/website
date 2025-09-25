@@ -1,7 +1,7 @@
 import { Typography } from "@components/DS/typography";
 import { ServerMdx } from "@feat/markdown/server-mdx";
 import { LINKS } from "@feat/navigation/Links";
-import { NewsItemAuthor, NewsItemTags } from "@feat/news/news-item";
+import { NewsItemAuthor, NewsItemTags } from "@feat/news/newsItem";
 import { getCurrentNews, getNews } from "@feat/news/news-manager";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
@@ -16,7 +16,7 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-static";
 
 export async function generateMetadata(
-  props: PageProps<"/news/[slug]">,
+  props: PageProps<"/[locale]/news/[slug]">,
 ): Promise<Metadata> {
   const params = await props.params;
   const post = await getCurrentNews(params.slug);
@@ -50,9 +50,11 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function RoutePage(props: PageProps<"/news/[slug]">) {
+export default async function RoutePage(
+  props: PageProps<"/[locale]/news/[slug]">,
+) {
   const params = await props.params;
-  const news = await getCurrentNews(params.slug); // TODO: Add locale from i18n
+  const news = await getCurrentNews(params.slug, params.locale);
 
   if (!news) {
     notFound();

@@ -9,12 +9,16 @@ import { Avatar, AvatarFallback } from "@ui/avatar";
 import { Badge } from "@ui/badge";
 import { cn } from "@lib/utils";
 
+import { useTranslations } from "next-intl";
+
 export type NewsItemProps = {
   news: News;
   className?: string;
 };
 
 const NewsItem = ({ news, className }: NewsItemProps) => {
+  const t = useTranslations("news.newsItem");
+
   return (
     <article className={cn("flex flex-col gap-8", className)}>
       <Typography
@@ -55,7 +59,7 @@ const NewsItem = ({ news, className }: NewsItemProps) => {
                   variant: "outlineWhite",
                 })}
               >
-                Informations supplémentaires
+                {t("moreInfo")}
                 <ChevronRight />
               </Link>
             </div>
@@ -77,6 +81,8 @@ export const NewsItemAuthor = ({
   date,
   className,
 }: NewsItemAuthorProps) => {
+  const t = useTranslations("news.newsItem");
+
   return (
     <div
       className={cn(
@@ -89,8 +95,7 @@ export const NewsItemAuthor = ({
       </Avatar>
       {author}
       <Minus className="text-input rotate-90" />
-      {/* TODO : Change with i18n */}
-      {date.toLocaleDateString("fr-FR")}
+      {t("publishedAt", { date })}
     </div>
   );
 };

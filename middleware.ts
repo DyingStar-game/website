@@ -1,9 +1,7 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import { routing } from "i18n/routing";
+import createMiddleware from "next-intl/middleware";
 
-export async function middleware(_request: NextRequest) {
-  return NextResponse.next();
-}
+export default createMiddleware(routing);
 
 export const config = {
   matcher: [

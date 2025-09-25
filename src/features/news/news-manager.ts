@@ -27,7 +27,7 @@ export type News = {
 };
 
 /** TODO : Update with i18n (locale) */
-export const getNews = async (locale: "en" | "fr" = "en", tags?: string[]) => {
+export const getNews = async (locale = "en", tags?: string[]) => {
   const newsLocalizedDirectory = path.join(newsDirectory, locale);
   const fileNames = await fs.readdir(newsLocalizedDirectory);
   const news: News[] = [];
@@ -75,10 +75,7 @@ export const getNewsTags = async () => {
   return Array.from(tags);
 };
 
-export const getCurrentNews = async (
-  slug: string,
-  locale: "en" | "fr" = "en",
-) => {
+export const getCurrentNews = async (slug: string, locale = "en") => {
   const findNews = await findNewsByLocale(slug, locale);
 
   if (!findNews) {
@@ -92,7 +89,7 @@ export const getCurrentNews = async (
   return findNews;
 };
 
-const findNewsByLocale = async (slug: string, locale: "en" | "fr" = "en") => {
+const findNewsByLocale = async (slug: string, locale = "en") => {
   const news = await getNews(locale);
 
   return news.find((p) => p.slug === slug);
@@ -100,7 +97,7 @@ const findNewsByLocale = async (slug: string, locale: "en" | "fr" = "en") => {
 
 export const getLastNews = async (
   limit = 5,
-  locale: "en" | "fr" = "en",
+  locale = "en",
   tags?: string[],
 ) => {
   const news = await getNews(locale, tags);
@@ -112,10 +109,7 @@ export const getLastNews = async (
     .slice(0, limit);
 };
 
-export const getLatestNews = async (
-  locale: "en" | "fr" = "en",
-  tags?: string[],
-) => {
+export const getLatestNews = async (locale = "en", tags?: string[]) => {
   const news = await getLastNews(1, locale, tags);
   return news.length > 0 ? news[0] : null;
 };

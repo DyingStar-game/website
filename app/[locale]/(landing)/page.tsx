@@ -1,12 +1,14 @@
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
 import ContentTitle from "@feat/landing/content-title";
 
-import NewsItem from "@feat/news/news-item";
-import NewsItemLight from "@feat/news/news-item-light";
+import NewsItem from "@feat/news/newsItem";
+import NewsItemLight from "@feat/news/newsItemLight";
 import { getLastNews } from "@feat/news/news-manager";
+import { getLocale } from "next-intl/server";
 
 export default async function HomePage() {
-  const lastNews = await getLastNews(5);
+  const locale = await getLocale();
+  const lastNews = await getLastNews(5, locale as "fr" | "en");
 
   return (
     <>

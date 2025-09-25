@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "../src/styles/kibo-typography.css";
+@import "../../src/styles/kibo-typography.css";
 
 @plugin "tailwindcss-animate";
 
