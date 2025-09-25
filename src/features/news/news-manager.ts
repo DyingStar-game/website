@@ -82,7 +82,7 @@ export const getCurrentNews = async (slug: string) => {
   return news.find((p) => p.slug === slug);
 };
 
-export const getLastNews = async (tags?: string[], limit = 3) => {
+export const getLastNews = async (limit = 3, tags?: string[]) => {
   const news = await getNews(tags);
 
   if (news.length === 0) return [];
@@ -93,7 +93,6 @@ export const getLastNews = async (tags?: string[], limit = 3) => {
 };
 
 export const getLatestNews = async (tags?: string[]) => {
-  const news = await getLastNews(tags, 1);
+  const news = await getLastNews(1, tags);
   return news.length > 0 ? news[0] : null;
 };
-
