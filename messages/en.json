@@ -11,6 +11,7 @@
     "label": "Language"
   },
   "News": {
+    "title": "News",
     "NewsItem": {
       "moreInfo": "Additional information"
     }

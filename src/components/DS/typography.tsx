@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { ComponentPropsWithRef, ElementType, ForwardedRef } from "react";
+import React, { forwardRef } from "react";
+
 import { cn } from "@lib/utils";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
-import type { ComponentPropsWithRef, ElementType, ForwardedRef } from "react";
-
-import React, { forwardRef } from "react";
 
 // Source : https://www.totaltypescript.com/pass-component-as-prop-react
 type FixedForwardRef = <T, P = {}>(
@@ -20,18 +20,18 @@ type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any
 export const typographyVariants = cva("text-foreground", {
   variants: {
     variant: {
-      h1: "font-caption scroll-m-20 text-4xl font-extrabold tracking-tight",
+      h1: "font-caption scroll-m-20 text-7xl font-normal tracking-tight",
       h2: "font-caption scroll-m-20 text-3xl font-semibold tracking-tight transition-colors",
       h3: "font-caption scroll-m-20 text-xl font-semibold tracking-tight",
       p: "leading-7 [&:not(:first-child)]:mt-6",
       default: "",
       quote: "mt-6 border-l-2 pl-6 italic",
-      code: "bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
-      lead: "text-muted-foreground text-xl",
+      code: "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+      lead: "text-xl text-muted-foreground",
       large: "text-lg font-semibold",
-      small: "text-sm font-medium leading-none",
-      muted: "text-muted-foreground text-sm",
-      link: "font-medium text-cyan-600 hover:underline",
+      small: "text-sm leading-none font-medium",
+      muted: "text-sm text-muted-foreground",
+      link: "text-cyan-600 font-medium hover:underline",
     },
   },
   defaultVariants: {

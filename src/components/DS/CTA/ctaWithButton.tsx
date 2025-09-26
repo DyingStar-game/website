@@ -1,30 +1,35 @@
 import { Typography } from "@components/DS/typography";
-import { SectionLayout } from "@feat/landing/section-layout";
+import { cn } from "@lib/utils";
 import { Button } from "@ui/button";
 
-export type CtaWithButtonProps = {
+export type CtaWithButtonProps = React.ComponentProps<"section"> & {
   title: string;
   btContent: string;
-  size?: "xs" | "sm" | "base" | "lg" | "full";
 };
 
-export const CtaWithButton = (props: CtaWithButtonProps) => {
+export const CtaWithButton = ({
+  title,
+  btContent,
+  className,
+}: CtaWithButtonProps) => {
   return (
-    <SectionLayout
-      variant="primary"
-      className="flex flex-col items-center justify-center gap-22 uppercase"
-      size={props.size ?? "sm"}
+    <section
+      className={cn(
+        "flex flex-col items-center bg-foreground uppercase",
+        className,
+      )}
     >
-      <Typography
-        variant="h2"
-        className="text-primary-foreground text-center text-6xl font-medium"
-      >
-        {props.title}
-      </Typography>
-      <Button variant="invert" size="xl" className="w-full">
-        {props.btContent}
-      </Button>
-    </SectionLayout>
+      <div className="flex max-w-4xl flex-col justify-center gap-10 lg:gap-22">
+        <Typography
+          variant="h2"
+          className="text-center text-5xl font-medium text-primary-foreground lg:text-6xl"
+        >
+          {title}
+        </Typography>
+        <Button variant="invert" size="xl">
+          {btContent}
+        </Button>
+      </div>
+    </section>
   );
 };
-

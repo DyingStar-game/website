@@ -3,6 +3,7 @@ import { ServerMdx } from "@feat/markdown/server-mdx";
 import { LINKS } from "@feat/navigation/Links";
 import { NewsItemAuthor, NewsItemTags } from "@feat/news/NewsItem";
 import { getCurrentNews, getNews } from "@feat/news/news-manager";
+import { Layout, LayoutMain, LayoutSection } from "@feat/page/layout";
 import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
@@ -78,7 +79,7 @@ export default async function RoutePage(
   const attributes = news.attributes;
 
   return (
-    <main className="container mx-auto flex flex-col gap-8 px-4 py-20 lg:py-22">
+    <LayoutMain>
       <Link
         href={LINKS.News.All.href()}
         className={cn(
@@ -91,7 +92,7 @@ export default async function RoutePage(
         <ChevronLeft />
         Back to news
       </Link>
-      <section className="flex flex-col gap-8 border-b border-input pb-8">
+      <LayoutSection className="gap-8 border-b border-input pb-8">
         <Typography
           variant="h1"
           className="flex items-center gap-4 text-3xl font-medium"
@@ -111,7 +112,7 @@ export default async function RoutePage(
         <ServerMdx className="mb-8" source={news.content} />
         <NewsItemTags tags={attributes.tags} />
         <NewsItemAuthor author={attributes.author} date={attributes.date} />
-      </section>
-    </main>
+      </LayoutSection>
+    </LayoutMain>
   );
 }

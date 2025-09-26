@@ -1,9 +1,14 @@
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
-import ContentTitle from "@feat/landing/ContentTitle";
 import { LINKS } from "@feat/navigation/Links";
 import NewsItem from "@feat/news/NewsItem";
 import NewsItemLight from "@feat/news/NewsItemLight";
 import { getLastNews } from "@feat/news/news-manager";
+import {
+  Layout,
+  LayoutContentTitle,
+  LayoutMain,
+  LayoutSection,
+} from "@feat/page/layout";
 import type { Locale } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 
@@ -14,14 +19,15 @@ export default async function HomePage() {
 
   return (
     <>
-      <CtaWithButton
-        size="sm"
-        title="Join us and contribute to the project!"
-        btContent="How to contribute"
-      />
-      <main className="container mx-auto px-4 py-20 lg:py-22">
-        <section className="flex flex-col gap-14">
-          <ContentTitle
+      <Layout size="full" asChild>
+        <CtaWithButton
+          title="Join us and contribute to the project!"
+          btContent="How to contribute"
+        />
+      </Layout>
+      <LayoutMain>
+        <LayoutSection className="gap-14">
+          <LayoutContentTitle
             title={t("News.title")}
             btnTitle={t("News.action")}
             href={LINKS.News.All.href()}
@@ -35,8 +41,8 @@ export default async function HomePage() {
               ),
             )}
           </div>
-        </section>
-      </main>
+        </LayoutSection>
+      </LayoutMain>
     </>
   );
 }

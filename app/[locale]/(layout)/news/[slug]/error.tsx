@@ -1,11 +1,12 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { Layout, LayoutHeader, LayoutTitle } from "@feat/page/layout";
 import { logger } from "@lib/logger";
 import type { ErrorParams } from "@type/next";
 import { Button } from "@ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "@ui/card";
-import { useEffect } from "react";
 
 export default function RouteError({ error, reset }: ErrorParams) {
   useEffect(() => {

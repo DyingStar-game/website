@@ -8,7 +8,7 @@
     "@trivago/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss"
   ],
-  "tailwindFunctions": ["clsx", "cn"],
+  "tailwindFunctions": ["clsx", "cn", "cva"],
   "tailwindStylesheet": "./app/[locale]/globals.css",
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,

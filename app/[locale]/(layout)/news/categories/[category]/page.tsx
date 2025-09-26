@@ -2,16 +2,16 @@ import { Typography } from "@components/DS/typography";
 import NewsItem from "@feat/news/NewsItem";
 import { getNews, getNewsTags } from "@feat/news/news-manager";
 import {
-  Layout,
-  LayoutContent,
   LayoutHeader,
+  LayoutMain,
+  LayoutSection,
   LayoutTitle,
 } from "@feat/page/layout";
+import { Link } from "@i18n/navigation";
 import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
 import { FileQuestion } from "lucide-react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SiteConfig } from "site-config";
 
 export async function generateMetadata(
@@ -38,11 +38,11 @@ export default async function RoutePage(
   const news = await getNews(params.locale, [params.category]);
 
   return (
-    <Layout>
+    <LayoutMain>
       <LayoutHeader>
         <LayoutTitle>Blog post about {params.category}</LayoutTitle>
       </LayoutHeader>
-      <LayoutContent className="flex flex-wrap gap-2">
+      <LayoutSection className="flex-row gap-2">
         {tags.map((tag) => (
           <Link
             key={tag}
@@ -55,25 +55,23 @@ export default async function RoutePage(
             </Badge>
           </Link>
         ))}
-      </LayoutContent>
+      </LayoutSection>
 
       {news.length === 0 ? (
-        <LayoutContent className="flex flex-col items-center justify-center">
-          <div className="flex flex-col items-center rounded-lg border-2 border-dashed p-4 lg:gap-6 lg:p-8">
-            <FileQuestion />
-            <Typography variant="h2">No news found</Typography>
-            <Link className={buttonVariants({ variant: "link" })} href="/news">
-              View all news
-            </Link>
-          </div>
-        </LayoutContent>
+        <LayoutSection>
+          <FileQuestion />
+          <Typography variant="h2">No news found</Typography>
+          <Link className={buttonVariants({ variant: "link" })} href="/news">
+            View all news
+          </Link>
+        </LayoutSection>
       ) : (
-        <LayoutContent className="flex flex-col gap-16">
+        <LayoutSection className="divide-solide flex flex-col gap-7 divide-y divide-input border-b border-input">
           {news.map((news) => (
-            <NewsItem key={news.slug} news={news} />
+            <NewsItem key={news.slug} news={news} className="pb-7" />
           ))}
-        </LayoutContent>
+        </LayoutSection>
       )}
-    </Layout>
+    </LayoutMain>
   );
 }
