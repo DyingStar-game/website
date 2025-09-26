@@ -22,11 +22,10 @@ const NewsItem = ({ news, className }: NewsItemProps) => {
 
   return (
     <article className={cn("flex flex-col gap-8", className)}>
-      <Typography
-        variant="h3"
-        className="flex items-center gap-4 text-3xl font-medium"
-      >
-        <span className="text-5xl">{news.attributes.titleIcon}</span>
+      <Typography variant="h3" className="flex items-center gap-4 font-medium">
+        <span className="text-3xl md:text-4xl lg:text-5xl">
+          {news.attributes.titleIcon}
+        </span>
         {news.attributes.title}
       </Typography>
       <div className="flex flex-col gap-7 xl:max-h-72 xl:flex-row">
@@ -42,7 +41,7 @@ const NewsItem = ({ news, className }: NewsItemProps) => {
         <div className="flex flex-1 flex-col gap-4">
           <Typography
             variant="p"
-            className="line-clamp-6 flex-1 overflow-hidden text-justify text-2xl font-light text-ellipsis text-white"
+            className="line-clamp-6 flex-1 overflow-hidden text-justify font-light text-ellipsis text-white"
             title={news.attributes.description}
           >
             {news.attributes.description}

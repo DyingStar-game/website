@@ -3,7 +3,7 @@ import { ServerMdx } from "@feat/markdown/server-mdx";
 import { LINKS } from "@feat/navigation/Links";
 import { NewsItemAuthor, NewsItemTags } from "@feat/news/NewsItem";
 import { getCurrentNews, getNews } from "@feat/news/news-manager";
-import { Layout, LayoutMain, LayoutSection } from "@feat/page/layout";
+import { LayoutMain, LayoutSection } from "@feat/page/layout";
 import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
@@ -93,10 +93,7 @@ export default async function RoutePage(
         Back to news
       </Link>
       <LayoutSection className="gap-8 border-b border-input pb-8">
-        <Typography
-          variant="h1"
-          className="flex items-center gap-4 text-3xl font-medium"
-        >
+        <Typography variant="h3" as="h1" className="flex items-center gap-4">
           <span className="text-5xl">{attributes.titleIcon}</span>
           {attributes.title}
         </Typography>

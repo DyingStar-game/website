@@ -2,6 +2,7 @@
 
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
 import { LINKS } from "@feat/navigation/Links";
+import { Layout } from "@feat/page/layout";
 import { Link } from "@i18n/navigation";
 import { motion } from "framer-motion";
 import { SiteConfig } from "site-config";
@@ -11,18 +12,15 @@ import { getFooterLinks } from "./footer.link";
 
 export const Footer = () => {
   return (
-    <footer className="container mx-auto px-4 pb-8">
-      <div className="flex flex-col gap-5">
+    <Layout asChild padding="none" className="gap-5 pb-8">
+      <footer>
         <Link href={LINKS.Landing.Landing.href()} className="self-center">
           <LogoNameSvg className="h-10 w-auto" />
         </Link>
         <div className="flex flex-col justify-around gap-8 md:flex-row">
           {getFooterLinks().map((group) => (
             <div key={group.title} className="flex flex-col gap-4">
-              <Typography
-                variant="h2"
-                className="self-center text-xl font-normal md:self-auto"
-              >
+              <Typography variant="h4" className="self-center md:self-auto">
                 {group.title}
               </Typography>
               <nav className="flex flex-col gap-2">
@@ -69,7 +67,7 @@ export const Footer = () => {
             <div className="bg-orange-500 h-2 w-2 animate-pulse rounded-full"></div>
           </div>
         </motion.div>
-      </div>
-    </footer>
+      </footer>
+    </Layout>
   );
 };

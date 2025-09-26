@@ -14,7 +14,7 @@ const layoutVariants = cva("flex flex-col gap-8", {
       full: "w-full",
     },
     padding: {
-      default: "py-20 lg:py-22",
+      default: "py-15 md:py-20 lg:py-22",
       none: "",
     },
   },
@@ -115,7 +115,7 @@ export const LayoutContentTitle = ({
     >
       <Typography
         variant="h2"
-        className="flex flex-1 items-center gap-4 overflow-hidden text-6xl font-normal uppercase"
+        className="flex flex-1 items-center gap-4 overflow-hidden"
       >
         {title}
       </Typography>
