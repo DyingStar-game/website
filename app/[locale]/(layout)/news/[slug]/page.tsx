@@ -1,16 +1,16 @@
 import { Typography } from "@components/DS/typography";
 import { ServerMdx } from "@feat/markdown/server-mdx";
 import { LINKS } from "@feat/navigation/Links";
-import { NewsItemAuthor, NewsItemTags } from "@feat/news/newsItem";
+import { NewsItemAuthor, NewsItemTags } from "@feat/news/NewsItem";
 import { getCurrentNews, getNews } from "@feat/news/news-manager";
+import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ChevronLeft } from "lucide-react";
-
 import type { Metadata } from "next";
+import type { Locale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-static";
@@ -19,42 +19,57 @@ export async function generateMetadata(
   props: PageProps<"/[locale]/news/[slug]">,
 ): Promise<Metadata> {
   const params = await props.params;
-  const post = await getCurrentNews(params.slug);
+  const news = await getCurrentNews(params.slug);
 
-  if (!post) {
+  if (!news) {
     notFound();
   }
 
+  // TODO: To factorise
+  const host =
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dyingstar-game.com";
+
+  const localePrefix =
+    params.locale === DEFAULT_LOCALE ? "" : `/${params.locale}`;
+
+  const url = `${host}${localePrefix}/news/${params.slug}`;
+
   return {
-    title: post.attributes.title,
-    description: post.attributes.description,
-    keywords: post.attributes.keywords,
+    title: news.attributes.title,
+    description: news.attributes.description,
+    keywords: news.attributes.keywords,
     authors: {
       name: "DyingStar",
-      url: "https://www.dyingstar-game.com",
+      url: host,
     },
     openGraph: {
-      title: post.attributes.title,
-      description: post.attributes.description,
-      url: `https://www.dyingstar-game.com/news/${params.slug}`,
+      title: news.attributes.title,
+      description: news.attributes.description,
+      url,
       type: "article",
     },
   };
 }
 
 export async function generateStaticParams() {
-  const news = await getNews();
+  const allNews = await Promise.all(
+    LOCALES.map(async (locale) => {
+      const newsItems = await getNews(locale);
+      return newsItems.map((newsItem) => ({
+        slug: newsItem.slug,
+        locale,
+      }));
+    }),
+  );
 
-  return news.map((newsItem) => ({
-    slug: newsItem.slug,
-  }));
+  return allNews.flat();
 }
 
 export default async function RoutePage(
   props: PageProps<"/[locale]/news/[slug]">,
 ) {
   const params = await props.params;
-  const news = await getCurrentNews(params.slug, params.locale);
+  const news = await getCurrentNews(params.slug, params.locale as Locale);
 
   if (!news) {
     notFound();
@@ -76,7 +91,7 @@ export default async function RoutePage(
         <ChevronLeft />
         Back to news
       </Link>
-      <section className="border-input flex flex-col gap-8 border-b pb-8">
+      <section className="flex flex-col gap-8 border-b border-input pb-8">
         <Typography
           variant="h1"
           className="flex items-center gap-4 text-3xl font-medium"
@@ -90,6 +105,7 @@ export default async function RoutePage(
             alt={attributes.title}
             fill
             className="object-cover"
+            priority
           />
         </div>
         <ServerMdx className="mb-8" source={news.content} />

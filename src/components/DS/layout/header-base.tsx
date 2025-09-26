@@ -1,16 +1,17 @@
-//TODO: Remove use client when auth is implemented
 "use client";
 
+import { type PropsWithChildren, useState } from "react";
+
+import LocaleSwitcher from "@feat/i18n/LocaleSwitcher";
 import { cn } from "@lib/utils";
 import { Button } from "@ui/button";
-import { Menu } from "lucide-react";
-import { useState, type PropsWithChildren } from "react";
 import {
   motion,
   useMotionTemplate,
   useScroll,
   useTransform,
 } from "framer-motion";
+import { Menu } from "lucide-react";
 
 export function HeaderBase({ children }: PropsWithChildren) {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,9 +26,9 @@ export function HeaderBase({ children }: PropsWithChildren) {
         style={{ height, backgroundColor: bg }}
         className={cn(
           "fixed inset-x-0 top-0 z-50 flex items-start justify-center overflow-hidden p-4 shadow-md lg:items-center lg:p-7",
-          "border-input min-h-[72px] border-b",
+          "min-h-[72px] border-b border-input",
           isOpen
-            ? "bg-background! h-auto! max-h-screen"
+            ? "h-auto! max-h-screen bg-background!"
             : "max-h-18! lg:max-h-35!",
         )}
       >
@@ -40,7 +41,8 @@ export function HeaderBase({ children }: PropsWithChildren) {
         <nav className="flex flex-1 flex-col items-center justify-start gap-4 uppercase lg:flex-row lg:justify-center lg:gap-8">
           {children}
         </nav>
-        <div className="flex flex-1 justify-end">
+        <div className="flex flex-1 justify-end gap-4">
+          <LocaleSwitcher className="hidden lg:inline" />
           <Button
             variant="ghost"
             size="lg"

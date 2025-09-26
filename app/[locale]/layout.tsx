@@ -1,22 +1,24 @@
+import { Suspense } from "react";
+
+import { Footer } from "@components/DS/layout/footer";
+import { Header } from "@components/DS/layout/header";
 import { FloatingLegalFooter } from "@components/DS/legal/floating-legal-footer";
 import { TailwindIndicator } from "@components/utils/tailwind-indicator";
 import { NextTopLoader } from "@feat/page/next-top-loader";
 import { ServerToaster } from "@feat/server-sonner/server-toaster";
+import { routing } from "@i18n/routing";
 import { getServerUrl } from "@lib/server-url";
 import { cn } from "@lib/utils";
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Suspense } from "react";
-import { SiteConfig } from "site-config";
-import "./globals.css";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { notFound } from "next/navigation";
-import { routing } from "i18n/routing";
-import { Providers } from "./providers";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
-import { Header } from "@components/DS/layout/header";
-import { Footer } from "@components/DS/layout/footer";
+import { Poppins } from "next/font/google";
+import { notFound } from "next/navigation";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { SiteConfig } from "site-config";
+
+import "./globals.css";
+import { Providers } from "./providers";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -52,7 +54,7 @@ export default async function LocaleLayout({
       lang={locale}
       className={cn(
         PoppinsFont.className,
-        "from-background-1 via-background-2 to-background-3 text-foreground h-full bg-linear-120 bg-fixed",
+        "h-full bg-linear-120 from-background-1 via-background-2 to-background-3 bg-fixed text-foreground",
       )}
       suppressHydrationWarning
     >

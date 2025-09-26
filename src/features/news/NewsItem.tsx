@@ -1,15 +1,16 @@
-import type { News } from "@feat/news/news-manager";
-import { Typography } from "../../components/DS/typography";
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { ChevronRight, Minus, Tag } from "lucide-react";
-import { buttonVariants } from "@ui/button";
+
+import type { News } from "@feat/news/news-manager";
+import { Link } from "@i18n/navigation";
+import { cn } from "@lib/utils";
 import { Avatar, AvatarFallback } from "@ui/avatar";
 import { Badge } from "@ui/badge";
-import { cn } from "@lib/utils";
+import { buttonVariants } from "@ui/button";
+import { ChevronRight, Minus, Tag } from "lucide-react";
+import { useFormatter, useTranslations } from "next-intl";
+import Image from "next/image";
 
-import { useTranslations } from "next-intl";
+import { Typography } from "../../components/DS/typography";
 
 export type NewsItemProps = {
   news: News;
@@ -17,7 +18,7 @@ export type NewsItemProps = {
 };
 
 const NewsItem = ({ news, className }: NewsItemProps) => {
-  const t = useTranslations("news.newsItem");
+  const t = useTranslations("News.NewsItem");
 
   return (
     <article className={cn("flex flex-col gap-8", className)}>
@@ -35,6 +36,7 @@ const NewsItem = ({ news, className }: NewsItemProps) => {
             alt={news.attributes.title}
             fill
             className="object-cover"
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 70vw, 512px" // Optimize for tailwind breakpoint size
           />
         </div>
         <div className="flex flex-1 flex-col gap-4">
@@ -81,12 +83,12 @@ export const NewsItemAuthor = ({
   date,
   className,
 }: NewsItemAuthorProps) => {
-  const t = useTranslations("news.newsItem");
+  const format = useFormatter();
 
   return (
     <div
       className={cn(
-        "text-foreground flex items-center gap-3 font-light uppercase",
+        "flex items-center gap-3 font-light text-foreground uppercase",
         className,
       )}
     >
@@ -94,8 +96,8 @@ export const NewsItemAuthor = ({
         <AvatarFallback>{author.slice(0, 2).toUpperCase()}</AvatarFallback>
       </Avatar>
       {author}
-      <Minus className="text-input rotate-90" />
-      {t("publishedAt", { date })}
+      <Minus className="rotate-90 text-input" />
+      {format.dateTime(date, { dateStyle: "short" })}
     </div>
   );
 };

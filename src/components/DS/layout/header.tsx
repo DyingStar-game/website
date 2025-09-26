@@ -1,13 +1,14 @@
-//TODO: Remove use client when auth is implemented
 "use client";
 
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
+import LocaleSwitcher from "@feat/i18n/LocaleSwitcher";
 import { LINKS } from "@feat/navigation/Links";
-import { Button, buttonVariants } from "@ui/button";
-import Link from "next/link";
-import { HeaderBase } from "./header-base";
 import { cn } from "@lib/utils";
+import { Button, buttonVariants } from "@ui/button";
+import { Link } from "i18n/navigation";
 import { usePathname } from "next/navigation";
+
+import { HeaderBase } from "./header-base";
 
 export function Header() {
   const pathname = usePathname();
@@ -64,6 +65,7 @@ export function Header() {
       >
         Auth
       </Button>
+      <LocaleSwitcher className="lg:hidden" />
     </HeaderBase>
   );
 }

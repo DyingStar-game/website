@@ -1,8 +1,10 @@
-import { Typography } from "../../components/DS/typography";
 import React from "react";
-import Link from "next/link";
-import { buttonVariants } from "@ui/button";
+
+import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
+import { buttonVariants } from "@ui/button";
+
+import { Typography } from "../../components/DS/typography";
 
 export type ContentTitleProps = {
   title: string;

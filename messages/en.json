@@ -1,8 +1,18 @@
 {
-  "news": {
-    "newsItem": {
-      "moreInfo": "Additional information",
-      "publishedAt": "{date, date, short}"
+  "Landing": {
+    "News": {
+      "title": "News",
+      "action": "All news"
+    }
+  },
+  "LocaleSwitcher": {
+    "fr": "French",
+    "en": "English",
+    "label": "Language"
+  },
+  "News": {
+    "NewsItem": {
+      "moreInfo": "Additional information"
     }
   }
 }

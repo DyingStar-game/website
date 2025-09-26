@@ -1,5 +1,5 @@
 import { Typography } from "@components/DS/typography";
-import NewsItem from "@feat/news/newsItem";
+import NewsItem from "@feat/news/NewsItem";
 import { getNews, getNewsTags } from "@feat/news/news-manager";
 import {
   Layout,
@@ -33,9 +33,9 @@ export async function generateMetadata(
 export default async function RoutePage(
   props: PageProps<"/[locale]/news/categories/[category]">,
 ) {
-  const tags = await getNewsTags();
   const params = await props.params;
-  const news = await getNews("en", [params.category]);
+  const tags = await getNewsTags(params.locale);
+  const news = await getNews(params.locale, [params.category]);
 
   return (
     <Layout>

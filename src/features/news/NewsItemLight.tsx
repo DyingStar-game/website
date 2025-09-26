@@ -1,11 +1,13 @@
-import type { News } from "@feat/news/news-manager";
-import { Typography } from "../../components/DS/typography";
 import React from "react";
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
-import { buttonVariants } from "@ui/button";
+
+import type { News } from "@feat/news/news-manager";
+import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
-import { NewsItemAuthor, NewsItemTags } from "./newsItem";
+import { buttonVariants } from "@ui/button";
+import { ChevronRight } from "lucide-react";
+
+import { Typography } from "../../components/DS/typography";
+import { NewsItemAuthor, NewsItemTags } from "./NewsItem";
 
 export type NewsItemLightProps = {
   news: News;

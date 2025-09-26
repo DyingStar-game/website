@@ -1,5 +1,7 @@
+import { routing } from "@i18n/routing";
 import fm from "front-matter";
 import fs from "fs/promises";
+import type { Locale } from "next-intl";
 import path from "path";
 import { z } from "zod";
 
@@ -26,8 +28,7 @@ export type News = {
   content: string;
 };
 
-/** TODO : Update with i18n (locale) */
-export const getNews = async (locale = "en", tags?: string[]) => {
+export const getNews = async (locale: Locale, tags?: string[]) => {
   const newsLocalizedDirectory = path.join(newsDirectory, locale);
   const fileNames = await fs.readdir(newsLocalizedDirectory);
   const news: News[] = [];
@@ -61,43 +62,43 @@ export const getNews = async (locale = "en", tags?: string[]) => {
   return news;
 };
 
-export const getNewsTags = async () => {
-  const news = await getNews();
+export const getNewsTags = async (locale: Locale) => {
+  const news = await getNews(locale);
   const tags = new Set<string>();
-  for (const post of news) {
-    if (post.attributes.tags.length === 0) {
+  for (const currentNews of news) {
+    if (currentNews.attributes.tags.length === 0) {
       continue;
     }
-    for (const tag of post.attributes.tags) {
+    for (const tag of currentNews.attributes.tags) {
       tags.add(tag);
     }
   }
   return Array.from(tags);
 };
 
-export const getCurrentNews = async (slug: string, locale = "en") => {
+export const getCurrentNews = async (slug: string, locale: Locale = "en") => {
   const findNews = await findNewsByLocale(slug, locale);
 
   if (!findNews) {
     const fallBackFindNews = await findNewsByLocale(
       slug,
-      "en",
-    ); /** TODO: Change with fallback i18n config */
+      routing.defaultLocale,
+    );
     return fallBackFindNews;
   }
 
   return findNews;
 };
 
-const findNewsByLocale = async (slug: string, locale = "en") => {
+const findNewsByLocale = async (slug: string, locale: Locale) => {
   const news = await getNews(locale);
 
   return news.find((p) => p.slug === slug);
 };
 
 export const getLastNews = async (
+  locale: Locale,
   limit = 5,
-  locale = "en",
   tags?: string[],
 ) => {
   const news = await getNews(locale, tags);
@@ -109,7 +110,7 @@ export const getLastNews = async (
     .slice(0, limit);
 };
 
-export const getLatestNews = async (locale = "en", tags?: string[]) => {
-  const news = await getLastNews(1, locale, tags);
+export const getLatestNews = async (locale: Locale, tags?: string[]) => {
+  const news = await getLastNews(locale, 1, tags);
   return news.length > 0 ? news[0] : null;
 };
