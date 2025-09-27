@@ -5,6 +5,7 @@ import { NewsItemAuthor, NewsItemTags } from "@feat/news/NewsItem";
 import { getCurrentNews, getNews } from "@feat/news/news-manager";
 import { LayoutMain, LayoutSection } from "@feat/page/layout";
 import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
+import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ChevronLeft } from "lucide-react";
@@ -12,7 +13,6 @@ import type { Metadata } from "next";
 import type { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-static";
