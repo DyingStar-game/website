@@ -12,8 +12,18 @@
   },
   "News": {
     "title": "News",
+    "notFound": "No news found",
+    "button": {
+      "viewAll": "View all news"
+    },
     "NewsItem": {
       "moreInfo": "Additional information"
+    },
+    "NewsPagination": {
+      "button": {
+        "next": "Next",
+        "previous": "Previous"
+      }
     }
   }
 }

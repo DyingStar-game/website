@@ -26,9 +26,14 @@ export type News = {
   slug: string;
   attributes: NewsAttributes;
   content: string;
+  nextSlug?: string;
+  previousSlug?: string;
 };
 
-export const getNews = async (locale: Locale, tags?: string[]) => {
+export const getNews = async (
+  locale: Locale,
+  tags?: string[],
+): Promise<News[]> => {
   const newsLocalizedDirectory = path.join(newsDirectory, locale);
   const fileNames = await fs.readdir(newsLocalizedDirectory);
   const news: News[] = [];
@@ -59,7 +64,57 @@ export const getNews = async (locale: Locale, tags?: string[]) => {
     });
   }
 
-  return news;
+  // Sort by date
+  news.sort(
+    (a, b) => b.attributes.date.getTime() - a.attributes.date.getTime(),
+  );
+
+  // Next/Previous slug news
+  return news.map((item, index) => {
+    return {
+      ...item,
+      previousSlug: index > 0 ? news[index - 1].slug : undefined,
+      nextSlug: index < news.length - 1 ? news[index + 1].slug : undefined,
+    };
+  });
+};
+
+export type PaginatedNews = {
+  news: News[];
+  pagination: {
+    totalPages: number;
+    currentPage: number;
+    nextPage?: number;
+    previousPage?: number;
+  };
+};
+
+export const getPaginatedNews = async (
+  locale: Locale,
+  tags?: string[],
+  page = 1,
+  pageSize = 5,
+): Promise<PaginatedNews> => {
+  const news = await getNews(locale, tags);
+
+  // Paginate
+  const totalItems = news.length;
+  const totalPages = Math.ceil(totalItems / pageSize);
+  const currentPage = Math.min(Math.max(page, 1), totalPages); // clamp
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+
+  const paginatedNews = news.slice(startIndex, endIndex);
+
+  return {
+    news: paginatedNews,
+    pagination: {
+      totalPages,
+      currentPage,
+      previousPage: currentPage > 1 ? currentPage - 1 : undefined,
+      nextPage: currentPage < totalPages ? currentPage + 1 : undefined,
+    },
+  };
 };
 
 export const getNewsTags = async (locale: Locale) => {
@@ -76,7 +131,7 @@ export const getNewsTags = async (locale: Locale) => {
   return Array.from(tags);
 };
 
-export const getCurrentNews = async (slug: string, locale: Locale = "en") => {
+export const getCurrentNews = async (slug: string, locale: Locale) => {
   const findNews = await findNewsByLocale(slug, locale);
 
   if (!findNews) {

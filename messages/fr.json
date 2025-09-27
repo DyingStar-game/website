@@ -12,8 +12,18 @@
   },
   "News": {
     "title": "Actualités",
+    "notFound": "Aucune actualité trouvée",
+    "button": {
+      "viewAll": "Voir toutes les actualités"
+    },
     "NewsItem": {
       "moreInfo": "Informations supplémentaires"
+    },
+    "NewsPagination": {
+      "button": {
+        "next": "Suivant",
+        "previous": "Précédent"
+      }
     }
   }
 }

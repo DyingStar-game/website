@@ -10,6 +10,7 @@ import { buttonVariants } from "@ui/button";
 import { ChevronLeft } from "lucide-react";
 import type { Metadata } from "next";
 import type { Locale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -20,7 +21,7 @@ export async function generateMetadata(
   props: PageProps<"/[locale]/news/[slug]">,
 ): Promise<Metadata> {
   const params = await props.params;
-  const news = await getCurrentNews(params.slug);
+  const news = await getCurrentNews(params.slug, params.locale);
 
   if (!news) {
     notFound();
@@ -76,6 +77,7 @@ export default async function RoutePage(
     notFound();
   }
 
+  const t = await getTranslations("News");
   const attributes = news.attributes;
 
   return (
@@ -90,7 +92,7 @@ export default async function RoutePage(
         )}
       >
         <ChevronLeft />
-        Back to news
+        {t("button.viewAll")}
       </Link>
       <LayoutSection className="gap-8 border-b border-input pb-8">
         <Typography variant="h3" as="h1" className="flex items-center gap-4">

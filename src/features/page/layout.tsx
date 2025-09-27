@@ -61,12 +61,16 @@ export const LayoutMain = ({ className, ...props }: LayoutMainProps) => {
 type LayoutSectionProps = React.ComponentProps<"section"> &
   VariantProps<typeof layoutVariants>;
 
-export const LayoutSection = ({ className, ...props }: LayoutSectionProps) => {
+export const LayoutSection = ({
+  className,
+  padding = "none",
+  ...props
+}: LayoutSectionProps) => {
   return (
     <Layout
       asChild
       className={className}
-      padding={"none"}
+      padding={padding}
       data-slot="section"
       size="full"
     >
