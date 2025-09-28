@@ -9,9 +9,10 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { buttonVariants } from "@ui/button";
 import { Select, SelectContent, SelectItem } from "@ui/select";
 import { LanguagesIcon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useParams } from "next/navigation";
 
-type LocaleSwitcherSelectProps = {
+export type LocaleSwitcherSelectProps = {
   defaultValue: string;
   items: LocaleSwitcherSelectItemsType[];
   label: string;
@@ -30,15 +31,23 @@ export default function LocaleSwitcherSelect({
   const [isPending, startTransition] = useTransition();
   const pathname = usePathname();
   const params = useParams();
+  const searchParams = useSearchParams();
 
   function onChange(value: string) {
     const locale = value as Locale;
     startTransition(() => {
+      const currentSearchParams = new URLSearchParams(searchParams.toString());
+      const searchString = currentSearchParams.toString();
+
+      const urlWithParams = searchString
+        ? `${pathname}?${searchString}`
+        : pathname;
+
       router.replace(
         // @ts-expect-error -- TypeScript will validate that only known `params`
         // are used in combination with a given `pathname`. Since the two will
         // always match for the current route, we can skip runtime checks.
-        { pathname, params },
+        { pathname: urlWithParams, params },
         { locale },
       );
     });
