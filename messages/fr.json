@@ -21,8 +21,14 @@
     },
     "NewsPagination": {
       "button": {
-        "next": "Suivant",
-        "previous": "Précédent"
+        "next": "Suivante",
+        "previous": "Précédente"
+      }
+    },
+    "NewsDetailPagination": {
+      "button": {
+        "next": "Suivante",
+        "previous": "Précédente"
       }
     }
   }

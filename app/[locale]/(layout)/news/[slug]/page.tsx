@@ -8,9 +8,9 @@ import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
 import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
-import { ChevronLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
 import type { Metadata } from "next";
-import type { Locale } from "next-intl";
+import { type Locale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -112,6 +112,56 @@ export default async function RoutePage(
         <NewsItemTags tags={attributes.tags} />
         <NewsItemAuthor author={attributes.author} date={attributes.date} />
       </LayoutSection>
+      <NewsDetailPagination
+        previousSlug={news.previousSlug}
+        nextSlug={news.nextSlug}
+      />
     </LayoutMain>
   );
 }
+
+type NewsDetailPaginationProps = {
+  previousSlug?: string;
+  nextSlug?: string;
+};
+
+const NewsDetailPagination = ({
+  previousSlug,
+  nextSlug,
+}: NewsDetailPaginationProps) => {
+  const t = useTranslations("News.NewsDetailPagination");
+
+  return (
+    <LayoutSection className="mt-6 flex flex-row justify-between">
+      <div className="flex flex-1 justify-start">
+        {previousSlug && (
+          <Link
+            href={{
+              pathname: LINKS.News.News.href({ newsSlug: previousSlug }),
+            }}
+            className={cn(buttonVariants({ variant: "outline" }), "group")}
+            prefetch
+          >
+            <ArrowLeft className="transition-transform group-hover:-translate-x-1 group-hover:animate-pulse" />
+            {t("button.previous")}
+          </Link>
+        )}
+      </div>
+
+      <div className="flex flex-1 justify-end">
+        {nextSlug && (
+          <Link
+            href={{
+              pathname: LINKS.News.News.href({ newsSlug: nextSlug }),
+            }}
+            className={cn(buttonVariants({ variant: "outline" }), "group")}
+            prefetch
+          >
+            {t("button.next")}
+            <ArrowRight className="transition-transform group-hover:translate-x-1 group-hover:animate-pulse" />
+          </Link>
+        )}
+      </div>
+    </LayoutSection>
+  );
+};

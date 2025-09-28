@@ -24,6 +24,12 @@
         "next": "Next",
         "previous": "Previous"
       }
+    },
+    "NewsDetailPagination": {
+      "button": {
+        "next": "Next",
+        "previous": "Previous"
+      }
     }
   }
 }
