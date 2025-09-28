@@ -3,57 +3,58 @@
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
 import LocaleSwitcher from "@feat/i18n/LocaleSwitcher";
 import { LINKS } from "@feat/navigation/Links";
+import { DEFAULT_LOCALE } from "@i18n/config";
 import { cn } from "@lib/utils";
 import { Button, buttonVariants } from "@ui/button";
-import { Link } from "i18n/navigation";
+import { useLocale } from "next-intl";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { HeaderBase } from "./header-base";
 
 export function Header() {
   const pathname = usePathname();
+  const locale = useLocale();
+
+  const getNavLinkClasses = (href: string) => {
+    const expectedPath = locale === DEFAULT_LOCALE ? href : `/${locale}${href}`;
+    const isActive = pathname.startsWith(expectedPath);
+
+    return cn(
+      buttonVariants({ variant: "ghost", size: "lg" }),
+      isActive && "active",
+    );
+  };
 
   return (
     <HeaderBase>
       <Link
         href={LINKS.Project.Tickets.href()}
-        className={cn(
-          buttonVariants({ variant: "ghost", size: "lg" }),
-          pathname.startsWith(LINKS.Project.Tickets.href()) && "active",
-        )}
+        className={getNavLinkClasses(LINKS.Project.Tickets.href())}
       >
         Project
       </Link>
       <Link
         href={LINKS.Lore.History.href()}
-        className={cn(
-          buttonVariants({ variant: "ghost", size: "lg" }),
-          pathname.startsWith(LINKS.Lore.History.href()) && "active",
-        )}
+        className={getNavLinkClasses(LINKS.Lore.History.href())}
       >
         Lore
       </Link>
       <Link
         href={LINKS.Landing.Landing.href()}
-        className="order-first transition-all hover:scale-95 lg:order-none"
+        className="order-first lg:order-none"
       >
         <LogoNameSvg className="h-10 w-auto lg:h-12" />
       </Link>
       <Link
         href={LINKS.Community.Forums.href()}
-        className={cn(
-          buttonVariants({ variant: "ghost", size: "lg" }),
-          pathname.startsWith(LINKS.Community.Forums.href()) && "active",
-        )}
+        className={getNavLinkClasses(LINKS.Community.Forums.href())}
       >
         Forum
       </Link>
       <Link
         href={LINKS.Project.Launcher.href()}
-        className={cn(
-          buttonVariants({ variant: "ghost", size: "lg" }),
-          pathname.startsWith(LINKS.Project.Launcher.href()) && "active",
-        )}
+        className={getNavLinkClasses(LINKS.Project.Launcher.href())}
       >
         Play Now
       </Link>
