@@ -8,7 +8,7 @@ import { cn } from "@lib/utils";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { buttonVariants } from "@ui/button";
 import { Select, SelectContent, SelectItem } from "@ui/select";
-import { LanguagesIcon } from "lucide-react";
+import { LanguagesIcon, LoaderCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useParams } from "next/navigation";
 
@@ -54,25 +54,29 @@ export default function LocaleSwitcherSelect({
   }
 
   return (
-    <div className={className}>
-      <Select
-        onValueChange={onChange}
-        defaultValue={defaultValue}
-        disabled={isPending}
+    <Select
+      onValueChange={onChange}
+      defaultValue={defaultValue}
+      disabled={isPending}
+    >
+      <SelectPrimitive.Trigger
+        className={cn(
+          buttonVariants({ variant: "ghost", size: "lg", className }),
+        )}
       >
-        <SelectPrimitive.Trigger
-          className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
-        >
+        {isPending ? (
+          <LoaderCircle className="size-6 animate-spin" aria-label={label} />
+        ) : (
           <LanguagesIcon className="size-6" aria-label={label} />
-        </SelectPrimitive.Trigger>
-        <SelectContent>
-          {items.map((item) => (
-            <SelectItem key={item.value} value={item.value}>
-              {item.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+        )}
+      </SelectPrimitive.Trigger>
+      <SelectContent>
+        {items.map((item) => (
+          <SelectItem key={item.value} value={item.value}>
+            {item.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }

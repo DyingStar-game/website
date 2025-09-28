@@ -48,14 +48,14 @@ function LocaleSwitcherFallback({
   className,
 }: LocaleSwitcherSelectProps) {
   return (
-    <div className={className}>
-      <Select disabled>
-        <SelectPrimitive.Trigger
-          className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
-        >
-          <LoaderCircle className="size-6 animate-spin" aria-label={label} />
-        </SelectPrimitive.Trigger>
-      </Select>
-    </div>
+    <Select disabled>
+      <SelectPrimitive.Trigger
+        className={cn(
+          buttonVariants({ variant: "ghost", size: "lg", className }),
+        )}
+      >
+        <LoaderCircle className="size-6 animate-spin" aria-label={label} />
+      </SelectPrimitive.Trigger>
+    </Select>
   );
 }

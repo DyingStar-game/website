@@ -25,7 +25,7 @@ export function HeaderBase({ children }: PropsWithChildren) {
       <motion.header
         style={{ height, backgroundColor: bg }}
         className={cn(
-          "fixed inset-x-0 top-0 z-50 flex items-start justify-center overflow-hidden p-4 shadow-md lg:items-center lg:p-7",
+          "xl-gap-8 fixed inset-x-0 top-0 z-50 flex items-start justify-center gap-4 overflow-hidden p-4 shadow-md lg:items-center lg:p-7",
           "min-h-[72px] border-b border-input",
           isOpen
             ? "h-auto! max-h-screen bg-background!"
@@ -38,7 +38,7 @@ export function HeaderBase({ children }: PropsWithChildren) {
             onClick={() => setIsOpen(!isOpen)}
           />
         </div>
-        <nav className="flex flex-1 flex-col items-center justify-start gap-4 uppercase lg:flex-row lg:justify-center lg:gap-8">
+        <nav className="flex flex-1 flex-col justify-start gap-4 uppercase lg:flex-row lg:items-center lg:justify-center xl:gap-8">
           {children}
         </nav>
         <div className="flex flex-1 justify-end gap-4">
