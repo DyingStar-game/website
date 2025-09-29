@@ -1,5 +1,9 @@
 {
   "Landing": {
+    "CTA": {
+      "title": "Join us and contribute to the project!",
+      "action": "How to contribute"
+    },
     "News": {
       "title": "News",
       "action": "All news"

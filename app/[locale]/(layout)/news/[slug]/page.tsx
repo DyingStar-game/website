@@ -4,8 +4,9 @@ import { LINKS } from "@feat/navigation/Links";
 import { NewsItemAuthor, NewsItemTags } from "@feat/news/NewsItem";
 import { getCurrentNews, getNews } from "@feat/news/news-manager";
 import { LayoutMain, LayoutSection } from "@feat/page/layout";
-import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
+import { LOCALES } from "@i18n/config";
 import { Link } from "@i18n/navigation";
+import { createLocalizedUrl, getServerUrl } from "@lib/server-url";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
@@ -27,27 +28,21 @@ export async function generateMetadata(
     notFound();
   }
 
-  // TODO: To factorise
-  const host =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dyingstar-game.com";
-
-  const localePrefix =
-    params.locale === DEFAULT_LOCALE ? "" : `/${params.locale}`;
-
-  const url = `${host}${localePrefix}/news/${params.slug}`;
-
   return {
     title: news.attributes.title,
     description: news.attributes.description,
     keywords: news.attributes.keywords,
     authors: {
-      name: "DyingStar",
-      url: host,
+      name: news.attributes.author,
+      url: getServerUrl(params.locale),
     },
     openGraph: {
       title: news.attributes.title,
       description: news.attributes.description,
-      url,
+      url: createLocalizedUrl(
+        params.locale,
+        LINKS.News.News.href({ newsSlug: news.slug }),
+      ),
       type: "article",
     },
   };

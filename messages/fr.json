@@ -1,5 +1,9 @@
 {
   "Landing": {
+    "CTA": {
+      "title": "Rejoignez-nous et contribuez au projet !",
+      "action": "Comment contribuer"
+    },
     "News": {
       "title": "Actualités",
       "action": "Toutes les news"

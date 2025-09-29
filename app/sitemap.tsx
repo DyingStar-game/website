@@ -1,22 +1,16 @@
+import { LINKS } from "@feat/navigation/Links";
 import { getNews } from "@feat/news/news-manager";
-import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
+import { LOCALES } from "@i18n/config";
+import { createLocalizedUrl } from "@lib/server-url";
 import type { MetadataRoute } from "next";
-
-const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dyingstar-game.com";
+import type { Locale } from "next-intl";
 
 type SitemapEntry = MetadataRoute.Sitemap[number];
 
-const createLocalizedUrl = (path: string, locale: string): string => {
-  return locale === DEFAULT_LOCALE
-    ? `${BASE_URL}${path}`
-    : `${BASE_URL}/${locale}${path}`;
-};
-
 const createSitemapEntry = (
-  url: string,
-  lastModified: Date,
-  changeFrequency: "monthly" | "weekly" | "daily" = "monthly",
+  url: SitemapEntry["url"],
+  lastModified: SitemapEntry["lastModified"],
+  changeFrequency: SitemapEntry["changeFrequency"] = "monthly",
 ): SitemapEntry => ({
   url,
   lastModified,
@@ -25,17 +19,17 @@ const createSitemapEntry = (
 
 const generateHomePageEntries = (): SitemapEntry[] => {
   return LOCALES.map((locale) =>
-    createSitemapEntry(createLocalizedUrl("", locale), new Date()),
+    createSitemapEntry(createLocalizedUrl(locale), new Date()),
   );
 };
 
-const generateNewsEntries = async (locale: string): Promise<SitemapEntry[]> => {
+const generateNewsEntries = async (locale: Locale): Promise<SitemapEntry[]> => {
   const news = await getNews(locale);
 
-  return news.map((post) =>
+  return news.map((news) =>
     createSitemapEntry(
-      createLocalizedUrl(`/news/${post.slug}`, locale),
-      post.attributes.date,
+      createLocalizedUrl(locale, LINKS.News.News.href({ newsSlug: news.slug })),
+      news.attributes.date,
     ),
   );
 };

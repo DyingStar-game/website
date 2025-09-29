@@ -20,10 +20,7 @@ export default async function HomePage() {
   return (
     <>
       <Layout size="full" asChild>
-        <CtaWithButton
-          title="Join us and contribute to the project!"
-          btContent="How to contribute"
-        />
+        <CtaWithButton title={t("CTA.title")} btContent={t("CTA.action")} />
       </Layout>
       <LayoutMain>
         <LayoutSection className="gap-14">

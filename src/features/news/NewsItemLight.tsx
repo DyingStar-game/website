@@ -1,5 +1,6 @@
 import React from "react";
 
+import { LINKS } from "@feat/navigation/Links";
 import type { News } from "@feat/news/news-manager";
 import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
@@ -39,7 +40,7 @@ const NewsItemLight = ({ news, className }: NewsItemLightProps) => {
           date={news.attributes.date}
         />
         <Link
-          href={`/news/${news.slug}`}
+          href={LINKS.News.News.href({ newsSlug: news.slug })}
           className={cn(
             buttonVariants({
               variant: "outline",
