@@ -1,5 +1,6 @@
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
 import { Typography } from "@components/DS/typography";
+import { LogoDiscordSvg } from "@components/svg/logoDiscord";
 import { LINKS } from "@feat/navigation/Links";
 import NewsItem from "@feat/news/NewsItem";
 import NewsItemLight from "@feat/news/NewsItemLight";
@@ -30,11 +31,12 @@ export default async function HomePage() {
           title={t("CTA.discord.title")}
           action={{
             label: t("CTA.discord.action"),
+            icon: <LogoDiscordSvg />,
             href: `https://discord.gg/${process.env.DISCORD_INVITE_ID ?? "K4a2mwwBAM"}`,
             target: "_blank",
           }}
         />
-        <YoutubeSection />
+        {/* <YoutubeSection /> */}
       </LayoutMain>
     </>
   );
@@ -89,14 +91,14 @@ const TaskSection = async () => {
   );
 };
 
-const YoutubeSection = async () => {
-  return (
-    <LayoutSection size="container">
-      <iframe
-        className="aspect-video"
-        src={`https://www.youtube.com/embed/${process.env.LAST_YOUTUBE_ID ?? "rB1vgn3QwoY"}`}
-        allowFullScreen
-      />
-    </LayoutSection>
-  );
-};
+// const YoutubeSection = async () => {
+//   return (
+//     <LayoutSection size="container">
+//       <iframe
+//         className="aspect-video"
+//         src={`https://www.youtube.com/embed/${process.env.LAST_YOUTUBE_ID ?? "rB1vgn3QwoY"}`}
+//         allowFullScreen
+//       />
+//     </LayoutSection>
+//   );
+// };

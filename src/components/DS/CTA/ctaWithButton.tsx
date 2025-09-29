@@ -1,4 +1,5 @@
 import type { ComponentProps } from "react";
+import React from "react";
 
 import { Typography } from "@components/DS/typography";
 import { Layout, LayoutSection } from "@feat/page/layout";
@@ -8,6 +9,7 @@ import { buttonVariants } from "@ui/button";
 
 type CtaButtonProps = ComponentProps<typeof Link> & {
   label: string;
+  icon?: React.ReactNode;
 };
 
 export type CtaWithButtonProps = React.ComponentProps<"section"> & {
@@ -31,10 +33,11 @@ export const CtaWithButton = ({
             {title}
           </Typography>
           <Link
-            className={buttonVariants({ variant: "invert", size: "xl" })}
+            className={cn(buttonVariants({ variant: "invert", size: "xl" }))}
             {...action}
           >
             {action.label}
+            {action.icon && action.icon}
           </Link>
         </div>
       </Layout>
