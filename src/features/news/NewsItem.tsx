@@ -42,7 +42,7 @@ const NewsItem = ({ news, className }: NewsItemProps) => {
         <div className="flex flex-1 flex-col gap-4">
           <Typography
             variant="p"
-            className="line-clamp-6 flex-1 overflow-hidden text-justify font-light text-ellipsis text-white"
+            className="line-clamp-6 flex-1 overflow-hidden text-justify text-ellipsis"
             title={news.attributes.description}
           >
             {news.attributes.description}

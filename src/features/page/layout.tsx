@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentProps, ComponentPropsWithoutRef } from "react";
 
 import { Typography } from "@components/DS/typography";
 import { Link } from "@i18n/navigation";
@@ -7,7 +7,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { buttonVariants } from "@ui/button";
 import { type VariantProps, cva } from "class-variance-authority";
 
-const layoutVariants = cva("flex flex-col gap-8", {
+const layoutVariants = cva("flex flex-col gap-14", {
   variants: {
     size: {
       container: "container mx-auto px-4",
@@ -50,9 +50,20 @@ export const Layout = ({
 type LayoutMainProps = React.ComponentProps<"main"> &
   VariantProps<typeof layoutVariants>;
 
-export const LayoutMain = ({ className, ...props }: LayoutMainProps) => {
+export const LayoutMain = ({
+  className,
+  padding = "default",
+  size = "container",
+  ...props
+}: LayoutMainProps) => {
   return (
-    <Layout asChild className={className} data-slot="main">
+    <Layout
+      asChild
+      className={className}
+      padding={padding}
+      size={size}
+      data-slot="layout-main"
+    >
       <main {...props} />
     </Layout>
   );
@@ -64,6 +75,7 @@ type LayoutSectionProps = React.ComponentProps<"section"> &
 export const LayoutSection = ({
   className,
   padding = "none",
+  size = "full",
   ...props
 }: LayoutSectionProps) => {
   return (
@@ -71,8 +83,8 @@ export const LayoutSection = ({
       asChild
       className={className}
       padding={padding}
-      data-slot="section"
-      size="full"
+      size={size}
+      data-slot="layout-section"
     >
       <section {...props} />
     </Layout>
@@ -89,7 +101,7 @@ export const LayoutHeader = ({ className, ...props }: LayoutHeaderProps) => {
       size="full"
       padding={"none"}
       {...props}
-      data-slot="header"
+      data-slot="layout-header"
     />
   );
 };
@@ -98,17 +110,19 @@ export const LayoutTitle = (props: ComponentPropsWithoutRef<"h1">) => {
   return <Typography {...props} variant="h1" className={cn(props.className)} />;
 };
 
+type ActionProps = ComponentProps<typeof Link> & {
+  label: string;
+};
+
 export type LayoutContentTitleProps = {
   title: string;
-  btnTitle?: string;
-  href?: string;
+  action?: ActionProps;
   className?: string;
 };
 
 export const LayoutContentTitle = ({
   title,
-  btnTitle,
-  href,
+  action,
   className,
 }: LayoutContentTitleProps) => {
   return (
@@ -117,21 +131,18 @@ export const LayoutContentTitle = ({
       size="full"
       padding={"none"}
     >
-      <Typography
-        variant="h2"
-        className="flex flex-1 items-center gap-4 overflow-hidden"
-      >
+      <Typography variant="h2" className="flex flex-1 items-center gap-4">
         {title}
       </Typography>
 
-      {btnTitle && href && (
+      {action && (
         <Link
-          href={href}
+          {...action}
           className={buttonVariants({
             variant: "outline",
           })}
         >
-          {btnTitle}
+          {action.label}
         </Link>
       )}
     </Layout>

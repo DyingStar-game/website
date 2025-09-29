@@ -1,24 +1,39 @@
 {
   "Landing": {
     "CTA": {
-      "title": "Rejoignez-nous et contribuez au projet !",
-      "action": "Comment contribuer"
+      "contribute": {
+        "action": "Comment contribuer",
+        "title": "Rejoignez-nous et contribuez au projet !"
+      },
+      "discord": {
+        "action": "Rejoindre le Discord",
+        "title": "Suivez l'aventure en direct !"
+      }
     },
     "News": {
-      "title": "Actualités",
-      "action": "Toutes les news"
+      "action": "Toutes les news",
+      "title": "Actualités"
+    },
+    "ProjectDescription": {
+      "content": "Contenu à définir",
+      "title": "Présentation du projet"
+    },
+    "Task": {
+      "action": "Toutes les tâches",
+      "title": "Tâches"
     }
   },
   "LocaleSwitcher": {
-    "fr": "Francais",
     "en": "Anglais",
+    "fr": "Francais",
     "label": "Langue"
   },
   "News": {
-    "title": "Actualités",
-    "notFound": "Aucune actualité trouvée",
-    "button": {
-      "viewAll": "Voir toutes les actualités"
+    "NewsDetailPagination": {
+      "button": {
+        "next": "Suivante",
+        "previous": "Précédente"
+      }
     },
     "NewsItem": {
       "moreInfo": "Informations supplémentaires"
@@ -29,11 +44,10 @@
         "previous": "Précédente"
       }
     },
-    "NewsDetailPagination": {
-      "button": {
-        "next": "Suivante",
-        "previous": "Précédente"
-      }
-    }
+    "button": {
+      "viewAll": "Voir toutes les actualités"
+    },
+    "notFound": "Aucune actualité trouvée",
+    "title": "Actualités"
   }
 }

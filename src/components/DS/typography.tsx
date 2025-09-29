@@ -24,7 +24,7 @@ export const typographyVariants = cva("text-foreground", {
       h2: "text-4xl font-normal tracking-tight uppercase transition-colors md:text-5xl lg:text-6xl",
       h3: "text-xl font-normal tracking-tight uppercase md:text-2xl lg:text-3xl",
       h4: "text-xl font-normal tracking-tight uppercase",
-      p: "text-lg md:text-xl lg:text-2xl [&:not(:first-child)]:mt-6",
+      p: "text-lg font-light text-white md:text-xl lg:text-2xl",
       default: "",
       quote: "mt-6 border-l-2 pl-6 italic",
       code: "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
