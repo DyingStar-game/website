@@ -1,25 +1,22 @@
+import { DEFAULT_LOCALE } from "@i18n/config";
+import type { Locale } from "next-intl";
+
 /**
  * This method return the server URL based on the environment.
  */
-export const getServerUrl = () => {
+export const getServerUrl = (locale: Locale = DEFAULT_LOCALE): string => {
   if (typeof window !== "undefined") {
     return window.location.origin;
   }
 
-  if (process.env.PLAYWRIGHT_TEST_BASE_URL) {
-    return process.env.PLAYWRIGHT_TEST_BASE_URL;
-  }
+  const host =
+    process.env.NEXT_ENV === "production"
+      ? (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dyingstar-game.com")
+      : "http://localhost:3000";
 
-  // If we are in production, we return the production URL.
-  if (process.env.VERCEL_ENV === "production") {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-  }
+  return locale === DEFAULT_LOCALE ? host : `${host}/${locale}`;
+};
 
-  // If we are in "stage" environment, we return the staging URL.
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-
-  // If we are in development, we return the localhost URL
-  return "http://localhost:3000";
+export const createLocalizedUrl = (locale: Locale, path?: string) => {
+  return `${getServerUrl(locale)}${path ?? ""}`;
 };

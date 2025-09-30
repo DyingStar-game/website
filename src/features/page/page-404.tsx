@@ -16,7 +16,7 @@ export function Page404() {
       <div className="flex items-center gap-4">
         <Link
           href={LINKS.Landing.Landing.href()}
-          className={buttonVariants({ variant: "invert" })}
+          className={buttonVariants({ variant: "outline" })}
         >
           Go back home
         </Link>

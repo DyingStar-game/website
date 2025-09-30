@@ -1,35 +1,36 @@
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { cn } from "@lib/utils";
+import { Slot } from "@radix-ui/react-slot";
+import { type VariantProps, cva } from "class-variance-authority";
 
 const buttonVariants = cva(
-  "uppercase focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-xs text-sm font-medium outline-none transition-all focus-visible:ring disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0 cursor-pointer font-light w-full lg:w-auto",
+  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xs text-base font-light whitespace-nowrap uppercase transition-all outline-none focus-visible:border-ring focus-visible:ring focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 lg:w-auto dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default:
           "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 focus-visible:ring-primary",
         destructive:
-          "bg-destructive shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 text-white",
+          "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40",
         outline:
-          "bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 border",
+          "border border-foreground text-foreground hover:bg-foreground/25",
+        outlineWhite: "border border-white text-white hover:bg-white/25",
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost:
-          "border border-transparent hover:border-primary [&.active]:bg-foreground [&.active]:text-background font-light",
+          "border border-transparent font-light hover:border-primary [&.active]:bg-foreground [&.active]:text-background",
         link: "text-primary underline-offset-4 hover:underline",
         invert:
-          "bg-background text-foreground hover:bg-background/25 hover:text-background border border:transparent hover:border-background",
+          "border:transparent border bg-background text-foreground hover:border-background hover:bg-background/25 hover:text-background",
         success: "bg-success text-success-foreground hover:bg-success/90",
         warning: "bg-warning text-warning-foreground hover:bg-warning/90",
       },
       size: {
-        default: "px-6 py-2 has-[>svg]:px-3",
-        sm: "px-5 py-1 has-[>svg]:px-2.5",
-        lg: "py-6 px-10 has-[>svg]:px-4 text-2xl leading-9",
-        xl: "py-6 px-10 has-[>svg]:px-4 text-5xl font-extralight rounded",
+        default: "px-6 py-2 leading-9 has-[>svg]:px-6",
+        sm: "px-5 py-2 has-[>svg]:px-5",
+        lg: "px-8 py-5 text-lg leading-9 has-[>svg]:px-6 has-[>svg]:py-8 xl:px-10 xl:py-6 xl:text-2xl",
+        xl: "gap-4 rounded px-5 py-5 text-3xl font-extralight md:text-4xl lg:px-10 lg:py-6 lg:text-5xl lg:has-[>svg]:px-4 [&_svg:not([class*='size-'])]:size-8 md:[&_svg:not([class*='size-'])]:size-9 lg:[&_svg:not([class*='size-'])]:size-12",
         icon: "size-9",
       },
     },

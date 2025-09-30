@@ -1,0 +1,53 @@
+{
+  "Landing": {
+    "CTA": {
+      "contribute": {
+        "action": "How to contribute",
+        "title": "Join us and contribute to the project!"
+      },
+      "discord": {
+        "action": "Join Discord",
+        "title": "Follow the adventure live!"
+      }
+    },
+    "News": {
+      "action": "All news",
+      "title": "News"
+    },
+    "ProjectDescription": {
+      "content": "Content to be defined",
+      "title": "Project overview"
+    },
+    "Task": {
+      "action": "All tasks",
+      "title": "Tasks"
+    }
+  },
+  "LocaleSwitcher": {
+    "en": "English",
+    "fr": "French",
+    "label": "Language"
+  },
+  "News": {
+    "NewsDetailPagination": {
+      "button": {
+        "next": "Next",
+        "previous": "Previous"
+      }
+    },
+    "NewsItem": {
+      "moreInfo": "Additional information"
+    },
+    "NewsPagination": {
+      "button": {
+        "next": "Next",
+        "previous": "Previous"
+      }
+    },
+    "button": {
+      "viewAll": "View all news"
+    },
+    "notFound": "No news found",
+    "title": "News"
+  }
+}

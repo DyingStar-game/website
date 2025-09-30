@@ -8,8 +8,7 @@ const shikiPlugin = [
   rehypeShiki,
   {
     themes: {
-      light: "github-light",
-      dark: "github-dark",
+      light: "github-dark",
     },
   },
 ] satisfies PluggableList[number];

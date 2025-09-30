@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { ComponentPropsWithRef, ElementType, ForwardedRef } from "react";
+import React, { forwardRef } from "react";
+
 import { cn } from "@lib/utils";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
-import type { ComponentPropsWithRef, ElementType, ForwardedRef } from "react";
-
-import React, { forwardRef } from "react";
 
 // Source : https://www.totaltypescript.com/pass-component-as-prop-react
 type FixedForwardRef = <T, P = {}>(
@@ -20,18 +20,19 @@ type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any
 export const typographyVariants = cva("text-foreground", {
   variants: {
     variant: {
-      h1: "font-caption scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
-      h2: "font-caption scroll-m-20 text-3xl font-semibold tracking-tight transition-colors",
-      h3: "font-caption scroll-m-20 text-xl font-semibold tracking-tight",
-      p: "leading-7 [&:not(:first-child)]:mt-6",
+      h1: "text-5xl font-normal tracking-tight uppercase md:text-6xl lg:text-7xl",
+      h2: "text-4xl font-normal tracking-tight uppercase transition-colors md:text-5xl lg:text-6xl",
+      h3: "text-xl font-normal tracking-tight uppercase md:text-2xl lg:text-3xl",
+      h4: "text-xl font-normal tracking-tight uppercase",
+      p: "text-lg font-light text-white md:text-xl lg:text-2xl",
       default: "",
       quote: "mt-6 border-l-2 pl-6 italic",
-      code: "bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
-      lead: "text-muted-foreground text-xl",
+      code: "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+      lead: "text-xl text-muted-foreground",
       large: "text-lg font-semibold",
-      small: "text-sm font-medium leading-none",
-      muted: "text-muted-foreground text-sm",
-      link: "font-medium text-cyan-600 hover:underline",
+      small: "text-sm leading-none font-medium",
+      muted: "text-sm text-muted-foreground",
+      link: "text-cyan-600 font-medium hover:underline",
     },
   },
   defaultVariants: {
@@ -44,6 +45,7 @@ const defaultElementMapping = {
   h1: "h1",
   h2: "h2",
   h3: "h3",
+  h4: "h4",
   p: "p",
   quote: "p",
   code: "code",
@@ -111,4 +113,3 @@ const InnerTypography = <
 };
 
 export const Typography = fixedForwardRef(InnerTypography);
-

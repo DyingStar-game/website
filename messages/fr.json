@@ -1,0 +1,53 @@
+{
+  "Landing": {
+    "CTA": {
+      "contribute": {
+        "action": "Comment contribuer",
+        "title": "Rejoignez-nous et contribuez au projet !"
+      },
+      "discord": {
+        "action": "Rejoindre le Discord",
+        "title": "Suivez l'aventure en direct !"
+      }
+    },
+    "News": {
+      "action": "Toutes les news",
+      "title": "Actualités"
+    },
+    "ProjectDescription": {
+      "content": "Contenu à définir",
+      "title": "Présentation du projet"
+    },
+    "Task": {
+      "action": "Toutes les tâches",
+      "title": "Tâches"
+    }
+  },
+  "LocaleSwitcher": {
+    "en": "Anglais",
+    "fr": "Francais",
+    "label": "Langue"
+  },
+  "News": {
+    "NewsDetailPagination": {
+      "button": {
+        "next": "Suivante",
+        "previous": "Précédente"
+      }
+    },
+    "NewsItem": {
+      "moreInfo": "Informations supplémentaires"
+    },
+    "NewsPagination": {
+      "button": {
+        "next": "Suivante",
+        "previous": "Précédente"
+      }
+    },
+    "button": {
+      "viewAll": "Voir toutes les actualités"
+    },
+    "notFound": "Aucune actualité trouvée",
+    "title": "Actualités"
+  }
+}

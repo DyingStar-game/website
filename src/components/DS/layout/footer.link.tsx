@@ -36,6 +36,16 @@ const FOOTER_LINKS: NavigationLinksGroups = [
       LINKS.Community.Wiki,
     ],
   },
+  {
+    title: "Play now",
+    links: [
+      LINKS.Community.Discord,
+      LINKS.Community.Github,
+      LINKS.Community.Youtube,
+      LINKS.Community.Forums,
+      LINKS.Community.Wiki,
+    ],
+  },
 ];
 
 export const getFooterLinks = (): GeneratedNavigationLinksGroups =>

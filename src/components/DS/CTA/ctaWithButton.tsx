@@ -1,30 +1,46 @@
-import { Typography } from "@components/DS/typography";
-import { SectionLayout } from "@feat/landing/section-layout";
-import { Button } from "@ui/button";
+import type { ComponentProps } from "react";
+import React from "react";
 
-export type CtaWithButtonProps = {
-  title: string;
-  btContent: string;
-  size?: "xs" | "sm" | "base" | "lg" | "full";
+import { Typography } from "@components/DS/typography";
+import { Layout, LayoutSection } from "@feat/page/layout";
+import { Link } from "@i18n/navigation";
+import { cn } from "@lib/utils";
+import { buttonVariants } from "@ui/button";
+
+type CtaButtonProps = ComponentProps<typeof Link> & {
+  label: string;
+  icon?: React.ReactNode;
 };
 
-export const CtaWithButton = (props: CtaWithButtonProps) => {
+export type CtaWithButtonProps = React.ComponentProps<"section"> & {
+  title: string;
+  action: CtaButtonProps;
+};
+
+export const CtaWithButton = ({
+  title,
+  action,
+  className,
+}: CtaWithButtonProps) => {
   return (
-    <SectionLayout
-      variant="primary"
-      className="flex flex-col items-center justify-center gap-22 uppercase"
-      size={props.size ?? "sm"}
-    >
-      <Typography
-        variant="h2"
-        className="text-primary-foreground text-center text-6xl font-medium"
-      >
-        {props.title}
-      </Typography>
-      <Button variant="invert" size="xl" className="w-full">
-        {props.btContent}
-      </Button>
-    </SectionLayout>
+    <LayoutSection className={cn("bg-foreground uppercase", className)}>
+      <Layout asChild padding="default">
+        <div className="flex max-w-4xl flex-col justify-center gap-10 lg:gap-22">
+          <Typography
+            variant="h2"
+            className="text-center text-4xl font-medium text-primary-foreground md:text-5xl lg:text-6xl"
+          >
+            {title}
+          </Typography>
+          <Link
+            className={cn(buttonVariants({ variant: "invert", size: "xl" }))}
+            {...action}
+          >
+            {action.label}
+            {action.icon && action.icon}
+          </Link>
+        </div>
+      </Layout>
+    </LayoutSection>
   );
 };
-
