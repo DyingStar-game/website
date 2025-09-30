@@ -10,7 +10,7 @@ export enum ContentTypeEnum {
 
 const baseProjectItem = z.object({
   id: z.number(),
-  project_number: z.number(),
+  // project_number: z.number(),
 });
 
 export const projectItemSchema = z.discriminatedUnion("content_type", [
@@ -26,5 +26,23 @@ export const projectItemSchema = z.discriminatedUnion("content_type", [
 
 export const projectItemsSchema = z.array(projectItemSchema);
 
+export const pageParamSchema = z.object({
+  after: z.string().nullish(),
+  before: z.string().nullish(),
+});
+
+export const paginatedProjectItemsSchema = z.object({
+  data: projectItemsSchema,
+  pagination: z.object({
+    cursors: pageParamSchema,
+    hasNext: z.boolean(),
+    hasPrevious: z.boolean(),
+  }),
+});
+
 export type ProjectItemType = z.infer<typeof projectItemsSchema>;
 export type ProjectItemsType = z.infer<typeof projectItemsSchema>;
+export type PaginatedProjectItemsType = z.infer<
+  typeof paginatedProjectItemsSchema
+>;
+export type PageParamType = z.infer<typeof pageParamSchema>;

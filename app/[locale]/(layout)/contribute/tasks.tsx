@@ -3,63 +3,47 @@
 import { useState } from "react";
 
 import {
-  fetchProjectItemsOptions,
+  fetchProjectItemsInfiniteOptions,
   fetchProjectsOptions,
 } from "@feat/api/github/hooks/useGitHubData";
-import { useQueries, useSuspenseQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { Button } from "@ui/button";
 
 export default function Tasks() {
-  const [page, setPage] = useState(1);
-  const { data: projects } = useSuspenseQuery(fetchProjectsOptions());
+  // const { data: projects } = useQuery(fetchProjectsOptions());
 
-  const { data: projectItems, errors } = useQueries({
-    queries: projects.map((project) =>
-      fetchProjectItemsOptions(project.number, page),
-    ),
-    combine: (results) => {
-      const allItems = results
-        .map((result) => {
-          // console.log(result.data);
-          return result.data;
-        })
-        .filter(Boolean)
-        .flat();
+  const {
+    data: paginatedProjectItems,
+    error,
+    fetchNextPage,
+    fetchPreviousPage,
+    hasNextPage,
+    hasPreviousPage,
+  } = useInfiniteQuery(fetchProjectItemsInfiniteOptions(13)); // 13 is Project Number
 
-      return {
-        data: allItems,
-        isLoading: results.some((result) => result.isLoading),
-        isError: results.some((result) => result.isError),
-        errors: results
-          .filter((result) => result.isError)
-          .map((result) => result.error),
-      };
-    },
-  });
-
-  // console.log(errors);
+  // console.log(projectItems, error);
 
   return (
     <>
-      Page : {page}
+      Page
       <div>
-        <button
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
-          disabled={page === 1}
+        <Button
+          onClick={async () => fetchPreviousPage()}
+          disabled={!hasPreviousPage}
         >
           Précédent
-        </button>
-        <span>Page {page}</span>
-        <button onClick={() => setPage((p) => p + 1)}>Suivant</button>
+        </Button>
+        <Button onClick={async () => fetchNextPage()} disabled={!hasNextPage}>
+          Suivant
+        </Button>
       </div>
       <ul>
-        {projectItems.map(
-          (projectItem) =>
-            projectItem && (
-              <li key={projectItem.id}>
-                {projectItem.content.title} | {projectItem.project_number} |{" "}
-                {projectItem.content.number}
-              </li>
-            ),
+        {paginatedProjectItems?.pages.map((paginatedProjectItem) =>
+          paginatedProjectItem.data.map((projectItem) => (
+            <li key={projectItem.content.id}>
+              {projectItem.content.title} | {projectItem.content.number}
+            </li>
+          )),
         )}
       </ul>
     </>
