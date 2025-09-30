@@ -6,7 +6,7 @@ const baseIssueSchema = z.object({
   id: z.number(),
   title: z.string().nullish(),
   body: z.string().nullable(),
-  number: z.number(),
+  number: z.number().nullish(),
 });
 
 export const issueSchema = baseIssueSchema.extend({

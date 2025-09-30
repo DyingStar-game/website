@@ -42,7 +42,7 @@ export function HeaderBase({ children }: PropsWithChildren) {
           {children}
         </nav>
         <div className="flex flex-1 justify-end gap-4">
-          <LocaleSwitcher className="hidden lg:inline" />
+          {/* <LocaleSwitcher className="hidden lg:inline" /> */}
           <Button
             variant="ghost"
             size="lg"

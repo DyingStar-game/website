@@ -66,7 +66,7 @@ export function Header() {
       >
         Auth
       </Button>
-      <LocaleSwitcher className="lg:hidden" />
+      {/* <LocaleSwitcher className="lg:hidden" /> */}
     </HeaderBase>
   );
 }

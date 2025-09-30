@@ -9,8 +9,7 @@ export enum ContentTypeEnum {
 }
 
 const baseProjectItem = z.object({
-  id: z.number(),
-  // project_number: z.number(),
+  id: z.number().nullish(),
 });
 
 export const projectItemSchema = z.discriminatedUnion("content_type", [
