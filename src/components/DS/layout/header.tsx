@@ -29,7 +29,7 @@ export function Header() {
   return (
     <HeaderBase>
       <Link
-        href={LINKS.Project.Tickets.href()}
+        href={"/contribute"}
         className={getNavLinkClasses(LINKS.Project.Tickets.href())}
       >
         Project

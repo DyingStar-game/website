@@ -60,6 +60,7 @@
   --radius-xl: calc(var(--radius) + 0.25rem);
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+  --color-blue: var(--blue);
 
   @keyframes accordion-down {
     from {
@@ -129,6 +130,8 @@
   --background-1: var(--background);
   --background-2: hsl(231, 82%, 6%);
   --background-3: hsl(339, 80%, 12%);
+
+  --blue: #396a92;
 }
 
 @utility prose-dyingstar {

@@ -1,16 +1,22 @@
 "use client";
 
+import { type PropsWithChildren } from "react";
+
 import { Toaster } from "@components/ui/sonner";
+import { getQueryClient } from "@feat/api/get-query-client";
 import { DialogManagerRenderer } from "@feat/dialog-manager/dialog-manager-renderer";
 import { GlobalDialogLazy } from "@feat/global-dialog/global-dialog-lazy";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "next-themes";
-import type { PropsWithChildren } from "react";
-
-const queryClient = new QueryClient();
 
 export const Providers = ({ children }: PropsWithChildren) => {
+  // NOTE: Avoid useState when initializing the query client if you don't
+  //       have a suspense boundary between this and the code that may
+  //       suspend because React will throw away the client on the initial
+  //       render if it suspends and there is no boundary
+  const queryClient = getQueryClient();
+
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <QueryClientProvider client={queryClient}>
