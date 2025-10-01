@@ -1,4 +1,18 @@
 {
+  "Issue": {
+    "IssueCard": {
+      "DifficultyBadge": {
+        "L": "niveau pro",
+        "M": "niveau intermédiaire",
+        "S": "tous niveaux",
+        "XL": "niveau expert"
+      },
+      "assigneesCount": "{count, plural, =0 {Aucun contributeur} =1 {1 contributeur} other {# contributeurs}}",
+      "button": {
+        "join": "Rejoindre"
+      }
+    }
+  },
   "Landing": {
     "CTA": {
       "contribute": {

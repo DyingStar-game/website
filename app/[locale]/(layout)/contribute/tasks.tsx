@@ -1,46 +1,20 @@
 "use client";
 
-import {
-  fetchProjectItemsOptions,
-  fetchProjectsOptions,
-} from "@feat/api/github/hooks/useGitHubData";
+import { fetchProjectIssuesOptions } from "@feat/api/github/hooks/useGitHubData";
+import IssueCard from "@feat/issue/IssueCard";
+import { LayoutSection } from "@feat/page/layout";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Tasks() {
-  const { data: projects } = useQuery(fetchProjectsOptions());
-  const { data: projectItems, error } = useQuery(fetchProjectItemsOptions(13));
-
-  console.log(error);
-
-  // const {
-  //   data: paginatedProjectItems,
-  //   error,
-  //   fetchNextPage,
-  //   fetchPreviousPage,
-  //   hasNextPage,
-  //   hasPreviousPage,
-  // } = useInfiniteQuery(fetchProjectItemsInfiniteOptions(13)); // 13 is Project Number
-
-  // console.log(projectItems, error);
+  const { data: projectIssues, error } = useQuery(fetchProjectIssuesOptions());
 
   return (
-    <>
-      Page
-      <ul>
-        {projects?.map((project) => (
-          <li key={project.id}>
-            {project.number} | {project.title}
-          </li>
+    <LayoutSection>
+      <div className="grid grid-cols-1 gap-7 lg:grid-cols-2 2xl:grid-cols-3">
+        {projectIssues?.map((projectItem) => (
+          <IssueCard key={projectItem.id} issue={projectItem} />
         ))}
-      </ul>
-      Project Items
-      <ul>
-        {projectItems?.map((projectItem) => (
-          <li key={projectItem.id}>
-            {projectItem.content.id} | {projectItem.content.title}
-          </li>
-        ))}
-      </ul>
-    </>
+      </div>
+    </LayoutSection>
   );
 }

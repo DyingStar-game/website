@@ -1,5 +1,5 @@
+import { graphql } from "@octokit/graphql";
 import ky from "ky";
-import { App, Octokit } from "octokit";
 
 export const githubApi = ky.extend({
   prefixUrl: "https://api.github.com",
@@ -16,7 +16,7 @@ export const githubApi = ky.extend({
   hooks: {
     beforeRequest: [
       async (request) => {
-        const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+        const token = process.env.NEXT_GITHUB_TOKEN;
         if (token) {
           request.headers.set("Authorization", `Bearer ${token}`);
         }
@@ -25,6 +25,8 @@ export const githubApi = ky.extend({
   },
 });
 
-export const octokit = new Octokit({
-  auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN,
+export const githubGraphql = graphql.defaults({
+  headers: {
+    authorization: `token ${process.env.NEXT_GITHUB_TOKEN}`,
+  },
 });

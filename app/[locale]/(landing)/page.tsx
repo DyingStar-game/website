@@ -1,6 +1,7 @@
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
 import { Typography } from "@components/DS/typography";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
+import IssueCard from "@feat/issue/IssueCard";
 import { LINKS } from "@feat/navigation/Links";
 import NewsItem from "@feat/news/NewsItem";
 import NewsItemLight from "@feat/news/NewsItemLight";
@@ -10,7 +11,6 @@ import {
   LayoutMain,
   LayoutSection,
 } from "@feat/page/layout";
-import TaskCard from "@feat/task/TaskCard";
 import type { Locale } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 
@@ -85,38 +85,7 @@ const TaskSection = async () => {
         title={t("title")}
         action={{ label: t("action"), href: "#" }}
       />
-      <div className="gap-4 *:mb-4 xl:columns-2 2xl:columns-3">
-        <TaskCard
-          className="break-inside-avoid"
-          title="Pipeline d'intégration avec un titre sur deux lignes ou trois si vraiment y a un soucis."
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
-          suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan
-          lacus vel facilisis."
-        />
-        <TaskCard
-          className="break-inside-avoid"
-          title="Pipeline d'intégration avec un titre"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do commodo viverra maecenas accumsan commodo viverra maecenas accumsan commodo viverra maecenas accumsan
-          lacus vel facilisis."
-        />
-        <TaskCard
-          className="break-inside-avoid"
-          title="Pipeline d'intégration"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit
-          lacus vel facilisis."
-        />
-        <TaskCard
-          className="break-inside-avoid"
-          title="Pipeline d'intégration"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit Risus commodo viverra maecenas accumsan
-          lacus vel facilisis."
-        />
-        <TaskCard
-          title="Pipeline d'intégration"
-          className="break-inside-avoid"
-        />
-      </div>
+      <div className="gap-4 *:mb-4 xl:columns-2 2xl:columns-3"></div>
     </LayoutSection>
   );
 };

@@ -61,6 +61,10 @@
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --color-blue: var(--blue);
+  --color-easy: var(--easy);
+  --color-moderate: var(--moderate);
+  --color-advance: var(--advance);
+  --color-expert: var(--expert);
 
   @keyframes accordion-down {
     from {
@@ -132,6 +136,10 @@
   --background-3: hsl(339, 80%, 12%);
 
   --blue: #396a92;
+  --easy: #1a8b7d;
+  --moderate: #f28c0a;
+  --advance: #e85f0c;
+  --expert: #d01317;
 }
 
 @utility prose-dyingstar {
