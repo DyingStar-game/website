@@ -5,7 +5,6 @@ import type { IssueSize } from "../schema/projectIssues.model";
 import {
   type GraphqlProjectIssuesResponseType,
   type ProjectIssuesType,
-  isValidIssueSize,
   projectIssuesSchema,
 } from "../schema/projectIssues.model";
 
@@ -43,24 +42,6 @@ export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
                   color
                   field {
                     ... on ProjectV2SingleSelectField {
-                      name
-                    }
-                  }
-                }
-                ... on ProjectV2ItemFieldDateValue {
-                  date
-                  field {
-                    ... on ProjectV2Field {
-                      name
-                    }
-                  }
-                }
-                ... on ProjectV2ItemFieldIterationValue {
-                  title
-                  startDate
-                  duration
-                  field {
-                    ... on ProjectV2IterationField {
                       name
                     }
                   }
@@ -109,6 +90,13 @@ export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
 
     const projectIssues = project.items.nodes
       .filter((item) => Object.keys(item.content).length > 0)
+      .filter((item) => {
+        const statusField = item.fieldValues.nodes.find(
+          (field) => field.field && field.field.name === "Status",
+        );
+
+        return ["Todo", "In progress"].includes(statusField?.name ?? "");
+      })
       .map((item) => {
         const statusField = item.fieldValues.nodes.find(
           (field) => field.field && field.field.name === "Status",
