@@ -70,16 +70,22 @@ export const graphqlProjectIssuesResponseSchema = z.object({
 });
 
 export enum IssueSize {
+  "XS" = "XS",
   "S" = "S",
   "M" = "M",
   "L" = "L",
   "XL" = "XL",
 }
 
+export const isValidIssueSize = (value: string): value is IssueSize => {
+  return Object.values(IssueSize).includes(value as IssueSize);
+};
+
 export const sizeToVariant: Record<
   IssueSize,
-  "easy" | "moderate" | "advance" | "expert"
+  "veryEasy" | "easy" | "moderate" | "advance" | "expert"
 > = {
+  [IssueSize.XS]: "veryEasy",
   [IssueSize.S]: "easy",
   [IssueSize.M]: "moderate",
   [IssueSize.L]: "advance",

@@ -20,6 +20,7 @@ const badgeVariants = cva(
         outlineWhite: "border-white text-white",
         category:
           "border-foreground bg-accent text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+        veryEasy: "border-white text-white",
         easy: "border-easy bg-easy text-white",
         moderate: "border-moderate bg-moderate text-background",
         advance: "border-advance bg-advance text-background",

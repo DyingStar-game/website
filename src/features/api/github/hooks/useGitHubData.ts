@@ -1,9 +1,11 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import { githubGraphql } from "../githubApi";
+import type { IssueSize } from "../schema/projectIssues.model";
 import {
   type GraphqlProjectIssuesResponseType,
   type ProjectIssuesType,
+  isValidIssueSize,
   projectIssuesSchema,
 } from "../schema/projectIssues.model";
 
@@ -16,7 +18,7 @@ export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
         title
         number
         url
-        items(first: 50) {
+        items(first: 100) {
           nodes {
             fieldValues(first: 10) {
               nodes {
@@ -73,12 +75,12 @@ export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
                 state
                 createdAt
                 updatedAt
-                labels(first: 10) {
+                labels(first: 5) {
                   nodes {
                     name
                   }
                 }
-                assignees(first: 30) {
+                assignees(first: 10) {
                   nodes {
                     login
                     avatarUrl
@@ -144,7 +146,7 @@ export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
             login: assignee.login,
             avatar_url: assignee.avatarUrl,
           })),
-          size: sizeField?.name ?? null,
+          size: sizeField?.name as IssueSize | null,
           discord_url: discordField?.text ?? null,
         };
       });

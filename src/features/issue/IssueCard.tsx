@@ -13,14 +13,9 @@ import { cn } from "@lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
 import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
-import {
-  AudioLines,
-  ChevronRight,
-  ChevronUp,
-  CircleCheck,
-  Tag,
-  Users,
-} from "lucide-react";
+import { AudioLines, ChevronRight, ChevronUp, Tag, Users } from "lucide-react";
+import type { IconName } from "lucide-react/dynamic";
+import { DynamicIcon } from "lucide-react/dynamic";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
@@ -66,12 +61,10 @@ const IssueCard = ({ className, issue }: TaskCardProps) => {
             </div>
           )}
           {issue.status && (
-            <div className="flex gap-1 overflow-hidden">
-              <CircleCheck />
-              <span className="truncate text-foreground uppercase">
-                {issue.status}
-              </span>
-            </div>
+            <StatusInfo
+              status={issue.status}
+              className="flex gap-1 overflow-hidden"
+            />
           )}
         </div>
         <div
@@ -141,6 +134,7 @@ const IssueCard = ({ className, issue }: TaskCardProps) => {
                 >
                   {assignee.avatar_url && (
                     <AvatarImage
+                      className="bg-white"
                       src={assignee.avatar_url}
                       alt={assignee.login}
                     />
@@ -186,17 +180,38 @@ const IssueCard = ({ className, issue }: TaskCardProps) => {
   );
 };
 
-type DifficultyBadgeType = {
+type DifficultyBadgeProps = {
   size: IssueSize;
   className?: string;
 };
 
-const DifficultyBadge = ({ size, className }: DifficultyBadgeType) => {
+const DifficultyBadge = ({ size, className }: DifficultyBadgeProps) => {
   const t = useTranslations("Issue.IssueCard.DifficultyBadge");
   return (
     <Badge className={className} variant={sizeToVariant[size]}>
       {t(size)}
     </Badge>
+  );
+};
+
+type StatusInfoProps = {
+  status: string;
+  className?: string;
+};
+
+const StatusInfo = ({ status, className }: StatusInfoProps) => {
+  const statusIconMap: Record<string, IconName> = {
+    "written specifications": "circle-question-mark",
+    todo: "circle-ellipsis",
+    "in progress": "circle-play",
+    done: "circle-check",
+  };
+
+  return (
+    <div className={className}>
+      <DynamicIcon name={statusIconMap[status.toLowerCase()] ?? "circle"} />
+      <span className="truncate text-foreground uppercase">{status}</span>
+    </div>
   );
 };
 
