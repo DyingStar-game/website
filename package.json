@@ -49,6 +49,7 @@
     "framer-motion": "^12.23.15",
     "front-matter": "^4.0.2",
     "input-otp": "^1.4.2",
+    "iovalkey": "^0.3.3",
     "ky": "^1.11.0",
     "lucide-react": "^0.542.0",
     "markdown-to-jsx": "^7.7.13",

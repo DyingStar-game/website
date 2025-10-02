@@ -1,6 +1,9 @@
 import { graphql } from "@octokit/graphql";
+import type { Query, RequestParameters } from "@octokit/graphql/types";
 import ky from "ky";
 import "server-only";
+
+import { cacheResponse } from "../caching";
 
 export const githubApi = ky.extend({
   prefixUrl: "https://api.github.com",
@@ -31,3 +34,14 @@ export const githubGraphql = graphql.defaults({
     authorization: `token ${process.env.NEXT_GITHUB_TOKEN}`,
   },
 });
+
+export async function cachedGithubGraphql<T>(
+  query: Query,
+  parameters?: RequestParameters,
+  ttl = 300, // default ttl of 5min
+): Promise<T> {
+  return cacheResponse(async () => githubGraphql(query, parameters), {
+    cacheKey: `gh:${JSON.stringify(parameters)}`,
+    ttl,
+  });
+}

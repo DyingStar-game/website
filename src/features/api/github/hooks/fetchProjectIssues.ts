@@ -1,6 +1,6 @@
 import "server-only";
 
-import { githubGraphql } from "../githubApi";
+import { cachedGithubGraphql } from "../githubApi";
 import type {
   IssueSize,
   PaginateProjectIssuesType,
@@ -94,7 +94,7 @@ export async function fetchProjectIssues(
   `;
 
   const response: GraphqlProjectIssuesResponseType =
-    await githubGraphql<GraphqlProjectIssuesResponseType>(QUERY, {
+    await cachedGithubGraphql<GraphqlProjectIssuesResponseType>(QUERY, {
       q: `org:${process.env.NEXT_PUBLIC_GITHUB_REPO} is:issue is:open`,
       searchPageSize: 30,
       cursor,

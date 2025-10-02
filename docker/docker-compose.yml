@@ -12,3 +12,16 @@ services:
     env_file:
       - ../.env.local
     tty: true
+
+  valkey:
+    image: valkey/valkey:8.1-alpine
+    container_name: valkey
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - valkey_data:/data
+    command: ["valkey-server", "--appendonly", "yes"]
+
+volumes:
+  valkey_data:

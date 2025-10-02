@@ -1,4 +1,4 @@
-import { githubGraphql } from "../githubApi";
+import { cachedGithubGraphql } from "../githubApi";
 import {
   type GraphqlOpenIssueWithAssigneeCountResponseType,
   graphqlOpenIssueWithAssigneeCountResponseSchema,
@@ -21,9 +21,12 @@ export async function fetchOpenIssueWithAssigneeCount(): Promise<number> {
   `;
 
   const response: GraphqlOpenIssueWithAssigneeCountResponseType =
-    await githubGraphql<GraphqlOpenIssueWithAssigneeCountResponseType>(QUERY, {
-      q: `org:${process.env.NEXT_PUBLIC_GITHUB_REPO} is:issue is:open assignee:*`,
-    });
+    await cachedGithubGraphql<GraphqlOpenIssueWithAssigneeCountResponseType>(
+      QUERY,
+      {
+        q: `org:${process.env.NEXT_PUBLIC_GITHUB_REPO} is:issue is:open assignee:*`,
+      },
+    );
 
   const openIssueWithAssigneeCount =
     graphqlOpenIssueWithAssigneeCountResponseSchema.parse(response);
