@@ -13,13 +13,18 @@ import { cn } from "@lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
 import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
-import { AudioLines, ChevronRight, ChevronUp, Tag, Users } from "lucide-react";
+import { ChevronRight, ChevronUp, Tag, Users } from "lucide-react";
 import type { IconName } from "lucide-react/dynamic";
 import { DynamicIcon } from "lucide-react/dynamic";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { Typography } from "../../components/DS/typography";
+import {
+  getProjectBgColor,
+  getProjectIcon,
+  getProjectImage,
+} from "./project-helper";
 
 export type TaskCardProps = {
   className?: string;
@@ -33,14 +38,20 @@ const IssueCard = ({ className, issue }: TaskCardProps) => {
   return (
     <article
       className={cn(
-        "flex flex-col justify-between rounded-md bg-blue text-white",
+        "flex flex-col justify-between rounded-md text-white",
+        getProjectBgColor(issue.project_number),
         className,
       )}
     >
       <div className="flex justify-between border-b border-white/60 p-5">
         <div className="flex items-center gap-4">
-          <AudioLines className="size-9" />
-          <Badge variant="category">{issue.project_name}</Badge>
+          <DynamicIcon
+            name={getProjectIcon(issue.project_number)}
+            className="size-9"
+          />
+          <Badge variant="category">
+            {issue.project_name.replace(/\p{Extended_Pictographic}/gu, "")}
+          </Badge>
         </div>
         <ChevronUp
           className={cn(
@@ -74,7 +85,7 @@ const IssueCard = ({ className, issue }: TaskCardProps) => {
           )}
         >
           <Image
-            src="https://images.unsplash.com/photo-1707305311532-73bd64624a07?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src={getProjectImage(issue.project_number)}
             alt="alt"
             fill
             className="object-cover"
@@ -83,7 +94,8 @@ const IssueCard = ({ className, issue }: TaskCardProps) => {
         </div>
         <Typography
           variant="h3"
-          className="flex flex-1 items-stretch gap-4 font-medium text-white"
+          title={issue.title}
+          className="line-clamp-2 items-stretch gap-4 overflow-hidden font-medium text-ellipsis text-white"
         >
           {issue.title}
         </Typography>
