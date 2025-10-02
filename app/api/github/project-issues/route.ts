@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { fetchProjectIssues } from "../../../../src/features/api/github/hooks/useGitHubData";
+import { fetchProjectIssues } from "../../../../src/features/api/github/hooks/fetchProjectIssues";
 
 export async function GET(request: NextRequest) {
   try {

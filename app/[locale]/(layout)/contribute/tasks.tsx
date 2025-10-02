@@ -3,8 +3,10 @@
 import type { MouseEventHandler } from "react";
 import { useEffect } from "react";
 
+import CountInfo from "@components/DS/countInfo/CountInfo";
+import { projectCountQueryOptions } from "@feat/api/github/hooks/projectCountQueryOptions";
+import { projectIssuesQueryOptions } from "@feat/api/github/hooks/projectIssuesQueryOptions";
 import { useForwardCursorPager } from "@feat/api/github/hooks/useForwardCursorPager";
-import { projectIssuesQueryOptions } from "@feat/api/github/hooks/useProjectIssues";
 import IssueCard from "@feat/issue/IssueCard";
 import { LayoutSection } from "@feat/page/layout";
 import { cn } from "@lib/utils";
@@ -27,6 +29,8 @@ export default function Tasks() {
     projectIssuesQueryOptions(afterCursor),
   );
 
+  const { data: projectCount } = useQuery(projectCountQueryOptions());
+
   useEffect(() => {
     if (projectIssues?.pageInfo) {
       setPageInfo(projectIssues.pageInfo);
@@ -35,6 +39,26 @@ export default function Tasks() {
 
   return (
     <LayoutSection>
+      <div className="flex flex-col gap-8 xl:flex-row">
+        <CountInfo
+          className="flex-1"
+          icon="bookmark-check"
+          title="Tâches disponibles"
+          count={projectIssues?.issueCount ?? 0}
+        />
+        <CountInfo
+          className="flex-1"
+          icon="user-star"
+          title="Contributeurs actifs"
+          count={projectCount?.openIssueWithAssigneeCount ?? 0}
+        />
+        <CountInfo
+          className="flex-1"
+          icon="puzzle"
+          title="Domaines couverts"
+          count={2}
+        />
+      </div>
       <div
         className={cn(
           "grid grid-cols-1 gap-8 lg:grid-cols-2 2xl:grid-cols-3",
@@ -53,20 +77,6 @@ export default function Tasks() {
           </>
         )}
       </div>
-      {/* <ul>
-        <li>Actual Cursor : {afterCursor}</li>
-        <li>Next Cursor : {projectIssues?.pageInfo.endCursor}</li>
-        <li>Page index : {pageIndex}</li>
-      </ul>
-
-      <Button onClick={goPrev} disabled={!canGoPrev}>
-        Previous page !
-      </Button>
-
-      <Button onClick={() => goNext()} disabled={!canGoNext}>
-        Next page !
-      </Button> */}
-
       <IssuePagination
         canGoNext={canGoNext}
         canGoPrev={canGoPrev}

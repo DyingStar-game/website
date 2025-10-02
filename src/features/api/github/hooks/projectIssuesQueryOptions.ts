@@ -4,7 +4,7 @@ import { paginateProjectIssuesSchema } from "../schema/projectIssues.model";
 
 export function projectIssuesQueryOptions(cursor?: string) {
   return queryOptions({
-    queryKey: ["github_projects", { cursor: cursor }],
+    queryKey: ["github_project_issues", { cursor: cursor }],
     queryFn: async ({ signal }) => {
       const res = await fetch(
         `/api/github/project-issues${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`,

@@ -17,68 +17,70 @@ export async function fetchProjectIssues(
 ): Promise<PaginateProjectIssuesType> {
   const QUERY = `
   query GetIssues($q: String!, $searchPageSize: Int = 5, $cursor: String) {
-  search(first: $searchPageSize, after: $cursor, query: $q, type: ISSUE) {
-    pageInfo {
-      hasNextPage
-      endCursor
-      hasPreviousPage
-      startCursor
-    }
-    nodes {
-      ... on Issue {
-        id
-        projectItems(first: 1) {
-          nodes {
-            id
-            project {
-              title
-              number
-            }
-            content {
-              ... on Issue {
-                id
+    search(first: $searchPageSize, after: $cursor, query: $q, type: ISSUE) {
+      issueCount
+      pageInfo {
+        hasNextPage
+        endCursor
+        hasPreviousPage
+        startCursor
+      }
+      nodes {
+        ... on Issue {
+          id
+          projectItems(first: 1) {
+            nodes {
+              id
+              project {
                 title
-                url
-                state
-                createdAt
-                updatedAt
-                labels(first: 5) {
-                  nodes {
-                    name
+                number
+              }
+              content {
+                ... on Issue {
+                  id
+                  title
+                  url
+                  state
+                  createdAt
+                  updatedAt
+                  labels(first: 5) {
+                    nodes {
+                      name
+                    }
                   }
-                }
-                assignees(first: 10) {
-                  nodes {
-                    login
-                    avatarUrl
+                  assignees(first: 10) {
+                    nodes {
+                      login
+                      avatarUrl
+                    }
                   }
                 }
               }
-            }
-            fieldValues(first: 10) {
-              nodes {
-                ... on ProjectV2ItemFieldTextValue {
-                  text
-                  field {
-                    ... on ProjectV2Field {
-                      name
+              fieldValues(first: 10) {
+                nodes {
+                  ... on ProjectV2ItemFieldTextValue {
+                    text
+                    field {
+                      ... on ProjectV2Field {
+                        name
+                      }
                     }
                   }
-                }
-                ... on ProjectV2ItemFieldNumberValue {
-                  number
-                  field {
-                    ... on ProjectV2Field {
-                      name
+                  ... on ProjectV2ItemFieldNumberValue {
+                    number
+                    field {
+                      ... on ProjectV2Field {
+                        name
+                      }
                     }
                   }
-                }
-                ... on ProjectV2ItemFieldSingleSelectValue {
-                  name
-                  color
-                  field {
-                    ... on ProjectV2SingleSelectField {
-                      name
+                  ... on ProjectV2ItemFieldSingleSelectValue {
+                    name
+                    color
+                    field {
+                      ... on ProjectV2SingleSelectField {
+                        name
+                      }
                     }
                   }
                 }
@@ -89,7 +91,6 @@ export async function fetchProjectIssues(
       }
     }
   }
-}
   `;
 
   const response: GraphqlProjectIssuesResponseType =
@@ -163,6 +164,7 @@ export async function fetchProjectIssues(
   }
 
   const paginateProjectIssues: PaginateProjectIssuesType = {
+    issueCount: projectIssues.search.issueCount,
     pageInfo: projectIssues.search.pageInfo,
     issues: allIssues,
   };

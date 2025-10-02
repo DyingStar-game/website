@@ -66,6 +66,7 @@ const pageInfoSchema = z.object({
 
 export const graphqlProjectIssuesResponseSchema = z.object({
   search: z.object({
+    issueCount: z.number(),
     pageInfo: pageInfoSchema,
     nodes: z.array(
       z.object({
@@ -122,6 +123,7 @@ export const projectIssueSchema = z.object({
 export const projectIssuesSchema = z.array(projectIssueSchema);
 
 export const paginateProjectIssuesSchema = z.object({
+  issueCount: z.number(),
   pageInfo: pageInfoSchema,
   issues: projectIssuesSchema,
 });
