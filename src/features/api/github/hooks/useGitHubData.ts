@@ -1,18 +1,29 @@
 import "server-only";
 
 import { githubGraphql } from "../githubApi";
-import type { IssueSize } from "../schema/projectIssues.model";
+import type {
+  IssueSize,
+  PaginateProjectIssuesType,
+} from "../schema/projectIssues.model";
 import {
   type GraphqlProjectIssuesResponseType,
   type ProjectIssuesType,
   graphqlProjectIssuesResponseSchema,
-  projectIssuesSchema,
+  paginateProjectIssuesSchema,
 } from "../schema/projectIssues.model";
 
-export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
+export async function fetchProjectIssues(
+  cursor?: string,
+): Promise<PaginateProjectIssuesType> {
   const QUERY = `
-  query GetIssues($q: String!) {
-  search(first: 50, query: $q, type: ISSUE) {
+  query GetIssues($q: String!, $searchPageSize: Int = 5, $cursor: String) {
+  search(first: $searchPageSize, after: $cursor, query: $q, type: ISSUE) {
+    pageInfo {
+      hasNextPage
+      endCursor
+      hasPreviousPage
+      startCursor
+    }
     nodes {
       ... on Issue {
         id
@@ -84,6 +95,8 @@ export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
   const response: GraphqlProjectIssuesResponseType =
     await githubGraphql<GraphqlProjectIssuesResponseType>(QUERY, {
       q: `org:${process.env.NEXT_PUBLIC_GITHUB_REPO} is:issue is:open`,
+      searchPageSize: 30,
+      cursor,
     });
 
   const projectIssues = graphqlProjectIssuesResponseSchema.parse(response);
@@ -149,5 +162,10 @@ export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
     allIssues.push(...projectIssues);
   }
 
-  return projectIssuesSchema.parse(allIssues);
+  const paginateProjectIssues: PaginateProjectIssuesType = {
+    pageInfo: projectIssues.search.pageInfo,
+    issues: allIssues,
+  };
+
+  return paginateProjectIssuesSchema.parse(paginateProjectIssues);
 }

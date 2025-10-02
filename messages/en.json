@@ -11,6 +11,12 @@
       "button": {
         "join": "Join"
       }
+    },
+    "IssuePagination": {
+      "button": {
+        "next": "Next",
+        "previous": "Previous"
+      }
     }
   },
   "Landing": {

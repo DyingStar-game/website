@@ -1,19 +1,22 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { projectIssuesSchema } from "../schema/projectIssues.model";
+import { paginateProjectIssuesSchema } from "../schema/projectIssues.model";
 
-export function projectIssuesQueryOptions() {
+export function projectIssuesQueryOptions(cursor?: string) {
   return queryOptions({
-    queryKey: ["github_projects"],
-    queryFn: async () => {
-      const res = await fetch("/api/github/project-issues", {});
+    queryKey: ["github_projects", { cursor: cursor }],
+    queryFn: async ({ signal }) => {
+      const res = await fetch(
+        `/api/github/project-issues${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`,
+        { signal },
+      );
       if (!res.ok) {
         throw new Error("Erreur récupération issues");
       }
 
       const data = await res.json();
 
-      return projectIssuesSchema.parse(data);
+      return paginateProjectIssuesSchema.parse(data);
     },
   });
 }

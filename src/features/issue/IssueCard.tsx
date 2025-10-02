@@ -140,6 +140,7 @@ const IssueCard = ({ className, issue, index }: TaskCardProps) => {
                       className="bg-white"
                       src={assignee.avatar_url}
                       alt={assignee.login}
+                      title={assignee.login}
                     />
                   )}
                   <AvatarFallback>

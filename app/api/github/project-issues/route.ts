@@ -1,10 +1,13 @@
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 import { fetchProjectIssues } from "../../../../src/features/api/github/hooks/useGitHubData";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const issues = await fetchProjectIssues();
+    const cursor = request.nextUrl.searchParams.get("cursor") ?? undefined;
+
+    const issues = await fetchProjectIssues(cursor);
     return NextResponse.json(issues, { status: 200 });
   } catch (e: unknown) {
     const message =
