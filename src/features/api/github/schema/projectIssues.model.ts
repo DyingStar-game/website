@@ -45,9 +45,14 @@ const itemFieldValues = z.object({
   ),
 });
 
-const itemsSchema = z.object({
+const projectItemsSchema = z.object({
   nodes: z.array(
     z.object({
+      id: z.string(),
+      project: z.object({
+        title: z.string(),
+        number: z.number(),
+      }),
       content: itemContentSchema,
       fieldValues: itemFieldValues,
     }),
@@ -55,17 +60,13 @@ const itemsSchema = z.object({
 });
 
 export const graphqlProjectIssuesResponseSchema = z.object({
-  organization: z.object({
-    projectsV2: z.object({
-      nodes: z.array(
-        z.object({
-          number: z.number(),
-          title: z.string(),
-          url: z.string(),
-          items: itemsSchema,
-        }),
-      ),
-    }),
+  search: z.object({
+    nodes: z.array(
+      z.object({
+        id: z.string(),
+        projectItems: projectItemsSchema,
+      }),
+    ),
   }),
 });
 

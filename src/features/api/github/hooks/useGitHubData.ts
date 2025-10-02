@@ -1,24 +1,49 @@
-import { queryOptions } from "@tanstack/react-query";
+import "server-only";
 
 import { githubGraphql } from "../githubApi";
 import type { IssueSize } from "../schema/projectIssues.model";
 import {
   type GraphqlProjectIssuesResponseType,
   type ProjectIssuesType,
+  graphqlProjectIssuesResponseSchema,
   projectIssuesSchema,
 } from "../schema/projectIssues.model";
 
 export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
   const QUERY = `
-  query GetOrganizationProjectV2Issues($org: String!) {
-  organization(login: $org) {
-    projectsV2(first: 15) {
-      nodes {
-        title
-        number
-        url
-        items(first: 100) {
+  query GetIssues($q: String!) {
+  search(first: 50, query: $q, type: ISSUE) {
+    nodes {
+      ... on Issue {
+        id
+        projectItems(first: 1) {
           nodes {
+            id
+            project {
+              title
+              number
+            }
+            content {
+              ... on Issue {
+                id
+                title
+                url
+                state
+                createdAt
+                updatedAt
+                labels(first: 5) {
+                  nodes {
+                    name
+                  }
+                }
+                assignees(first: 10) {
+                  nodes {
+                    login
+                    avatarUrl
+                  }
+                }
+              }
+            }
             fieldValues(first: 10) {
               nodes {
                 ... on ProjectV2ItemFieldTextValue {
@@ -48,47 +73,29 @@ export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
                 }
               }
             }
-            content {
-              ... on Issue {
-                id
-                title
-                url
-                state
-                createdAt
-                updatedAt
-                labels(first: 5) {
-                  nodes {
-                    name
-                  }
-                }
-                assignees(first: 10) {
-                  nodes {
-                    login
-                    avatarUrl
-                  }
-                }
-              }
-            }
           }
         }
       }
     }
   }
-}`;
+}
+  `;
 
   const response: GraphqlProjectIssuesResponseType =
     await githubGraphql<GraphqlProjectIssuesResponseType>(QUERY, {
-      org: process.env.NEXT_PUBLIC_GITHUB_REPO,
+      q: `org:${process.env.NEXT_PUBLIC_GITHUB_REPO} is:issue is:open`,
     });
+
+  const projectIssues = graphqlProjectIssuesResponseSchema.parse(response);
 
   const allIssues: ProjectIssuesType = [];
 
-  for (const project of response.organization.projectsV2.nodes) {
-    if (project.items.nodes.length === 0) {
+  for (const project of projectIssues.search.nodes) {
+    if (project.projectItems.nodes.length === 0) {
       continue;
     }
 
-    const projectIssues = project.items.nodes
+    const projectIssues = project.projectItems.nodes
       .filter((item) => Object.keys(item.content).length > 0)
       .filter((item) => {
         const statusField = item.fieldValues.nodes.find(
@@ -124,8 +131,8 @@ export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
           url: item.content.url,
           createdAt: item.content.createdAt,
           updatedAt: item.content.updatedAt,
-          project_name: project.title,
-          project_number: project.number,
+          project_name: item.project.title,
+          project_number: item.project.number,
           status: statusField?.name ?? null,
           priority: priorityField?.name ?? null,
           team: teamField?.name ?? null,
@@ -144,10 +151,3 @@ export async function fetchProjectIssues(): Promise<ProjectIssuesType> {
 
   return projectIssuesSchema.parse(allIssues);
 }
-
-export const fetchProjectIssuesOptions = () => {
-  return queryOptions({
-    queryKey: ["github_projects"],
-    queryFn: async () => fetchProjectIssues(),
-  });
-};

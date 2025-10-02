@@ -1,5 +1,6 @@
 import { graphql } from "@octokit/graphql";
 import ky from "ky";
+import "server-only";
 
 export const githubApi = ky.extend({
   prefixUrl: "https://api.github.com",

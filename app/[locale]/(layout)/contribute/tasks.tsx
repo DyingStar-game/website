@@ -1,12 +1,12 @@
 "use client";
 
-import { fetchProjectIssuesOptions } from "@feat/api/github/hooks/useGitHubData";
+import { projectIssuesQueryOptions } from "@feat/api/github/hooks/useProjectIssues";
 import IssueCard from "@feat/issue/IssueCard";
 import { LayoutSection } from "@feat/page/layout";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Tasks() {
-  const { data: projectIssues, error } = useQuery(fetchProjectIssuesOptions());
+  const { data: projectIssues, error } = useQuery(projectIssuesQueryOptions());
 
   return (
     <LayoutSection>
