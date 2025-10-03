@@ -12,6 +12,7 @@ import { LayoutSection } from "@feat/page/layout";
 import { useDebounce } from "@hooks/use-debounce";
 import { cn } from "@lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import { Badge } from "@ui/badge";
 import { Button } from "@ui/button";
 import { Input } from "@ui/input";
 import {
@@ -58,8 +59,16 @@ export default function Tasks() {
           className="flex-1"
           icon="puzzle"
           title="Domaines couverts"
-          count={2}
+          count={projectCount?.countByProject.length ?? 0}
         />
+      </div>
+
+      <div className="flex flex-wrap gap-4">
+        {projectCount?.countByProject.map((count) => (
+          <Badge key={count.value} variant="category">
+            {count.value} ({count.count})
+          </Badge>
+        ))}
       </div>
 
       <Input
@@ -80,16 +89,16 @@ export default function Tasks() {
               <IssueCard key={projectItem.id} issue={projectItem} index={idx} />
             ))
           ) : (
-            <div className="col-span-full flex h-70 flex-col items-center justify-center gap-4">
+            <div className="col-span-full flex h-143 flex-col items-center justify-center gap-4">
               <FileQuestionMark className="size-20" />
               <Typography variant="p">Not found</Typography>
             </div>
           )
         ) : (
           <>
-            <div className="h-70 rounded-md bg-gradient-to-br from-white/10 to-transparent to-70%" />
-            <div className="h-70 rounded-md bg-gradient-to-br from-white/10 to-transparent to-70%" />
-            <div className="h-70 rounded-md bg-gradient-to-br from-white/10 to-transparent to-70%" />
+            <div className="h-143 rounded-md bg-gradient-to-br from-white/10 to-transparent to-70%" />
+            <div className="h-143 rounded-md bg-gradient-to-br from-white/10 to-transparent to-70%" />
+            <div className="h-143 rounded-md bg-gradient-to-br from-white/10 to-transparent to-70%" />
           </>
         )}
       </div>

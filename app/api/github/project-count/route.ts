@@ -1,6 +1,7 @@
 import {
   getIssuesCount,
   getIssuesWithAssigneeCount,
+  getProjectCount,
 } from "@feat/api/github/hooks/indexedProjectIssues";
 import { NextResponse } from "next/server";
 
@@ -8,8 +9,9 @@ export async function GET() {
   try {
     const openIssueCount = await getIssuesCount();
     const openIssueWithAssigneeCount = await getIssuesWithAssigneeCount();
+    const countByProject = await getProjectCount();
     return NextResponse.json(
-      { openIssueCount, openIssueWithAssigneeCount },
+      { openIssueCount, openIssueWithAssigneeCount, countByProject },
       { status: 200 },
     );
   } catch (e: unknown) {

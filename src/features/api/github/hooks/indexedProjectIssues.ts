@@ -1,4 +1,5 @@
 import { meili } from "@feat/api/meilisearch";
+import type { FacetHit } from "meilisearch";
 
 import type {
   PaginateIndexedProjectIssuesType,
@@ -94,4 +95,12 @@ export async function getIssuesWithAssigneeCount(): Promise<number> {
   );
 
   return uniqueAssignees.length;
+}
+
+export async function getProjectCount(): Promise<FacetHit[]> {
+  const res = await meili
+    .index<ProjectIssueType>(ISSUES_INDEX)
+    .searchForFacetValues({ facetName: "project_name" });
+
+  return res.facetHits;
 }
