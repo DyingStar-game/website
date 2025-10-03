@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import CountInfo from "@components/DS/countInfo/CountInfo";
+import { Typography } from "@components/DS/typography";
 import { projectCountQueryOptions } from "@feat/api/github/hooks/projectCountQueryOptions";
 import { projectIssuesQueryOptions } from "@feat/api/github/hooks/projectIssuesQueryOptions";
 import type { PageInfoType } from "@feat/api/github/schema/projectIssues.model";
@@ -13,7 +14,7 @@ import { cn } from "@lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@ui/button";
 import { Input } from "@ui/input";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, FileQuestionMark } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function Tasks() {
@@ -21,7 +22,7 @@ export default function Tasks() {
   const [page, setPage] = useState<number>(1);
   const debounced = useDebounce(query, 500);
 
-  const { data: projectIssues } = useQuery(
+  const { data: projectIssues, isFetching } = useQuery(
     projectIssuesQueryOptions(page, debounced),
   );
 
@@ -60,15 +61,22 @@ export default function Tasks() {
           !projectIssues && "animate-pulse",
         )}
       >
-        {projectIssues && projectIssues.issues.length > 0 ? (
-          projectIssues.issues.map((projectItem, idx) => (
-            <IssueCard key={projectItem.id} issue={projectItem} index={idx} />
-          ))
+        {!isFetching ? (
+          projectIssues && projectIssues.issues.length > 0 ? (
+            projectIssues.issues.map((projectItem, idx) => (
+              <IssueCard key={projectItem.id} issue={projectItem} index={idx} />
+            ))
+          ) : (
+            <div className="col-span-full flex h-70 flex-col items-center justify-center gap-4">
+              <FileQuestionMark className="size-20" />
+              <Typography variant="p">Not found</Typography>
+            </div>
+          )
         ) : (
           <>
-            <div className="h-60 rounded-md bg-gradient-to-br from-white/10 to-transparent to-90%" />
-            <div className="h-60 rounded-md bg-gradient-to-br from-white/10 to-transparent to-90%" />
-            <div className="h-60 rounded-md bg-gradient-to-br from-white/10 to-transparent to-90%" />
+            <div className="h-70 rounded-md bg-gradient-to-br from-white/10 to-transparent to-70%" />
+            <div className="h-70 rounded-md bg-gradient-to-br from-white/10 to-transparent to-70%" />
+            <div className="h-70 rounded-md bg-gradient-to-br from-white/10 to-transparent to-70%" />
           </>
         )}
       </div>
