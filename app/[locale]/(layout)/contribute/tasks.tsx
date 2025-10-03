@@ -14,10 +14,17 @@ import { cn } from "@lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@ui/button";
 import { Input } from "@ui/input";
-import { ArrowLeft, ArrowRight, FileQuestionMark } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  FileQuestionMark,
+  SearchIcon,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function Tasks() {
+  const t = useTranslations("Issue");
+
   const [query, setQuery] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const debounced = useDebounce(query, 500);
@@ -34,7 +41,6 @@ export default function Tasks() {
 
   return (
     <LayoutSection>
-      <Input onChange={(e) => setQuery(e.target.value)} value={query} />
       <div className="flex flex-col gap-8 xl:flex-row">
         <CountInfo
           className="flex-1"
@@ -55,6 +61,13 @@ export default function Tasks() {
           count={2}
         />
       </div>
+
+      <Input
+        placeholder={t("IssueSearch.input.placeholder")}
+        icon={<SearchIcon size="16" />}
+        onChange={(e) => setQuery(e.target.value)}
+        value={query}
+      />
       <div
         className={cn(
           "grid grid-cols-1 gap-8 lg:grid-cols-2 2xl:grid-cols-3",

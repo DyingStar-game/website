@@ -17,6 +17,9 @@
         "next": "Next",
         "previous": "Previous"
       }
+    },
+    "IssueSearch": {
+      "input": { "placeholder": "Search a task by keyword" }
     }
   },
   "Landing": {

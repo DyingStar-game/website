@@ -17,6 +17,9 @@
         "next": "Suivante",
         "previous": "Précédente"
       }
+    },
+    "IssueSearch": {
+      "input": { "placeholder": "Rechercher une tâche par mot-clé" }
     }
   },
   "Landing": {

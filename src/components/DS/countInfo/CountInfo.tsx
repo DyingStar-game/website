@@ -30,7 +30,7 @@ const CountInfo = ({
         {icon && <DynamicIcon name={icon} className="size-10 shrink-0" />}
         <span className="truncate">{title}</span>
       </div>
-      <div className="flex min-w-43 items-center justify-center rounded-md bg-background p-4 text-3xl font-extrabold text-foreground">
+      <div className="flex min-w-43 items-center justify-center rounded-sm bg-background p-4 text-3xl font-extrabold text-foreground md:min-w-28">
         {format.number(count)}
       </div>
     </div>
