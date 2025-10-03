@@ -82,7 +82,7 @@ const TaskSection = async () => {
     <LayoutSection className="gap-14" size="container">
       <LayoutContentTitle
         title={t("title")}
-        action={{ label: t("action"), href: "#" }}
+        action={{ label: t("action"), href: LINKS.Project.Contribute.href() }}
       />
       <div className="gap-4 *:mb-4 xl:columns-2 2xl:columns-3"></div>
     </LayoutSection>

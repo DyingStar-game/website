@@ -13,6 +13,7 @@ import { cn } from "@lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
 import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@ui/tooltip";
 import { motion } from "framer-motion";
 import { ChevronRight, Tag, Users } from "lucide-react";
 import type { IconName } from "lucide-react/dynamic";
@@ -134,19 +135,23 @@ const IssueCard = ({ className, issue, index }: TaskCardProps) => {
           {issue.assignees.length > 0 && (
             <div className="flex -space-x-4">
               {issue.assignees.map((assignee) => (
-                <Avatar key={assignee.login} className={cn("size-9")}>
-                  {assignee.avatar_url && (
-                    <AvatarImage
-                      className="bg-white"
-                      src={assignee.avatar_url}
-                      alt={assignee.login}
-                      title={assignee.login}
-                    />
-                  )}
-                  <AvatarFallback>
-                    {assignee.login.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
+                <Tooltip key={assignee.login}>
+                  <TooltipTrigger asChild>
+                    <Avatar className={cn("size-9")}>
+                      {assignee.avatar_url && (
+                        <AvatarImage
+                          className="bg-white"
+                          src={assignee.avatar_url}
+                          alt={assignee.login}
+                        />
+                      )}
+                      <AvatarFallback>
+                        {assignee.login.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </TooltipTrigger>
+                  <TooltipContent>{assignee.login}</TooltipContent>
+                </Tooltip>
               ))}
             </div>
           )}

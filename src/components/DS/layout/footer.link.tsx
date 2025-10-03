@@ -11,7 +11,7 @@ const FOOTER_LINKS: NavigationLinksGroups = [
     title: "Project",
     links: [
       LINKS.Project.Roadmap,
-      LINKS.Project.Tickets,
+      LINKS.Project.Contribute,
       LINKS.Project.Launcher,
       LINKS.Project.Configuration,
       LINKS.Project.Changelog,

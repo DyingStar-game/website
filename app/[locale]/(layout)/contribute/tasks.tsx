@@ -12,33 +12,43 @@ import { LayoutSection } from "@feat/page/layout";
 import { useDebounce } from "@hooks/use-debounce";
 import { cn } from "@lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Badge } from "@ui/badge";
 import { Button } from "@ui/button";
 import { Input } from "@ui/input";
 import {
   ArrowLeft,
   ArrowRight,
+  Circle,
+  CircleCheckBig,
   FileQuestionMark,
+  Minus,
   SearchIcon,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 
 export default function Tasks() {
   const t = useTranslations("Issue");
+  const formatter = useFormatter();
 
   const [query, setQuery] = useState<string>("");
   const [page, setPage] = useState<number>(1);
+  const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
   const debounced = useDebounce(query, 500);
 
   const { data: projectIssues, isFetching } = useQuery(
-    projectIssuesQueryOptions(page, debounced),
+    projectIssuesQueryOptions(page, debounced, selectedProjects),
   );
 
   const { data: projectCount } = useQuery(projectCountQueryOptions());
 
+  const toggleProject = (value: string) => {
+    setSelectedProjects((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
+    );
+  };
+
   useEffect(() => {
     setPage(1);
-  }, [debounced]);
+  }, [debounced, selectedProjects]);
 
   return (
     <LayoutSection>
@@ -63,20 +73,46 @@ export default function Tasks() {
         />
       </div>
 
-      <div className="flex flex-wrap gap-4">
-        {projectCount?.countByProject.map((count) => (
-          <Badge key={count.value} variant="category">
-            {count.value} ({count.count})
-          </Badge>
-        ))}
-      </div>
+      <LayoutSection className="gap-5 rounded-md bg-card p-8" padding="none">
+        <Input
+          placeholder={t("IssueSearch.input.placeholder")}
+          icon={<SearchIcon />}
+          onChange={(e) => setQuery(e.target.value)}
+          value={query}
+        />
+        <div className="flex flex-col flex-wrap gap-4 xl:flex-row">
+          {projectCount?.countByProject.map((count) => {
+            const isSelected = selectedProjects.includes(count.value);
 
-      <Input
-        placeholder={t("IssueSearch.input.placeholder")}
-        icon={<SearchIcon size="16" />}
-        onChange={(e) => setQuery(e.target.value)}
-        value={query}
-      />
+            return (
+              <Button
+                key={count.value}
+                variant="search"
+                onClick={() => toggleProject(count.value)}
+                className={cn(
+                  isSelected && "active",
+                  "justify-start gap-3 pr-4 pl-3.5",
+                )}
+              >
+                <span>
+                  {isSelected ? (
+                    <CircleCheckBig className="size-5" />
+                  ) : (
+                    <Circle className="size-5" />
+                  )}
+                </span>
+                <span className="flex-1 text-left">{count.value}</span>
+
+                <span className="ml-1 flex w-2 justify-center">
+                  <Minus className="size-9 rotate-90" strokeWidth={1} />
+                </span>
+                <span className="min-w-6">{formatter.number(count.count)}</span>
+              </Button>
+            );
+          })}
+        </div>
+      </LayoutSection>
+
       <div
         className={cn(
           "grid grid-cols-1 gap-8 lg:grid-cols-2 2xl:grid-cols-3",

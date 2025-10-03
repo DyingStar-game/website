@@ -138,7 +138,9 @@ export async function fetchProjectIssues(
           url: item.content.url,
           createdAt: item.content.createdAt,
           updatedAt: item.content.updatedAt,
-          project_name: item.project.title,
+          project_name: item.project.title
+            .replace(/\p{Extended_Pictographic}/gu, "")
+            .trim(),
           project_number: item.project.number,
           status: statusField?.name ?? null,
           priority: priorityField?.name ?? null,

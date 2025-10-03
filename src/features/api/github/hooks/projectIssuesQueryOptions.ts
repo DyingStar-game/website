@@ -2,13 +2,20 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { paginateIndexedProjectIssuesSchema } from "../schema/projectIssues.model";
 
-export function projectIssuesQueryOptions(pageIndex: number, query?: string) {
+export function projectIssuesQueryOptions(
+  pageIndex: number,
+  query?: string,
+  projects?: string[],
+) {
   return queryOptions({
-    queryKey: ["github_project_issues", { pageIndex, query }],
+    queryKey: ["github_project_issues", { pageIndex, query, projects }],
     queryFn: async ({ signal }) => {
       const params = new URLSearchParams();
       if (pageIndex) params.set("page", pageIndex.toString());
       if (query) params.set("query", query);
+      if (projects?.length) {
+        projects.forEach((project) => params.append("projects", project));
+      }
 
       const qs = params.toString();
 

@@ -36,8 +36,8 @@ export const CtaWithButton = ({
             className={cn(buttonVariants({ variant: "invert", size: "xl" }))}
             {...action}
           >
-            {action.label}
             {action.icon && action.icon}
+            {action.label}
           </Link>
         </div>
       </Layout>

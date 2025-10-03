@@ -48,13 +48,15 @@ async function fetchAllProjectIssues(
 }
 
 export async function searchProjectIssues(
-  query: string,
   page: number,
-  project?: string,
+  query: string | null,
+  projects: string[] | null,
 ) {
   const filter = [DEFAULT_FILTER];
-  if (project) {
-    filter.push(`project_name = "${project}"`);
+  if (projects) {
+    filter.push(
+      projects.map((project) => `project_name = "${project}"`).join(" OR "),
+    );
   }
 
   const res = await meili.index<ProjectIssueType>(ISSUES_INDEX).search(query, {
@@ -98,9 +100,10 @@ export async function getIssuesWithAssigneeCount(): Promise<number> {
 }
 
 export async function getProjectCount(): Promise<FacetHit[]> {
+  const filter = [DEFAULT_FILTER];
   const res = await meili
     .index<ProjectIssueType>(ISSUES_INDEX)
-    .searchForFacetValues({ facetName: "project_name" });
+    .searchForFacetValues({ filter, facetName: "project_name" });
 
   return res.facetHits;
 }

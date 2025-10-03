@@ -1,5 +1,6 @@
 import { Info } from "lucide-react";
 import { z } from "zod";
+
 import type { GenericLinkSchema, NavigationLink } from "./navigation.type";
 
 // Constantes pour les chemins
@@ -53,7 +54,12 @@ export const LINKS = {
   },
 
   Project: {
-    Tickets: createLink("/tickets", "Tickets", { disabled: true }, false),
+    Contribute: createLink(
+      "/contribute",
+      "Contribute",
+      { disabled: false },
+      false,
+    ),
     Launcher: createLink("/launcher", "Launcher", { disabled: true }, false),
     Configuration: createLink(
       "/configuration",
