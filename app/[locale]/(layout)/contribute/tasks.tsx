@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import CountInfo from "@components/DS/countInfo/CountInfo";
 import { projectCountQueryOptions } from "@feat/api/github/hooks/projectCountQueryOptions";
@@ -11,7 +11,7 @@ import { LayoutSection } from "@feat/page/layout";
 import { useDebounce } from "@hooks/use-debounce";
 import { cn } from "@lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Button, buttonVariants } from "@ui/button";
+import { Button } from "@ui/button";
 import { Input } from "@ui/input";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -26,6 +26,10 @@ export default function Tasks() {
   );
 
   const { data: projectCount } = useQuery(projectCountQueryOptions());
+
+  useEffect(() => {
+    setPage(1);
+  }, [debounced]);
 
   return (
     <LayoutSection>
