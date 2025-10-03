@@ -80,15 +80,13 @@ export default function Tasks() {
           </>
         )}
       </div>
-      {projectIssues && (
-        <IssuePagination pageInfo={projectIssues.pageInfo} setPage={setPage} />
-      )}
+      <IssuePagination pageInfo={projectIssues?.pageInfo} setPage={setPage} />
     </LayoutSection>
   );
 }
 
 type IssuePaginationProps = {
-  pageInfo: PageInfoType;
+  pageInfo?: PageInfoType;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -101,7 +99,7 @@ const IssuePagination = ({ pageInfo, setPage }: IssuePaginationProps) => {
         <Button
           variant="outline"
           className="group"
-          disabled={!pageInfo.previousPage}
+          disabled={!pageInfo?.previousPage}
           onClick={() => setPage((p) => p - 1)}
         >
           <ArrowLeft className="transition-transform group-hover:-translate-x-1 group-hover:animate-pulse" />
@@ -110,30 +108,32 @@ const IssuePagination = ({ pageInfo, setPage }: IssuePaginationProps) => {
         </Button>
       </div>
 
-      <div className="flex items-center gap-4">
-        {Array.from({ length: pageInfo.totalPages }).map((_, i) => {
-          const pageNumber = i + 1;
-          const isActive = pageNumber === pageInfo.currentPage;
+      {pageInfo && (
+        <div className="flex items-center gap-4">
+          {Array.from({ length: pageInfo.totalPages }).map((_, i) => {
+            const pageNumber = i + 1;
+            const isActive = pageNumber === pageInfo.currentPage;
 
-          return (
-            <Button
-              key={pageNumber}
-              variant={isActive ? "default" : "outline"}
-              size="sm"
-              disabled={isActive}
-              onClick={() => setPage(pageNumber)}
-            >
-              {pageNumber}
-            </Button>
-          );
-        })}
-      </div>
+            return (
+              <Button
+                key={pageNumber}
+                variant={isActive ? "default" : "outline"}
+                size="sm"
+                disabled={isActive}
+                onClick={() => setPage(pageNumber)}
+              >
+                {pageNumber}
+              </Button>
+            );
+          })}
+        </div>
+      )}
 
       <div className="flex flex-1 justify-end">
         <Button
           variant="outline"
           className="group"
-          disabled={!pageInfo.nextPage}
+          disabled={!pageInfo?.nextPage}
           onClick={() => setPage((p) => p + 1)}
         >
           {t("button.next")}
