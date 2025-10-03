@@ -1,7 +1,7 @@
 "use client";
 
 import type { MouseEventHandler } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import CountInfo from "@components/DS/countInfo/CountInfo";
 import { projectCountQueryOptions } from "@feat/api/github/hooks/projectCountQueryOptions";
@@ -9,18 +9,22 @@ import { projectIssuesQueryOptions } from "@feat/api/github/hooks/projectIssuesQ
 import { usePagination } from "@feat/api/github/hooks/usePagination";
 import IssueCard from "@feat/issue/IssueCard";
 import { LayoutSection } from "@feat/page/layout";
+import { useDebounce } from "@hooks/use-debounce";
 import { cn } from "@lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@ui/button";
+import { Input } from "@ui/input";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function Tasks() {
   const { canGoPrev, canGoNext, goPrev, goNext, setPageInfo, pageIndex } =
     usePagination();
+  const [query, setQuery] = useState<string>("");
+  const debounced = useDebounce(query, 500);
 
   const { data: projectIssues } = useQuery(
-    projectIssuesQueryOptions(pageIndex),
+    projectIssuesQueryOptions(pageIndex, debounced),
   );
 
   const { data: projectCount } = useQuery(projectCountQueryOptions());
@@ -33,6 +37,7 @@ export default function Tasks() {
 
   return (
     <LayoutSection>
+      <Input onChange={(e) => setQuery(e.target.value)} value={query} />
       <div className="flex flex-col gap-8 xl:flex-row">
         <CountInfo
           className="flex-1"

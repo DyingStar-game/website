@@ -45,6 +45,13 @@ endef
 install-node-modules:
 	@$(ensure_node_modules)
 
+# Start development container
+.PHONY: up
+up:
+	@echo "$(CYAN)Starting app...$(RESET)"
+	@UID=$(shell id -u) GID=$(shell id -g) COMPOSE_BAKE=true $(DOCKER_COMPOSE) up
+
+
 # Run development server
 .PHONY: start-dev dev
 start-dev dev:
@@ -52,7 +59,7 @@ start-dev dev:
 	$(call ensure_node_modules)
 	$(call ensure_env_file)
 	@UID=$(shell id -u) GID=$(shell id -g) COMPOSE_BAKE=true $(DOCKER_COMPOSE) build --no-cache
-	@UID=$(shell id -u) GID=$(shell id -g) COMPOSE_BAKE=true $(DOCKER_COMPOSE) up
+	@$(MAKE) up
 
 # Build the application
 .PHONY: build

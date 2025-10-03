@@ -12,6 +12,8 @@ services:
     env_file:
       - ../.env.local
     tty: true
+    networks:
+      - backend
 
   meilisearch:
     image: getmeili/meilisearch:v1.22
@@ -23,6 +25,12 @@ services:
       MEILI_ENV: "production"
     volumes:
       - meili_data:/meili_data
+    networks:
+      - backend
 
 volumes:
   meili_data:
+
+networks:
+  backend:
+    driver: bridge

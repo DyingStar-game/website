@@ -6,7 +6,8 @@ export async function GET(request: NextRequest) {
   try {
     const params = request.nextUrl.searchParams;
     const page = params.get("page") ?? "0";
-    const issues = await searchProjectIssues("", parseInt(page, 10));
+    const query = params.get("query") ?? "";
+    const issues = await searchProjectIssues(query, parseInt(page, 10));
 
     return NextResponse.json(issues, { status: 200 });
   } catch (e: unknown) {
