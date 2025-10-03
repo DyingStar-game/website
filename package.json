@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "lint": "eslint . --fix",
     "start": "next start",
-    "ts": "tsc --noEmit"
+    "ts": "tsc --noEmit",
+    "adr:generate": "adr-log -d ./Documentation/Guidelines/architecture/ADR -i ./Documentation/Guidelines/architecture/ADRs.md"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -98,6 +99,7 @@
     "@typescript-eslint/eslint-plugin": "^8.42.0",
     "@typescript-eslint/parser": "^8.42.0",
     "@vitejs/plugin-react": "^5.0.2",
+    "adr-log": "^2.2.0",
     "cross-fetch": "^4.1.0",
     "dotenv": "^17.2.2",
     "eslint": "^9.35.0",
