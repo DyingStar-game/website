@@ -1,11 +1,15 @@
-import { getIssuesCount } from "@feat/api/github/hooks/indexedProjectIssues";
+import {
+  getIssuesCount,
+  getIssuesWithAssigneeCount,
+} from "@feat/api/github/hooks/indexedProjectIssues";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const openIssueWithAssigneeCount = await getIssuesCount();
+    const openIssueCount = await getIssuesCount();
+    const openIssueWithAssigneeCount = await getIssuesWithAssigneeCount();
     return NextResponse.json(
-      { openIssueWithAssigneeCount: openIssueWithAssigneeCount },
+      { openIssueCount, openIssueWithAssigneeCount },
       { status: 200 },
     );
   } catch (e: unknown) {

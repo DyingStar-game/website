@@ -111,6 +111,7 @@ export const projectIssueSchema = z.object({
   team: z.string().nullish(),
   size: z.enum(IssueSize).nullish(),
   discord_url: z.string().nullish(),
+  has_assignees: z.boolean(),
   assignees: z.array(
     z.object({
       login: z.string(),
@@ -123,7 +124,6 @@ export const projectIssueSchema = z.object({
 export const projectIssuesSchema = z.array(projectIssueSchema);
 
 export const graphqlPaginatedProjectIssuesSchema = z.object({
-  issueCount: z.number(),
   pageInfo: graphqlPageInfoSchema,
   issues: projectIssuesSchema,
 });

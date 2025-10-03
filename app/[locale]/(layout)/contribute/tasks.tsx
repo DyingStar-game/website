@@ -46,7 +46,7 @@ export default function Tasks() {
           className="flex-1"
           icon="bookmark-check"
           title="Tâches disponibles"
-          count={projectIssues?.issueCount ?? 0}
+          count={projectCount?.openIssueCount ?? 0}
         />
         <CountInfo
           className="flex-1"

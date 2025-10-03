@@ -151,6 +151,7 @@ export async function fetchProjectIssues(
           priority: priorityField?.name ?? null,
           team: teamField?.name ?? null,
           labels: item.content.labels.nodes.map((label) => label.name),
+          has_assignees: item.content.assignees.nodes.length > 0,
           assignees: item.content.assignees.nodes.map((assignee) => ({
             login: assignee.login,
             avatar_url: assignee.avatarUrl,
@@ -164,7 +165,6 @@ export async function fetchProjectIssues(
   }
 
   const paginateProjectIssues: GraphqlPaginatedProjectIssuesType = {
-    issueCount: projectIssues.search.issueCount,
     pageInfo: projectIssues.search.pageInfo,
     issues: allIssues,
   };
