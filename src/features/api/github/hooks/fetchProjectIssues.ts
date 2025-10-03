@@ -111,13 +111,6 @@ export async function fetchProjectIssues(
 
     const projectIssues = project.projectItems.nodes
       .filter((item) => Object.keys(item.content).length > 0)
-      .filter((item) => {
-        const statusField = item.fieldValues.nodes.find(
-          (field) => field.field && field.field.name === "Status",
-        );
-
-        return ["Todo", "In progress"].includes(statusField?.name ?? "");
-      })
       .map((item) => {
         const statusField = item.fieldValues.nodes.find(
           (field) => field.field && field.field.name === "Status",
