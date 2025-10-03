@@ -1,30 +1,13 @@
-# DyingStar Website
+# [DyingStar - Webapp] Collaboration Guideline's wiki
 
-## Local Development
+Here you'll find all the documents you need to collaborate on the project.
 
-### Requirements
-- [Docker](https://www.docker.com/get-started)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- [Make](https://www.gnu.org/software/make/) to use the provided Makefile (optional but recommended)
+| Topic                                                                        | Description                                                        |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| [Onboarding](Documentation\Guidelines\Onboarding.md)                         | Documents related to new developer onboarding                      |
+| [Development Process](Documentation\Guidelines\Development-Process.md)       | Documents related to development process                           |
+| [Architecture](Documentation\Guidelines\Architecture.md)                     | Documents related to architecture                                  |
+| [Code Review Process](Documentation\Guidelines\Code-Review-Process.md)       | Documents related to code review process, definition of ready/done |
+| [Release and Deployment](Documentation\Guidelines\Release-And-Deployment.md) | Documents related to release and deployment                        |
 
-### Setup
-1. Copy `.env.example` to `.env.local` and fill in the required environment variables
-2. Run `make dev` to start the development server. This will install dependencies and start the server.
-3. Open your browser and navigate to `http://localhost:3000` to see the website.
-4. To stop the development server, stop the Docker container with `Ctrl+C` in the terminal where `make dev` was run.
-
-### Notes
-- The development server supports hot-reloading, so any changes you make to the code will automatically be reflected in the browser.
-- If you need to install new dependencies, you can do so by running `make add-dependency <package-name>` or `make add-dev-dependency <package-name>` for dev dependencies.
-
-## CI/CD Pipeline
-
-The project uses GitHub Actions for continuous integration and deployment. The workflow is defined in `.github/workflows/build.yml`.
-
-### Stages
-
-1. **Next.js Build**: This stage installs dependencies, lints the code, and builds the Next.js application.
-2. **Docker Build and Push**: This stage builds a Docker image of the application and pushes it to the registry. The push is triggered only on the `main` branch with a tag starting with `v`.
- 
-### Environment Variables
-- The workflow expects a secret named `WEBSITE_ENV_PRODUCTION_FILE` containing the contents of the `.env.production` file. This file is created during the CI process to ensure that sensitive information is not hardcoded in the repository
+**NB** : Got an idea ? Or a suggestion ? Feel free to open an issue or contact one of our developers.
