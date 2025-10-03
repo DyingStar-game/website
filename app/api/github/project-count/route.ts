@@ -1,9 +1,9 @@
-import { fetchOpenIssueWithAssigneeCount } from "@feat/api/github/hooks/fetchOpenIssueWithAssigneeCount";
+import { getIssuesCount } from "@feat/api/github/hooks/indexedProjectIssues";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const openIssueWithAssigneeCount = await fetchOpenIssueWithAssigneeCount();
+    const openIssueWithAssigneeCount = await getIssuesCount();
     return NextResponse.json(
       { openIssueWithAssigneeCount: openIssueWithAssigneeCount },
       { status: 200 },

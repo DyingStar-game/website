@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import CountInfo from "@components/DS/countInfo/CountInfo";
 import { projectCountQueryOptions } from "@feat/api/github/hooks/projectCountQueryOptions";
 import { projectIssuesQueryOptions } from "@feat/api/github/hooks/projectIssuesQueryOptions";
-import { useForwardCursorPager } from "@feat/api/github/hooks/useForwardCursorPager";
+import { usePagination } from "@feat/api/github/hooks/usePagination";
 import IssueCard from "@feat/issue/IssueCard";
 import { LayoutSection } from "@feat/page/layout";
 import { cn } from "@lib/utils";
@@ -16,26 +16,20 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function Tasks() {
-  const {
-    after: afterCursor,
-    canGoPrev,
-    canGoNext,
-    goPrev,
-    goNext,
-    setPageInfo,
-  } = useForwardCursorPager();
+  const { canGoPrev, canGoNext, goPrev, goNext, setPageInfo, pageIndex } =
+    usePagination();
 
   const { data: projectIssues } = useQuery(
-    projectIssuesQueryOptions(afterCursor),
+    projectIssuesQueryOptions(pageIndex),
   );
 
   const { data: projectCount } = useQuery(projectCountQueryOptions());
 
   useEffect(() => {
-    if (projectIssues?.pageInfo) {
-      setPageInfo(projectIssues.pageInfo);
-    }
-  }, [projectIssues?.pageInfo, setPageInfo]);
+    setPageInfo({
+      hasNextPage: projectIssues?.hasNextPage ?? false,
+    });
+  }, [projectIssues?.hasNextPage, setPageInfo]);
 
   return (
     <LayoutSection>
