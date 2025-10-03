@@ -2,8 +2,8 @@ import "server-only";
 
 import { githubGraphql } from "../githubApi";
 import type {
+  GraphqlPaginatedProjectIssuesType,
   IssueSize,
-  PaginateProjectIssuesType,
 } from "../schema/projectIssues.model";
 import {
   type GraphqlProjectIssuesResponseType,
@@ -14,7 +14,7 @@ import {
 
 export async function fetchProjectIssues(
   cursor?: string,
-): Promise<PaginateProjectIssuesType> {
+): Promise<GraphqlPaginatedProjectIssuesType> {
   const QUERY = `
   query GetIssues($q: String!, $searchPageSize: Int = 5, $cursor: String) {
     search(first: $searchPageSize, after: $cursor, query: $q, type: ISSUE) {
@@ -163,7 +163,7 @@ export async function fetchProjectIssues(
     allIssues.push(...projectIssues);
   }
 
-  const paginateProjectIssues: PaginateProjectIssuesType = {
+  const paginateProjectIssues: GraphqlPaginatedProjectIssuesType = {
     issueCount: projectIssues.search.issueCount,
     pageInfo: projectIssues.search.pageInfo,
     issues: allIssues,
