@@ -59,7 +59,7 @@ const projectItemsSchema = z.object({
   ),
 });
 
-const pageInfoSchema = z.object({
+const graphqlPageInfoSchema = z.object({
   hasNextPage: z.boolean(),
   endCursor: z.string().nullish(),
 });
@@ -67,7 +67,7 @@ const pageInfoSchema = z.object({
 export const graphqlProjectIssuesResponseSchema = z.object({
   search: z.object({
     issueCount: z.number(),
-    pageInfo: pageInfoSchema,
+    pageInfo: graphqlPageInfoSchema,
     nodes: z.array(
       z.object({
         id: z.string(),
@@ -122,15 +122,22 @@ export const projectIssueSchema = z.object({
 
 export const projectIssuesSchema = z.array(projectIssueSchema);
 
-export const paginateProjectIssuesSchema = z.object({
+export const graphqlPaginatedProjectIssuesSchema = z.object({
   issueCount: z.number(),
-  pageInfo: pageInfoSchema,
+  pageInfo: graphqlPageInfoSchema,
   issues: projectIssuesSchema,
+});
+
+const pageInfoSchema = z.object({
+  totalPages: z.number(),
+  currentPage: z.number(),
+  previousPage: z.number().nullish(),
+  nextPage: z.number().nullish(),
 });
 
 export const paginateIndexedProjectIssuesSchema = z.object({
   issueCount: z.number(),
-  hasNextPage: z.boolean(),
+  pageInfo: pageInfoSchema,
   issues: projectIssuesSchema,
 });
 
@@ -140,11 +147,14 @@ export type GraphqlProjectIssuesResponseType = z.infer<
 
 export type ProjectIssueType = z.infer<typeof projectIssueSchema>;
 export type ProjectIssuesType = z.infer<typeof projectIssuesSchema>;
-export type PageInfoType = z.infer<typeof pageInfoSchema>;
-export type PaginateProjectIssuesType = z.infer<
-  typeof paginateProjectIssuesSchema
+export type GraphqlPageInfoType = z.infer<typeof graphqlPageInfoSchema>;
+
+export type GraphqlPaginatedProjectIssuesType = z.infer<
+  typeof graphqlPaginatedProjectIssuesSchema
 >;
 
 export type PaginateIndexedProjectIssuesType = z.infer<
   typeof paginateIndexedProjectIssuesSchema
 >;
+
+export type PageInfoType = z.infer<typeof pageInfoSchema>;

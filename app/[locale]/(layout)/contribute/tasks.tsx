@@ -1,39 +1,31 @@
 "use client";
 
-import type { MouseEventHandler } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import CountInfo from "@components/DS/countInfo/CountInfo";
 import { projectCountQueryOptions } from "@feat/api/github/hooks/projectCountQueryOptions";
 import { projectIssuesQueryOptions } from "@feat/api/github/hooks/projectIssuesQueryOptions";
-import { usePagination } from "@feat/api/github/hooks/usePagination";
+import type { PageInfoType } from "@feat/api/github/schema/projectIssues.model";
 import IssueCard from "@feat/issue/IssueCard";
 import { LayoutSection } from "@feat/page/layout";
 import { useDebounce } from "@hooks/use-debounce";
 import { cn } from "@lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "@ui/button";
+import { Button, buttonVariants } from "@ui/button";
 import { Input } from "@ui/input";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function Tasks() {
-  const { canGoPrev, canGoNext, goPrev, goNext, setPageInfo, pageIndex } =
-    usePagination();
   const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
   const debounced = useDebounce(query, 500);
 
   const { data: projectIssues } = useQuery(
-    projectIssuesQueryOptions(pageIndex, debounced),
+    projectIssuesQueryOptions(page, debounced),
   );
 
   const { data: projectCount } = useQuery(projectCountQueryOptions());
-
-  useEffect(() => {
-    setPageInfo({
-      hasNextPage: projectIssues?.hasNextPage ?? false,
-    });
-  }, [projectIssues?.hasNextPage, setPageInfo]);
 
   return (
     <LayoutSection>
@@ -76,29 +68,19 @@ export default function Tasks() {
           </>
         )}
       </div>
-      <IssuePagination
-        canGoNext={canGoNext}
-        canGoPrev={canGoPrev}
-        goNext={goNext}
-        goPrev={goPrev}
-      />
+      {projectIssues && (
+        <IssuePagination pageInfo={projectIssues.pageInfo} setPage={setPage} />
+      )}
     </LayoutSection>
   );
 }
 
 type IssuePaginationProps = {
-  goPrev: MouseEventHandler<HTMLButtonElement>;
-  goNext: MouseEventHandler<HTMLButtonElement>;
-  canGoPrev: boolean;
-  canGoNext: boolean;
+  pageInfo: PageInfoType;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const IssuePagination = ({
-  goPrev,
-  goNext,
-  canGoPrev,
-  canGoNext,
-}: IssuePaginationProps) => {
+const IssuePagination = ({ pageInfo, setPage }: IssuePaginationProps) => {
   const t = useTranslations("Issue.IssuePagination");
 
   return (
@@ -107,8 +89,8 @@ const IssuePagination = ({
         <Button
           variant="outline"
           className="group"
-          disabled={!canGoPrev}
-          onClick={goPrev}
+          disabled={!pageInfo.previousPage}
+          onClick={() => setPage((p) => p - 1)}
         >
           <ArrowLeft className="transition-transform group-hover:-translate-x-1 group-hover:animate-pulse" />
 
@@ -116,12 +98,31 @@ const IssuePagination = ({
         </Button>
       </div>
 
+      <div className="flex items-center gap-4">
+        {Array.from({ length: pageInfo.totalPages }).map((_, i) => {
+          const pageNumber = i + 1;
+          const isActive = pageNumber === pageInfo.currentPage;
+
+          return (
+            <Button
+              key={pageNumber}
+              variant={isActive ? "default" : "outline"}
+              size="sm"
+              disabled={isActive}
+              onClick={() => setPage(pageNumber)}
+            >
+              {pageNumber}
+            </Button>
+          );
+        })}
+      </div>
+
       <div className="flex flex-1 justify-end">
         <Button
           variant="outline"
           className="group"
-          disabled={!canGoNext}
-          onClick={goNext}
+          disabled={!pageInfo.nextPage}
+          onClick={() => setPage((p) => p + 1)}
         >
           {t("button.next")}
           <ArrowRight className="transition-transform group-hover:translate-x-1 group-hover:animate-pulse" />

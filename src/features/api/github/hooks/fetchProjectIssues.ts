@@ -8,8 +8,8 @@ import type {
 import {
   type GraphqlProjectIssuesResponseType,
   type ProjectIssuesType,
+  graphqlPaginatedProjectIssuesSchema,
   graphqlProjectIssuesResponseSchema,
-  paginateProjectIssuesSchema,
 } from "../schema/projectIssues.model";
 
 export async function fetchProjectIssues(
@@ -169,5 +169,5 @@ export async function fetchProjectIssues(
     issues: allIssues,
   };
 
-  return paginateProjectIssuesSchema.parse(paginateProjectIssues);
+  return graphqlPaginatedProjectIssuesSchema.parse(paginateProjectIssues);
 }

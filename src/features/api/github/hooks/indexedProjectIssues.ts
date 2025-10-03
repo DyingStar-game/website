@@ -2,13 +2,12 @@ import { meili } from "@feat/api/meilisearch";
 
 import type {
   PaginateIndexedProjectIssuesType,
-  PaginateProjectIssuesType,
   ProjectIssueType,
 } from "../schema/projectIssues.model";
 import { fetchOpenIssueWithAssigneeCount } from "./fetchOpenIssueWithAssigneeCount";
 import { fetchProjectIssues } from "./fetchProjectIssues";
 
-type AllProjectIssues = PaginateProjectIssuesType["issues"];
+type AllProjectIssues = PaginateIndexedProjectIssuesType["issues"];
 
 const ISSUES_INDEX = "gh_issues";
 const ISSUES_COUNT_INDEX = "gh_issues_count";
@@ -64,7 +63,7 @@ export async function searchProjectIssues(
   }
 
   const res = await meili.index<ProjectIssueType>(ISSUES_INDEX).search(query, {
-    hitsPerPage: 20,
+    hitsPerPage: 9,
     page,
     filter,
   });
@@ -72,7 +71,12 @@ export async function searchProjectIssues(
   const pageResponse: PaginateIndexedProjectIssuesType = {
     issueCount: res.totalHits,
     issues: res.hits,
-    hasNextPage: res.page < res.totalPages,
+    pageInfo: {
+      currentPage: res.page,
+      totalPages: res.totalPages,
+      previousPage: res.page > 1 ? res.page - 1 : undefined,
+      nextPage: res.page < res.totalPages ? res.page + 1 : undefined,
+    },
   };
 
   return pageResponse;
