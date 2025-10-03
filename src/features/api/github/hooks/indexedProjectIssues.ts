@@ -9,15 +9,25 @@ import { fetchProjectIssues } from "./fetchProjectIssues";
 
 const ISSUES_INDEX = "gh_issues";
 
+const DEFAULT_FILTER = 'status = "todo" OR status = "in progress"';
+
 export async function updateProjectIssues() {
   const allIssues = await fetchAllProjectIssues();
 
   await meili.deleteIndexIfExists(ISSUES_INDEX);
-  await meili.createIndex(ISSUES_INDEX, { primaryKey: "id" });
-  await meili
+
+  const createTask = await meili.createIndex(ISSUES_INDEX, {
+    primaryKey: "id",
+  });
+  await meili.tasks.waitForTask(createTask.taskUid);
+
+  const filterTask = await meili
     .index(ISSUES_INDEX)
-    .updateFilterableAttributes(["project_name", "has_assignees"]);
-  await meili.index(ISSUES_INDEX).addDocuments(allIssues);
+    .updateFilterableAttributes(["project_name", "has_assignees", "status"]);
+  await meili.tasks.waitForTask(filterTask.taskUid);
+
+  const addTask = await meili.index(ISSUES_INDEX).addDocuments(allIssues);
+  await meili.tasks.waitForTask(addTask.taskUid);
 }
 
 async function fetchAllProjectIssues(
@@ -41,9 +51,9 @@ export async function searchProjectIssues(
   page: number,
   project?: string,
 ) {
-  const filter = [];
+  const filter = [DEFAULT_FILTER];
   if (project) {
-    filter.push([`project_name = "${project}"`]);
+    filter.push(`project_name = "${project}"`);
   }
 
   const res = await meili.index<ProjectIssueType>(ISSUES_INDEX).search(query, {
@@ -67,14 +77,16 @@ export async function searchProjectIssues(
 }
 
 export async function getIssuesCount(): Promise<number> {
-  const res = await meili.index<ProjectIssueType>(ISSUES_INDEX).search(null);
+  const res = await meili.index<ProjectIssueType>(ISSUES_INDEX).search(null, {
+    filter: [DEFAULT_FILTER],
+  });
 
   return res.estimatedTotalHits;
 }
 
 export async function getIssuesWithAssigneeCount(): Promise<number> {
   const res = await meili.index<ProjectIssueType>(ISSUES_INDEX).search("", {
-    filter: "has_assignees = true",
+    filter: ["has_assignees = true", DEFAULT_FILTER],
   });
 
   const uniqueAssignees = Array.from(
