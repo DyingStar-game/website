@@ -1,13 +1,13 @@
+import { searchProjectIssues } from "@feat/api/github/hooks/indexedProjectIssues";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { fetchProjectIssues } from "../../../../src/features/api/github/hooks/fetchProjectIssues";
-
 export async function GET(request: NextRequest) {
   try {
-    const cursor = request.nextUrl.searchParams.get("cursor") ?? undefined;
+    const params = request.nextUrl.searchParams;
+    const page = params.get("page") ?? "0";
+    const issues = await searchProjectIssues("", parseInt(page, 10));
 
-    const issues = await fetchProjectIssues(cursor);
     return NextResponse.json(issues, { status: 200 });
   } catch (e: unknown) {
     const message =

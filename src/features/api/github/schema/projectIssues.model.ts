@@ -128,6 +128,12 @@ export const paginateProjectIssuesSchema = z.object({
   issues: projectIssuesSchema,
 });
 
+export const paginateIndexedProjectIssuesSchema = z.object({
+  issueCount: z.number(),
+  hasNextPage: z.boolean(),
+  issues: projectIssuesSchema,
+});
+
 export type GraphqlProjectIssuesResponseType = z.infer<
   typeof graphqlProjectIssuesResponseSchema
 >;
@@ -137,4 +143,8 @@ export type ProjectIssuesType = z.infer<typeof projectIssuesSchema>;
 export type PageInfoType = z.infer<typeof pageInfoSchema>;
 export type PaginateProjectIssuesType = z.infer<
   typeof paginateProjectIssuesSchema
+>;
+
+export type PaginateIndexedProjectIssuesType = z.infer<
+  typeof paginateIndexedProjectIssuesSchema
 >;
