@@ -1,6 +1,8 @@
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
 import { Typography } from "@components/DS/typography";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
+import { searchProjectIssues } from "@feat/api/github/hooks/indexedProjectIssues";
+import IssueCard from "@feat/issue/IssueCard";
 import { LINKS } from "@feat/navigation/Links";
 import NewsItem from "@feat/news/NewsItem";
 import NewsItemLight from "@feat/news/NewsItemLight";
@@ -79,6 +81,8 @@ const ProjectDescriptionSection = async () => {
 const TaskSection = async () => {
   const t = await getTranslations("Landing.Task");
 
+  const issues = await searchProjectIssues(1, null, null, 6);
+
   return (
     <LayoutSection className="gap-14" size="container">
       <LayoutContentTitle
@@ -86,7 +90,9 @@ const TaskSection = async () => {
         action={{ label: t("action"), href: LINKS.Project.Contribute.href() }}
       />
       <div className="gap-4 *:mb-4 xl:columns-2 2xl:columns-3">
-        {/* TODO: Implement 6 Last Tasks */}
+        {issues.issues.map((issue, idx) => (
+          <IssueCard key={issue.id} issue={issue} index={idx} />
+        ))}
       </div>
     </LayoutSection>
   );

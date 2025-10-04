@@ -51,6 +51,7 @@ export async function searchProjectIssues(
   page: number,
   query: string | null,
   projects: string[] | null,
+  pageSize = 9,
 ) {
   const filter = [DEFAULT_FILTER];
   if (projects) {
@@ -60,7 +61,7 @@ export async function searchProjectIssues(
   }
 
   const res = await meili.index<ProjectIssueType>(ISSUES_INDEX).search(query, {
-    hitsPerPage: 9,
+    hitsPerPage: pageSize,
     page,
     filter,
   });
