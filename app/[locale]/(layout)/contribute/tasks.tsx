@@ -4,14 +4,13 @@ import { useEffect, useState } from "react";
 
 import CountInfo from "@components/DS/countInfo/CountInfo";
 import { Typography } from "@components/DS/typography";
-import { projectCountQueryOptions } from "@feat/api/github/hooks/projectCountQueryOptions";
-import { projectIssuesQueryOptions } from "@feat/api/github/hooks/projectIssuesQueryOptions";
 import type { PageInfoType } from "@feat/api/github/schema/projectIssues.model";
 import IssueCard from "@feat/issue/IssueCard";
+import { useIssuesCountQuery } from "@feat/issue/get/useIssuesCount.query";
+import { usePaginatedIssuesQuery } from "@feat/issue/get/usePaginatedIssues.query";
 import { LayoutSection } from "@feat/page/layout";
 import { useDebounce } from "@hooks/use-debounce";
 import { cn } from "@lib/utils";
-import { useQuery } from "@tanstack/react-query";
 import { Button } from "@ui/button";
 import { Input } from "@ui/input";
 import {
@@ -34,11 +33,13 @@ const Tasks = () => {
   const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
   const debounced = useDebounce(query, 500);
 
-  const { data: projectIssues, isFetching } = useQuery(
-    projectIssuesQueryOptions(page, debounced, selectedProjects),
-  );
+  const { data: projectIssues, isFetching } = usePaginatedIssuesQuery({
+    page,
+    query: debounced,
+    projects: selectedProjects,
+  });
 
-  const { data: projectCount } = useQuery(projectCountQueryOptions());
+  const { data: projectCount } = useIssuesCountQuery();
 
   const toggleProject = (value: string) => {
     setSelectedProjects((prev) =>
