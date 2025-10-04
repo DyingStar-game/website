@@ -1,0 +1,14 @@
+services:
+  web:
+    image: ${IMAGE}
+    container_name: website-staging
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - /opt/website/envs/staging.env
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
