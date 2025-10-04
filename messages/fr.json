@@ -1,5 +1,9 @@
 {
   "Issue": {
+    "IssueCTA": {
+      "description": "Rejoignez l'équipage et choisissez les missions qui correspondent à vos compétences. Chaque tâche renforce l'univers du MMO narratif et rapproche la communauté de la prochaine étape du voyage.",
+      "title": "Contribuer au projet Dying Star"
+    },
     "IssueCard": {
       "DifficultyBadge": {
         "L": "niveau pro",
@@ -20,6 +24,11 @@
     },
     "IssueSearch": {
       "input": { "placeholder": "Rechercher une tâche par mot-clé" }
+    },
+    "IssueStatus": {
+      "Active": "Contributeurs actifs",
+      "Available": "Tâches disponibles",
+      "Projects": "Domaines couverts"
     }
   },
   "Landing": {

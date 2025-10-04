@@ -1,11 +1,12 @@
 import { updateProjectIssues } from "@feat/api/github/hooks/indexedProjectIssues";
+import { env } from "@lib/env/server";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
     const secret = request.nextUrl.searchParams.get("secret");
-    if (secret !== process.env.GH_WEBHOOK_SECRET) {
+    if (secret !== env.GH_WEBHOOK_SECRET) {
       return NextResponse.json({ ok: false }, { status: 403 });
     }
 

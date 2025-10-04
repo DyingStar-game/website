@@ -1,3 +1,4 @@
+import { env } from "@lib/env/server";
 import { graphql } from "@octokit/graphql";
 import ky from "ky";
 import "server-only";
@@ -17,7 +18,7 @@ export const githubApi = ky.extend({
   hooks: {
     beforeRequest: [
       async (request) => {
-        const token = process.env.NEXT_GITHUB_TOKEN;
+        const token = env.NEXT_GITHUB_TOKEN;
         if (token) {
           request.headers.set("Authorization", `Bearer ${token}`);
         }
@@ -28,6 +29,6 @@ export const githubApi = ky.extend({
 
 export const githubGraphql = graphql.defaults({
   headers: {
-    authorization: `token ${process.env.NEXT_GITHUB_TOKEN}`,
+    authorization: `token ${env.NEXT_GITHUB_TOKEN}`,
   },
 });

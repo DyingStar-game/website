@@ -10,6 +10,7 @@ import {
   LayoutMain,
   LayoutSection,
 } from "@feat/page/layout";
+import { env } from "@lib/env/server";
 import type { Locale } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 
@@ -32,7 +33,7 @@ export default async function HomePage() {
           action={{
             label: t("CTA.discord.action"),
             icon: <LogoDiscordSvg />,
-            href: `https://discord.gg/${process.env.DISCORD_INVITE_ID ?? "K4a2mwwBAM"}`,
+            href: `https://discord.gg/${env.DISCORD_INVITE_ID}`,
             target: "_blank",
           }}
         />
@@ -84,7 +85,9 @@ const TaskSection = async () => {
         title={t("title")}
         action={{ label: t("action"), href: LINKS.Project.Contribute.href() }}
       />
-      <div className="gap-4 *:mb-4 xl:columns-2 2xl:columns-3"></div>
+      <div className="gap-4 *:mb-4 xl:columns-2 2xl:columns-3">
+        {/* TODO: Implement 6 Last Tasks */}
+      </div>
     </LayoutSection>
   );
 };
@@ -94,7 +97,7 @@ const TaskSection = async () => {
 //     <LayoutSection size="container">
 //       <iframe
 //         className="aspect-video"
-//         src={`https://www.youtube.com/embed/${process.env.LAST_YOUTUBE_ID ?? "rB1vgn3QwoY"}`}
+//         src={`https://www.youtube.com/embed/${env.LAST_YOUTUBE_ID ?? "rB1vgn3QwoY"}`}
 //         allowFullScreen
 //       />
 //     </LayoutSection>

@@ -1,5 +1,9 @@
 {
   "Issue": {
+    "IssueCTA": {
+      "description": "Join the crew and choose the missions that correspond to your skills. Each task strengthens the narrative universe of the MMO and brings the community closer to the next step of the journey.",
+      "title": "Contribute to the Dying Star project"
+    },
     "IssueCard": {
       "DifficultyBadge": {
         "L": "pro level",
@@ -20,6 +24,11 @@
     },
     "IssueSearch": {
       "input": { "placeholder": "Search a task by keyword" }
+    },
+    "IssueStatus": {
+      "Active": "Active contributors",
+      "Available": "Available tasks",
+      "Projects": "Projects covered"
     }
   },
   "Landing": {

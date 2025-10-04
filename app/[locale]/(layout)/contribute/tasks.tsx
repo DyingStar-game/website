@@ -56,19 +56,19 @@ export default function Tasks() {
         <CountInfo
           className="flex-1"
           icon="bookmark-check"
-          title="Tâches disponibles"
+          title={t("IssueStatus.Available")}
           count={projectCount?.openIssueCount ?? 0}
         />
         <CountInfo
           className="flex-1"
           icon="user-star"
-          title="Contributeurs actifs"
+          title={t("IssueStatus.Active")}
           count={projectCount?.openIssueWithAssigneeCount ?? 0}
         />
         <CountInfo
           className="flex-1"
           icon="puzzle"
-          title="Domaines couverts"
+          title={t("IssueStatus.Projects")}
           count={projectCount?.countByProject.length ?? 0}
         />
       </div>

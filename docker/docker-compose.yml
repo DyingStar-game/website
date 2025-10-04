@@ -1,5 +1,8 @@
 services:
+
+
   app:
+    container_name: dyingstar-webapp
     build:
       context: ..
       dockerfile: docker/Dockerfile.dev
@@ -16,8 +19,8 @@ services:
       - backend
 
   meilisearch:
-    image: getmeili/meilisearch:v1.22
     container_name: meilisearch
+    image: getmeili/meilisearch:v1.22
     ports:
       - "7700:7700"
     environment:

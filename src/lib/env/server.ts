@@ -3,7 +3,13 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    SERVER_ENV_VAR: z.string().optional(),
+    NEXT_ENV: z.literal("production"),
+    LAST_YOUTUBE_ID: z.string(),
+    DISCORD_INVITE_ID: z.string(),
+    MEILI_URL: z.string(),
+    MEILI_MASTER_KEY: z.string(),
+    GH_WEBHOOK_SECRET: z.string(),
+    NEXT_GITHUB_TOKEN: z.string(),
   },
   experimental__runtimeEnv: process.env,
 });

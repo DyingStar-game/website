@@ -1,5 +1,6 @@
 import "server-only";
 
+import { env } from "@lib/env/client";
 import { githubGraphql } from "../githubApi";
 import type {
   GraphqlPaginatedProjectIssuesType,
@@ -95,10 +96,12 @@ export async function fetchProjectIssues(
 
   const response: GraphqlProjectIssuesResponseType =
     await githubGraphql<GraphqlProjectIssuesResponseType>(QUERY, {
-      q: `org:${process.env.NEXT_PUBLIC_GITHUB_REPO} is:issue is:open`,
+      q: `org:${env.NEXT_PUBLIC_GITHUB_REPO} is:issue is:open`,
       searchPageSize: 30,
       cursor,
     });
+  
+  
 
   const projectIssues = graphqlProjectIssuesResponseSchema.parse(response);
 

@@ -3,9 +3,11 @@ import { z } from "zod";
 
 export const env = createEnv({
   client: {
-    NEXT_PUBLIC_CLIENT_ENV_VAR: z.string().min(1),
+    NEXT_PUBLIC_SITE_URL: z.url(),
+    NEXT_PUBLIC_GITHUB_REPO: z.string(),
   },
   runtimeEnv: {
-    NEXT_PUBLIC_CLIENT_ENV_VAR: process.env.NEXT_PUBLIC_CLIENT_ENV_VAR,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_GITHUB_REPO: process.env.NEXT_PUBLIC_GITHUB_REPO,
   },
 });
