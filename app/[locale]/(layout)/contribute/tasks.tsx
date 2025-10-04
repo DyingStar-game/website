@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
-export default function Tasks() {
+const Tasks = () => {
   const t = useTranslations("Issue");
   const formatter = useFormatter();
 
@@ -141,7 +141,9 @@ export default function Tasks() {
       <IssuePagination pageInfo={projectIssues?.pageInfo} setPage={setPage} />
     </LayoutSection>
   );
-}
+};
+
+export default Tasks;
 
 type IssuePaginationProps = {
   pageInfo?: PageInfoType;

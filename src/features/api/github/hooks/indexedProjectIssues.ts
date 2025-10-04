@@ -6,7 +6,7 @@ import type {
   ProjectIssueType,
   ProjectIssuesType,
 } from "../schema/projectIssues.model";
-import { fetchProjectIssues } from "./fetchProjectIssues";
+import { fetchProjectIssue, fetchProjectIssues } from "./fetchProjectIssues";
 
 const ISSUES_INDEX = "gh_issues";
 
@@ -30,7 +30,6 @@ export async function updateProjectIssues() {
   const addTask = await meili.index(ISSUES_INDEX).addDocuments(allIssues);
   await meili.tasks.waitForTask(addTask.taskUid);
 }
-
 async function fetchAllProjectIssues(
   issues: ProjectIssuesType = [],
   cursor?: string,
@@ -46,6 +45,17 @@ async function fetchAllProjectIssues(
 
   return issues.concat(response.issues);
 }
+export const deleteProjectIssue = async (issueId: string) => {
+  const deleteTask = await meili.index(ISSUES_INDEX).deleteDocument(issueId);
+  await meili.tasks.waitForTask(deleteTask.taskUid);
+};
+export const updateProjectIssue = async (issueId: string) => {
+  const issue = await fetchProjectIssue(issueId);
+
+  const updateTask = await meili.index(ISSUES_INDEX).updateDocuments(issue);
+
+  await meili.tasks.waitForTask(updateTask.taskUid);
+};
 
 export async function searchProjectIssues(
   page: number,
