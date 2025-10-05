@@ -4,7 +4,7 @@ import { Layout, LayoutMain, LayoutSection } from "@feat/page/layout";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
-import Tasks from "./_components/tasks";
+import { Issues } from "./_components/issues";
 
 export default async function ContributePage() {
   const queryClient = getQueryClient();
@@ -21,7 +21,7 @@ export default async function ContributePage() {
         </Layout>
       </LayoutSection>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <Tasks />
+        <Issues />
       </HydrationBoundary>
     </LayoutMain>
   );

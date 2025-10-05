@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-import CountInfo from "@components/DS/countInfo/CountInfo";
-import IssueCard from "@components/DS/issues/IssueCard";
+import { CountInfo } from "@components/DS/countInfo/CountInfo";
+import { IssueCard } from "@components/DS/issues/IssueCard";
 import { Typography } from "@components/DS/typography";
-import { useIssuesCountQuery } from "@feat/issue/get/useIssuesCount.query";
-import { usePaginatedIssuesQuery } from "@feat/issue/get/usePaginatedIssues.query";
+import { useIssuesCountQuery } from "@feat/issue/get/useIssuesCountQuery.hook";
+import { usePaginatedIssuesQuery } from "@feat/issue/get/usePaginatedIssuesQuery.hook";
 import { LayoutSection } from "@feat/page/layout";
 import { useDebounce } from "@hooks/useDebounce";
 import { cn } from "@lib/utils";
@@ -23,7 +23,7 @@ import { useFormatter, useTranslations } from "next-intl";
 
 import { IssuePagination } from "./issuePagination";
 
-const Tasks = () => {
+export const Issues = () => {
   const t = useTranslations("Issue");
   const formatter = useFormatter();
 
@@ -142,5 +142,3 @@ const Tasks = () => {
     </LayoutSection>
   );
 };
-
-export default Tasks;

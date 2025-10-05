@@ -1,3 +1,5 @@
+import { GetGithubIssue } from "@feat/issue/get/getGithubIssue.graphql";
+import { GetGithubIssues } from "@feat/issue/get/getGithubIssues.graphql";
 import { meili } from "@lib/meilisearch/meilisearchClient";
 import type { FacetHit } from "meilisearch";
 
@@ -6,7 +8,6 @@ import type {
   ProjectIssueType,
   ProjectIssuesType,
 } from "../schema/projectIssues.model";
-import { fetchProjectIssue, fetchProjectIssues } from "./fetchProjectIssues";
 
 const ISSUES_INDEX = "gh_issues";
 
@@ -34,7 +35,7 @@ async function fetchAllProjectIssues(
   issues: ProjectIssuesType = [],
   cursor?: string,
 ) {
-  const response = await fetchProjectIssues(cursor);
+  const response = await GetGithubIssues(cursor);
 
   if (response.pageInfo.endCursor) {
     return fetchAllProjectIssues(
@@ -50,7 +51,7 @@ export const deleteProjectIssue = async (issueId: string) => {
   await meili.tasks.waitForTask(deleteTask.taskUid);
 };
 export const updateProjectIssue = async (issueId: string) => {
-  const issue = await fetchProjectIssue(issueId);
+  const issue = await GetGithubIssue(issueId);
 
   const updateTask = await meili.index(ISSUES_INDEX).updateDocuments(issue);
 

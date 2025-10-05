@@ -10,7 +10,7 @@ type CountInfoProps = ComponentProps<"div"> & {
   count: number;
 };
 
-const CountInfo = ({
+export const CountInfo = ({
   icon,
   title,
   count,
@@ -36,5 +36,3 @@ const CountInfo = ({
     </div>
   );
 };
-
-export default CountInfo;
