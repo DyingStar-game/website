@@ -6,7 +6,7 @@ Here you'll find all the documents you need to collaborate on the project.
 | ---------------------------------------------------------------------------- | ------------------------------------------------------------------ |
 | [Onboarding](Documentation\Guidelines\Onboarding.md)                         | Documents related to new developer onboarding                      |
 | [Development Process](Documentation\Guidelines\Development-Process.md)       | Documents related to development process                           |
-| [Architecture](Documentation\Guidelines\architecture\Architecture.md)        | Documents related to architecture                                  |
+| [Architecture](Documentation\Guidelines\architecture\Architecture.md)        | Documents related to architecture and Technical choices            |
 | [Code Review Process](Documentation\Guidelines\Code-Review-Process.md)       | Documents related to code review process, definition of ready/done |
 | [Release and Deployment](Documentation\Guidelines\Release-And-Deployment.md) | Documents related to release and deployment                        |
 
