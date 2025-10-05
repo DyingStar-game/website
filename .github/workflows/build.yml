@@ -9,16 +9,15 @@ on:
     branches: [main, develop]
   # Manual trigger: build & push image tagged with branch name
   workflow_dispatch:
-    inputs:
-      target_tag:
-        description: "Tag d'image à déployer, (ex: dev, v*) si vide -> auto (v* pour prod)"
-        required: false
-        default: "latest"
-
+    inputs: {}
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  IMAGE_NAME: website
+  REGISTRY: ghcr.io/dyingstar-game
+  IMAGE_TAG: staging
 jobs:
   build:
     name: Build Next.js runtime artifact
@@ -115,11 +114,8 @@ jobs:
     permissions:
       contents: read
       packages: write
-    env:
-      IMAGE_NAME: dyingstar-website
-      # REGISTRY will be rebuilt in lowercase inside the script (GitHub Actions does not provide a toLower function)
-      REGISTRY: ghcr.io/${{ github.repository_owner }}
-      TAG: ${{ github.sha }}
+    outputs:
+      IMAGE_TAG: ${{ steps.image-tag.outputs.IMAGE_TAG }}
     steps:
       - name: Checkout (minimal)
         uses: actions/checkout@v4
@@ -138,72 +134,41 @@ jobs:
           find .next/standalone/node_modules -maxdepth 1 -type l -printf '%f -> %l\n' | head -20 || true
           ls -1 .next/standalone/node_modules/.pnpm | head -20 || true
 
-      - name: Build image (docker/Dockerfile.prod)
-        run: docker build -f docker/Dockerfile.prod -t $IMAGE_NAME:$TAG .
-
-      - name: Log in to GitHub Container Registry
-        # Login if manual run or tag event
-        if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo "$GITHUB_TOKEN" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Tag & Push image to GHCR
-        # Push image if manual run (branch tag) or tag event (validated on main)
-        if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/') }}
-        env:
-          REF_NAME: ${{ github.ref_name }}
-          DEFAULT_BRANCH: main
+      - name: Define docker image TAG
+        id: image-tag
         run: |
           set -euo pipefail
-          # Force owner to lowercase for GHCR (Docker image references must be lowercase)
-          OWNER_LC=$(printf "%s" "${GITHUB_REPOSITORY_OWNER:-${{ github.repository_owner }}}" | tr '[:upper:]' '[:lower:]')
-          IMAGE_FULL="ghcr.io/${OWNER_LC}/${IMAGE_NAME}"
-          echo "Event: ${GITHUB_EVENT_NAME} | Ref: ${GITHUB_REF} | Ref name: ${GITHUB_REF_NAME}"
-
-          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
-            # Sanitize branch name for Docker tag
-            BRANCH_TAG=$(printf "%s" "${GITHUB_REF_NAME}" | tr '[:upper:]' '[:lower:]' | sed -E 's#[^a-z0-9._-]+#-#g' | sed -E 's#^-+##; s#-+$##')
-            # Truncate to 120 chars (Docker tag limit is 128)
-            BRANCH_TAG=${BRANCH_TAG:0:120}
-            if [ -z "${BRANCH_TAG}" ]; then
-              echo "Failed to derive branch tag" >&2
-              exit 1
-            fi
-            echo "Manual run: pushing image tagged '${BRANCH_TAG}'"
-            docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:${BRANCH_TAG}
-            docker push $IMAGE_FULL:${BRANCH_TAG}
-            echo "Pushed image: $IMAGE_FULL:${BRANCH_TAG}"
-            docker image ls | grep $IMAGE_NAME | head -5 || true
-            exit 0
-          fi
-
-          # Tag event path
-          echo "Tag run: validating commit is on ${DEFAULT_BRANCH}"
-          git fetch origin $DEFAULT_BRANCH --depth=1
-          if git merge-base --is-ancestor $GITHUB_SHA origin/$DEFAULT_BRANCH; then
-            echo "Commit is on $DEFAULT_BRANCH. Proceeding with push."
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            echo "IMAGE_TAG=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          elif [[ "${GITHUB_REF}" == refs/heads/develop ]]; then
+            echo "IMAGE_TAG=staging" >> "$GITHUB_OUTPUT"
           else
-            echo "Commit not on $DEFAULT_BRANCH. Skipping registry push." >&2
-            exit 0
+            echo "IMAGE_TAG=staging" >> "$GITHUB_OUTPUT"
           fi
-          echo "Tagging image with commit SHA: $IMAGE_FULL:$TAG"
-          docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:$TAG
 
-          VERSION_TAG="$REF_NAME"
-          echo "Tagging image with version tag: $IMAGE_FULL:$VERSION_TAG"
-          docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:$VERSION_TAG
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/') }}
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-          echo "Tagging image with latest: $IMAGE_FULL:latest"
-          docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:latest
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          file: docker/Dockerfile.prod
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{ steps.image-tag.outputs.IMAGE_TAG }}
+          cache-from: type=registry,ref=${{env.REGISTRY}}/${{env.IMAGE_NAME}}:buildcache
+          cache-to: type=registry,ref=${{env.REGISTRY}}/${{env.IMAGE_NAME}}:buildcache,mode=max
 
-          echo "Pushing tags..."
-          docker push $IMAGE_FULL:$TAG
-          docker push $IMAGE_FULL:$VERSION_TAG
-          docker push $IMAGE_FULL:latest
-
-          echo "Pushed images:"
-          docker image ls | grep $IMAGE_NAME | head -5 || true
   deploy:
     name: Deploy image with ssh
     runs-on: ubuntu-latest
@@ -212,14 +177,9 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       startsWith(github.ref, 'refs/tags/v') ||
       github.ref == 'refs/heads/develop'
-    environment:
-      name: ${{ startsWith(github.ref, 'refs/tags/v') && 'production' || 'staging' }}
-      url: ${{ startsWith(github.ref, 'refs/tags/v') && format('https://{0}', secrets.PROD_PUBLIC_URL) || format('https://{0}', secrets.STAGING_PUBLIC_URL) }}
     permissions:
       contents: read
       packages: read
-    env:
-      IMAGE_NAME: dyingstar-website
     steps:
       - name: Checkout compose files
         uses: actions/checkout@v4
@@ -228,23 +188,13 @@ jobs:
         id: target
         run: |
           set -euo pipefail
-          OWNER_LC=$(printf "%s" "${GITHUB_REPOSITORY_OWNER:-${{ github.repository_owner }}}" | tr '[:upper:]' '[:lower:]')
-          REGISTRY="ghcr.io/${OWNER_LC}"
           if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
-            FINAL_TAG="${GITHUB_REF_NAME}"
-            STACK="${{ secrets.STACK_NAME_PROD }}"
             COMPOSE="${{ secrets.COMPOSE_FILE_PROD }}"
           elif [[ "${GITHUB_REF}" == refs/heads/develop ]]; then
-            FINAL_TAG="develop"
-            STACK="${{ secrets.STACK_NAME_STAGING }}"
             COMPOSE="${{ secrets.COMPOSE_FILE_STAGING }}"
           else
-            FINAL_TAG="${{ github.event.inputs.target_tag || 'dev' }}"
-            STACK="${{ secrets.STACK_NAME_STAGING }}"
             COMPOSE="${{ secrets.COMPOSE_FILE_STAGING }}"
           fi
-          echo "image=${REGISTRY}/${{ env.IMAGE_NAME }}:${FINAL_TAG}" >> "$GITHUB_OUTPUT"
-          echo "stack=${STACK}" >> "$GITHUB_OUTPUT"
           echo "compose=${COMPOSE}" >> "$GITHUB_OUTPUT"
 
       - name: SSH deploy
@@ -257,15 +207,18 @@ jobs:
           script_stop: true
           script: |
             set -euo pipefail
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-            IMAGE="${{ steps.target.outputs.image }}"
-            STACK="${{ steps.target.outputs.stack }}"
-            COMPOSE="${{ steps.target.outputs.compose }}"
-            echo "Pull ${IMAGE}"
-            docker pull "${IMAGE}"
-            echo "Deploy using compose file: ${COMPOSE}"
-            IMAGE="${IMAGE}" docker compose -f "${COMPOSE}" --env-file "${ENVFILE}" up -d
+            echo "Login to GitHub Container Registry"
+            docker logout ghcr.io
+            docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+            echo "CD to compose folder"
+            cd docker
+
+            # echo "Pull ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{ needs.docker-image.outputs.IMAGE_TAG }}"
+            # docker pull ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{ needs.docker-image.outputs.IMAGE_TAG }}"
+
+            echo "Deploy using compose file: ${{steps.target.outputs.compose}}"
+            docker compose -f staging.compose.yml up -d
+
             echo "Containers:"
-            docker compose -f "${COMPOSE}" ps
-            echo "Prune old images (dangling)"
-            docker image prune -f --filter "dangling=true"
+            docker compose -f staging.compose.yml ps

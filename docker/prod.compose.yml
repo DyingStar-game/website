@@ -1,10 +1,10 @@
 services:
-  web:
+  app:
+    container_name: dyingstar-webapp-prod
     image: ${IMAGE}
-    container_name: website-prod
     restart: unless-stopped
     ports:
-      - "80:3000"
+      - "8100:3000"
     env_file:
       - /opt/website/envs/prod.env
     healthcheck:
@@ -12,3 +12,26 @@ services:
       interval: 15s
       timeout: 3s
       retries: 5
+    tty: true
+    networks:
+      - backend
+
+  meilisearch:
+    container_name: meilisearch-staging
+    image: getmeili/meilisearch:v1.22
+    ports:
+      - "7700:7700"
+    environment:
+      MEILI_MASTER_KEY: "xxxx"
+      MEILI_ENV: "production"
+    volumes:
+      - meili_data:/meili_data
+    networks:
+      - backend
+
+volumes:
+  meili_data:
+
+networks:
+  backend:
+    driver: bridge
