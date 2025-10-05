@@ -6,11 +6,11 @@ import type {
 import {
   type GraphqlPaginatedProjectIssuesType,
   graphqlPaginatedProjectIssuesSchema,
-  graphqlProjectIssueResponseSchema,
   graphqlProjectIssuesResponseSchema,
 } from "@feat/api/github/schema/projectIssues.model";
 import { env } from "@lib/env/server";
 
+import { GITHUB_ISSUE_FRAGMENT } from "./githubIssueFragments.graphql";
 import { GraphqlProjectIssueResponseToProjectIssuesTypeMapper } from "./graphqlProjectIssueResponseToProjectIssuesType.mapper";
 
 export const GetGithubIssues = async (
@@ -27,79 +27,20 @@ export const GetGithubIssues = async (
         startCursor
       }
       nodes {
-        ... on Issue {
-          id
-          projectItems(first: 1) {
-            nodes {
-              id
-              project {
-                title
-                number
-              }
-              content {
-                ... on Issue {
-                  id
-                  title
-                  url
-                  state
-                  createdAt
-                  updatedAt
-                  labels(first: 5) {
-                    nodes {
-                      name
-                    }
-                  }
-                  assignees(first: 10) {
-                    nodes {
-                      login
-                      avatarUrl
-                    }
-                  }
-                }
-              }
-              fieldValues(first: 10) {
-                nodes {
-                  ... on ProjectV2ItemFieldTextValue {
-                    text
-                    field {
-                      ... on ProjectV2Field {
-                        name
-                      }
-                    }
-                  }
-                  ... on ProjectV2ItemFieldNumberValue {
-                    number
-                    field {
-                      ... on ProjectV2Field {
-                        name
-                      }
-                    }
-                  }
-                  ... on ProjectV2ItemFieldSingleSelectValue {
-                    name
-                    color
-                    field {
-                      ... on ProjectV2SingleSelectField {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+        ${GITHUB_ISSUE_FRAGMENT}
       }
     }
   }
   `;
 
-  const response: GraphqlProjectIssuesResponseType =
-    await githubGraphql<GraphqlProjectIssuesResponseType>(QUERY, {
+  const response = await githubGraphql<GraphqlProjectIssuesResponseType>(
+    QUERY,
+    {
       q: `org:${env.GITHUB_REPO} is:issue is:open`,
       searchPageSize: 30,
       cursor,
-    });
+    },
+  );
 
   const projectIssues = graphqlProjectIssuesResponseSchema.parse(response);
 
@@ -110,19 +51,8 @@ export const GetGithubIssues = async (
       continue;
     }
 
-    const projectIssues = project.projectItems.nodes
-      .filter((item) => Object.keys(item.content).length > 0)
-      .map((node) => {
-        const projectIssue = graphqlProjectIssueResponseSchema.safeParse(node);
-
-        if (!projectIssue.success)
-          throw new Error("Failed to fetch project issue");
-        const issue = GraphqlProjectIssueResponseToProjectIssuesTypeMapper(
-          projectIssue.data.node,
-        );
-
-        return issue;
-      });
+    const projectIssues =
+      GraphqlProjectIssueResponseToProjectIssuesTypeMapper(project);
 
     allIssues.push(...projectIssues.flat());
   }
