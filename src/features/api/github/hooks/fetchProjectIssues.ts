@@ -1,5 +1,4 @@
 import { env } from "@lib/env/client";
-import "server-only";
 
 import { githubGraphql } from "../githubApi";
 import type {
@@ -306,3 +305,5 @@ const GraphqlProjectIssueResponseToProjectIssuesTypeMapper = (
         discord_url: discordField?.text ?? null,
       };
     });
+
+//TODO: split this file into multiple files

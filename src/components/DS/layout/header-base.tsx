@@ -2,7 +2,7 @@
 
 import { type PropsWithChildren, useState } from "react";
 
-import LocaleSwitcher from "@feat/i18n/LocaleSwitcher";
+import { LocaleSwitcher } from "@feat/i18n/LocaleSwitcher";
 import { cn } from "@lib/utils";
 import { Button } from "@ui/button";
 import {

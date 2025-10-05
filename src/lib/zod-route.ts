@@ -1,5 +1,6 @@
 import { createZodRoute } from "next-zod-route";
 import { NextResponse } from "next/server";
+
 import { ApplicationError } from "./errors/application-error";
 import { ZodRouteError } from "./errors/zod-route-error";
 import { logger } from "./logger";

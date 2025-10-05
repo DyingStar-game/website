@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense } from "react";
 
 import { routing } from "@i18n/routing";
@@ -8,17 +10,17 @@ import { Select } from "@ui/select";
 import { LoaderCircle } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import type {
-  LocaleSwitcherSelectItemsType,
-  LocaleSwitcherSelectProps,
+import {
+  LocaleSwitcherSelect,
+  type LocaleSwitcherSelectItemsType,
+  type LocaleSwitcherSelectProps,
 } from "./LocaleSwitcherSelect";
-import LocaleSwitcherSelect from "./LocaleSwitcherSelect";
 
 type LocaleSwitcherProps = {
   className?: string;
 };
 
-export default function LocaleSwitcher({ className }: LocaleSwitcherProps) {
+export const LocaleSwitcher = ({ className }: LocaleSwitcherProps) => {
   const t = useTranslations("LocaleSwitcher");
   const locale = useLocale();
 
@@ -41,12 +43,12 @@ export default function LocaleSwitcher({ className }: LocaleSwitcherProps) {
       <LocaleSwitcherSelect {...commonProps} />
     </Suspense>
   );
-}
+};
 
-function LocaleSwitcherFallback({
+const LocaleSwitcherFallback = ({
   label,
   className,
-}: LocaleSwitcherSelectProps) {
+}: LocaleSwitcherSelectProps) => {
   return (
     <Select disabled>
       <SelectPrimitive.Trigger
@@ -58,4 +60,4 @@ function LocaleSwitcherFallback({
       </SelectPrimitive.Trigger>
     </Select>
   );
-}
+};

@@ -1,13 +1,15 @@
+import type { ReactNode } from "react";
+
 import {
   CmdOrOption,
   KeyboardShortcut,
 } from "@components/DS/keyboard-shortcut";
 import { Typography } from "@components/DS/typography";
 import { Button } from "@components/ui/button";
-import { useIsClient } from "@hooks/use-is-client";
+import { useIsClient } from "@hooks/useIsClient";
 import { AnimatePresence, motion } from "motion/react";
-import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
+
 import { useFormAutoSave } from "./form-auto-save";
 import { LoadingButton } from "./submit-button";
 
@@ -55,7 +57,7 @@ export const FormAutoSaveStickyBar = (props: FormAutoSaveStickyBarProps) => {
                 duration: 0.5,
               },
             }}
-            className="bg-card pointer-events-auto flex items-center gap-4 rounded-md border p-1 lg:p-2"
+            className="pointer-events-auto flex items-center gap-4 rounded-md border bg-card p-1 lg:p-2"
           >
             <Typography variant="small">
               Changes have been made. Save now!

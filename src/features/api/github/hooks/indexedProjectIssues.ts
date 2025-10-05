@@ -1,4 +1,4 @@
-import { meili } from "@feat/api/meilisearch";
+import { meili } from "@lib/meilisearch/meilisearchClient";
 import type { FacetHit } from "meilisearch";
 
 import type {
@@ -118,3 +118,5 @@ export async function getProjectCount(): Promise<FacetHit[]> {
 
   return res.facetHits;
 }
+
+//TODO: Refactor this file

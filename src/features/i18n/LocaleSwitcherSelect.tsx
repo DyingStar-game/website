@@ -9,8 +9,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { buttonVariants } from "@ui/button";
 import { Select, SelectContent, SelectItem } from "@ui/select";
 import { LanguagesIcon, LoaderCircle } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 export type LocaleSwitcherSelectProps = {
   defaultValue: string;
@@ -21,12 +20,12 @@ export type LocaleSwitcherSelectProps = {
 
 export type LocaleSwitcherSelectItemsType = { value: string; label: string };
 
-export default function LocaleSwitcherSelect({
+export const LocaleSwitcherSelect = ({
   defaultValue,
   items,
   label,
   className,
-}: LocaleSwitcherSelectProps) {
+}: LocaleSwitcherSelectProps) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const pathname = usePathname();
@@ -79,4 +78,4 @@ export default function LocaleSwitcherSelect({
       </SelectContent>
     </Select>
   );
-}
+};

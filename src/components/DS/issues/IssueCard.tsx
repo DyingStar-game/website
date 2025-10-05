@@ -1,13 +1,12 @@
 "use client";
 
-import React from "react";
-
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
+import { type ProjectIssueType } from "@feat/api/github/schema/projectIssues.model";
 import {
-  type IssueSize,
-  type ProjectIssueType,
-  sizeToVariant,
-} from "@feat/api/github/schema/projectIssues.model";
+  getProjectBgColor,
+  getProjectIcon,
+  getProjectImage,
+} from "@feat/issue/project-helper";
 import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
@@ -16,17 +15,13 @@ import { buttonVariants } from "@ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ui/tooltip";
 import { motion } from "framer-motion";
 import { ChevronRight, Tag, Users } from "lucide-react";
-import type { IconName } from "lucide-react/dynamic";
 import { DynamicIcon } from "lucide-react/dynamic";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
-import { Typography } from "../../components/DS/typography";
-import {
-  getProjectBgColor,
-  getProjectIcon,
-  getProjectImage,
-} from "./project-helper";
+import { Typography } from "../typography";
+import { DifficultyBadge } from "./issueCardDifficultyBadge";
+import { IssueCardStatus } from "./issueCardStatus";
 
 export type TaskCardProps = {
   className?: string;
@@ -34,7 +29,7 @@ export type TaskCardProps = {
   index: number;
 };
 
-const IssueCard = ({ className, issue, index }: TaskCardProps) => {
+export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
   const t = useTranslations("Issue.IssueCard");
 
   return (
@@ -75,7 +70,7 @@ const IssueCard = ({ className, issue, index }: TaskCardProps) => {
             </div>
           )}
           {issue.status && (
-            <StatusInfo
+            <IssueCardStatus
               status={issue.status}
               className="flex gap-1 overflow-hidden"
             />
@@ -186,40 +181,3 @@ const IssueCard = ({ className, issue, index }: TaskCardProps) => {
     </motion.article>
   );
 };
-
-type DifficultyBadgeProps = {
-  size: IssueSize;
-  className?: string;
-};
-
-const DifficultyBadge = ({ size, className }: DifficultyBadgeProps) => {
-  const t = useTranslations("Issue.IssueCard.DifficultyBadge");
-  return (
-    <Badge className={className} variant={sizeToVariant[size]}>
-      {t(size)}
-    </Badge>
-  );
-};
-
-type StatusInfoProps = {
-  status: string;
-  className?: string;
-};
-
-const StatusInfo = ({ status, className }: StatusInfoProps) => {
-  const statusIconMap: Record<string, IconName> = {
-    "written specifications": "circle-question-mark",
-    todo: "circle-ellipsis",
-    "in progress": "circle-play",
-    done: "circle-check",
-  };
-
-  return (
-    <div className={className}>
-      <DynamicIcon name={statusIconMap[status.toLowerCase()] ?? "circle"} />
-      <span className="truncate text-foreground uppercase">{status}</span>
-    </div>
-  );
-};
-
-export default IssueCard;

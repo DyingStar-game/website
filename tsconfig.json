@@ -1,41 +1,48 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
+    "baseUrl": "src/",
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
+    "incremental": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "paths": {
+      "@assets/*": ["public/assets/*"],
+      "@components/*": ["components/*"],
+      "@feat/*": ["features/*"],
+      "@hooks/*": ["hooks/*"],
+      "@i18n/*": ["i18n/*"],
+      "@lib/*": ["lib/*"],
+      "@type/*": ["types/*"],
+      "@ui/*": ["components/ui/*"]
+    },
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "baseUrl": "src/",
-    "paths": {
-      "@lib/*": ["lib/*"],
-      "@ui/*": ["components/ui/*"],
-      "@components/*": ["components/*"],
-      "@feat/*": ["features/*"],
-      "@hooks/*": ["hooks/*"],
-      "@type/*": ["types/*"],
-      "@i18n/*": ["i18n/*"]
-    }
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2015"
   },
 
+  "exclude": [
+    "node_modules",
+    ".next",
+    "src/generated",
+    ".claude",
+    ".conductor"
+  ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
     "tailwind.config.js"
-  ],
-  "exclude": ["node_modules", ".next", "src/generated", ".claude", ".conductor"]
+  ]
 }

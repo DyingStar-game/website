@@ -1,11 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
-import { Menu, X, User } from "lucide-react";
+
 import { cn } from "@lib/utils";
+import { Menu, User, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 type NavItem = {
   label: string;
   href: string;
@@ -46,7 +48,7 @@ function buildLinkClasses(isActive: boolean, isDisabled?: boolean) {
 
   return cn(
     base,
-    "border-brand-primary text-brand-primary bg-transparent hover:bg-brand-primary hover:text-brand-dark",
+    "border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-brand-dark bg-transparent",
   );
 }
 
@@ -56,7 +58,7 @@ export default function Navigation() {
   const pathname = usePathname();
 
   const navGroupClasses = cn(
-    "flex items-center gap-2 px-6 py-3 rounded-none border backdrop-blur-xl font-poppins",
+    "font-poppins flex items-center gap-2 rounded-none border px-6 py-3 backdrop-blur-xl",
     "border-brand-primary/40 bg-brand-dark/90 shadow-[0_0_35px_rgba(var(--brand-dark-rgb),0.45)]",
   );
 
@@ -112,7 +114,7 @@ export default function Navigation() {
       aria-label="Retour à l'accueil"
     >
       <Image
-        src="/dyingstar-logo.png"
+        src="/assets/images/dyingstar-logo.png"
         alt="Dying Star"
         width={200}
         height={41}
@@ -298,4 +300,3 @@ export default function Navigation() {
     </nav>
   );
 }
-

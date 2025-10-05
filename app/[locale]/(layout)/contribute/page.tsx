@@ -4,7 +4,7 @@ import { Layout, LayoutMain, LayoutSection } from "@feat/page/layout";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
-import Tasks from "./tasks";
+import Tasks from "./_components/tasks";
 
 export default async function ContributePage() {
   const queryClient = getQueryClient();

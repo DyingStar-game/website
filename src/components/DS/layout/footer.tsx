@@ -4,6 +4,7 @@ import { LogoNameSvg } from "@components/svg/logoNameSvg";
 import { LINKS } from "@feat/navigation/Links";
 import { Layout } from "@feat/page/layout";
 import { Link } from "@i18n/navigation";
+import { env } from "@lib/env/client";
 import { motion } from "framer-motion";
 import { SiteConfig } from "site-config";
 
@@ -61,7 +62,7 @@ export const Footer = () => {
             reserved.
           </p>
           <div className="text-gray-400 flex items-center space-x-6 text-sm">
-            <span>Version 0.1.0</span>
+            <span>Version {env.NEXT_PUBLIC_APP_VERSION}</span>
             <span>•</span>
             <span>Serveurs: Unknown</span>
             <div className="bg-orange-500 h-2 w-2 animate-pulse rounded-full"></div>

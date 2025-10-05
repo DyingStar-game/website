@@ -1,8 +1,8 @@
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
+import IssueCard from "@components/DS/issues/IssueCard";
 import { Typography } from "@components/DS/typography";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
 import { searchProjectIssues } from "@feat/api/github/hooks/indexedProjectIssues";
-import IssueCard from "@feat/issue/IssueCard";
 import { LINKS } from "@feat/navigation/Links";
 import NewsItem from "@feat/news/NewsItem";
 import NewsItemLight from "@feat/news/NewsItemLight";

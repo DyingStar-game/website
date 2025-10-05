@@ -4,5 +4,5 @@ export const SiteConfig = {
   prodUrl: "https://demo.dyingstar.app",
   appId: "dyingstar",
   domain: "demo.dyingstar.app",
-  appIcon: "/images/icon.png",
+  appIcon: "assets/images/icon.png",
 };

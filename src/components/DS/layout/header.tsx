@@ -1,7 +1,7 @@
 "use client";
 
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
-import LocaleSwitcher from "@feat/i18n/LocaleSwitcher";
+import { LocaleSwitcher } from "@feat/i18n/LocaleSwitcher";
 import { LINKS } from "@feat/navigation/Links";
 import { DEFAULT_LOCALE } from "@i18n/config";
 import { cn } from "@lib/utils";
