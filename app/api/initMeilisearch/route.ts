@@ -4,7 +4,7 @@ import { route } from "@lib/zod-route";
 import { NextResponse } from "next/server";
 import z from "zod";
 
-//TODO: Il faudrais faire sorte que meilisearch s'initialise tout seul au build de l'app si l'index est vide
+//TODO: Il faudrait faire sorte que meilisearch s'initialise tout seul au build de l'app si l'index est vide
 export const POST = route
   .query(
     z.object({
