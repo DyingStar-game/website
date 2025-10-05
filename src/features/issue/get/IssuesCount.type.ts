@@ -1,5 +1,5 @@
 import type { FacetHit } from "meilisearch";
-import z from "zod";
+import { z } from "zod";
 
 export const IssuesCountSchema = z.object({
   openIssueCount: z.number(),

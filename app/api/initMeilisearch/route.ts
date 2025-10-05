@@ -2,7 +2,7 @@ import { updateProjectIssues } from "@feat/api/github/hooks/indexedProjectIssues
 import { env } from "@lib/env/server";
 import { route } from "@lib/zod-route";
 import { NextResponse } from "next/server";
-import z from "zod";
+import { z } from "zod";
 
 //TODO: Il faudrait faire sorte que meilisearch s'initialise tout seul au build de l'app si l'index est vide
 export const POST = route

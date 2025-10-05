@@ -28,6 +28,11 @@ export async function updateProjectIssues() {
     .updateFilterableAttributes(["project_name", "has_assignees", "status"]);
   await meili.tasks.waitForTask(filterTask.taskUid);
 
+  const sortableTask = await meili
+    .index(ISSUES_INDEX)
+    .updateSortableAttributes(["updated_at"]);
+  await meili.tasks.waitForTask(sortableTask.taskUid);
+
   const addTask = await meili.index(ISSUES_INDEX).addDocuments(allIssues);
   await meili.tasks.waitForTask(addTask.taskUid);
 }
@@ -75,6 +80,7 @@ export async function searchProjectIssues(
     hitsPerPage: pageSize,
     page,
     filter,
+    sort: ["updated_at:desc"],
   });
 
   const pageResponse: PaginateIndexedProjectIssuesType = {

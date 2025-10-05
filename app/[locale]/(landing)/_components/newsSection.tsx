@@ -3,7 +3,7 @@ import NewsItem from "@feat/news/NewsItem";
 import NewsItemLight from "@feat/news/NewsItemLight";
 import { getLastNews } from "@feat/news/news-manager";
 import { LayoutContentTitle, LayoutSection } from "@feat/page/layout";
-import type { Locale } from "meilisearch";
+import type { Locale } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 
 export const NewsSection = async () => {

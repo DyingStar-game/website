@@ -11,18 +11,20 @@ export default async function ContributePage() {
   const t = await getTranslations("Issue.IssueCTA");
 
   return (
-    <LayoutMain>
+    <>
       <LayoutSection>
-        <Layout asChild padding="default">
-          <div className="flex max-w-4xl flex-col justify-center text-center">
+        <Layout asChild padding="none">
+          <div className="flex max-w-4xl flex-col justify-center pt-15 text-center md:pt-20 lg:pt-22">
             <Typography variant="h1">{t("title")}</Typography>
             <Typography variant="p">{t("description")}</Typography>
           </div>
         </Layout>
       </LayoutSection>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Issues />
-      </HydrationBoundary>
-    </LayoutMain>
+      <LayoutMain>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <Issues />
+        </HydrationBoundary>
+      </LayoutMain>
+    </>
   );
 }

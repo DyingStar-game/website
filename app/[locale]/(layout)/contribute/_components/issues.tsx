@@ -87,11 +87,11 @@ export const Issues = () => {
             return (
               <Button
                 key={count.value}
-                variant="search"
+                variant="filter"
                 onClick={() => toggleProject(count.value)}
                 className={cn(
                   isSelected && "active",
-                  "justify-start gap-3 pr-4 pl-3.5",
+                  "w-full justify-start gap-3 pr-4 pl-3.5",
                 )}
               >
                 <span>
@@ -101,9 +101,9 @@ export const Issues = () => {
                     <Circle className="size-5" />
                   )}
                 </span>
-                <span className="flex-1 text-left">{count.value}</span>
+                <span className="flex-1 truncate text-left">{count.value}</span>
 
-                <span className="ml-1 flex w-2 justify-center">
+                <span className="flex w-1 justify-center">
                   <Minus className="size-9 rotate-90" strokeWidth={1} />
                 </span>
                 <span className="min-w-6">{formatter.number(count.count)}</span>

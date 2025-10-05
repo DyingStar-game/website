@@ -26,7 +26,7 @@ const buttonVariants = cva(
           "border:transparent border bg-background text-foreground hover:border-background hover:bg-background/25 hover:text-background",
         success: "bg-success text-success-foreground hover:bg-success/90",
         warning: "bg-warning text-warning-foreground hover:bg-warning/90",
-        search:
+        filter:
           "group rounded-md border border-input bg-transparent text-muted-foreground hover:border-foreground hover:bg-white/10 [&.active]:bg-foreground [&.active]:text-background",
       },
       size: {

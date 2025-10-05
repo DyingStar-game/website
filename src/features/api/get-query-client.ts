@@ -3,7 +3,6 @@ import {
   defaultShouldDehydrateQuery,
   isServer,
 } from "@tanstack/react-query";
-import { HTTPError } from "ky";
 
 function makeQueryClient() {
   return new QueryClient({
@@ -11,12 +10,8 @@ function makeQueryClient() {
       queries: {
         staleTime: 60 * 1000,
         gcTime: 10 * 60 * 1000,
-        retry: (failureCount, error: unknown) => {
+        retry: (failureCount) => {
           if (failureCount >= 2) return false;
-          if (error instanceof HTTPError) {
-            const status = error.response.status;
-            if ([401, 403, 404].includes(status)) return false;
-          }
 
           return true;
         },

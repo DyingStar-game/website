@@ -6,7 +6,7 @@ import { IssuesWebhookSchema } from "@feat/issue/get/issuesWebhook.type";
 import { env } from "@lib/env/server";
 import { route } from "@lib/zod-route";
 import { NextResponse } from "next/server";
-import z from "zod";
+import { z } from "zod";
 
 export const POST = route //TODO: Create a webhook middleware to handle the webhook
   .query(

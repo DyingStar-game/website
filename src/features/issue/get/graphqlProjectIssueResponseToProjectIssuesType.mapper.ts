@@ -1,3 +1,4 @@
+import type { ProjectIssueType } from "@feat/api/github/schema/projectIssues.model";
 import {
   type GraphqlProjectIssueType,
   type IssueSize,
@@ -31,12 +32,12 @@ export const GraphqlProjectIssueResponseToProjectIssuesTypeMapper = (
         (field) => field.field && field.field.name === "Post Discord",
       );
 
-      const issue = {
+      const issue: ProjectIssueType = {
         title: item.content.title,
         id: item.content.id,
         url: item.content.url,
-        createdAt: item.content.createdAt,
-        updatedAt: item.content.updatedAt,
+        created_at: item.content.createdAt,
+        updated_at: item.content.updatedAt,
         project_name: item.project.title
           .replace(/\p{Extended_Pictographic}/gu, "")
           .trim(),

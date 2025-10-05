@@ -1,8 +1,8 @@
-import z from "zod";
+import { z } from "zod";
 
 export const GetPaginatedIssuesSchema = z.object({
   page: z.number(),
-  pageSize: z.number().default(9).optional(),
+  pageSize: z.number().default(6).optional(),
   query: z.string(),
   projects: z.array(z.string()),
 });

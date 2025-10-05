@@ -83,11 +83,11 @@ export const graphqlProjectIssueResponseSchema = z.object({
 });
 
 export enum IssueSize {
-  "XS" = "XS",
-  "S" = "S",
-  "M" = "M",
-  "L" = "L",
-  "XL" = "XL",
+  XS = "XS",
+  S = "S",
+  M = "M",
+  L = "L",
+  XL = "XL",
 }
 
 export const isValidIssueSize = (value: string): value is IssueSize => {
@@ -124,6 +124,8 @@ export const projectIssueSchema = z.object({
     }),
   ),
   labels: z.array(z.string()),
+  created_at: z.string(),
+  updated_at: z.string(),
 });
 
 export const projectIssuesSchema = z.array(projectIssueSchema);
