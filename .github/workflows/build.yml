@@ -110,15 +110,10 @@ jobs:
     permissions:
       contents: read
       packages: write
-    strategy:
-      fail-fast: false
-      matrix:
-        env_name: [staging, prod]
     outputs:
-      staging_tag: ${{ steps.tags.outputs.staging_tag }}
-      staging_immutable_tag: ${{ steps.tags.outputs.staging_immutable_tag }}
-      prod_tag: ${{ steps.tags.outputs.prod_tag }}
-      prod_latest: ${{ steps.tags.outputs.prod_latest }}
+      target: ${{ steps.meta.outputs.target }}
+      tag_primary: ${{ steps.tags.outputs.tag_primary }}
+      tag_secondary: ${{ steps.tags.outputs.tag_secondary }}
     steps:
       - name: Checkout (minimal)
         uses: actions/checkout@v4
@@ -134,24 +129,35 @@ jobs:
           set -euo pipefail
           tar -xzf artifact/runtime.tar.gz
 
+      - name: Decide target (prod/staging/none)
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET="none"
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            TARGET="prod"
+          elif [[ "${GITHUB_REF}" == "refs/heads/feat/CD" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            TARGET="staging"
+          fi
+          echo "target=$TARGET" >> "$GITHUB_OUTPUT"
+          echo "Target decided: $TARGET"
       - name: Compute tags
         id: tags
         shell: bash
         run: |
           set -euo pipefail
           SHORT_SHA="${GITHUB_SHA::7}"
-          if [[ "${{ matrix.env_name }}" == "staging" ]]; then
-            echo "staging_tag=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging" >> $GITHUB_OUTPUT
-            echo "staging_immutable_tag=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging-${SHORT_SHA}" >> $GITHUB_OUTPUT
+          if [[ "${{ steps.meta.outputs.target }}" == "staging" ]]; then
+            echo "tag_primary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging" >> $GITHUB_OUTPUT
+            echo "tag_secondary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging-${SHORT_SHA}" >> $GITHUB_OUTPUT
+          elif [[ "${{ steps.meta.outputs.target }}" == "prod" ]]; then
+            VER="${GITHUB_REF_NAME}"   # vX.Y.Z
+            echo "tag_primary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VER}" >> $GITHUB_OUTPUT
+            echo "tag_secondary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_OUTPUT
           else
-            # prod: require annotated tag v*
-            VER="${GITHUB_REF_NAME}"
-            # fallback: if not a tag, create a CI-only immutable tag to allow dry-run build
-            if [[ "${GITHUB_REF}" != refs/tags/v* ]]; then
-              VER="ci-${SHORT_SHA}"
-            fi
-            echo "prod_tag=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VER}" >> $GITHUB_OUTPUT
-            echo "prod_latest=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_OUTPUT
+            echo "tag_primary=" >> $GITHUB_OUTPUT
+            echo "tag_secondary=" >> $GITHUB_OUTPUT
           fi
 
       - name: Set up QEMU
@@ -164,29 +170,26 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          TARGET="${{ steps.meta.outputs.target }}"
           IS_PR="${{ github.event_name == 'pull_request' }}"
           IS_FORK="false"
-          if [[ "$IS_PR" == "true" && "${{ github.event.pull_request.head.repo.fork }}" == "true" ]]; then
-            IS_FORK="true"
+          if [[ "$IS_PR" == "true" && "${{ github.event.pull_request.head.repo.fork }}" == "true" ]]; then IS_FORK="true"; fi
+
+          PUSH=false
+          if [[ "$TARGET" == "prod" ]]; then
+            # prod: uniquement sur tag v*
+            if [[ "${GITHUB_REF}" == refs/tags/v* && "$IS_PR" != "true" ]]; then PUSH=true; fi
+          elif [[ "$TARGET" == "staging" ]]; then
+            # staging: feat/CD ou dispatch, pas en PR
+            if [[ "$IS_PR" != "true" ]]; then PUSH=true; fi
           fi
 
-          IS_TAG=$([[ "${GITHUB_REF}" == refs/tags/v* ]] && echo true || echo false)
-          IS_STAGING_BRANCH=$([[ "${GITHUB_REF}" == refs/heads/feat/CD ]] && echo true || echo false)
-
-          # Push rules:
-          # - prod: only on tag (v*)
-          # - staging: on feat/CD branch or workflow_dispatch
-          PUSH=false
-          if [[ "${{ matrix.env_name }}" == "prod" && "$IS_TAG" == "true" ]]; then PUSH=true; fi
-          if [[ "${{ matrix.env_name }}" == "staging" && ( "${{ github.event_name }}" == "workflow_dispatch" || "$IS_STAGING_BRANCH" == "true" ) ]]; then PUSH=true; fi
-          if [[ "$IS_PR" == "true" ]]; then PUSH=false; fi
-
-          # Cache disabled on forks/PRs
           DO_CACHE=true
-          if [[ "$IS_PR" == "true" || "$IS_FORK" == "true" ]]; then DO_CACHE=false; fi
+          if [[ "$IS_PR" == "true" || "$IS_FORK" == "true" || "$TARGET" == "none" ]]; then DO_CACHE=false; fi
 
-          echo "push=$PUSH" >> $GITHUB_OUTPUT
-          echo "cache=$DO_CACHE" >> $GITHUB_OUTPUT
+          echo "push=$PUSH"  >> "$GITHUB_OUTPUT"
+          echo "cache=$DO_CACHE" >> "$GITHUB_OUTPUT"
+          echo "policy -> push=$PUSH cache=$DO_CACHE target=$TARGET"
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -196,8 +199,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build (no push, no cache)
-        if: ${{ steps.policy.outputs.push != 'true' }}
+      # Build local (pas de push, pas de cache registry)
+      - name: Build (no push)
+        if: ${{ steps.policy.outputs.push != 'true' || steps.meta.outputs.target == 'none' }}
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -205,12 +209,14 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: false
           provenance: false
+          # on tag quand même localement pour valider la build
           tags: |
-            ${{ matrix.env_name == 'staging' && steps.tags.outputs.staging_immutable_tag || '' }}
-            ${{ matrix.env_name == 'prod' && steps.tags.outputs.prod_tag || '' }}
+            ${{ steps.tags.outputs.tag_secondary }}
+            ${{ steps.tags.outputs.tag_primary }}
 
-      - name: Build & Push (with registry cache)
-        if: ${{ steps.policy.outputs.push == 'true' }}
+      # Build & Push (avec cache registry)
+      - name: Build & Push
+        if: ${{ steps.policy.outputs.push == 'true' && steps.meta.outputs.target != 'none' }}
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -219,68 +225,43 @@ jobs:
           push: true
           provenance: false
           tags: |
-            ${{ matrix.env_name == 'staging' && steps.tags.outputs.staging_tag || '' }}
-            ${{ matrix.env_name == 'staging' && steps.tags.outputs.staging_immutable_tag || '' }}
-            ${{ matrix.env_name == 'prod' && steps.tags.outputs.prod_tag || '' }}
-            ${{ matrix.env_name == 'prod' && steps.tags.outputs.prod_latest || '' }}
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/{{ env.IMAGE_NAME }}:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/{{ env.IMAGE_NAME }}:buildcache,mode=max
+            ${{ steps.tags.outputs.tag_primary }}
+            ${{ steps.tags.outputs.tag_secondary }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
 
   deploy:
-    name: Deploy (${{ matrix.env_name }})
+    name: Deploy (${{ needs.docker-image.outputs.target }})
     needs: [docker-image]
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-    strategy:
-      fail-fast: false
-      matrix:
-        env_name: [staging, prod]
+    if: ${{ needs.docker-image.outputs.target == 'staging' || needs.docker-image.outputs.target == 'prod' }}
 
     steps:
-      - name: Decide if we should deploy
-        id: gate
-        shell: bash
-        run: |
-          set -euo pipefail
-          SHOULD=false
-          if [[ "${{ matrix.env_name }}" == "prod" && "${GITHUB_REF}" == refs/tags/v* ]]; then
-            SHOULD=true
-          fi
-          if [[ "${{ matrix.env_name }}" == "staging" && ( "${{ github.event_name }}" == "workflow_dispatch" || "${GITHUB_REF}" == "refs/heads/feat/CD" ) ]]; then
-            SHOULD=true
-          fi
-          echo "deploy=$SHOULD" >> "$GITHUB_OUTPUT"
-          echo "deploy? $SHOULD"
-
       - name: Checkout compose files
-        if: ${{ steps.gate.outputs.deploy == 'true' }}
         uses: actions/checkout@v4
 
       - name: Choose compose file
-        if: ${{ steps.gate.outputs.deploy == 'true' }}
         id: choose
         shell: bash
         run: |
-          if [[ "${{ matrix.env_name }}" == "prod" ]]; then
+          if [[ "${{ needs.docker-image.outputs.target }}" == "prod" ]]; then
             echo "compose=${{ secrets.COMPOSE_FILE_PROD }}" >> $GITHUB_OUTPUT
           else
             echo "compose=${{ secrets.COMPOSE_FILE_STAGING }}" >> $GITHUB_OUTPUT
           fi
 
       - name: SSH deploy
-        if: ${{ steps.gate.outputs.deploy == 'true' }}
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          port: ${{ secrets.SSH_PORT || 22 }}
           script_stop: true
           script: |
             set -euo pipefail
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+            # PAT read:packages + username du compte du PAT
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
             cd docker
             echo "Using compose: ${{ steps.choose.outputs.compose }}"
             docker compose -f ${{ steps.choose.outputs.compose }} pull
