@@ -26,12 +26,14 @@ export const CountInfo = ({
       )}
       {...props}
     >
-      <div className="inline-flex flex-1 items-center justify-start gap-2 overflow-hidden py-2 pl-2 text-xl font-medium text-background">
-        {icon && <DynamicIcon name={icon} className="size-10 shrink-0" />}
+      <div className="inline-flex flex-1 items-center justify-start gap-2 overflow-hidden py-2 pl-2 text-base font-medium text-background sm:text-xl">
+        {icon && (
+          <DynamicIcon name={icon} className="size-8 shrink-0 sm:size-10" />
+        )}
         <span className="truncate">{title}</span>
       </div>
 
-      <div className="flex min-w-43 items-center justify-center rounded-sm bg-background p-4 text-3xl font-extrabold text-foreground md:min-w-28">
+      <div className="flex min-w-24 items-center justify-center rounded-sm bg-background p-4 text-xl font-extrabold text-foreground sm:text-3xl md:min-w-28">
         {count ? (
           format.number(count)
         ) : (

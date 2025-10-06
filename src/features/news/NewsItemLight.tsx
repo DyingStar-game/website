@@ -40,7 +40,7 @@ const NewsItemLight = ({ news, className }: NewsItemLightProps) => {
           date={news.attributes.date}
         />
         <Link
-          href={LINKS.News.Slug.href({ newsSlug: news.slug })}
+          href={LINKS.News.Detail.href({ newsSlug: news.slug })}
           className={cn(
             buttonVariants({
               variant: "outline",

@@ -1,9 +1,9 @@
-import { githubGraphql } from "@feat/api/github/githubApi";
 import type {
   GraphqlProjectIssuesResponseType,
   ProjectIssuesType,
 } from "@feat/api/github/schema/projectIssues.model";
 import { graphqlProjectIssueSchema } from "@feat/api/github/schema/projectIssues.model";
+import { githubGraphql } from "@lib/github/githubApi";
 
 import { GITHUB_ISSUE_FRAGMENT } from "./githubIssueFragments.graphql";
 import { GraphqlProjectIssueResponseToProjectIssuesTypeMapper } from "./graphqlProjectIssueResponseToProjectIssuesType.mapper";

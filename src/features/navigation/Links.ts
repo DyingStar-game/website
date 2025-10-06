@@ -1,7 +1,7 @@
 import { Info } from "lucide-react";
 import { z } from "zod";
 
-import type { GenericLinkSchema, NavigationLink } from "./navigation.type";
+import type { GenericLinkSchema, NavigationLink } from "./navigation.model";
 
 // Constantes pour les chemins
 const PATHS = {
@@ -50,7 +50,7 @@ export const LINKS = {
   },
   News: {
     All: createLink("/news", "All News", undefined, false),
-    Slug: createLink(`${PATHS.NEWS}`, "News", { Icon: Info }, true),
+    Detail: createLink(`${PATHS.NEWS}`, "News", { Icon: Info }, true),
   },
 
   Project: {

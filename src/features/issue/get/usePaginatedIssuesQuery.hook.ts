@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import type { GetPaginatedIssuesType } from "./getPaginatedIssues.type";
+import type { GetPaginatedIssuesType } from "./getPaginatedIssues.model";
 import { paginatedIssuesQueryOptions } from "./paginatedIssuesQuery.options";
 
 export const usePaginatedIssuesQuery = ({

@@ -4,7 +4,7 @@ import type {
   NavigationLink,
   NavigationLinksGroup,
   NavigationLinksGroups,
-} from "@feat/navigation/navigation.type";
+} from "@feat/navigation/navigation.model";
 
 const FOOTER_LINKS: NavigationLinksGroups = [
   {

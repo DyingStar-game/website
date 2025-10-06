@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { z } from "zod";
+
 import { EmptyLinkParamsSchema, NewsLinkParamsSchema } from "./Links";
 
 //#region Base Types

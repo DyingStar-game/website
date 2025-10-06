@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from "react";
 
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
-import type { IssuesCountType } from "@feat/issue/get/IssuesCount.type";
+import type { IssuesCountType } from "@feat/issue/get/IssuesCount.model";
 import { LayoutSection } from "@feat/page/layout";
 import { cn } from "@lib/utils";
 import { Circle, CircleCheckBig, Minus, SearchIcon } from "lucide-react";
@@ -28,7 +28,10 @@ const IssueSearch = ({
   const t = useTranslations("Issue.IssueSearch");
   const formatter = useFormatter();
   return (
-    <LayoutSection className="gap-5 rounded-md bg-card p-8" padding="none">
+    <LayoutSection
+      className="gap-5 rounded-md bg-card p-4 sm:p-8"
+      padding="none"
+    >
       <Input
         id="search"
         placeholder={t("input.placeholder")}

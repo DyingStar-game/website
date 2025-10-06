@@ -79,7 +79,7 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
         <div className={cn("relative aspect-[460/184] w-full self-center")}>
           <Image
             src={getProjectImage(issue.project_number)}
-            alt="alt"
+            alt={issue.project_name}
             fill
             className="object-cover"
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 70vw, 512px" // Optimize for tailwind breakpoint size
@@ -120,9 +120,15 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
           </div>
         )}
       </div>
-      <div className={cn("flex items-center gap-4 p-5")}>
+      <div
+        className={cn(
+          "flex flex-col items-stretch gap-5 p-5 pt-0 sm:flex-row sm:items-center sm:pt-5",
+        )}
+      >
         <div
-          className={cn("flex min-h-17 flex-1 flex-col justify-center gap-2")}
+          className={cn(
+            "flex flex-1 items-center justify-start gap-2 sm:min-h-17 sm:flex-col sm:items-start sm:justify-center",
+          )}
         >
           <span className="text-sm font-light uppercase md:text-base">
             {t("assigneesCount", { count: issue.assignees.length })}
@@ -132,7 +138,7 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
               {issue.assignees.map((assignee) => (
                 <Tooltip key={assignee.login}>
                   <TooltipTrigger asChild>
-                    <Avatar className={cn("size-9")}>
+                    <Avatar className={cn("size-7 sm:size-9")}>
                       {assignee.avatar_url && (
                         <AvatarImage
                           className="bg-white"
@@ -151,32 +157,35 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
             </div>
           )}
         </div>
-        {issue.discord_url && (
+        <div className="flex justify-end gap-2">
+          {issue.discord_url && (
+            <Link
+              href={issue.discord_url}
+              target="_blank"
+              className={cn(
+                buttonVariants({
+                  variant: "outlineWhite",
+                }),
+              )}
+            >
+              <span className="sr-only">Discord</span>
+              <LogoDiscordSvg />
+            </Link>
+          )}
           <Link
-            href={issue.discord_url}
+            href={issue.url}
             target="_blank"
             className={cn(
               buttonVariants({
                 variant: "outlineWhite",
               }),
+              "flex-1",
             )}
           >
-            <span className="sr-only">Discord</span>
-            <LogoDiscordSvg />
+            {t("button.join")}
+            <ChevronRight />
           </Link>
-        )}
-        <Link
-          href={issue.url}
-          target="_blank"
-          className={cn(
-            buttonVariants({
-              variant: "outlineWhite",
-            }),
-          )}
-        >
-          {t("button.join")}
-          <ChevronRight />
-        </Link>
+        </div>
       </div>
     </motion.article>
   );

@@ -7,7 +7,7 @@ import {
 } from "@feat/api/github/hooks/indexedProjectIssues";
 import { action } from "@lib/actions/safe-actions";
 
-import { IssuesCountSchema } from "./IssuesCount.type";
+import { IssuesCountSchema } from "./IssuesCount.model";
 
 export const GetIssuesCountAction = action
   .outputSchema(IssuesCountSchema)
