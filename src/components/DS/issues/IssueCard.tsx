@@ -124,7 +124,7 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
         <div
           className={cn("flex min-h-17 flex-1 flex-col justify-center gap-2")}
         >
-          <span className="font-light uppercase">
+          <span className="text-sm font-light uppercase md:text-base">
             {t("assigneesCount", { count: issue.assignees.length })}
           </span>
           {issue.assignees.length > 0 && (

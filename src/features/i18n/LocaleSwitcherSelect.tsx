@@ -66,7 +66,10 @@ export const LocaleSwitcherSelect = ({
         {isPending ? (
           <LoaderCircle className="size-6 animate-spin" aria-label={label} />
         ) : (
-          <LanguagesIcon className="size-6" aria-label={label} />
+          <>
+            <span className="sr-only">{label}</span>
+            <LanguagesIcon />
+          </>
         )}
       </SelectPrimitive.Trigger>
       <SelectContent>

@@ -41,7 +41,7 @@ export const LocaleSwitcher = ({ className, size }: LocaleSwitcherProps) => {
 
   return (
     <Suspense fallback={<LocaleSwitcherFallback {...commonProps} />}>
-      <LocaleSwitcherSelect {...commonProps} />
+      <LocaleSwitcherSelect size={size} {...commonProps} />
     </Suspense>
   );
 };

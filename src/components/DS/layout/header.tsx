@@ -51,7 +51,7 @@ export function Header() {
       </Link>
       <Link
         href={LINKS.Landing.Landing.href()}
-        className="order-first self-center transition-all hover:scale-95 lg:order-none"
+        className="order-first self-center transition-all hover:scale-95 xl:order-none"
       >
         <LogoNameSvg className="h-10 w-auto xl:h-12" />
       </Link>
@@ -71,11 +71,11 @@ export function Header() {
         variant="ghost"
         size={size}
         onClick={() => alert("Todo wait for auth tasks")}
-        className="lg:hidden"
+        className="xl:hidden"
       >
         Auth
       </Button>
-      <LocaleSwitcher className="lg:hidden" />
+      <LocaleSwitcher className="xl:hidden" size={size} />
     </HeaderBase>
   );
 }
