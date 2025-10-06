@@ -9,7 +9,7 @@ export const env = createEnv({
     MEILI_URL: z.string(),
     MEILI_MASTER_KEY: z.string(),
     GH_WEBHOOK_SECRET: z.string(),
-    NEXT_GITHUB_TOKEN: z.string(),
+    GITHUB_TOKEN: z.string(),
     GITHUB_REPO: z.string(),
   },
   experimental__runtimeEnv: process.env,

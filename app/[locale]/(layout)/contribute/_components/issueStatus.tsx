@@ -1,5 +1,5 @@
 import { CountInfo } from "@components/DS/countInfo/CountInfo";
-import type { IssuesCountType } from "@feat/issue/get/IssuesCount.type";
+import type { IssuesCountType } from "@feat/issue/get/IssuesCount.model";
 import { useTranslations } from "next-intl";
 
 type IssueStatusProps = {

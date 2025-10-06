@@ -1,4 +1,4 @@
-import type { GeneratedNavigationLinks } from "@feat/navigation/navigation.type";
+import type { GeneratedNavigationLinks } from "@feat/navigation/navigation.model";
 import { usePathname } from "next/navigation";
 
 export const useCurrentPath = (links: GeneratedNavigationLinks) => {

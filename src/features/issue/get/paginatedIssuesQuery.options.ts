@@ -2,7 +2,7 @@ import { resolveActionResult } from "@lib/actions/actions-utils";
 import { githubFactory } from "@lib/tanstack/queryKey";
 
 import { GetPaginatedIssuesAction } from "./getPaginatedIssues.action";
-import type { GetPaginatedIssuesType } from "./getPaginatedIssues.type";
+import type { GetPaginatedIssuesType } from "./getPaginatedIssues.model";
 
 export const paginatedIssuesQueryOptions = ({
   page = 1,

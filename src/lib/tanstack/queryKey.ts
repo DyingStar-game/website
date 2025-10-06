@@ -1,4 +1,4 @@
-import type { GetPaginatedIssuesType } from "@feat/issue/get/getPaginatedIssues.type";
+import type { GetPaginatedIssuesType } from "@feat/issue/get/getPaginatedIssues.model";
 
 export const githubFactory = {
   PaginatedIssuesPrefix: ["github_paginated_issues"] as const,

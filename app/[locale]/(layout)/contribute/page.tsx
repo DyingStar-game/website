@@ -1,7 +1,7 @@
 import Hero from "@components/DS/hero/hero";
-import { getQueryClient } from "@feat/api/get-query-client";
 import { paginatedIssuesQueryOptions } from "@feat/issue/get/paginatedIssuesQuery.options";
 import { LayoutMain } from "@feat/page/layout";
+import { getQueryClient } from "@lib/tanstack/getQueryClient";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";

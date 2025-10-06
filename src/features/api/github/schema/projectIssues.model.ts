@@ -64,6 +64,8 @@ const graphqlPageInfoSchema = z.object({
   endCursor: z.string().nullish(),
 });
 
+export type GraphqlPageInfoType = z.infer<typeof graphqlPageInfoSchema>;
+
 export const graphqlProjectIssueSchema = z.object({
   id: z.string(),
   projectItems: projectItemsSchema,
@@ -78,9 +80,17 @@ export const graphqlProjectIssuesResponseSchema = z.object({
   }),
 });
 
+export type GraphqlProjectIssuesResponseType = z.infer<
+  typeof graphqlProjectIssuesResponseSchema
+>;
+
 export const graphqlProjectIssueResponseSchema = z.object({
   node: graphqlProjectIssueSchema,
 });
+
+export type GraphqlProjectIssueResponseType = z.infer<
+  typeof graphqlProjectIssueResponseSchema
+>;
 
 export enum IssueSize {
   XS = "XS",
@@ -129,11 +139,17 @@ export const projectIssueSchema = z.object({
 });
 
 export const projectIssuesSchema = z.array(projectIssueSchema);
+export type ProjectIssueType = z.infer<typeof projectIssueSchema>;
+export type ProjectIssuesType = z.infer<typeof projectIssuesSchema>;
 
 export const graphqlPaginatedProjectIssuesSchema = z.object({
   pageInfo: graphqlPageInfoSchema,
   issues: projectIssuesSchema,
 });
+
+export type GraphqlPaginatedProjectIssuesType = z.infer<
+  typeof graphqlPaginatedProjectIssuesSchema
+>;
 
 const pageInfoSchema = z.object({
   totalPages: z.number(),
@@ -141,6 +157,8 @@ const pageInfoSchema = z.object({
   previousPage: z.number().nullish(),
   nextPage: z.number().nullish(),
 });
+
+export type PageInfoType = z.infer<typeof pageInfoSchema>;
 
 export const PaginateIndexedProjectIssuesSchema = z.object({
   issueCount: z.number(),
@@ -150,21 +168,3 @@ export const PaginateIndexedProjectIssuesSchema = z.object({
 export type PaginateIndexedProjectIssuesType = z.infer<
   typeof PaginateIndexedProjectIssuesSchema
 >;
-
-export type GraphqlProjectIssuesResponseType = z.infer<
-  typeof graphqlProjectIssuesResponseSchema
->;
-
-export type GraphqlProjectIssueResponseType = z.infer<
-  typeof graphqlProjectIssueResponseSchema
->;
-
-export type ProjectIssueType = z.infer<typeof projectIssueSchema>;
-export type ProjectIssuesType = z.infer<typeof projectIssuesSchema>;
-export type GraphqlPageInfoType = z.infer<typeof graphqlPageInfoSchema>;
-
-export type GraphqlPaginatedProjectIssuesType = z.infer<
-  typeof graphqlPaginatedProjectIssuesSchema
->;
-
-export type PageInfoType = z.infer<typeof pageInfoSchema>;

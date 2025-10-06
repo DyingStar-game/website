@@ -2,7 +2,7 @@ import {
   deleteProjectIssue,
   updateProjectIssue,
 } from "@feat/api/github/hooks/indexedProjectIssues";
-import { IssuesWebhookSchema } from "@feat/issue/get/issuesWebhook.type";
+import { IssuesWebhookSchema } from "@feat/issue/get/issuesWebhook.model";
 import { env } from "@lib/env/server";
 import { route } from "@lib/zod-route";
 import { NextResponse } from "next/server";

@@ -4,6 +4,6 @@ import "server-only";
 
 export const githubGraphql = graphql.defaults({
   headers: {
-    authorization: `token ${env.NEXT_GITHUB_TOKEN}`,
+    authorization: `token ${env.GITHUB_TOKEN}`,
   },
 });
