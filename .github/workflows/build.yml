@@ -65,10 +65,10 @@ jobs:
       - name: Lint
         run: pnpm --reporter=append-only lint
 
-      - name: Recreate .env.production from secret
+      - name: Recreate .env from secret
         run: |
           echo "Creating .env from secret WEBSITE_ENV_FILE"
-          # Secret WEBSITE_ENV_PRODUCTION_FILE must contain full multi-line contents of .env
+          # Secret WEBSITE_ENV_FILE must contain full multi-line contents of .env
           # This env file is needed for the build process
           printf "%s" "${{ secrets.WEBSITE_ENV_FILE }}" > .env
 
@@ -164,8 +164,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          IS_FORK="${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork }}"
           IS_PR="${{ github.event_name == 'pull_request' }}"
+          IS_FORK="false"
+          if [[ "$IS_PR" == "true" && "${{ github.event.pull_request.head.repo.fork }}" == "true" ]]; then
+            IS_FORK="true"
+          fi
+
           IS_TAG=$([[ "${GITHUB_REF}" == refs/tags/v* ]] && echo true || echo false)
           IS_STAGING_BRANCH=$([[ "${GITHUB_REF}" == refs/heads/feat/CD ]] && echo true || echo false)
 
@@ -192,22 +196,35 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push image
+      - name: Build (no push, no cache)
+        if: ${{ steps.policy.outputs.push != 'true' }}
         uses: docker/build-push-action@v6
         with:
           context: .
           file: docker/Dockerfile.prod
           platforms: linux/amd64,linux/arm64
-          push: ${{ steps.policy.outputs.push == 'true' }}
-          # Tags (immutable + floating)
+          push: false
+          provenance: false
+          tags: |
+            ${{ matrix.env_name == 'staging' && steps.tags.outputs.staging_immutable_tag || '' }}
+            ${{ matrix.env_name == 'prod' && steps.tags.outputs.prod_tag || '' }}
+
+      - name: Build & Push (with registry cache)
+        if: ${{ steps.policy.outputs.push == 'true' }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile.prod
+          platforms: linux/amd64,linux/arm64
+          push: true
+          provenance: false
           tags: |
             ${{ matrix.env_name == 'staging' && steps.tags.outputs.staging_tag || '' }}
             ${{ matrix.env_name == 'staging' && steps.tags.outputs.staging_immutable_tag || '' }}
             ${{ matrix.env_name == 'prod' && steps.tags.outputs.prod_tag || '' }}
             ${{ matrix.env_name == 'prod' && steps.tags.outputs.prod_latest || '' }}
-          provenance: false
-          cache-from: ${{ steps.policy.outputs.cache == 'true' && format('type=registry,ref={0}/{1}:buildcache', env.REGISTRY, env.IMAGE_NAME) || '' }}
-          cache-to: ${{ steps.policy.outputs.cache == 'true' && format('type=registry,ref={0}/{1}:buildcache,mode=max', env.REGISTRY, env.IMAGE_NAME) || '' }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/{{ env.IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/{{ env.IMAGE_NAME }}:buildcache,mode=max
 
   deploy:
     name: Deploy (${{ matrix.env_name }})
@@ -220,16 +237,29 @@ jobs:
       fail-fast: false
       matrix:
         env_name: [staging, prod]
-    if: >
-      (github.event_name == 'workflow_dispatch') ||
-      (startsWith(github.ref, 'refs/tags/v') && matrix.env_name == 'prod') ||
-      (github.ref == 'refs/heads/feat/CD' && matrix.env_name == 'staging')
 
     steps:
+      - name: Decide if we should deploy
+        id: gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          SHOULD=false
+          if [[ "${{ matrix.env_name }}" == "prod" && "${GITHUB_REF}" == refs/tags/v* ]]; then
+            SHOULD=true
+          fi
+          if [[ "${{ matrix.env_name }}" == "staging" && ( "${{ github.event_name }}" == "workflow_dispatch" || "${GITHUB_REF}" == "refs/heads/feat/CD" ) ]]; then
+            SHOULD=true
+          fi
+          echo "deploy=$SHOULD" >> "$GITHUB_OUTPUT"
+          echo "deploy? $SHOULD"
+
       - name: Checkout compose files
+        if: ${{ steps.gate.outputs.deploy == 'true' }}
         uses: actions/checkout@v4
 
       - name: Choose compose file
+        if: ${{ steps.gate.outputs.deploy == 'true' }}
         id: choose
         shell: bash
         run: |
@@ -240,6 +270,7 @@ jobs:
           fi
 
       - name: SSH deploy
+        if: ${{ steps.gate.outputs.deploy == 'true' }}
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.SSH_HOST }}
