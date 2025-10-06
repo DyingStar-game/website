@@ -1,6 +1,6 @@
-import { Typography } from "@components/DS/typography";
+import Hero from "@components/DS/hero/hero";
 import { getQueryClient } from "@feat/api/get-query-client";
-import { Layout, LayoutMain, LayoutSection } from "@feat/page/layout";
+import { LayoutMain } from "@feat/page/layout";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
@@ -12,14 +12,7 @@ export default async function ContributePage() {
 
   return (
     <>
-      <LayoutSection>
-        <Layout asChild padding="none">
-          <div className="flex max-w-4xl flex-col justify-center pt-15 text-center md:pt-20 lg:pt-22">
-            <Typography variant="h1">{t("title")}</Typography>
-            <Typography variant="p">{t("description")}</Typography>
-          </div>
-        </Layout>
-      </LayoutSection>
+      <Hero title={t("title")} description={t("description")} />
       <LayoutMain>
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Issues />

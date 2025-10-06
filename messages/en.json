@@ -81,5 +81,11 @@
     },
     "notFound": "No news found",
     "title": "News"
+  },
+  "Paginate": {
+    "button": {
+      "next": "Next",
+      "previous": "Previous"
+    }
   }
 }

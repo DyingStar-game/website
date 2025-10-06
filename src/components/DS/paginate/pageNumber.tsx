@@ -1,79 +1,15 @@
-"use client";
-
 import type { ComponentProps } from "react";
 
+import { Button } from "@components/ui/button";
 import type { PageInfoType } from "@feat/api/github/schema/projectIssues.model";
-import { LayoutSection } from "@feat/page/layout";
 import { cn } from "@lib/utils";
-import { Button } from "@ui/button";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
 
-type IssuePaginationProps = {
-  pageInfo?: PageInfoType;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-};
-
-export const IssuePagination = ({
-  pageInfo,
-  setPage,
-}: IssuePaginationProps) => {
-  const t = useTranslations("Issue.IssuePagination");
-
-  return (
-    <LayoutSection className="mt-6 flex flex-col justify-between lg:flex-row">
-      <div className="flex flex-1 justify-between">
-        <Button
-          variant="outline"
-          className="group"
-          disabled={!pageInfo?.previousPage}
-          onClick={() => setPage((p) => p - 1)}
-        >
-          <ArrowLeft className="transition-transform group-hover:-translate-x-1 group-hover:animate-pulse" />
-
-          {t("button.previous")}
-        </Button>
-
-        {pageInfo && (
-          <IssuePageNumber
-            className="hidden lg:flex"
-            pageInfo={pageInfo}
-            setPage={setPage}
-          />
-        )}
-
-        <Button
-          variant="outline"
-          className="group"
-          disabled={!pageInfo?.nextPage}
-          onClick={() => setPage((p) => p + 1)}
-        >
-          {t("button.next")}
-          <ArrowRight className="transition-transform group-hover:translate-x-1 group-hover:animate-pulse" />
-        </Button>
-      </div>
-
-      {pageInfo && (
-        <IssuePageNumber
-          className="flex justify-center lg:hidden"
-          pageInfo={pageInfo}
-          setPage={setPage}
-        />
-      )}
-    </LayoutSection>
-  );
-};
-
-type IssuePageNumberProps = ComponentProps<"div"> & {
+type PageNumberProps = ComponentProps<"div"> & {
   pageInfo: PageInfoType;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const IssuePageNumber = ({
-  pageInfo,
-  setPage,
-  className,
-}: IssuePageNumberProps) => {
+const PageNumber = ({ pageInfo, setPage, className }: PageNumberProps) => {
   const { currentPage, totalPages } = pageInfo;
   const maxPagesToShow = 2;
 
@@ -141,3 +77,5 @@ const IssuePageNumber = ({
     </div>
   );
 };
+
+export default PageNumber;

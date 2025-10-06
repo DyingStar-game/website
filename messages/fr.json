@@ -16,12 +16,6 @@
         "join": "Rejoindre"
       }
     },
-    "IssuePagination": {
-      "button": {
-        "next": "Suivante",
-        "previous": "Précédente"
-      }
-    },
     "IssueSearch": {
       "input": { "placeholder": "Rechercher une tâche par mot-clé" }
     },
@@ -81,5 +75,11 @@
     },
     "notFound": "Aucune actualité trouvée",
     "title": "Actualités"
+  },
+  "Paginate": {
+    "button": {
+      "next": "Suivante",
+      "previous": "Précédente"
+    }
   }
 }

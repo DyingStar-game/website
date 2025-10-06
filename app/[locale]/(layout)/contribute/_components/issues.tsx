@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { CountInfo } from "@components/DS/countInfo/CountInfo";
 import { IssueCard } from "@components/DS/issues/IssueCard";
+import { Paginate } from "@components/DS/paginate/paginate";
 import { Typography } from "@components/DS/typography";
 import { useIssuesCountQuery } from "@feat/issue/get/useIssuesCountQuery.hook";
 import { usePaginatedIssuesQuery } from "@feat/issue/get/usePaginatedIssuesQuery.hook";
@@ -20,8 +21,6 @@ import {
   SearchIcon,
 } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
-
-import { IssuePagination } from "./issuePagination";
 
 export const Issues = () => {
   const t = useTranslations("Issue");
@@ -138,7 +137,7 @@ export const Issues = () => {
           </>
         )}
       </div>
-      <IssuePagination pageInfo={projectIssues?.pageInfo} setPage={setPage} />
+      <Paginate pageInfo={projectIssues?.pageInfo} setPage={setPage} />
     </LayoutSection>
   );
 };
