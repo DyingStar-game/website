@@ -3,17 +3,22 @@ import type { ComponentProps } from "react";
 import type { PageInfoType } from "@feat/api/github/schema/projectIssues.model";
 import { LayoutSection } from "@feat/page/layout";
 import { cn } from "@lib/utils";
-import { Button } from "@ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { UrlObject } from "url";
 
 import PageNumber from "./pageNumber";
+import { PaginateAction } from "./paginateAction";
+
+export type PaginateModeType = "button" | "link";
 
 type PaginateProps = ComponentProps<"section"> & {
   pageInfo?: PageInfoType;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPage?: React.Dispatch<React.SetStateAction<number>>;
   buttonLabelLeft?: string;
   buttonLabelRight?: string;
+  mode?: PaginateModeType;
+  getPageHref?: (page: number) => string | UrlObject;
 };
 
 export const Paginate = ({
@@ -21,10 +26,14 @@ export const Paginate = ({
   setPage,
   buttonLabelLeft,
   buttonLabelRight,
+  mode = "button",
+  getPageHref,
   className,
   ...props
 }: PaginateProps) => {
   const t = useTranslations("Paginate");
+  const canPrev = !!pageInfo?.previousPage;
+  const canNext = !!pageInfo?.nextPage;
 
   return (
     <LayoutSection
@@ -35,34 +44,45 @@ export const Paginate = ({
       {...props}
     >
       <div className="flex flex-1 justify-between">
-        <Button
-          variant="outline"
+        <PaginateAction
           className="group"
-          disabled={!pageInfo?.previousPage}
-          onClick={() => setPage((p) => p - 1)}
+          mode={mode}
+          disabled={!canPrev}
+          onClick={() => setPage?.((p) => p - 1)}
+          href={
+            getPageHref && pageInfo
+              ? getPageHref(pageInfo.currentPage - 1)
+              : undefined
+          }
         >
           <ArrowLeft className="transition-transform group-hover:-translate-x-1 group-hover:animate-pulse" />
-
           {buttonLabelLeft ?? t("button.previous")}
-        </Button>
+        </PaginateAction>
 
         {pageInfo && (
           <PageNumber
             className="hidden lg:flex"
             pageInfo={pageInfo}
             setPage={setPage}
+            mode={mode}
+            getPageHref={getPageHref}
           />
         )}
 
-        <Button
-          variant="outline"
+        <PaginateAction
           className="group"
-          disabled={!pageInfo?.nextPage}
-          onClick={() => setPage((p) => p + 1)}
+          mode={mode}
+          disabled={!canNext}
+          onClick={() => setPage?.((p) => p + 1)}
+          href={
+            getPageHref && pageInfo
+              ? getPageHref(pageInfo.currentPage + 1)
+              : undefined
+          }
         >
           {buttonLabelRight ?? t("button.next")}
           <ArrowRight className="transition-transform group-hover:translate-x-1 group-hover:animate-pulse" />
-        </Button>
+        </PaginateAction>
       </div>
 
       {pageInfo && (
@@ -70,6 +90,8 @@ export const Paginate = ({
           className="flex justify-center lg:hidden"
           pageInfo={pageInfo}
           setPage={setPage}
+          mode={mode}
+          getPageHref={getPageHref}
         />
       )}
     </LayoutSection>

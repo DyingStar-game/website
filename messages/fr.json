@@ -64,12 +64,6 @@
     "NewsItem": {
       "moreInfo": "Informations supplémentaires"
     },
-    "NewsPagination": {
-      "button": {
-        "next": "Suivante",
-        "previous": "Précédente"
-      }
-    },
     "button": {
       "viewAll": "Voir toutes les actualités"
     },

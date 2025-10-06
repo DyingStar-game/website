@@ -28,7 +28,7 @@ const generateNewsEntries = async (locale: Locale): Promise<SitemapEntry[]> => {
 
   return news.map((news) =>
     createSitemapEntry(
-      createLocalizedUrl(locale, LINKS.News.News.href({ newsSlug: news.slug })),
+      createLocalizedUrl(locale, LINKS.News.Slug.href({ newsSlug: news.slug })),
       news.attributes.date,
     ),
   );

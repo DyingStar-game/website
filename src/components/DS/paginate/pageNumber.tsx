@@ -1,15 +1,27 @@
 import type { ComponentProps } from "react";
 
-import { Button } from "@components/ui/button";
 import type { PageInfoType } from "@feat/api/github/schema/projectIssues.model";
 import { cn } from "@lib/utils";
+import type { UrlObject } from "url";
+
+import type { PaginateModeType } from "./paginate";
+import { PaginateAction } from "./paginateAction";
 
 type PageNumberProps = ComponentProps<"div"> & {
   pageInfo: PageInfoType;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPage?: React.Dispatch<React.SetStateAction<number>>;
+  mode?: PaginateModeType;
+  getPageHref?: (page: number) => string | UrlObject;
 };
 
-const PageNumber = ({ pageInfo, setPage, className }: PageNumberProps) => {
+const PageNumber = ({
+  pageInfo,
+  setPage,
+  className,
+  mode = "button",
+  getPageHref,
+  ...props
+}: PageNumberProps) => {
   const { currentPage, totalPages } = pageInfo;
   const maxPagesToShow = 2;
 
@@ -35,45 +47,35 @@ const PageNumber = ({ pageInfo, setPage, className }: PageNumberProps) => {
     pages.push(i);
   }
 
+  const renderPage = (pageNumber: number, isCurrent: boolean) => (
+    <PaginateAction
+      key={pageNumber}
+      mode={mode}
+      disabled={isCurrent}
+      onClick={mode === "button" ? () => setPage?.(pageNumber) : undefined}
+      href={
+        mode === "link" && getPageHref ? getPageHref(pageNumber) : undefined
+      }
+      variant={isCurrent ? "default" : "outline"}
+      size="sm"
+    >
+      {pageNumber}
+    </PaginateAction>
+  );
+
   return (
-    <div className={cn("items-center gap-4", className)}>
-      <Button
-        key={1}
-        variant={currentPage === 1 ? "default" : "outline"}
-        size="sm"
-        disabled={currentPage === 1}
-        onClick={() => setPage(1)}
-      >
-        1
-      </Button>
+    <div className={cn("items-center gap-4", className)} {...props}>
+      {renderPage(1, currentPage === 1)}
 
       {startPage > 2 && <span>...</span>}
 
-      {pages.map((pageNumber) => (
-        <Button
-          key={pageNumber}
-          variant={pageNumber === currentPage ? "default" : "outline"}
-          size="sm"
-          disabled={pageNumber === currentPage}
-          onClick={() => setPage(pageNumber)}
-        >
-          {pageNumber}
-        </Button>
-      ))}
+      {pages.map((pageNumber) =>
+        renderPage(pageNumber, pageNumber === currentPage),
+      )}
 
       {endPage < totalPages - 1 && <span>...</span>}
 
-      {totalPages > 1 && (
-        <Button
-          key={totalPages}
-          variant={currentPage === totalPages ? "default" : "outline"}
-          size="sm"
-          disabled={currentPage === totalPages}
-          onClick={() => setPage(totalPages)}
-        >
-          {totalPages}
-        </Button>
-      )}
+      {totalPages > 1 && renderPage(totalPages, currentPage === totalPages)}
     </div>
   );
 };

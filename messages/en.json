@@ -70,12 +70,6 @@
     "NewsItem": {
       "moreInfo": "Additional information"
     },
-    "NewsPagination": {
-      "button": {
-        "next": "Next",
-        "previous": "Previous"
-      }
-    },
     "button": {
       "viewAll": "View all news"
     },
