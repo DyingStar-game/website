@@ -19,11 +19,11 @@ import { notFound } from "next/navigation";
 import { SiteConfig } from "site-config";
 
 export const metadata: Metadata = {
-  title: `${SiteConfig.title}'s Blog`,
+  title: `${SiteConfig.title}'s news`,
   description: SiteConfig.description,
   keywords: ["news"],
   openGraph: {
-    title: `${SiteConfig.title}'s Blog`,
+    title: `${SiteConfig.title}'s news`,
     description: SiteConfig.description,
     url: SiteConfig.prodUrl,
     type: "website",

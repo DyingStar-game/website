@@ -1,9 +1,7 @@
-import { resolveActionResult } from "@lib/actions/actions-utils";
-import { githubFactory } from "@lib/tanstack/queryKey";
 import { useQuery } from "@tanstack/react-query";
 
-import { GetPaginatedIssuesAction } from "./getPaginatedIssues.action";
 import type { GetPaginatedIssuesType } from "./getPaginatedIssues.type";
+import { paginatedIssuesQueryOptions } from "./paginatedIssuesQuery.options";
 
 export const usePaginatedIssuesQuery = ({
   page,
@@ -11,26 +9,9 @@ export const usePaginatedIssuesQuery = ({
   projects,
   pageSize,
 }: GetPaginatedIssuesType) => {
-  const queryHook = useQuery({
-    queryKey: githubFactory.PaginatedIssues({
-      page,
-      query,
-      projects,
-      pageSize,
-    }),
-    queryFn: async () => {
-      const issues = await resolveActionResult(
-        GetPaginatedIssuesAction({
-          page,
-          query,
-          projects,
-          pageSize,
-        }),
-      );
-
-      return issues;
-    },
-  });
+  const queryHook = useQuery(
+    paginatedIssuesQueryOptions({ page, query, projects, pageSize }),
+  );
 
   return queryHook;
 };
