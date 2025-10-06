@@ -130,10 +130,6 @@ jobs:
         run: |
           set -euo pipefail
           tar -xzf artifact/runtime.tar.gz
-          # Quick sanity check: list symlinks inside node_modules (expect pnpm structure)
-          find .next/standalone/node_modules -maxdepth 1 -type l -printf '%f -> %l\n' | head -20 || true
-          ls -1 .next/standalone/node_modules/.pnpm | head -20 || true
-
       - name: Define docker image TAG
         id: image-tag
         run: |
@@ -145,29 +141,28 @@ jobs:
           else
             echo "IMAGE_TAG=staging" >> "$GITHUB_OUTPUT"
           fi
-
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
-        if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/') }}
+        if: ${{ github.event_name != 'pull_request' }}
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           file: docker/Dockerfile.prod
           context: .
           platforms: linux/amd64,linux/arm64
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{ steps.image-tag.outputs.IMAGE_TAG }}
-          cache-from: type=registry,ref=${{env.REGISTRY}}/${{env.IMAGE_NAME}}:buildcache
-          cache-to: type=registry,ref=${{env.REGISTRY}}/${{env.IMAGE_NAME}}:buildcache,mode=max
+          cache-from: ${{ github.event_name != 'pull_request' && format('type=registry,ref={0}/{1}:buildcache', env.REGISTRY, env.IMAGE_NAME) || '' }}
+          cache-to: ${{ github.event_name != 'pull_request' && format('type=registry,ref={0}/{1}:buildcache,mode=max', env.REGISTRY, env.IMAGE_NAME) || '' }}
 
   deploy:
     name: Deploy image with ssh
@@ -204,13 +199,15 @@ jobs:
           script_stop: true
           script: |
             set -euo pipefail
+            echo "Login to GHCR"
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-            # COMPOSE="${{ steps.target.outputs.compose }}"
+
             echo "CD to compose folder"
             cd docker
-            # echo "Pull ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{ needs.docker-image.outputs.IMAGE_TAG }}"
-            # docker pull ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{ needs.docker-image.outputs.IMAGE_TAG }}"
-            echo "Deploy using compose file: ${COMPOSE}"
-            docker compose -f staging.compose.yml up -d
+
+            echo "Deploy using compose file: ${{ steps.target.outputs.compose }}"
+            docker compose -f ${{ steps.target.outputs.compose }} pull
+            docker compose -f ${{ steps.target.outputs.compose }} up -d
+
             echo "Containers:"
-            docker compose -f staging.compose.yml ps
+            docker compose -f ${{ steps.target.outputs.compose }} ps
