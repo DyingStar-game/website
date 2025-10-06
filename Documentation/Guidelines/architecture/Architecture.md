@@ -25,20 +25,30 @@ Non-functional requirement for the project are:
 | Reliability       | Mean time to recovery                                                                                                                                                               | System should be able to recover from failure under 5 mins |
 | Usability         | Usability can be described as the capacity of a system to provide a condition for its users to perform the tasks safely, effectively, and efficiently while enjoying the experience | Browsers: Chrome, IE, Firefox                              |
 
-## Folder Structure
+## Folder and File structure
 
 The folder structure of repository is as follows: [tree](./projectTreeFolder.md)
 
 ### Logic structure of folders
 
-- **App/** : The main folder for routing and page rendering.
-  - **Top level folders** : Top-level files are used to configure your application, manage dependencies, run middleware, integrate monitoring tools, and define environment variables. [NextJs documentation](https://nextjs.org/docs/app/getting-started/project-structure#folder-and-file-conventions)
-  - **[locale]/** : The folder for the locale pages.
-    - **(name)/** : Groupe of pages related to the same theme.
-      - **page, layout, loading, error, not-found** : The main page component.
-      - **pathName/** : Folder to add new path url for the page.
-        - **page, layout, loading, error, not-found** : The page component.
-        - **\_components** : The components folder for page only.
+#############
+TODO :
+Il faudrait reprendre la doc de nextjs pour la structure des folders
+Ajouter des liens pour chaques folders
+#############
+
+### Files Types and conventions
+
+- **\*.mdx** - utiliser pour les pages ayant du rendu markdown exemple : news + links
+- **\*.ts** - Fichier de logique pure
+- **\*.type.ts** - Permet de définir des types et schema avec zod
+- **\*.hook.ts** - Permet de définir des hooks react qui ne sont pas implicitement dans le dossier hooks
+- **\*.link.ts** - Logique localisée des liens de navigation
+- **\*.query.ts** - query prisma
+- **\*query.hook.ts** - query tanstack
+- **\*mutation.hook.ts** - mutation tanstack
+- **\*.tsx** - Fichier contenant les composants react
+  ....
 
 ## Architecture Decision Records
 
