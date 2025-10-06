@@ -8,10 +8,11 @@ import { cn } from "@lib/utils";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { buttonVariants } from "@ui/button";
 import { Select, SelectContent, SelectItem } from "@ui/select";
+import type { VariantProps } from "class-variance-authority";
 import { LanguagesIcon, LoaderCircle } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
 
-export type LocaleSwitcherSelectProps = {
+export type LocaleSwitcherSelectProps = VariantProps<typeof buttonVariants> & {
   defaultValue: string;
   items: LocaleSwitcherSelectItemsType[];
   label: string;
@@ -25,6 +26,7 @@ export const LocaleSwitcherSelect = ({
   items,
   label,
   className,
+  size,
 }: LocaleSwitcherSelectProps) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -59,9 +61,7 @@ export const LocaleSwitcherSelect = ({
       disabled={isPending}
     >
       <SelectPrimitive.Trigger
-        className={cn(
-          buttonVariants({ variant: "ghost", size: "lg", className }),
-        )}
+        className={cn(buttonVariants({ variant: "ghost", size, className }))}
       >
         {isPending ? (
           <LoaderCircle className="size-6 animate-spin" aria-label={label} />

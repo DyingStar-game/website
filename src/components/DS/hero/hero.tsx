@@ -11,7 +11,7 @@ type HeroProps = ComponentProps<"section"> & {
 
 const Hero = ({ title, description, ...props }: HeroProps) => {
   return (
-    <LayoutSection {...props}>
+    <LayoutSection size={"container"} {...props}>
       <Layout asChild padding="none">
         <div className="flex max-w-4xl flex-col justify-center pt-15 text-center md:pt-20 lg:pt-22">
           <Typography variant="h1">{title}</Typography>
