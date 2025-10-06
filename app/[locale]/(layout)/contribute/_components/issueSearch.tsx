@@ -28,7 +28,10 @@ const IssueSearch = ({
   const t = useTranslations("Issue.IssueSearch");
   const formatter = useFormatter();
   return (
-    <LayoutSection className="gap-5 rounded-md bg-card p-8" padding="none">
+    <LayoutSection
+      className="gap-5 rounded-md bg-card p-4 sm:p-8"
+      padding="none"
+    >
       <Input
         id="search"
         placeholder={t("input.placeholder")}
