@@ -2,41 +2,25 @@ import {
   deleteProjectIssue,
   updateProjectIssue,
 } from "@feat/api/github/hooks/indexedProjectIssues";
-import { IssuesWebhookSchema } from "@feat/api/github/schema/issuesWebhook.model";
+import { IssuesWebhookSchema } from "@feat/issue/get/issuesWebhook.type";
 import { env } from "@lib/env/server";
-import type { NextRequest } from "next/server";
+import { route } from "@lib/zod-route";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 
-export async function POST(request: NextRequest) {
-  try {
-    const secret = request.nextUrl.searchParams.get("secret");
-    if (secret !== env.GH_WEBHOOK_SECRET) {
-      return NextResponse.json({ ok: false }, { status: 403 });
-    }
+export const POST = route //TODO: Create a webhook middleware to handle the webhook
+  .query(
+    z.object({
+      secret: z.string(),
+    }),
+  )
+  .body(IssuesWebhookSchema)
+  .handler(async (req, { query, body }) => {
+    if (query.secret !== env.GH_WEBHOOK_SECRET)
+      return NextResponse.json({ message: "Invalid Access" }, { status: 403 });
 
-    const raw = await request.text();
-    const body = JSON.parse(raw);
-
-    const parseResult = IssuesWebhookSchema.safeParse(body);
-
-    if (!parseResult.success) return NextResponse.json(null, { status: 202 });
-
-    if (parseResult.data.action === "deleted")
-      await deleteProjectIssue(parseResult.data.issue.node_id);
-    else await updateProjectIssue(parseResult.data.issue.node_id);
+    if (body.action === "deleted") await deleteProjectIssue(body.issue.node_id);
+    else await updateProjectIssue(body.issue.node_id);
 
     return NextResponse.json(null, { status: 200 });
-  } catch (e: unknown) {
-    console.error("🚀 ~ POST ~ e:", e);
-    const message =
-      e instanceof Error
-        ? e.message
-        : typeof e === "string"
-          ? e
-          : "Unknown error";
-    return NextResponse.json(
-      { error: "Failed to fetch project issues", details: message },
-      { status: 500 },
-    );
-  }
-}
+  });

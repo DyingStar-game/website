@@ -1,6 +1,6 @@
 {
   "Issue": {
-    "IssueCTA": {
+    "Hero": {
       "description": "Rejoignez l'équipage et choisissez les missions qui correspondent à vos compétences. Chaque tâche renforce l'univers du MMO narratif et rapproche la communauté de la prochaine étape du voyage.",
       "title": "Contribuer au projet Dying Star"
     },
@@ -14,12 +14,6 @@
       "assigneesCount": "{count, plural, =0 {Aucun contributeur} =1 {1 contributeur} other {# contributeurs}}",
       "button": {
         "join": "Rejoindre"
-      }
-    },
-    "IssuePagination": {
-      "button": {
-        "next": "Suivante",
-        "previous": "Précédente"
       }
     },
     "IssueSearch": {
@@ -70,16 +64,16 @@
     "NewsItem": {
       "moreInfo": "Informations supplémentaires"
     },
-    "NewsPagination": {
-      "button": {
-        "next": "Suivante",
-        "previous": "Précédente"
-      }
-    },
     "button": {
       "viewAll": "Voir toutes les actualités"
     },
     "notFound": "Aucune actualité trouvée",
     "title": "Actualités"
+  },
+  "Paginate": {
+    "button": {
+      "next": "Suivante",
+      "previous": "Précédente"
+    }
   }
 }

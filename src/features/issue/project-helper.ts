@@ -1,6 +1,7 @@
 import type { IconName } from "lucide-react/dynamic";
 import type { StaticImageData } from "next/image";
 
+//TODO: Refactor this
 import illustration2D from "./assets/im_2d_illustration.png";
 import ui2D from "./assets/im_2d_ui.png";
 import ux2D from "./assets/im_2d_ux.png";

@@ -1,28 +1,41 @@
-import { Typography } from "@components/DS/typography";
+import Hero from "@components/DS/hero/hero";
 import { getQueryClient } from "@feat/api/get-query-client";
-import { Layout, LayoutMain, LayoutSection } from "@feat/page/layout";
+import { paginatedIssuesQueryOptions } from "@feat/issue/get/paginatedIssuesQuery.options";
+import { LayoutMain } from "@feat/page/layout";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { SiteConfig } from "site-config";
 
-import Tasks from "./tasks";
+import { Issues } from "./_components/issues";
+
+// TODO : Refactor
+export const metadata: Metadata = {
+  title: `${SiteConfig.title}'s contribute`,
+  description: SiteConfig.description,
+  keywords: ["contribute"],
+  openGraph: {
+    title: `${SiteConfig.title}'s contribute`,
+    description: SiteConfig.description,
+    url: SiteConfig.prodUrl,
+    type: "article",
+  },
+};
 
 export default async function ContributePage() {
   const queryClient = getQueryClient();
-  const t = await getTranslations("Issue.IssueCTA");
+  const t = await getTranslations("Issue.Hero");
+
+  void queryClient.prefetchQuery(paginatedIssuesQueryOptions());
 
   return (
-    <LayoutMain>
-      <LayoutSection>
-        <Layout asChild padding="default">
-          <div className="flex max-w-4xl flex-col justify-center text-center">
-            <Typography variant="h1">{t("title")}</Typography>
-            <Typography variant="p">{t("description")}</Typography>
-          </div>
-        </Layout>
-      </LayoutSection>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Tasks />
-      </HydrationBoundary>
-    </LayoutMain>
+    <>
+      <Hero title={t("title")} description={t("description")} />
+      <LayoutMain>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <Issues />
+        </HydrationBoundary>
+      </LayoutMain>
+    </>
   );
 }

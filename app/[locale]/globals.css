@@ -160,16 +160,6 @@
   --dev-engine: #40122d;
   --lore: #6d298e;
   --uxui: #9f3619;
-
-  /* 1: "file-code", // Development of the godot engine
-  3: "palette", // Game Design
-  8: "audio-lines", // Audio
-  9: "speech", // Narration & Lore
-  11: "network", // Développement Réseau & service
-  13: "globe", // Web site
-  14: "pencil-ruler", // UI/UX
-  15: "unplug", // Development infra & Ci/CD
-  16: "container", // Modeling 3D & 2D */
 }
 
 @utility prose-dyingstar {

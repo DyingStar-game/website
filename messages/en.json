@@ -1,6 +1,6 @@
 {
   "Issue": {
-    "IssueCTA": {
+    "Hero": {
       "description": "Join the crew and choose the missions that correspond to your skills. Each task strengthens the narrative universe of the MMO and brings the community closer to the next step of the journey.",
       "title": "Contribute to the Dying Star project"
     },
@@ -35,7 +35,7 @@
     "CTA": {
       "contribute": {
         "action": "How to contribute",
-        "title": "Join TOTOus and contribute to the project!"
+        "title": "Join us and contribute to the project!"
       },
       "discord": {
         "action": "Join Discord",
@@ -70,16 +70,16 @@
     "NewsItem": {
       "moreInfo": "Additional information"
     },
-    "NewsPagination": {
-      "button": {
-        "next": "Next",
-        "previous": "Previous"
-      }
-    },
     "button": {
       "viewAll": "View all news"
     },
     "notFound": "No news found",
     "title": "News"
+  },
+  "Paginate": {
+    "button": {
+      "next": "Next",
+      "previous": "Previous"
+    }
   }
 }

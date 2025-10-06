@@ -68,6 +68,7 @@ export const graphqlProjectIssueSchema = z.object({
   id: z.string(),
   projectItems: projectItemsSchema,
 });
+export type GraphqlProjectIssueType = z.infer<typeof graphqlProjectIssueSchema>;
 
 export const graphqlProjectIssuesResponseSchema = z.object({
   search: z.object({
@@ -82,11 +83,11 @@ export const graphqlProjectIssueResponseSchema = z.object({
 });
 
 export enum IssueSize {
-  "XS" = "XS",
-  "S" = "S",
-  "M" = "M",
-  "L" = "L",
-  "XL" = "XL",
+  XS = "XS",
+  S = "S",
+  M = "M",
+  L = "L",
+  XL = "XL",
 }
 
 export const isValidIssueSize = (value: string): value is IssueSize => {
@@ -123,6 +124,8 @@ export const projectIssueSchema = z.object({
     }),
   ),
   labels: z.array(z.string()),
+  created_at: z.string(),
+  updated_at: z.string(),
 });
 
 export const projectIssuesSchema = z.array(projectIssueSchema);
@@ -139,13 +142,14 @@ const pageInfoSchema = z.object({
   nextPage: z.number().nullish(),
 });
 
-export const paginateIndexedProjectIssuesSchema = z.object({
+export const PaginateIndexedProjectIssuesSchema = z.object({
   issueCount: z.number(),
   pageInfo: pageInfoSchema,
   issues: projectIssuesSchema,
 });
-
-export type GraphqlProjectIssueType = z.infer<typeof graphqlProjectIssueSchema>;
+export type PaginateIndexedProjectIssuesType = z.infer<
+  typeof PaginateIndexedProjectIssuesSchema
+>;
 
 export type GraphqlProjectIssuesResponseType = z.infer<
   typeof graphqlProjectIssuesResponseSchema
@@ -161,10 +165,6 @@ export type GraphqlPageInfoType = z.infer<typeof graphqlPageInfoSchema>;
 
 export type GraphqlPaginatedProjectIssuesType = z.infer<
   typeof graphqlPaginatedProjectIssuesSchema
->;
-
-export type PaginateIndexedProjectIssuesType = z.infer<
-  typeof paginateIndexedProjectIssuesSchema
 >;
 
 export type PageInfoType = z.infer<typeof pageInfoSchema>;

@@ -1,4 +1,6 @@
-import { meili } from "@feat/api/meilisearch";
+import { GetGithubIssue } from "@feat/issue/get/getGithubIssue.graphql";
+import { GetGithubIssues } from "@feat/issue/get/getGithubIssues.graphql";
+import { meili } from "@lib/meilisearch/meilisearchClient";
 import type { FacetHit } from "meilisearch";
 
 import type {
@@ -6,7 +8,6 @@ import type {
   ProjectIssueType,
   ProjectIssuesType,
 } from "../schema/projectIssues.model";
-import { fetchProjectIssue, fetchProjectIssues } from "./fetchProjectIssues";
 
 const ISSUES_INDEX = "gh_issues";
 
@@ -27,6 +28,11 @@ export async function updateProjectIssues() {
     .updateFilterableAttributes(["project_name", "has_assignees", "status"]);
   await meili.tasks.waitForTask(filterTask.taskUid);
 
+  const sortableTask = await meili
+    .index(ISSUES_INDEX)
+    .updateSortableAttributes(["updated_at"]);
+  await meili.tasks.waitForTask(sortableTask.taskUid);
+
   const addTask = await meili.index(ISSUES_INDEX).addDocuments(allIssues);
   await meili.tasks.waitForTask(addTask.taskUid);
 }
@@ -34,7 +40,7 @@ async function fetchAllProjectIssues(
   issues: ProjectIssuesType = [],
   cursor?: string,
 ) {
-  const response = await fetchProjectIssues(cursor);
+  const response = await GetGithubIssues(cursor);
 
   if (response.pageInfo.endCursor) {
     return fetchAllProjectIssues(
@@ -50,7 +56,7 @@ export const deleteProjectIssue = async (issueId: string) => {
   await meili.tasks.waitForTask(deleteTask.taskUid);
 };
 export const updateProjectIssue = async (issueId: string) => {
-  const issue = await fetchProjectIssue(issueId);
+  const issue = await GetGithubIssue(issueId);
 
   const updateTask = await meili.index(ISSUES_INDEX).updateDocuments(issue);
 
@@ -74,6 +80,7 @@ export async function searchProjectIssues(
     hitsPerPage: pageSize,
     page,
     filter,
+    sort: ["updated_at:desc"],
   });
 
   const pageResponse: PaginateIndexedProjectIssuesType = {
@@ -118,3 +125,5 @@ export async function getProjectCount(): Promise<FacetHit[]> {
 
   return res.facetHits;
 }
+
+//TODO: Refactor this file

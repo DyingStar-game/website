@@ -50,7 +50,7 @@ export const LINKS = {
   },
   News: {
     All: createLink("/news", "All News", undefined, false),
-    News: createLink(`${PATHS.NEWS}`, "News", { Icon: Info }, true),
+    Slug: createLink(`${PATHS.NEWS}`, "News", { Icon: Info }, true),
   },
 
   Project: {
