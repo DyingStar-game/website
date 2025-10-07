@@ -34,36 +34,45 @@ jobs:
 
       - name: Install gnu tar (fix BusyBox tar for cache)
         run: |
-          apk update && apk add --no-cache tar
+          apk update && apk add --no-cache tar jq
           tar --version || true
+
       - name: Enable Corepack & activate pinned pnpm
         id: pnpm-version
         run: |
           set -euo pipefail
           corepack enable
           # Extract pnpm version from package.json (packageManager field)
-          VERSION=$(grep -E '"packageManager"' package.json | sed -E 's/.*pnpm@([^" ]+).*/\1/')
+          VERSION=$(jq -r '.packageManager|capture("pnpm@(?<v>.*)$").v' package.json)
           echo "Detected pnpm version: $VERSION"
           corepack prepare pnpm@${VERSION} --activate
           pnpm --version
           echo "pnpm_version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Cache pnpm store
+      - name: Setup Node (with pnpm cache)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: "pnpm"
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Restore Next.js build cache
         uses: actions/cache@v4
         with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          path: .next/cache
+          key: next-cache-${{ runner.os }}-${{ hashFiles('next.config.mjs') }}
           restore-keys: |
-            pnpm-
+            next-cache-${{ runner.os }}-
 
       - name: Install dependencies (pnpm install)
-        run: pnpm --reporter=append-only install --frozen-lockfile
+        env:
+          PNPM_HOME: ~/.local/share/pnpm
+        run: |
+          pnpm fetch --silent
+          pnpm --reporter=append-only install --frozen-lockfile --prefer-offline
 
       - name: Allow build scripts (non-interactive)
         run: pnpm config set allow-scripts "@parcel/watcher,@tailwindcss/oxide,esbuild,sharp"
-
-      - name: Lint
-        run: pnpm --reporter=append-only lint
 
       - name: Recreate .env from secret
         run: |
@@ -73,13 +82,14 @@ jobs:
           printf '%s\n' "${{ secrets.WEBSITE_ENV_FILE }}" > .env
           sed -i 's/\r$//' .env
 
+      - name: Lint
+        if: ${{ github.event_name == 'pull_request' }}
+        run: pnpm --reporter=append-only lint
       - name: Build (Next.js)
         env:
           NODE_OPTIONS: --max-old-space-size=4096
+          NEXT_TELEMETRY_DISABLED: 1
         run: pnpm --reporter=append-only build
-
-      - name: Clean up .next/cache to reduce artifact size
-        run: rm -rf .next/cache
 
       - name: Prune dev dependencies from node_modules
         run: pnpm prune --prod
@@ -94,14 +104,13 @@ jobs:
             public \
             package.json \
             pnpm-lock.yaml
-          tar -tzf runtime.tar.gz | head -40 || true
 
       - name: Upload runtime artifact (tarball)
         uses: actions/upload-artifact@v4
         with:
           name: next-runtime
           path: runtime.tar.gz
-          retention-days: 7
+          retention-days: 1
           if-no-files-found: error
 
   docker-image:
@@ -251,22 +260,22 @@ jobs:
             echo "compose=${{ secrets.COMPOSE_FILE_STAGING }}" >> $GITHUB_OUTPUT
           fi
 
-      - name: SSH deploy
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT || 22 }}
-          script_stop: true
-          script: |
-            set -euo pipefail
-            # PAT read:packages + username du compte du PAT
-            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
-            cd docker
-            echo "Using compose: ${{ steps.choose.outputs.compose }}"
-            docker compose -f ${{ steps.choose.outputs.compose }} pull
-            docker compose -f ${{ steps.choose.outputs.compose }} up -d
+      # - name: SSH deploy
+      #   uses: appleboy/ssh-action@v1.2.0
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     username: ${{ secrets.SSH_USER }}
+      #     key: ${{ secrets.SSH_KEY }}
+      #     port: ${{ secrets.SSH_PORT || 22 }}
+      #     script_stop: true
+      #     script: |
+      #       set -euo pipefail
+      #       # PAT read:packages + username du compte du PAT
+      #       echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+      #       cd docker
+      #       echo "Using compose: ${{ steps.choose.outputs.compose }}"
+      #       docker compose -f ${{ steps.choose.outputs.compose }} pull
+      #       docker compose -f ${{ steps.choose.outputs.compose }} up -d
 
-            echo "Containers:"
-            docker compose -f ${{ steps.choose.outputs.compose }} ps
+      #       echo "Containers:"
+      #       docker compose -f ${{ steps.choose.outputs.compose }} ps
