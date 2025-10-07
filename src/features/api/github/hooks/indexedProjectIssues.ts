@@ -1,5 +1,5 @@
 import { GetGithubIssue } from "@feat/issue/get/getGithubIssue.graphql";
-import { GetGithubIssues } from "@feat/issue/get/getGithubIssues.graphql";
+import { getGithubIssues } from "@feat/issue/get/getGithubIssues.graphql";
 import { meili } from "@lib/meilisearch/meilisearchClient";
 import type { FacetHit } from "meilisearch";
 
@@ -64,7 +64,7 @@ async function fetchAllProjectIssues(
   issues: ProjectIssuesType = [],
   cursor?: string,
 ) {
-  const response = await GetGithubIssues(cursor);
+  const response = await getGithubIssues(cursor);
 
   if (response.pageInfo.endCursor) {
     return fetchAllProjectIssues(

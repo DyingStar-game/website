@@ -2,8 +2,8 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-ENV PNPM_HOME=/root/.local/share/pnpm \
-	PATH=$PNPM_HOME:$PATH
+ENV PNPM_HOME=/root/.local/share/pnpm
+ENV	PATH=$PNPM_HOME:$PATH
 
 # Configure pnpm version via Corepack and copy dependency manifests
 ARG PNPM_VERSION=10.17.1
@@ -19,6 +19,8 @@ RUN pnpm approve-builds
 
 # Expose the port the app runs on
 EXPOSE 3000
+
+USER node
 
 # Start development server
 CMD ["corepack", "pnpm", "dev"]

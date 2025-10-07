@@ -13,7 +13,7 @@ import { githubGraphql } from "@lib/github/githubApi";
 import { GITHUB_ISSUE_FRAGMENT } from "./githubIssueFragments.graphql";
 import { GraphqlProjectIssueResponseToProjectIssuesTypeMapper } from "./graphqlProjectIssueResponseToProjectIssuesType.mapper";
 
-export const GetGithubIssues = async (
+export const getGithubIssues = async (
   cursor?: string,
 ): Promise<GraphqlPaginatedProjectIssuesType> => {
   const QUERY = `

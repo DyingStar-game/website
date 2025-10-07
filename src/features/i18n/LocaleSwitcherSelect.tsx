@@ -63,13 +63,11 @@ export const LocaleSwitcherSelect = ({
       <SelectPrimitive.Trigger
         className={cn(buttonVariants({ variant: "ghost", size, className }))}
       >
+        <span className="sr-only">{label}</span>
         {isPending ? (
-          <LoaderCircle className="size-6 animate-spin" aria-label={label} />
+          <LoaderCircle className="animate-spin" />
         ) : (
-          <>
-            <span className="sr-only">{label}</span>
-            <LanguagesIcon />
-          </>
+          <LanguagesIcon />
         )}
       </SelectPrimitive.Trigger>
       <SelectContent>
