@@ -5,7 +5,7 @@ YELLOW := \033[33m
 RESET := \033[0m
 
 # Docker commands
-DOCKER_RUN := docker run --rm -v $(shell pwd):/app -u $(shell id -u):$(shell id -g) -w /app -e HOME=/app
+DOCKER_RUN := docker run --rm -v $(shell pwd):/app -u $(shell id -u):$(shell id -g) -w /app
 DOCKER_NODE := $(DOCKER_RUN) node:22-alpine
 DOCKER_COMPOSE := UID=$(shell id -u) GID=$(shell id -g) COMPOSE_BAKE=true docker compose -f docker/docker-compose.yml
 
