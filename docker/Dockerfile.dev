@@ -11,7 +11,7 @@ RUN corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate
 COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies (pnpm) with cache mount for store (BuildKit)
-RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
+RUN --mount=type=cache,id=pnpm-store,target=$PNPM_HOME/store \
 	pnpm install --frozen-lockfile
 
 # Approve native build scripts
