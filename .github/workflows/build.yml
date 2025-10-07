@@ -112,6 +112,7 @@ jobs:
           path: runtime.tar.gz
           retention-days: 1
           if-no-files-found: error
+          compression-level: 0
 
   docker-image:
     name: Build production Docker image (runtime)
@@ -150,6 +151,11 @@ jobs:
           elif [[ "${GITHUB_REF}" == "refs/heads/feat/CD" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             TARGET="staging"
           fi
+          if [[ "$TARGET" == "prod" ]]; then
+            echo "platforms=linux/amd64,linux/arm64" >> "$GITHUB_OUTPUT"
+          else
+            echo "platforms=linux/amd64" >> "$GITHUB_OUTPUT"
+          fi
           echo "target=$TARGET" >> "$GITHUB_OUTPUT"
           echo "Target decided: $TARGET"
       - name: Compute tags
@@ -170,10 +176,11 @@ jobs:
             echo "tag_secondary=" >> $GITHUB_OUTPUT
           fi
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      - name: Set up QEMU
+        if: ${{ contains(steps.meta.outputs.platforms, 'arm64') }}
+        uses: docker/setup-qemu-action@v3
 
       - name: Decide push/cache policy
         id: policy
@@ -194,12 +201,12 @@ jobs:
             if [[ "$IS_PR" != "true" ]]; then PUSH=true; fi
           fi
 
-          DO_CACHE=true
-          if [[ "$IS_PR" == "true" || "$IS_FORK" == "true" || "$TARGET" == "none" ]]; then DO_CACHE=false; fi
+          USE_GHA_CACHE=false
+          if [[ "$PUSH" != "true" || "$TARGET" == "none" || "$IS_PR" == "true" ]]; then USE_GHA_CACHE=true; fi
 
           echo "push=$PUSH"  >> "$GITHUB_OUTPUT"
-          echo "cache=$DO_CACHE" >> "$GITHUB_OUTPUT"
-          echo "policy -> push=$PUSH cache=$DO_CACHE target=$TARGET"
+          echo "use_gha_cache=$USE_GHA_CACHE" >> "$GITHUB_OUTPUT"
+          echo "policy -> push=$PUSH ga_cache=$USE_GHA_CACHE target=$TARGET"
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -209,20 +216,22 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Build local (pas de push, pas de cache registry)
+      # Build local (pas de push, cache GHA Si possible)
       - name: Build (no push)
         if: ${{ steps.policy.outputs.push != 'true' || steps.meta.outputs.target == 'none' }}
         uses: docker/build-push-action@v6
         with:
           context: .
           file: docker/Dockerfile.prod
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ steps.meta.outputs.platforms }}
           push: false
           provenance: false
           # on tag quand même localement pour valider la build
           tags: |
             ${{ steps.tags.outputs.tag_secondary }}
             ${{ steps.tags.outputs.tag_primary }}
+          cache-from: ${{ steps.policy.outputs.use_gha_cache == 'true' && 'type=gha' || '' }}
+          cache-to: ${{ steps.policy.outputs.use_gha_cache == 'true' && 'type=gha,mode=max' || '' }}
 
       # Build & Push (avec cache registry)
       - name: Build & Push
@@ -231,7 +240,7 @@ jobs:
         with:
           context: .
           file: docker/Dockerfile.prod
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ steps.meta.outputs.platforms }}
           push: true
           provenance: false
           tags: |
@@ -274,8 +283,8 @@ jobs:
       #       echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
       #       cd docker
       #       echo "Using compose: ${{ steps.choose.outputs.compose }}"
-      #       docker compose -f ${{ steps.choose.outputs.compose }} pull
-      #       docker compose -f ${{ steps.choose.outputs.compose }} up -d
+      #       docker compose -f ${{ steps.choose.outputs.compose }} pull --ignore-pull-failures
+      #       docker compose -f ${{ steps.choose.outputs.compose }} up -d --no-deps webapp
 
       #       echo "Containers:"
       #       docker compose -f ${{ steps.choose.outputs.compose }} ps
