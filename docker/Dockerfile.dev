@@ -20,7 +20,5 @@ RUN pnpm approve-builds
 # Expose the port the app runs on
 EXPOSE 3000
 
-USER node
-
 # Start development server
 CMD ["corepack", "pnpm", "dev"]

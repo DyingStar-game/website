@@ -15,6 +15,7 @@ services:
     tty: true
     networks:
       - backend
+    user: "${UID}:${GID}"
 
   meilisearch:
     container_name: meilisearch
