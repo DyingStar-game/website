@@ -1,0 +1,114 @@
+name: Build Application
+
+# This workflow accepts a configurable Node.js version
+# Called by the main CI/CD pipeline with node-version parameter
+
+on:
+  workflow_call:
+    inputs:
+      cache-key:
+        description: "Cache key for node_modules"
+        required: false
+        type: string
+      node-version:
+        description: "Node.js version to use"
+        required: false
+        type: string
+        default: "22"
+    outputs:
+      artifact-name:
+        description: "Name of the build artifact"
+        value: ${{ jobs.build.outputs.artifact-name }}
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Next.js runtime artifact
+    runs-on: ubuntu-latest
+    container:
+      image: node:${{ inputs.node-version }}-alpine
+      options: >-
+        --cpus=2
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      artifact-name: ${{ steps.artifact.outputs.name }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install gnu tar (fix BusyBox tar for cache)
+        run: |
+          apk update && apk add --no-cache tar
+          tar --version || true
+
+      - name: Enable Corepack & activate pnpm
+        run: |
+          set -euo pipefail
+          corepack enable
+          corepack install
+          pnpm --version
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore pnpm store cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ inputs.cache-key }}
+          fail-on-cache-miss: true
+
+      - name: Install dependencies (restore from pnpm store)
+        run: pnpm --reporter=append-only install --frozen-lockfile
+
+      - name: Recreate .env.production from secret
+        run: |
+          echo "Creating .env.production from secret WEBSITE_ENV_PRODUCTION_FILE"
+          # Secret WEBSITE_ENV_PRODUCTION_FILE must contain full multi-line contents of .env.production
+          printf "%s" "${{ secrets.WEBSITE_ENV_PRODUCTION_FILE }}" > .env.production
+
+      - name: Build (Next.js)
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: pnpm --reporter=append-only build
+      
+      - name: Clean up .next/cache to reduce artifact size
+        run: rm -rf .next/cache
+
+      - name: Prune dev dependencies from node_modules
+        run: pnpm prune --prod
+
+      - name: Pack runtime artifact (preserve pnpm symlinks)
+        if: success()
+        run: |
+          set -euo pipefail
+          echo "Creating runtime.tar.gz (symlinks preserved)"
+          tar -czf runtime.tar.gz \
+            .next/standalone \
+            .next/static \
+            public \
+            package.json \
+            pnpm-lock.yaml
+          tar -tzf runtime.tar.gz | head -40 || true
+
+      - name: Set artifact name
+        id: artifact
+        run: |
+          echo "name=next-runtime-${{ github.sha }}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload runtime artifact (tarball)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.artifact.outputs.name }}
+          path: runtime.tar.gz
+          retention-days: 7
+          if-no-files-found: error

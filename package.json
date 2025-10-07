@@ -9,6 +9,7 @@
     "dev": "next dev --turbopack --hostname 0.0.0.0",
     "format": "prettier --write .",
     "lint": "eslint . --fix",
+    "lint:ci": "eslint . --max-warnings=0",
     "start": "next start",
     "ts": "tsc --noEmit"
   },

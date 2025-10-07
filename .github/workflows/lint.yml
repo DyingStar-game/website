@@ -1,0 +1,67 @@
+name: Lint Code
+
+# This workflow accepts a configurable Node.js version
+# Called by the main CI/CD pipeline with node-version parameter
+
+on:
+  workflow_call:
+    inputs:
+      cache-key:
+        description: "Cache key for node_modules"
+        required: false
+        type: string
+      node-version:
+        description: "Node.js version to use"
+        required: false
+        type: string
+        default: "22"
+
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint code
+    runs-on: ubuntu-latest
+    container:
+      image: node:${{ inputs.node-version }}-alpine
+      options: >-
+        --cpus=2
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install gnu tar (fix BusyBox tar for cache)
+        run: |
+          apk update && apk add --no-cache tar
+          tar --version || true
+
+      - name: Enable Corepack & activate pnpm
+        run: |
+          set -euo pipefail
+          corepack enable
+          corepack install
+          pnpm --version
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore pnpm store cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ inputs.cache-key }}
+          fail-on-cache-miss: true
+
+      - name: Install dependencies (restore from pnpm store)
+        run: pnpm --reporter=append-only install --frozen-lockfile
+
+      # Run linting with zero tolerance for warnings
+      - name: Lint
+        run: pnpm --reporter=append-only lint:ci

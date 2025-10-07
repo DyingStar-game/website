@@ -1,0 +1,76 @@
+name: Install Dependencies
+
+# This workflow accepts a configurable Node.js version
+# Called by the main CI/CD pipeline with node-version parameter
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: "Node.js version to use"
+        required: false
+        type: string
+        default: "22"
+    outputs:
+      cache-key:
+        description: "Cache key for node_modules"
+        value: ${{ jobs.install-deps.outputs.cache-key }}
+
+concurrency:
+  group: deps-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install-deps:
+    name: Install dependencies
+    runs-on: ubuntu-latest
+    container:
+      image: node:${{ inputs.node-version }}-alpine
+      options: >-
+        --cpus=2
+    permissions:
+      contents: read
+    outputs:
+      cache-key: ${{ steps.cache-key.outputs.key }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install gnu tar (fix BusyBox tar for cache)
+        run: |
+          apk update && apk add --no-cache tar
+          tar --version || true
+
+      - name: Enable Corepack & activate pnpm
+        run: |
+          set -euo pipefail
+          corepack enable
+          # Corepack automatically reads packageManager field from package.json
+          corepack install
+          pnpm --version
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Generate cache key
+        id: cache-key
+        run: |
+          echo "key=pnpm-${{ hashFiles('pnpm-lock.yaml') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-
+
+      - name: Install dependencies (pnpm install)
+        run: pnpm --reporter=append-only install --frozen-lockfile
+
+      - name: Allow build scripts (non-interactive)
+        run: |
+          pnpm config set allow-scripts "@parcel/watcher,@tailwindcss/oxide,esbuild,sharp"
