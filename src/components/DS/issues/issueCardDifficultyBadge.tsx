@@ -1,9 +1,7 @@
 "use client";
 
-import {
-  type IssueSize,
-  sizeToVariant,
-} from "@feat/api/github/schema/projectIssues.model";
+import type { IssueSize } from "@feat/api/github/schema/issueField.size.graphql";
+import { getProjectVariantSize } from "@feat/issue/project-helper";
 import { Badge } from "@ui/badge";
 import { useTranslations } from "next-intl";
 
@@ -15,7 +13,7 @@ type DifficultyBadgeProps = {
 export const DifficultyBadge = ({ size, className }: DifficultyBadgeProps) => {
   const t = useTranslations("Issue.IssueCard.DifficultyBadge");
   return (
-    <Badge className={className} variant={sizeToVariant[size]}>
+    <Badge className={className} variant={getProjectVariantSize(size)}>
       {t(size)}
     </Badge>
   );

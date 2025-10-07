@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 
-import type { PageInfoType } from "@feat/api/github/schema/projectIssues.model";
+import type { PageInfoType } from "@feat/api/schema/pageInfo.model";
 import { cn } from "@lib/utils";
 import type { UrlObject } from "url";
 

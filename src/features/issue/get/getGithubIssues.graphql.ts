@@ -1,11 +1,11 @@
-import type {
-  GraphqlProjectIssuesResponseType,
-  ProjectIssuesType,
-} from "@feat/api/github/schema/projectIssues.model";
+import {
+  type GraphqlProjectIssuesResponseType,
+  graphqlProjectIssuesResponseSchema,
+} from "@feat/api/github/schema/issue.graphql.model";
+import type { ProjectIssuesType } from "@feat/api/github/schema/projectIssues.model";
 import {
   type GraphqlPaginatedProjectIssuesType,
   graphqlPaginatedProjectIssuesSchema,
-  graphqlProjectIssuesResponseSchema,
 } from "@feat/api/github/schema/projectIssues.model";
 import { env } from "@lib/env/server";
 import { githubGraphql } from "@lib/github/githubApi";
