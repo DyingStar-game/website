@@ -1,5 +1,5 @@
 import {
-  type GraphqlProjectIssuesResponseType,
+  type GraphqlProjectIssueResponseType,
   graphqlProjectIssueSchema,
 } from "@feat/api/github/schema/issue.graphql.model";
 import type { ProjectIssuesType } from "@feat/api/github/schema/projectIssues.model";
@@ -19,14 +19,11 @@ export const GetGithubIssue = async (
   }
   `;
 
-  const response = await githubGraphql<GraphqlProjectIssuesResponseType>(
-    QUERY,
-    {
-      issueId,
-    },
-  );
+  const response = await githubGraphql<GraphqlProjectIssueResponseType>(QUERY, {
+    issueId,
+  });
 
-  const projectIssue = graphqlProjectIssueSchema.safeParse(response);
+  const projectIssue = graphqlProjectIssueSchema.safeParse(response.node);
 
   if (!projectIssue.success)
     throw new Error("Failed to map project issue", {

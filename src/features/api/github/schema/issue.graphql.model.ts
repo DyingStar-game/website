@@ -58,6 +58,14 @@ export const graphqlProjectIssuesResponseSchema = z.object({
   }),
 });
 
+export const graphqlProjectIssueResponseSchema = z.object({
+  node: graphqlProjectIssueSchema,
+});
+
 export type GraphqlProjectIssuesResponseType = z.infer<
   typeof graphqlProjectIssuesResponseSchema
+>;
+
+export type GraphqlProjectIssueResponseType = z.infer<
+  typeof graphqlProjectIssueResponseSchema
 >;
