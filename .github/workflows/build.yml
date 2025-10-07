@@ -70,7 +70,8 @@ jobs:
           echo "Creating .env from secret WEBSITE_ENV_FILE"
           # Secret WEBSITE_ENV_FILE must contain full multi-line contents of .env
           # This env file is needed for the build process
-          printf "%s" "${{ secrets.WEBSITE_ENV_FILE }}" > .env.local
+          printf '%s\n' "${{ secrets.WEBSITE_ENV_FILE }}" > .env
+          sed -i 's/\r$//' .env
 
       - name: Build (Next.js)
         env:
