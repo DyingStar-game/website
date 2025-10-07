@@ -22,5 +22,5 @@ export const POST = route //TODO: Create a webhook middleware to handle the webh
     if (body.action === "deleted") await deleteProjectIssue(body.issue.node_id);
     else await updateProjectIssue(body.issue.node_id);
 
-    return NextResponse.json(null, { status: 200 });
+    return NextResponse.json(null, { status: 204 });
   });
