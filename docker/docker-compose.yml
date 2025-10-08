@@ -1,14 +1,20 @@
 services:
   app:
     container_name: dyingstar-webapp
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.dev
+    image: node:22
+    command: >
+      sh -c "
+        corepack enable &&
+        corepack install &&
+        pnpm install &&
+        pnpm dev
+      "
     ports:
       - "3000:3000"
     volumes:
       - ..:/app
       - app_cache:/app/.cache
+    working_dir: /app
     environment:
       - NODE_ENV=development
       - XDG_CACHE_HOME=/app/.cache
