@@ -1,6 +1,5 @@
 services:
   app:
-    container_name: dyingstar-webapp
     image: node:22
     command: >
       sh -c "
@@ -13,19 +12,12 @@ services:
       - "3000:3000"
     volumes:
       - ..:/app
-      - app_cache:/app/.cache
     working_dir: /app
-    environment:
-      - NODE_ENV=development
-      - XDG_CACHE_HOME=/app/.cache
-    env_file:
-      - ../.env.local
     tty: true
     networks:
       - backend
 
   meilisearch:
-    container_name: meilisearch
     image: getmeili/meilisearch:v1.22
     ports:
       - "7700:7700"
@@ -40,7 +32,6 @@ services:
 
 volumes:
   meili_data:
-  app_cache:
 
 networks:
   backend:
