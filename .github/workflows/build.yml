@@ -67,9 +67,9 @@ jobs:
 
       - name: Recreate .env.production from secret
         run: |
-          echo "Creating .env.production from secret WEBSITE_ENV_PRODUCTION_FILE"
-          # Secret WEBSITE_ENV_PRODUCTION_FILE must contain full multi-line contents of .env.production
-          printf "%s" "${{ secrets.WEBSITE_ENV_PRODUCTION_FILE }}" > .env.production
+          echo "Creating .env.production from secret WEBSITE_ENV_FILE"
+          # Secret WEBSITE_ENV_FILE must contain full multi-line contents of .env.production
+          printf "%s" "${{ secrets.WEBSITE_ENV_FILE }}" > .env.production
 
       - name: Build (Next.js)
         env:
