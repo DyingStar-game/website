@@ -1,117 +1,168 @@
-# Colors
+# =============================================================================
+# DyingStar Website - Makefile
+# =============================================================================
+
+# Colors for output
 CYAN := \033[36m
 GREEN := \033[32m
 YELLOW := \033[33m
+RED := \033[31m
 RESET := \033[0m
 
-# Docker commands
-DOCKER_COMPOSE := docker compose -f docker/docker-compose.yml
-DOCKER_COMPOSE_DEV := docker compose -f docker/docker-compose.dev.yml
-DOCKER_NODE_COMPOSE := $(DOCKER_COMPOSE) run app sh
+# Docker Compose
+COMPOSE := docker compose -f docker/docker-compose.yml
+DEV_SERVICE := dev
+APP_SERVICE := app
+MEILISEARCH_SERVICE := meilisearch
 
-# Check if node_modules exists
-NODE_MODULES_EXISTS := $(shell test -d node_modules && echo 1 || echo 0)
+# =============================================================================
+# CP/PO/Others Profile - Simple site testing
+# =============================================================================
 
-# Check if .env file exists
-ENV_FILE_EXISTS := $(shell test -f .env.local -o -f .env && echo 1 || echo 0)
+.PHONY: start
+start: ## Start the complete application (install, build, start) for testing
+	@echo "$(CYAN)🚀 Starting DyingStar Website for testing...$(RESET)"
+	@echo "$(YELLOW)This will install dependencies, build, and start the application$(RESET)"
+	@$(COMPOSE) up $(APP_SERVICE) --build
 
-# Function to ensure node_modules exists
-define ensure_node_modules
-	@if [ ! -d "node_modules" ]; then \
-		echo "$(YELLOW)Node modules not found. Installing dependencies (pnpm)...$(RESET)"; \
-		$(DOCKER_NODE_COMPOSE) -c "corepack enable && corepack install && pnpm install"; \
-		echo "$(GREEN)Dependencies installed successfully (pnpm).$(RESET)"; \
-	fi
-endef
+.PHONY: stop
+stop: ## Stop all running services
+	@echo "$(CYAN)🛑 Stopping all services...$(RESET)"
+	@$(COMPOSE) down
 
-# Function to ensure .env file exists
-define ensure_env_file
-	@if [ "$(ENV_FILE_EXISTS)" = "0" ]; then \
-		echo "$(YELLOW)No .env file found. You need to create one for the application to work properly.$(RESET)"; \
-		echo "$(YELLOW)You can create it by copying the .env.sample file:$(RESET)"; \
-		echo "$(CYAN)cp .env.sample .env.local$(RESET)"; \
-		echo "$(YELLOW)Then edit it to set your environment variables.$(RESET)"; \
-		read -p "Do you want to create .env.local from .env.sample now? (y/n) " answer; \
-		if [ "$$answer" = "y" ]; then \
-			cp .env.sample .env.local; \
-			echo "$(GREEN).env.local created from .env.sample. Please edit it with your configuration.$(RESET)"; \
-		else \
-			echo "$(YELLOW)Please create a .env file before running the application.$(RESET)"; \
-			exit 1; \
-		fi; \
-	fi
-endef
+# =============================================================================
+# Dev Profile - Development commands
+# =============================================================================
 
-install-node-modules:
-	@$(ensure_node_modules)
+.PHONY: up
+up: ## Start only MeiliSearch for development (no app)
+	@echo "$(CYAN)🔧 Starting development environment (MeiliSearch only)...$(RESET)"
+	@$(COMPOSE) up $(MEILISEARCH_SERVICE) $(DEV_SERVICE) -d
+	@echo "$(GREEN)✅ Development environment ready!$(RESET)"
+	@echo "$(YELLOW)MeiliSearch: http://localhost:7700$(RESET)"
+	@echo "$(YELLOW)Use 'make pnpm <command>' to run pnpm commands$(RESET)"
 
-# Stop development container
 .PHONY: down
-down:
-	@echo "$(CYAN)Stop app...$(RESET)"
-	@$(DOCKER_COMPOSE) down
+down: ## Stop development environment
+	@echo "$(CYAN)🛑 Stopping development environment...$(RESET)"
+	@$(COMPOSE) down
 
-# Run development server
-.PHONY: start-dev dev
-start-dev dev:
-	@echo "$(CYAN)Starting development server...$(RESET)"
-	$(call ensure_env_file)
-	@$(DOCKER_COMPOSE) up
+# Generic pnpm command runner
+.PHONY: pnpm
+pnpm: ## Run any pnpm command (usage: make pnpm install, make pnpm dev, etc.)
+	@if [ -z "$(filter-out $@,$(MAKECMDGOALS))" ]; then \
+		echo "$(RED)❌ Please provide a pnpm command. Usage: make pnpm <command>$(RESET)"; \
+		echo "$(YELLOW)Examples: make pnpm install, make pnpm dev, make pnpm build$(RESET)"; \
+		exit 1; \
+	fi
+	@echo "$(CYAN)📦 Running: pnpm $(filter-out $@,$(MAKECMDGOALS))$(RESET)"
+	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm $(filter-out $@,$(MAKECMDGOALS))"
 
-# Run development server
-.PHONY: dev-front
-dev-front:
-	@echo "$(CYAN)Starting development server...$(RESET)"
-	$(call ensure_env_file)
-	@$(DOCKER_COMPOSE_DEV) up
+# =============================================================================
+# Common pnpm shortcuts for development
+# =============================================================================
 
-# Build the application
+.PHONY: install
+install: ## Install dependencies
+	@echo "$(CYAN)📦 Installing dependencies...$(RESET)"
+	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm install"
+
+.PHONY: dev
+dev: ## Start development server
+	@echo "$(CYAN)🔥 Starting development server...$(RESET)"
+	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm dev"
+
 .PHONY: build
-build:
-	@echo "$(CYAN)Building the application...$(RESET)"
-	$(call ensure_node_modules)
-	$(call ensure_env_file)
-	$(DOCKER_NODE_COMPOSE) -c "corepack enable && corepack install && pnpm build" 
+build: ## Build the application
+	@echo "$(CYAN)🏗️  Building application...$(RESET)"
+	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm build"
 
-# Clean build artifacts
 .PHONY: clean
-clean:
-	@echo "$(CYAN)Cleaning build artifacts...$(RESET)"
-	$(call ensure_node_modules)
-	$(DOCKER_NODE_COMPOSE) -c "corepack enable && corepack install && pnpm clean" 
+clean: ## Clean build artifacts and lint/format code
+	@echo "$(CYAN)🧹 Cleaning and formatting code...$(RESET)"
+	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm clean"
 
-# Add a dependency
-.PHONY: add-dependency
-add-dependency:
-	@echo "$(CYAN)Adding dependency: $(filter-out $@,$(MAKECMDGOALS))$(RESET)"
-	$(DOCKER_NODE_COMPOSE) -c "corepack enable && corepack install && pnpm add $(filter-out $@,$(MAKECMDGOALS))"
-	@echo "$(GREEN)✅ Dependencies added successfully!$(RESET)"
-	@exit 0
-
-# Add a dev dependency
-.PHONY: add-dev-dependency
-add-dev-dependency:
-	@echo "$(CYAN)Adding dev dependency: $(filter-out $@,$(MAKECMDGOALS))$(RESET)"
-	$(DOCKER_NODE_COMPOSE) -c "corepack enable && corepack install && pnpm add -D $(filter-out $@,$(MAKECMDGOALS))"
-	@echo "$(GREEN)✅ Dev dependencies added successfully!$(RESET)"
-	@exit 0
-
-# Remove a dependency (works for both regular and dev dependencies)
-.PHONY: rm-dependency
-rm-dependency:
-	@echo "$(CYAN)Removing dependency: $(filter-out $@,$(MAKECMDGOALS))$(RESET)"
-	$(DOCKER_NODE_COMPOSE) -c "corepack enable && corepack install && pnpm remove $(filter-out $@,$(MAKECMDGOALS))"
-	@echo "$(GREEN)✅ Dependencies removed successfully!$(RESET)"
-	@exit 0
-
-# Run linter
 .PHONY: lint
-lint:
-	@echo "$(CYAN)Running linter...$(RESET)"
-	$(call ensure_node_modules)
-	$(DOCKER_NODE_COMPOSE) -c "corepack enable && corepack install && pnpm lint"
+lint: ## Run linter
+	@echo "$(CYAN)🔍 Running linter...$(RESET)"
+	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm lint"
 
-# Special rule to handle arguments passed to make command
-# This is needed for the filter-out approach to work correctly
+.PHONY: format
+format: ## Format code
+	@echo "$(CYAN)✨ Formatting code...$(RESET)"
+	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm format"
+
+# =============================================================================
+# Utility commands
+# =============================================================================
+
+.PHONY: logs
+logs: ## Show logs for all services
+	@$(COMPOSE) logs -f
+
+.PHONY: logs-app
+logs-app: ## Show logs for app service only
+	@$(COMPOSE) logs -f $(APP_SERVICE)
+
+.PHONY: logs-dev
+logs-dev: ## Show logs for dev service only
+	@$(COMPOSE) logs -f $(DEV_SERVICE)
+
+.PHONY: logs-meilisearch
+logs-meilisearch: ## Show logs for MeiliSearch only
+	@$(COMPOSE) logs -f $(MEILISEARCH_SERVICE)
+
+.PHONY: shell
+shell: ## Open shell in dev container
+	@echo "$(CYAN)🐚 Opening shell in dev container...$(RESET)"
+	@$(COMPOSE) exec $(DEV_SERVICE) sh
+
+.PHONY: status
+status: ## Show status of all services
+	@echo "$(CYAN)📊 Service Status:$(RESET)"
+	@$(COMPOSE) ps
+
+.PHONY: clean-volumes
+clean-volumes: ## Remove all volumes (WARNING: This will delete all data!)
+	@echo "$(RED)⚠️  This will delete all Docker volumes and data!$(RESET)"
+	@read -p "Are you sure? (y/N) " answer; \
+	if [ "$$answer" = "y" ] || [ "$$answer" = "Y" ]; then \
+		$(COMPOSE) down -v; \
+		echo "$(GREEN)✅ Volumes cleaned$(RESET)"; \
+	else \
+		echo "$(YELLOW)Cancelled$(RESET)"; \
+	fi
+
+# =============================================================================
+# Help
+# =============================================================================
+
+.PHONY: help
+help: ## Show this help message
+	@echo "$(CYAN)DyingStar Website - Available Commands:$(RESET)"
+	@echo ""
+	@echo "$(YELLOW)CP/PO/Others Profile (Simple Testing):$(RESET)"
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(start|stop)"
+	@echo ""
+	@echo "$(YELLOW)Dev Profile (Development):$(RESET)"
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(up|down|pnpm)"
+	@echo ""
+	@echo "$(YELLOW)Common Dev Commands:$(RESET)"
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(install|dev|build|clean|lint|format)"
+	@echo ""
+	@echo "$(YELLOW)Utilities:$(RESET)"
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(logs|shell|status|clean-volumes)"
+	@echo ""
+	@echo "$(YELLOW)Examples:$(RESET)"
+	@echo "  $(CYAN)make start$(RESET)           # Start app for testing (CP/PO/Others)"
+	@echo "  $(CYAN)make up$(RESET)             # Start dev environment (Dev)"
+	@echo "  $(CYAN)make pnpm dev$(RESET)       # Start Next.js dev server"
+	@echo "  $(CYAN)make pnpm build$(RESET)     # Build the application"
+	@echo "  $(CYAN)make install$(RESET)        # Install dependencies"
+
+# Default target
+.DEFAULT_GOAL := help
+
+# Allow arguments to be passed to make commands
 %:
 	@:
