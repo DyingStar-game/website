@@ -39,16 +39,22 @@ Ajouter des liens pour chaques folders
 
 ### Files Types and conventions
 
-- **\*.mdx** - utiliser pour les pages ayant du rendu markdown exemple : news + links
-- **\*.ts** - Fichier de logique pure
-- **\*.type.ts** - Permet de définir des types et schema avec zod
-- **\*.hook.ts** - Permet de définir des hooks react qui ne sont pas implicitement dans le dossier hooks
-- **\*.link.ts** - Logique localisée des liens de navigation
-- **\*.query.ts** - query prisma
-- **\*query.hook.ts** - query tanstack
-- **\*mutation.hook.ts** - mutation tanstack
-- **\*.tsx** - Fichier contenant les composants react
-  ....
+For a comprehensive guide to file types and naming conventions, see [FileTypes](./FileTypes.md).
+
+Quick reference:
+
+- **\*.mdx** - Markdown with JSX for content-driven pages (news)
+- **\*.ts** - Pure TypeScript logic (utilities, configs, helpers)
+- **\*.type.ts** - Type definitions and Zod validation schemas
+- **\*.hook.ts** - Feature-specific React hooks (co-located with features)
+- **\*.link.ts** - Navigation link definitions and logic
+- **\*.query.ts** - Prisma database queries
+- **\*.query.hook.ts** - TanStack Query hooks for data fetching
+- **\*.mutation.hook.ts** - TanStack Query hooks for mutations
+- **\*.action.ts** - Next.js Server Actions
+- **\*.tsx** - React components with JSX
+
+See the [detailed documentation](./FileTypes.md) for examples, usage patterns, and best practices.
 
 ## Architecture Decision Records
 
