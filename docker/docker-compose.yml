@@ -10,8 +10,7 @@ services:
         corepack enable &&
         corepack install &&
         pnpm install &&
-        pnpm build &&
-        pnpm start
+        pnpm dev
       "
     ports:
       - "3000:3000"
