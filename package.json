@@ -8,10 +8,10 @@
     "dev": "next dev --turbopack --hostname 0.0.0.0",
     "start": "next start",
     "lint": "eslint . --fix",
-    "prettier": "prettier --write .",
+    "prettier": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "clean": "next lint --fix && tsc --noEmit && prettier --write .",
-    "lint:ci": "next lint --max-warnings 0 && tsc --noEmit && prettier ."
+    "clean": "eslint . --fix && tsc --noEmit && prettier --write .",
+    "lint:ci": "eslint . --max-warnings 0 && tsc --noEmit && prettier --check ."
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

@@ -17,6 +17,7 @@ This guide provides comprehensive instructions for developing the DyingStar webs
 ## 🚀 Quick Start
 
 ### For CP/PO/Others (Just want to test the site)
+
 ```bash
 # Clone the repository
 git clone https://github.com/DyingStar-game/website.git
@@ -29,6 +30,7 @@ make start
 ```
 
 ### For Developers
+
 ```bash
 # Clone the repository
 git clone https://github.com/DyingStar-game/website.git
@@ -83,18 +85,22 @@ dyingstar-website/
 The project supports different user profiles with tailored commands:
 
 ### 🎯 **CP/PO/Others Profile** (Simple Testing)
-*For product owners, stakeholders, or anyone who just wants to test the site*
+
+_For product owners, stakeholders, or anyone who just wants to test the site_
 
 **Key Commands:**
+
 - `make start` - One-command setup: install → build → start
 - `make stop` - Stop everything
 
 **Use Case:** Quick site testing without development setup complexity.
 
 ### 🔧 **Dev Profile** (Development Work)
-*For developers working on the codebase*
+
+_For developers working on the codebase_
 
 **Key Commands:**
+
 - `make up` - Start development environment (MeiliSearch only)
 - `make pnpm <command>` - Run any pnpm command
 - Development shortcuts: `make dev`, `make build`, `make lint`, etc.
@@ -104,6 +110,7 @@ The project supports different user profiles with tailored commands:
 ## 🔧 Environment Setup
 
 ### 1. Environment Variables
+
 ```bash
 # Copy the sample environment file
 cp .env.sample .env.local
@@ -113,6 +120,7 @@ nano .env.local  # or use your preferred editor
 ```
 
 ### 2. Required Environment Variables
+
 ```env
 # MeiliSearch Configuration
 MEILI_URL=http://localhost:7700
@@ -136,65 +144,73 @@ LAST_YOUTUBE_ID=your_youtube_id
 ## 📝 Available Commands
 
 ### **CP/PO/Others Profile**
-| Command | Description |
-|---------|-------------|
+
+| Command      | Description                            |
+| ------------ | -------------------------------------- |
 | `make start` | Start complete application for testing |
-| `make stop` | Stop all services |
-| `make help` | Show all available commands |
+| `make stop`  | Stop all services                      |
+| `make help`  | Show all available commands            |
 
 ### **Dev Profile**
-| Command | Description |
-|---------|-------------|
-| `make up` | Start development environment |
-| `make down` | Stop development environment |
-| `make pnpm <cmd>` | Run any pnpm command |
+
+| Command           | Description                   |
+| ----------------- | ----------------------------- |
+| `make up`         | Start development environment |
+| `make down`       | Stop development environment  |
+| `make pnpm <cmd>` | Run any pnpm command          |
 
 ### **Common Development Commands**
-| Command | Description | Example |
-|---------|-------------|---------|
-| `make install` | Install dependencies | - |
-| `make dev` | Start development server | Visit http://localhost:3000 |
-| `make build` | Build production application | - |
-| `make clean` | Clean and format code | Runs linting + formatting |
-| `make lint` | Run ESLint | Check code quality |
-| `make format` | Format code with Prettier | - |
+
+| Command        | Description                  | Example                     |
+| -------------- | ---------------------------- | --------------------------- |
+| `make install` | Install dependencies         | -                           |
+| `make dev`     | Start development server     | Visit http://localhost:3000 |
+| `make build`   | Build production application | -                           |
+| `make clean`   | Clean and format code        | Runs linting + formatting   |
+| `make lint`    | Run ESLint                   | Check code quality          |
+| `make format`  | Format code with Prettier    | -                           |
 
 ### **pnpm Commands via Docker**
-| Command | Description |
-|---------|-------------|
-| `make pnpm install` | Install dependencies |
-| `make pnpm dev` | Start Next.js dev server |
-| `make pnpm build` | Build for production |
-| `make pnpm start` | Start production server |
-| `make pnpm lint` | Run linter |
-| `make pnpm clean` | Clean + format code |
-| `make pnpm add <package>` | Add new dependency |
-| `make pnpm remove <package>` | Remove dependency |
+
+| Command                      | Description              |
+| ---------------------------- | ------------------------ |
+| `make pnpm install`          | Install dependencies     |
+| `make pnpm dev`              | Start Next.js dev server |
+| `make pnpm build`            | Build for production     |
+| `make pnpm start`            | Start production server  |
+| `make pnpm lint`             | Run linter               |
+| `make pnpm clean`            | Clean + format code      |
+| `make pnpm add <package>`    | Add new dependency       |
+| `make pnpm remove <package>` | Remove dependency        |
 
 ### **Utility Commands**
-| Command | Description |
-|---------|-------------|
-| `make logs` | Show logs for all services |
-| `make logs-app` | Show app logs only |
-| `make logs-meilisearch` | Show MeiliSearch logs |
-| `make shell` | Open shell in dev container |
-| `make status` | Show service status |
+
+| Command                 | Description                 |
+| ----------------------- | --------------------------- |
+| `make logs`             | Show logs for all services  |
+| `make logs-app`         | Show app logs only          |
+| `make logs-meilisearch` | Show MeiliSearch logs       |
+| `make shell`            | Open shell in dev container |
+| `make status`           | Show service status         |
 
 ## 🔄 Development Workflow
 
 ### **Standard Development Flow**
 
 1. **Start Development Environment**
+
    ```bash
    make up
    ```
 
 2. **Install Dependencies** (first time or after package.json changes)
+
    ```bash
    make pnpm install
    ```
 
 3. **Start Development Server**
+
    ```bash
    make pnpm dev
    ```
@@ -206,13 +222,14 @@ LAST_YOUTUBE_ID=your_youtube_id
    - MeiliSearch admin at http://localhost:7700
 
 5. **Code Quality Checks**
+
    ```bash
    # Run linter
    make lint
-   
+
    # Format code
    make format
-   
+
    # Or do both
    make clean
    ```
@@ -223,6 +240,7 @@ LAST_YOUTUBE_ID=your_youtube_id
    ```
 
 ### **Adding New Dependencies**
+
 ```bash
 # Add runtime dependency
 make pnpm add package-name
@@ -237,11 +255,13 @@ make pnpm remove package-name
 ### **Working with Features**
 
 1. **Create Feature Branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 2. **Develop Feature**
+
    ```bash
    make up           # Start environment
    make pnpm dev     # Start dev server
@@ -250,6 +270,7 @@ make pnpm remove package-name
    ```
 
 3. **Test Production Build**
+
    ```bash
    make build        # Ensure production build works
    ```
@@ -279,6 +300,7 @@ make pnpm remove package-name
 ### **Common Issues**
 
 #### Are you using Docker or Podman?
+
 This project supports both Docker and Podman for container management. The Makefile automatically detects if Podman is installed and uses it for all commands. If you prefer to use Docker, ensure Podman is not installed or modify the Makefile accordingly.
 
 > `podman > docker`
@@ -286,6 +308,7 @@ This project supports both Docker and Podman for container management. The Makef
 Make sure you are replacing `docker` with `podman` in all commands if you are using Podman.
 
 #### Container Issues
+
 ```bash
 # If containers won't start
 make down
@@ -300,6 +323,7 @@ make logs
 ```
 
 #### Dependency Issues
+
 ```bash
 # Clear node_modules and reinstall
 make down
@@ -309,7 +333,9 @@ make pnpm install
 ```
 
 #### Port Conflicts
+
 If ports 3000 or 7700 are already in use:
+
 ```bash
 # Find what's using the port
 lsof -i :3000
@@ -319,6 +345,7 @@ lsof -i :7700
 ```
 
 #### Permission Issues
+
 ```bash
 # Fix file permissions (if needed)
 sudo chown -R $USER:$USER .
@@ -327,6 +354,7 @@ sudo chown -R $USER:$USER .
 ### **Environment Issues**
 
 #### Missing .env.local
+
 ```bash
 # Copy sample file
 cp .env.sample .env.local
@@ -336,6 +364,7 @@ nano .env.local
 ```
 
 #### MeiliSearch Connection Issues
+
 - Ensure MeiliSearch is running: `make logs-meilisearch`
 - Check environment variables in `.env.local`
 - Verify port 7700 is accessible
@@ -343,10 +372,12 @@ nano .env.local
 ### **Development Server Issues**
 
 #### Hot Reload Not Working
+
 - Ensure you're in the dev container: `make shell`
 - Check file watchers aren't exceeded (Linux): `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf`
 
 #### Build Failures
+
 ```bash
 # Clean and rebuild
 make clean
@@ -359,12 +390,14 @@ make pnpm ts
 ## 🤝 Contributing
 
 ### **Code Style**
+
 - Use TypeScript for all new code
 - Follow ESLint configuration
 - Use Prettier for formatting (automatic with `make clean`)
 - Write meaningful commit messages
 
 ### **Commit Convention**
+
 ```
 feat: add new feature
 fix: bug fix
@@ -376,6 +409,7 @@ chore: maintenance tasks
 ```
 
 ### **Pull Request Process**
+
 1. Create feature branch from `main`
 2. Develop feature following guidelines
 3. Run `make clean` before committing
@@ -384,6 +418,7 @@ chore: maintenance tasks
 6. Ensure CI passes
 
 ### **Code Review Checklist**
+
 - [ ] Code follows TypeScript best practices
 - [ ] Components are properly typed
 - [ ] No console.log statements in production code

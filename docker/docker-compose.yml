@@ -45,7 +45,7 @@ services:
   # Dev service for development work (lighter, no app by default)
   dev:
     image: *node-image
-    command: tail -f /dev/null  # Keep container running for exec commands
+    command: tail -f /dev/null # Keep container running for exec commands
     ports:
       - "3000:3000"
     volumes:
