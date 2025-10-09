@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense } from "react";
 
 import { routing } from "@i18n/routing";
@@ -5,20 +7,21 @@ import { cn } from "@lib/utils";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { buttonVariants } from "@ui/button";
 import { Select } from "@ui/select";
+import type { VariantProps } from "class-variance-authority";
 import { LoaderCircle } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import type {
-  LocaleSwitcherSelectItemsType,
-  LocaleSwitcherSelectProps,
+import {
+  LocaleSwitcherSelect,
+  type LocaleSwitcherSelectItemsType,
+  type LocaleSwitcherSelectProps,
 } from "./LocaleSwitcherSelect";
-import LocaleSwitcherSelect from "./LocaleSwitcherSelect";
 
-type LocaleSwitcherProps = {
+type LocaleSwitcherProps = VariantProps<typeof buttonVariants> & {
   className?: string;
 };
 
-export default function LocaleSwitcher({ className }: LocaleSwitcherProps) {
+export const LocaleSwitcher = ({ className, size }: LocaleSwitcherProps) => {
   const t = useTranslations("LocaleSwitcher");
   const locale = useLocale();
 
@@ -38,24 +41,23 @@ export default function LocaleSwitcher({ className }: LocaleSwitcherProps) {
 
   return (
     <Suspense fallback={<LocaleSwitcherFallback {...commonProps} />}>
-      <LocaleSwitcherSelect {...commonProps} />
+      <LocaleSwitcherSelect size={size} {...commonProps} />
     </Suspense>
   );
-}
+};
 
-function LocaleSwitcherFallback({
+const LocaleSwitcherFallback = ({
   label,
   className,
-}: LocaleSwitcherSelectProps) {
+  size,
+}: LocaleSwitcherSelectProps) => {
   return (
     <Select disabled>
       <SelectPrimitive.Trigger
-        className={cn(
-          buttonVariants({ variant: "ghost", size: "lg", className }),
-        )}
+        className={cn(buttonVariants({ variant: "ghost", size, className }))}
       >
         <LoaderCircle className="size-6 animate-spin" aria-label={label} />
       </SelectPrimitive.Trigger>
     </Select>
   );
-}
+};

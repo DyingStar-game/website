@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 
+import * as React from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useDebounceFn } from "@hooks/use-debounce-fn";
+import { useDebounceFn } from "@hooks/useDebounceFn";
 import { cn } from "@lib/utils";
 import type * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
 import { Label } from "@ui/label";
-import * as React from "react";
 import type {
   SubmitHandler,
   UseFormProps,
@@ -15,15 +15,17 @@ import type {
 } from "react-hook-form";
 import {
   Controller,
+  type ControllerProps,
+  type FieldPath,
+  type FieldValues,
   FormProvider,
   useForm,
   useFormContext,
   useFormState,
-  type ControllerProps,
-  type FieldPath,
-  type FieldValues,
 } from "react-hook-form";
 import type * as z from "zod";
+
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
 export type FormProps<T extends FieldValues> = Omit<
   React.ComponentProps<"form">,
@@ -183,7 +185,7 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-description"
       id={formDescriptionId}
-      className={cn("text-muted-foreground text-sm", className)}
+      className={cn("text-sm text-muted-foreground", className)}
       {...props}
     />
   );
@@ -201,7 +203,7 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-message"
       id={formMessageId}
-      className={cn("text-destructive text-sm", className)}
+      className={cn("text-sm text-destructive", className)}
       {...props}
     >
       {body}
@@ -241,4 +243,3 @@ export {
   useFormField,
   useZodForm,
 };
-

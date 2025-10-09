@@ -1,14 +1,47 @@
 services:
   app:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.dev
+    container_name: dyingstar-webapp
+    image: node:22
+    command: >
+      sh -c "
+        corepack enable &&
+        corepack install &&
+        pnpm install &&
+        pnpm dev
+      "
     ports:
       - "3000:3000"
     volumes:
       - ..:/app
+      - app_cache:/app/.cache
+    working_dir: /app
     environment:
       - NODE_ENV=development
+      - XDG_CACHE_HOME=/app/.cache
     env_file:
       - ../.env.local
     tty: true
+    networks:
+      - backend
+
+  meilisearch:
+    container_name: meilisearch
+    image: getmeili/meilisearch:v1.22
+    ports:
+      - "7700:7700"
+    environment:
+      MEILI_ENV: "production"
+    volumes:
+      - meili_data:/meili_data
+    env_file:
+      - ../.env.local
+    networks:
+      - backend
+
+volumes:
+  meili_data:
+  app_cache:
+
+networks:
+  backend:
+    driver: bridge

@@ -41,7 +41,7 @@ export async function generateMetadata(
       description: news.attributes.description,
       url: createLocalizedUrl(
         params.locale,
-        LINKS.News.News.href({ newsSlug: news.slug }),
+        LINKS.News.Detail.href({ newsSlug: news.slug }),
       ),
       type: "article",
     },
@@ -132,7 +132,7 @@ const NewsDetailPagination = ({
         {previousSlug && (
           <Link
             href={{
-              pathname: LINKS.News.News.href({ newsSlug: previousSlug }),
+              pathname: LINKS.News.Detail.href({ newsSlug: previousSlug }),
             }}
             className={cn(buttonVariants({ variant: "outline" }), "group")}
             prefetch
@@ -147,7 +147,7 @@ const NewsDetailPagination = ({
         {nextSlug && (
           <Link
             href={{
-              pathname: LINKS.News.News.href({ newsSlug: nextSlug }),
+              pathname: LINKS.News.Detail.href({ newsSlug: nextSlug }),
             }}
             className={cn(buttonVariants({ variant: "outline" }), "group")}
             prefetch

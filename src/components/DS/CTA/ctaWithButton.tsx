@@ -14,16 +14,20 @@ type CtaButtonProps = ComponentProps<typeof Link> & {
 
 export type CtaWithButtonProps = React.ComponentProps<"section"> & {
   title: string;
-  action: CtaButtonProps;
+  action?: CtaButtonProps;
 };
 
 export const CtaWithButton = ({
   title,
   action,
   className,
+  ...props
 }: CtaWithButtonProps) => {
   return (
-    <LayoutSection className={cn("bg-foreground uppercase", className)}>
+    <LayoutSection
+      className={cn("bg-foreground uppercase", className)}
+      {...props}
+    >
       <Layout asChild padding="default">
         <div className="flex max-w-4xl flex-col justify-center gap-10 lg:gap-22">
           <Typography
@@ -32,13 +36,15 @@ export const CtaWithButton = ({
           >
             {title}
           </Typography>
-          <Link
-            className={cn(buttonVariants({ variant: "invert", size: "xl" }))}
-            {...action}
-          >
-            {action.label}
-            {action.icon && action.icon}
-          </Link>
+          {action && (
+            <Link
+              className={cn(buttonVariants({ variant: "invert", size: "xl" }))}
+              {...action}
+            >
+              {action.icon && action.icon}
+              {action.label}
+            </Link>
+          )}
         </div>
       </Layout>
     </LayoutSection>

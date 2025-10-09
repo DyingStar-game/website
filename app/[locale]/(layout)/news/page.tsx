@@ -1,7 +1,7 @@
+import { Paginate } from "@components/DS/paginate/paginate";
 import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
 import NewsItem from "@feat/news/NewsItem";
-import type { PaginatedNews } from "@feat/news/news-manager";
 import { getNewsTags, getPaginatedNews } from "@feat/news/news-manager";
 import {
   LayoutHeader,
@@ -12,19 +12,18 @@ import {
 import { Link } from "@i18n/navigation";
 import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
-import { ArrowLeft, ArrowRight, FileQuestion } from "lucide-react";
+import { FileQuestion } from "lucide-react";
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { SiteConfig } from "site-config";
 
 export const metadata: Metadata = {
-  title: `${SiteConfig.title}'s Blog`,
+  title: `${SiteConfig.title}'s news`,
   description: SiteConfig.description,
   keywords: ["news"],
   openGraph: {
-    title: `${SiteConfig.title}'s Blog`,
+    title: `${SiteConfig.title}'s news`,
     description: SiteConfig.description,
     url: SiteConfig.prodUrl,
     type: "website",
@@ -100,86 +99,16 @@ export default async function NewsPage(props: PageProps<"/[locale]/news">) {
               <NewsItem key={post.slug} news={post} className="pb-7" />
             ))}
           </LayoutSection>
-          <NewsPagination
-            pagination={paginatedNews.pagination}
-            tags={tags}
-            page={page}
+          <Paginate
+            pageInfo={paginatedNews.pagination}
+            mode="link"
+            getPageHref={(page) => ({
+              pathname: LINKS.News.All.href(),
+              query: { page: page },
+            })}
           />
         </>
       )}
     </LayoutMain>
   );
 }
-
-type NewsPaginationProps = {
-  pagination: PaginatedNews["pagination"];
-  tags?: string[];
-  page: number;
-};
-
-const NewsPagination = ({ pagination, tags, page }: NewsPaginationProps) => {
-  const t = useTranslations("News.NewsPagination");
-
-  const buildQuery = (pageNum: number) => ({
-    ...(tags && tags.length > 0 && { tag: tags }),
-    page: pageNum,
-  });
-
-  return (
-    <LayoutSection className="mt-6 flex flex-row justify-between">
-      <div className="flex flex-1 justify-start">
-        {pagination.previousPage && (
-          <Link
-            href={{
-              pathname: LINKS.News.All.href(),
-              query: buildQuery(page - 1),
-            }}
-            className={buttonVariants({ variant: "outline" })}
-            prefetch
-          >
-            <ArrowLeft /> {t("button.previous")}
-          </Link>
-        )}
-      </div>
-
-      <div className="flex items-center gap-4">
-        {Array.from({ length: pagination.totalPages }).map((_, i) => {
-          const pageNumber = i + 1;
-          const isActive = pageNumber === pagination.currentPage;
-
-          return (
-            <Link
-              key={pageNumber}
-              href={{
-                pathname: LINKS.News.All.href(),
-                query: buildQuery(pageNumber),
-              }}
-              className={buttonVariants({
-                variant: isActive ? "default" : "outline",
-                size: "sm",
-              })}
-              prefetch
-            >
-              {pageNumber}
-            </Link>
-          );
-        })}
-      </div>
-
-      <div className="flex flex-1 justify-end">
-        {pagination.nextPage && (
-          <Link
-            href={{
-              pathname: LINKS.News.All.href(),
-              query: buildQuery(page + 1),
-            }}
-            className={buttonVariants({ variant: "outline" })}
-            prefetch
-          >
-            {t("button.next")} <ArrowRight />
-          </Link>
-        )}
-      </div>
-    </LayoutSection>
-  );
-};

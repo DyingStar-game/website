@@ -2,11 +2,11 @@ name: Build & Image Next.js
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
     # Push events for version tags (e.g. v1.2.3) will also trigger
-    tags: [ 'v*', 'release-*' ]
+    tags: ["v*", "release-*"]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
   # Manual trigger: build & push image tagged with branch name
   workflow_dispatch:
     inputs: {}
@@ -75,7 +75,7 @@ jobs:
         env:
           NODE_OPTIONS: --max-old-space-size=4096
         run: pnpm --reporter=append-only build
-      
+
       - name: Clean up .next/cache to reduce artifact size
         run: rm -rf .next/cache
 
@@ -125,7 +125,7 @@ jobs:
         with:
           name: next-runtime
           path: artifact
-      
+
       - name: Extract runtime artifact (restore symlinks)
         run: |
           set -euo pipefail

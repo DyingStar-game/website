@@ -1,4 +1,41 @@
 {
+  "Issue": {
+    "Hero": {
+      "description": "Join the crew and choose the missions that correspond to your skills. Each task strengthens the narrative universe of the MMO and brings the community closer to the next step of the journey.",
+      "title": "Contribute to the Dying Star project"
+    },
+    "IssueCard": {
+      "DifficultyBadge": {
+        "L": "pro level",
+        "M": "intermediate level",
+        "S": "all levels",
+        "XL": "expert level"
+      },
+      "assigneesCount": "{count, plural, =0 {No contributor} =1 {1 contributor} other {# contributors}}",
+      "button": {
+        "join": "Join"
+      }
+    },
+    "IssuePagination": {
+      "button": {
+        "next": "Next",
+        "previous": "Previous"
+      }
+    },
+    "IssueSearch": {
+      "input": {
+        "placeholder": "Search a task by keyword"
+      }
+    },
+    "IssueStatus": {
+      "Active": "Active contributors",
+      "Available": "Available tasks",
+      "Projects": "Projects covered"
+    },
+    "IssuesNotFound": {
+      "label": "No tasks found"
+    }
+  },
   "Landing": {
     "CTA": {
       "contribute": {
@@ -38,16 +75,16 @@
     "NewsItem": {
       "moreInfo": "Additional information"
     },
-    "NewsPagination": {
-      "button": {
-        "next": "Next",
-        "previous": "Previous"
-      }
-    },
     "button": {
       "viewAll": "View all news"
     },
     "notFound": "No news found",
     "title": "News"
+  },
+  "Paginate": {
+    "button": {
+      "next": "Next",
+      "previous": "Previous"
+    }
   }
 }

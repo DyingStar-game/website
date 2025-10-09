@@ -4,14 +4,14 @@ import type {
   NavigationLink,
   NavigationLinksGroup,
   NavigationLinksGroups,
-} from "@feat/navigation/navigation.type";
+} from "@feat/navigation/navigation.model";
 
 const FOOTER_LINKS: NavigationLinksGroups = [
   {
     title: "Project",
     links: [
       LINKS.Project.Roadmap,
-      LINKS.Project.Tickets,
+      LINKS.Project.Contribute,
       LINKS.Project.Launcher,
       LINKS.Project.Configuration,
       LINKS.Project.Changelog,
