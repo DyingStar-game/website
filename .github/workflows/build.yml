@@ -68,6 +68,10 @@ jobs:
           # Secret WEBSITE_ENV_FILE must contain full multi-line contents of .env.production
           printf "%s" "${{ secrets.WEBSITE_ENV_FILE }}" > .env.production
 
+      - name: Type generation
+        run: |
+          pnpm --reporter=append-only type:generate
+
       - name: Lint
         run: |
           pnpm --reporter=append-only lint:ci

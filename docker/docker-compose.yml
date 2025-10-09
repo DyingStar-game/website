@@ -17,7 +17,6 @@ services:
     volumes:
       - ..:/app
       - app_cache:/app/.cache
-      - node_modules:/app/node_modules
     working_dir: /app
     environment:
       - MEILI_URL=http://meilisearch:7700 # will override the .env value
@@ -51,7 +50,6 @@ services:
     volumes:
       - ..:/app
       - app_cache:/app/.cache
-      - node_modules:/app/node_modules
     working_dir: /app
     environment:
       - MEILI_URL=http://meilisearch:7700
@@ -65,7 +63,6 @@ services:
 volumes:
   meili_data:
   app_cache:
-  node_modules:
 
 networks:
   backend:
