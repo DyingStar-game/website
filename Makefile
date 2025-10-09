@@ -9,8 +9,16 @@ YELLOW := \033[33m
 RED := \033[31m
 RESET := \033[0m
 
-# Docker Compose
-COMPOSE := docker compose -f docker/docker-compose.yml
+EXECUTOR := docker compose
+
+# if podman is available, use it instead of docker
+ifneq (, $(shell which podman 2>/dev/null))
+$(info ❗❗ Using podman for compose commands❗❗)
+EXECUTOR := podman compose
+endif
+
+COMPOSE := $(EXECUTOR) -f docker/docker-compose.yml
+
 DEV_SERVICE := dev
 APP_SERVICE := app
 MEILISEARCH_SERVICE := meilisearch
