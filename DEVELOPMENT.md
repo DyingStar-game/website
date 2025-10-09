@@ -103,7 +103,6 @@ _For developers working on the codebase_
 
 - `make up` - Start development environment (MeiliSearch only)
 - `make pnpm <command>` - Run any pnpm command
-- Development shortcuts: `make dev`, `make build`, `make lint`, etc.
 
 **Use Case:** Active development with full control over the development environment.
 
@@ -158,17 +157,6 @@ LAST_YOUTUBE_ID=your_youtube_id
 | `make up`         | Start development environment |
 | `make down`       | Stop development environment  |
 | `make pnpm <cmd>` | Run any pnpm command          |
-
-### **Common Development Commands**
-
-| Command        | Description                  | Example                     |
-| -------------- | ---------------------------- | --------------------------- |
-| `make install` | Install dependencies         | -                           |
-| `make dev`     | Start development server     | Visit http://localhost:3000 |
-| `make build`   | Build production application | -                           |
-| `make clean`   | Clean and format code        | Runs linting + formatting   |
-| `make lint`    | Run ESLint                   | Check code quality          |
-| `make format`  | Format code with Prettier    | -                           |
 
 ### **pnpm Commands via Docker**
 
@@ -225,18 +213,18 @@ LAST_YOUTUBE_ID=your_youtube_id
 
    ```bash
    # Run linter
-   make lint
+   make pnpm lint
 
    # Format code
-   make format
+   make pnpm format
 
    # Or do both
-   make clean
+   make pnpm clean
    ```
 
 6. **Build & Test Production**
    ```bash
-   make build
+   make pnpm build
    ```
 
 ### **Adding New Dependencies**
@@ -266,13 +254,13 @@ make pnpm remove package-name
    make up           # Start environment
    make pnpm dev     # Start dev server
    # ... develop your feature ...
-   make clean        # Format & lint before commit
+   make pnpm clean        # Format & lint before commit
    ```
 
 3. **Test Production Build**
 
    ```bash
-   make build        # Ensure production build works
+   make pnpm build        # Ensure production build works
    ```
 
 4. **Commit & Push**
@@ -380,11 +368,11 @@ nano .env.local
 
 ```bash
 # Clean and rebuild
-make clean
-make build
+make pnpm lint:ci
+make pnpm build
 
 # Check for TypeScript errors
-make pnpm ts
+make pnpm typecheck
 ```
 
 ## 🤝 Contributing
@@ -393,7 +381,7 @@ make pnpm ts
 
 - Use TypeScript for all new code
 - Follow ESLint configuration
-- Use Prettier for formatting (automatic with `make clean`)
+- Use Prettier for formatting (automatic with `make pnpm clean`)
 - Write meaningful commit messages
 
 ### **Commit Convention**
@@ -412,8 +400,8 @@ chore: maintenance tasks
 
 1. Create feature branch from `main`
 2. Develop feature following guidelines
-3. Run `make clean` before committing
-4. Test production build with `make build`
+3. Run `make pnpm clean` before committing
+4. Test production build with `make pnpm build`
 5. Create pull request with clear description
 6. Ensure CI passes
 
