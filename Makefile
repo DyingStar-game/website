@@ -67,40 +67,6 @@ pnpm: ## Run any pnpm command (usage: make pnpm install, make pnpm dev, etc.)
 	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm $(filter-out $@,$(MAKECMDGOALS))"
 
 # =============================================================================
-# Common pnpm shortcuts for development
-# =============================================================================
-
-.PHONY: install
-install: ## Install dependencies
-	@echo "$(CYAN)📦 Installing dependencies...$(RESET)"
-	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm install"
-
-.PHONY: dev
-dev: ## Start development server
-	@echo "$(CYAN)🔥 Starting development server...$(RESET)"
-	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm dev"
-
-.PHONY: build
-build: ## Build the application
-	@echo "$(CYAN)🏗️  Building application...$(RESET)"
-	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm build"
-
-.PHONY: clean
-clean: ## Clean build artifacts and lint/format code
-	@echo "$(CYAN)🧹 Cleaning and formatting code...$(RESET)"
-	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm clean"
-
-.PHONY: lint
-lint: ## Run linter
-	@echo "$(CYAN)🔍 Running linter...$(RESET)"
-	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm lint"
-
-.PHONY: format
-format: ## Format code
-	@echo "$(CYAN)✨ Formatting code...$(RESET)"
-	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm format"
-
-# =============================================================================
 # Utility commands
 # =============================================================================
 
@@ -154,9 +120,6 @@ help: ## Show this help message
 	@echo ""
 	@echo "$(YELLOW)Dev Profile (Development):$(RESET)"
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(up|down|pnpm)"
-	@echo ""
-	@echo "$(YELLOW)Common Dev Commands:$(RESET)"
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(install|dev|build|clean|lint|format)"
 	@echo ""
 	@echo "$(YELLOW)Utilities:$(RESET)"
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(logs|shell|status|clean-volumes)"
