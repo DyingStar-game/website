@@ -278,6 +278,13 @@ make pnpm remove package-name
 
 ### **Common Issues**
 
+#### Are you using Docker or Podman?
+This project supports both Docker and Podman for container management. The Makefile automatically detects if Podman is installed and uses it for all commands. If you prefer to use Docker, ensure Podman is not installed or modify the Makefile accordingly.
+
+> `podman > docker`
+
+Make sure you are replacing `docker` with `podman` in all commands if you are using Podman.
+
 #### Container Issues
 ```bash
 # If containers won't start
