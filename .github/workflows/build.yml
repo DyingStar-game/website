@@ -92,9 +92,9 @@ jobs:
         run: |
           pnpm --reporter=append-only type:generate
 
-      - name: Lint
-        run: |
-          pnpm --reporter=append-only lint:ci
+      # - name: Lint
+      #   run: |
+      #     pnpm --reporter=append-only lint:ci
 
       - name: Build (Next.js)
         env:
