@@ -5,12 +5,13 @@
   "scripts": {
     "build": "next build --turbo",
     "type:generate": "next typegen .",
-    "clean": "next lint --fix && tsc --noEmit && prettier --write .",
     "dev": "next dev --turbopack --hostname 0.0.0.0",
-    "format": "prettier --write .",
-    "lint": "eslint . --fix",
     "start": "next start",
-    "ts": "tsc --noEmit"
+    "lint": "eslint . --fix",
+    "prettier": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "clean": "eslint . --fix && tsc --noEmit && prettier --write .",
+    "lint:ci": "eslint . --max-warnings 0 && tsc --noEmit && prettier --check ."
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
