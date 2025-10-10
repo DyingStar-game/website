@@ -17,7 +17,10 @@ export const POST = route //TODO: Create a webhook middleware to handle the webh
   .body(IssuesWebhookSchema)
   .handler(async (req, { query, body }) => {
     if (query.secret !== env.GH_WEBHOOK_SECRET)
-      return NextResponse.json({ message: "Invalid Access" }, { status: 403 });
+      return NextResponse.json(
+        { message: "Invalid Accccccess" },
+        { status: 403 },
+      );
 
     if (body.action === "deleted") await deleteProjectIssue(body.issue.node_id);
     else await updateProjectIssue(body.issue.node_id);
