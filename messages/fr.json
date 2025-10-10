@@ -17,12 +17,17 @@
       }
     },
     "IssueSearch": {
-      "input": { "placeholder": "Rechercher une tâche par mot-clé" }
+      "input": {
+        "placeholder": "Rechercher une tâche par mot-clé"
+      }
     },
     "IssueStatus": {
       "Active": "Contributeurs actifs",
       "Available": "Tâches disponibles",
       "Projects": "Domaines couverts"
+    },
+    "IssuesNotFound": {
+      "label": "Aucune tâche trouvée"
     }
   },
   "Landing": {

@@ -36,7 +36,7 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
     <motion.article
       className={cn(
         "flex break-inside-avoid-column flex-col justify-between rounded-md text-white",
-        getProjectBgColor(issue.project_number),
+        getProjectBgColor(issue.projectNumber),
         className,
       )}
       initial={{ opacity: 0, y: 35 }}
@@ -51,12 +51,10 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
       <div className="flex justify-between border-b border-white/60 p-5">
         <div className="flex items-center gap-4">
           <DynamicIcon
-            name={getProjectIcon(issue.project_number)}
+            name={getProjectIcon(issue.projectNumber)}
             className="size-9"
           />
-          <Badge variant="category">
-            {issue.project_name.replace(/\p{Extended_Pictographic}/gu, "")}
-          </Badge>
+          <Badge variant="category">{issue.projectName}</Badge>
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-4 p-5">
@@ -78,8 +76,8 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
         </div>
         <div className={cn("relative aspect-[460/184] w-full self-center")}>
           <Image
-            src={getProjectImage(issue.project_number)}
-            alt={issue.project_name}
+            src={getProjectImage(issue.projectNumber)}
+            alt={issue.projectName}
             fill
             className="object-cover"
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 70vw, 512px" // Optimize for tailwind breakpoint size
@@ -139,10 +137,10 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
                 <Tooltip key={assignee.login}>
                   <TooltipTrigger asChild>
                     <Avatar className={cn("size-7 sm:size-9")}>
-                      {assignee.avatar_url && (
+                      {assignee.avatarUrl && (
                         <AvatarImage
                           className="bg-white"
-                          src={assignee.avatar_url}
+                          src={assignee.avatarUrl}
                           alt={assignee.login}
                         />
                       )}
@@ -158,9 +156,9 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
           )}
         </div>
         <div className="flex justify-end gap-2">
-          {issue.discord_url && (
+          {issue.discordUrl && (
             <Link
-              href={issue.discord_url}
+              href={issue.discordUrl}
               target="_blank"
               className={cn(
                 buttonVariants({

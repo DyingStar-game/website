@@ -1,7 +1,7 @@
+import type { GraphqlProjectIssueType } from "@feat/api/github/schema/issue.graphql.model";
+import type { IssueSize } from "@feat/api/github/schema/issueField.size.graphql";
 import type { ProjectIssueType } from "@feat/api/github/schema/projectIssues.model";
 import {
-  type GraphqlProjectIssueType,
-  type IssueSize,
   type ProjectIssuesType,
   projectIssueSchema,
 } from "@feat/api/github/schema/projectIssues.model";
@@ -12,47 +12,33 @@ export const GraphqlProjectIssueResponseToProjectIssuesTypeMapper = (
   projectIssue.projectItems.nodes
     .filter((item) => Object.keys(item.content).length > 0)
     .map((item) => {
-      const statusField = item.fieldValues.nodes.find(
-        (field) => field.field && field.field.name === "Status",
-      );
-
-      const priorityField = item.fieldValues.nodes.find(
-        (field) => field.field && field.field.name === "Priority",
-      );
-
-      const teamField = item.fieldValues.nodes.find(
-        (field) => field.field && field.field.name === "Team",
-      );
-
-      const sizeField = item.fieldValues.nodes.find(
-        (field) => field.field && field.field.name === "Size",
-      );
-
-      const discordField = item.fieldValues.nodes.find(
-        (field) => field.field && field.field.name === "Post Discord",
-      );
+      const getFieldByName = (name: string) =>
+        item.fieldValues.nodes.find(
+          (field) => field.field && field.field.name === name,
+        ) ?? null;
 
       const issue: ProjectIssueType = {
         title: item.content.title,
         id: item.content.id,
         url: item.content.url,
-        created_at: item.content.createdAt,
-        updated_at: item.content.updatedAt,
-        project_name: item.project.title
+        createdAt: item.content.createdAt,
+        updatedAt: item.content.updatedAt,
+        projectName: item.project.title
           .replace(/\p{Extended_Pictographic}/gu, "")
           .trim(),
-        project_number: item.project.number,
-        status: statusField?.name ?? null,
-        priority: priorityField?.name ?? null,
-        team: teamField?.name ?? null,
+        projectNumber: item.project.number,
+        status: getFieldByName("Status")?.name?.toLowerCase().trim() ?? null,
+        priority: getFieldByName("Priority")?.name?.trim() ?? null,
+        team: getFieldByName("Team")?.name?.trim() ?? null,
         labels: item.content.labels.nodes.map((label) => label.name),
-        has_assignees: item.content.assignees.nodes.length > 0,
+        hasAssignees: item.content.assignees.nodes.length > 0,
         assignees: item.content.assignees.nodes.map((assignee) => ({
           login: assignee.login,
-          avatar_url: assignee.avatarUrl,
+          avatarUrl: assignee.avatarUrl ?? null,
         })),
-        size: sizeField?.name as IssueSize | null,
-        discord_url: discordField?.text ?? null,
+        size: (getFieldByName("Size")?.name?.trim() ??
+          null) as IssueSize | null,
+        discordUrl: getFieldByName("Post Discord")?.text?.trim() ?? null,
       };
 
       return projectIssueSchema.parse(issue);

@@ -1,11 +1,11 @@
-import type {
-  GraphqlProjectIssuesResponseType,
-  ProjectIssuesType,
-} from "@feat/api/github/schema/projectIssues.model";
+import {
+  type GraphqlProjectIssuesResponseType,
+  graphqlProjectIssuesResponseSchema,
+} from "@feat/api/github/schema/issue.graphql.model";
+import type { ProjectIssuesType } from "@feat/api/github/schema/projectIssues.model";
 import {
   type GraphqlPaginatedProjectIssuesType,
   graphqlPaginatedProjectIssuesSchema,
-  graphqlProjectIssuesResponseSchema,
 } from "@feat/api/github/schema/projectIssues.model";
 import { env } from "@lib/env/server";
 import { githubGraphql } from "@lib/github/githubApi";
@@ -13,7 +13,7 @@ import { githubGraphql } from "@lib/github/githubApi";
 import { GITHUB_ISSUE_FRAGMENT } from "./githubIssueFragments.graphql";
 import { GraphqlProjectIssueResponseToProjectIssuesTypeMapper } from "./graphqlProjectIssueResponseToProjectIssuesType.mapper";
 
-export const GetGithubIssues = async (
+export const getGithubIssues = async (
   cursor?: string,
 ): Promise<GraphqlPaginatedProjectIssuesType> => {
   const QUERY = `

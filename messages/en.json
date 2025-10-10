@@ -23,12 +23,17 @@
       }
     },
     "IssueSearch": {
-      "input": { "placeholder": "Search a task by keyword" }
+      "input": {
+        "placeholder": "Search a task by keyword"
+      }
     },
     "IssueStatus": {
       "Active": "Active contributors",
       "Available": "Available tasks",
       "Projects": "Projects covered"
+    },
+    "IssuesNotFound": {
+      "label": "No tasks found"
     }
   },
   "Landing": {

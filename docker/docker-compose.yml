@@ -1,38 +1,68 @@
+# Node.js version (should match .nvmrc)
+x-node-image: &node-image "node:22.20.0"
+
 services:
-
-
+  # App service for production/testing (CP/PO/Others profile)
   app:
-    container_name: dyingstar-webapp
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.dev
+    image: *node-image
+    command: >
+      sh -c "
+        corepack enable &&
+        corepack install &&
+        pnpm install &&
+        pnpm dev
+      "
     ports:
       - "3000:3000"
     volumes:
       - ..:/app
+      - app_cache:/app/.cache
+    working_dir: /app
     environment:
-      - NODE_ENV=development
+      - MEILI_URL=http://meilisearch:7700 # will override the .env value
     env_file:
       - ../.env.local
-    tty: true
+    depends_on:
+      - meilisearch
     networks:
       - backend
 
+  # MeiliSearch service for search functionality
   meilisearch:
-    container_name: meilisearch
     image: getmeili/meilisearch:v1.22
     ports:
       - "7700:7700"
     environment:
-      MEILI_MASTER_KEY: "6lPJuz9LeW9LKb56DWjeEPso6yh9KEspsFGrpC1dNUM"
       MEILI_ENV: "production"
     volumes:
       - meili_data:/meili_data
+    env_file:
+      - ../.env.local
+    networks:
+      - backend
+
+  # Dev service for development work (lighter, no app by default)
+  dev:
+    image: *node-image
+    command: tail -f /dev/null # Keep container running for exec commands
+    ports:
+      - "3000:3000"
+    volumes:
+      - ..:/app
+      - app_cache:/app/.cache
+    working_dir: /app
+    environment:
+      - MEILI_URL=http://meilisearch:7700
+    env_file:
+      - ../.env.local
+    tty: true
+    stdin_open: true
     networks:
       - backend
 
 volumes:
   meili_data:
+  app_cache:
 
 networks:
   backend:

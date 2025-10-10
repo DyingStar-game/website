@@ -82,9 +82,20 @@ jobs:
           printf '%s\n' "${{ secrets.WEBSITE_ENV_FILE }}" > .env
           sed -i 's/\r$//' .env
 
+      - name: Recreate .env.production from secret
+        run: |
+          echo "Creating .env.production from secret WEBSITE_ENV_FILE"
+          # Secret WEBSITE_ENV_FILE must contain full multi-line contents of .env.production
+          printf "%s" "${{ secrets.WEBSITE_ENV_FILE }}" > .env.production
+
+      - name: Type generation
+        run: |
+          pnpm --reporter=append-only type:generate
+
       - name: Lint
-        if: ${{ github.event_name == 'pull_request' }}
-        run: pnpm --reporter=append-only lint
+        run: |
+          pnpm --reporter=append-only lint:ci
+
       - name: Build (Next.js)
         env:
           NODE_OPTIONS: --max-old-space-size=4096
