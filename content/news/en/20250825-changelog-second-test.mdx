@@ -1,0 +1,81 @@
+---
+title: Changelog for play test number 2
+titleIcon: 📋
+category: test
+description: Changes since the first play test.
+keywords:
+  - news
+tags:
+  - Project information
+  - play test
+  - Changelog
+coverUrl: /assets/images/news/playtest.png
+date: 2025-08-25T14:16:00
+author: ddurieux
+authorRoles:
+  - Project founder
+---
+
+# Changelog
+
+Here is the changelog for the version to be tested tonight (as a reminder, it's at 8:30 PM):
+
+* Moved player management to the server side
+* File reorganization
+* Fixed the player camera
+* Fixed the player rotation
+* Added 50cm and 4m boxes (spawn with the **E** and **R** keys)
+* Added a global chat, using MQTT. Display with **F12** and **ALT+T** to type in it
+* Added a ship
+* Added object persistence in the dgraph database
+* Added game localization (translation)
+* Added error messages (currently only used when disconnecting from the server)
+* Reworked the dynamic meshing server, switching from HTTP to MQTT protocol
+* Added inter-server replication of boxes and ships (only when spawning and only on already active servers)
+* Changed the player UI:
+* Displayed coordinates of the area managed by the server
+* Added a label above the player with the name of the server the player is on
+* Fixed labels (number of servers, number of players, etc.)
+* Changed the scene, two 5km planets (one gray and one orange) + two stations
+* Integrated FMOD audio server, but disabled for the moment (several issues identified)
+
+# Play test number 2
+
+Here is what that will need to be tested.
+
+## Report issues
+
+Make a video or write a text about the problem encountered, and if possible, how to reproduce it.
+
+## Server meshing dynamic
+
+We'll let you test it, switch from one server to another, what problems you encountered, what works.
+
+**WARNING**: The following issues are already known:
+* Black screen lasting less than a second when switching servers
+* Problems when switching servers too slowly (visual glitches for a few seconds and then getting stuck on one server)
+* When a server splits in two, the second server doesn't retrieve crates and ships from the first server (code not yet stable).
+
+## Global Chat
+
+There is a global chat, accessible via F12. You can write, emojis work. Write as many messages as you can and see how it reacts.
+To write, press ALT+T.
+
+## Crate Spawn (Cross-Server View)
+
+You can spawn small crates (50cm) with the R key, large crates (4m) with the E key. Test them on planets, in space, and between servers.
+It seems there's a limit of around 2,000 crates spawned, with latency per server... we'd love some feedback on that 😉
+
+## Persistence
+
+We have crate and ship persistence.
+
+We tried restarting the servers last night and loading the thousands of crates into the database, but it took a very long time and consumed resources. We'll see what happens after this test.
+
+## Other
+
+If you see anything else that's not great or doesn't work, please report it too 😉
+
+Thanks everyone, and see you later at 8:30 PM!
+
+[Event Discord](https://discord.com/events/1399325839665004554/1402189058469396585)

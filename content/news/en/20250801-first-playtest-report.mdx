@@ -1,0 +1,41 @@
+---
+title: First Playtest Report
+titleIcon: 🗒️
+category: Test
+description: First playtest report. We learned a lot ^_^
+keywords:
+  - news
+tags:
+  - Project information
+  - playtest
+coverUrl: /assets/images/news/debriefing.png
+date: 2025-08-01T22:41:00
+author: ddurieux
+authorRoles:
+  - Project founder
+---
+
+## First Playtest Report
+
+Thank you all for today's full-scale playtest ❤️
+
+Here's the feedback on this afternoon's playtest.
+
+We were able to test with **62 servers**, yes, 62 servers \o/
+
+## Known issues:
+
+* Moving doesn't correctly change servers
+* Network congestion, optimizations to be made in the code
+* Player TP. Players TP each other when they were on another server. This is normal; I didn't want to lower the refresh rate too low in this first test to avoid excessive load (HTTP requests, CPU, network).
+
+## Issues identified through testing
+
+* SDO (Server Orchestrator) issue that had an under-configured configuration and refused many server requests. The configuration was increased during testing, but too late. This issue impacted the issues of long player disappearances, the counters that were incorrect, etc.
+* Lack of centralized monitoring. Since the servers are distributed among several people, we don't have centralized and aggregated data, which complicates the analysis a little. We're considering having a central Zabbix server and an agent configuration to deploy with the server.
+* The servers don't provide much real-time data on the number of players or other metrics... We're going to try installing a micro HTTP server in the server to be able to retrieve this information and send it to Zabbix.
+* Server zones. After a quick analysis, many servers managed huge zones on two coordinates, but on the third, it was just a few meters (8, 10, 14m). We need to add a minimum to the zone sizes so that the division can be done differently.
+
+Thanks to everyone for this test.
+
+We will work on these fixes and plan a new test in 10-15 days. At the same time, we'll be working on organizing the Discord, the teams... more information on this topic over the weekend.
