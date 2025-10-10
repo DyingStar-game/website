@@ -2,11 +2,11 @@ name: Build & Image Next.js
 
 on:
   push:
-    branches: [main, feat/CD]
+    branches: [main, develop]
     # Push events for version tags (e.g. v1.2.3) will also trigger
     tags: ["v*", "release-*"]
   pull_request:
-    branches: [main, feat/CD]
+    branches: [main, develop]
   workflow_dispatch:
 concurrency:
   group: build-${{ github.ref }}
@@ -159,7 +159,7 @@ jobs:
           TARGET="none"
           if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
             TARGET="prod"
-          elif [[ "${GITHUB_REF}" == "refs/heads/feat/CD" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          elif [[ "${GITHUB_REF}" == "refs/heads/develop" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             TARGET="staging"
           fi
           if [[ "$TARGET" == "prod" ]]; then
@@ -208,7 +208,7 @@ jobs:
             # prod: uniquement sur tag v*
             if [[ "${GITHUB_REF}" == refs/tags/v* && "$IS_PR" != "true" ]]; then PUSH=true; fi
           elif [[ "$TARGET" == "staging" ]]; then
-            # staging: feat/CD ou dispatch, pas en PR
+            # staging: develop ou dispatch, pas en PR
             if [[ "$IS_PR" != "true" ]]; then PUSH=true; fi
           fi
 
