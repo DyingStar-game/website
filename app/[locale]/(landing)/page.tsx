@@ -1,7 +1,8 @@
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
+import { LINKS } from "@feat/navigation/Links";
 import { LayoutMain } from "@feat/page/layout";
-import { env } from "@lib/env/server";
+import { env } from "@lib/env/client";
 import { getTranslations } from "next-intl/server";
 
 import { NewsSection } from "./_components/newsSection";
@@ -15,7 +16,10 @@ export default async function HomePage() {
     <>
       <CtaWithButton
         title={t("CTA.contribute.title")}
-        action={{ label: t("CTA.contribute.action"), href: "#" }} //TODO: href
+        action={{
+          label: t("CTA.contribute.action"),
+          href: LINKS.Project.Contribute.href(),
+        }}
       />
 
       <LayoutMain size="full">
@@ -27,7 +31,7 @@ export default async function HomePage() {
           action={{
             label: t("CTA.discord.action"),
             icon: <LogoDiscordSvg />,
-            href: `https://discord.gg/${env.DISCORD_INVITE_ID}`,
+            href: `https://discord.gg/${env.NEXT_PUBLIC_DISCORD_INVITE_ID}`,
             target: "_blank",
           }}
         />

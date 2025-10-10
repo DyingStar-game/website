@@ -6,12 +6,14 @@ import { Layout } from "@feat/page/layout";
 import { Link } from "@i18n/navigation";
 import { env } from "@lib/env/client";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { SiteConfig } from "site-config";
 
 import { Typography } from "../typography";
 import { getFooterLinks } from "./footer.link";
 
 export const Footer = () => {
+  const t = useTranslations();
   return (
     <Layout asChild padding="none" className="gap-5 pb-8">
       <footer>
@@ -32,7 +34,7 @@ export const Footer = () => {
                         variant="default"
                         className="text-foreground/40"
                       >
-                        {link.label}
+                        {t(link.label)}
                       </Typography>
                     </Link>
                   ) : (
@@ -41,7 +43,7 @@ export const Footer = () => {
                       variant="default"
                       className="cursor-not-allowed text-muted"
                     >
-                      {link.label} (Soon)
+                      {t(link.label)} (Soon)
                     </Typography>
                   ),
                 )}

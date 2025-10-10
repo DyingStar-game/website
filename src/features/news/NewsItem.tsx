@@ -27,7 +27,9 @@ const NewsItem = ({ news, className }: NewsItemProps) => {
         <span className="text-3xl md:text-4xl lg:text-5xl">
           {news.attributes.titleIcon}
         </span>
-        {news.attributes.title}
+        <Link href={LINKS.News.Detail.href({ newsSlug: news.slug })}>
+          {news.attributes.title}
+        </Link>
       </Typography>
       <div className="flex flex-col gap-7 xl:max-h-72 xl:flex-row">
         <div className="relative aspect-video w-full max-w-128 self-center">

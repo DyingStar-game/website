@@ -7,7 +7,7 @@ import {
   type GraphqlPaginatedProjectIssuesType,
   graphqlPaginatedProjectIssuesSchema,
 } from "@feat/api/github/schema/projectIssues.model";
-import { env } from "@lib/env/server";
+import { env } from "@lib/env/client";
 import { githubGraphql } from "@lib/github/githubApi";
 
 import { GITHUB_ISSUE_FRAGMENT } from "./githubIssueFragments.graphql";
@@ -36,7 +36,7 @@ export const getGithubIssues = async (
   const response = await githubGraphql<GraphqlProjectIssuesResponseType>(
     QUERY,
     {
-      q: `org:${env.GITHUB_REPO} is:issue is:open`,
+      q: `org:${env.NEXT_PUBLIC_GITHUB_REPO} is:issue is:open`,
       searchPageSize: 30,
       cursor,
     },
