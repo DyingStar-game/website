@@ -55,7 +55,6 @@ jobs:
         with:
           path: |
             .env
-            .env.production
           key: env-files-${{ github.run_id }}
           restore-keys: |
             env-files-${{ github.run_id }}
