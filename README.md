@@ -22,7 +22,7 @@
 
 ## CI/CD Pipeline
 
-The project uses GitHub Actions for continuous integration and deployment. The workflow is defined in `.github/workflows/build.yml`.
+The project uses GitHub Actions for continuous integration and deployment. The workflow is defined in `.github/workflows/cicd.yml`.
 
 ### Stages
 
