@@ -168,8 +168,17 @@ export default [
       // Discourage await inside loops (prefer batching/Promise.all)
       "no-await-in-loop": "error",
 
-      // Warn on console usage (keep code clean)
-      "no-console": "warn",
+      // Forbid console.log (use logger instead)
+      "no-console": "error",
+
+      // Warn on TODO/FIXME comments
+      "no-warning-comments": [
+        "warn",
+        {
+          terms: ["TODO", "FIXME", "FIX", "REFACTOR"],
+          location: "anywhere",
+        },
+      ],
 
       // Prevent confusing unicode regex classes
       "no-misleading-character-class": "error",

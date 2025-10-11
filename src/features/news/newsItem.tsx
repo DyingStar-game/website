@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
 import type { News } from "@feat/news/newsManager";

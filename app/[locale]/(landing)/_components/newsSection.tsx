@@ -1,6 +1,6 @@
 import { LINKS } from "@feat/navigation/Links";
-import NewsItem from "@feat/news/NewsItem";
-import NewsItemLight from "@feat/news/NewsItemLight";
+import NewsItem from "@feat/news/newsItem";
+import NewsItemLight from "@feat/news/newsItemLight";
 import { getLastNews } from "@feat/news/newsManager";
 import { LayoutContentTitle, LayoutSection } from "@feat/page/layout";
 import type { Locale } from "next-intl";

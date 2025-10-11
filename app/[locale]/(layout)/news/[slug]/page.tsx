@@ -1,7 +1,7 @@
 import { Typography } from "@components/DS/typography";
 import { ServerMdx } from "@feat/markdown/serverMdx";
 import { LINKS } from "@feat/navigation/Links";
-import { NewsItemAuthor, NewsItemTags } from "@feat/news/NewsItem";
+import { NewsItemAuthor, NewsItemTags } from "@feat/news/newsItem";
 import { getCurrentNews, getNews } from "@feat/news/newsManager";
 import { LayoutMain, LayoutSection } from "@feat/page/layout";
 import { LOCALES } from "@i18n/config";

@@ -1,8 +1,6 @@
-import React from "react";
-
 import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
-import { NewsItemAuthor, NewsItemTags } from "@feat/news/NewsItem";
+import { NewsItemAuthor, NewsItemTags } from "@feat/news/newsItem";
 import type { News } from "@feat/news/newsManager";
 import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
