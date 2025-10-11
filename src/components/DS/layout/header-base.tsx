@@ -5,7 +5,6 @@ import { type PropsWithChildren, useState } from "react";
 import { LocaleSwitcher } from "@feat/i18n/LocaleSwitcher";
 import { cn } from "@lib/utils";
 import type { buttonVariants } from "@ui/button";
-import { Button } from "@ui/button";
 import type { VariantProps } from "class-variance-authority";
 import {
   motion,
@@ -14,7 +13,8 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { Menu } from "lucide-react";
+
+import IconSwitch from "../iconAnimate/iconSwitch";
 
 export function HeaderBase({ children }: PropsWithChildren) {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,10 +41,12 @@ export function HeaderBase({ children }: PropsWithChildren) {
             : "max-h-18! xl:max-h-35!",
         )}
       >
-        <div className="visible flex size-10 flex-1 items-center xl:invisible">
-          <Menu
-            className="hover:cursor-pointer"
+        <div className="visible relative flex size-10 flex-1 items-center xl:invisible">
+          <IconSwitch
+            icon="menu"
+            switchIcon="x"
             onClick={() => setIsOpen(!isOpen)}
+            isSwitch={isOpen}
           />
         </div>
         <nav className="flex flex-1 flex-col justify-start gap-4 uppercase xl:flex-row xl:items-center xl:justify-center xl:gap-3 2xl:gap-8">
@@ -52,14 +54,14 @@ export function HeaderBase({ children }: PropsWithChildren) {
         </nav>
         <div className="flex flex-1 justify-end gap-4">
           <LocaleSwitcher className="hidden xl:inline" size={size} />
-          <Button
+          {/* <Button
             variant="ghost"
             size={size}
             onClick={() => alert("Todo wait for auth tasks")}
             className="hidden xl:inline"
           >
             Auth
-          </Button>
+          </Button> */}
         </div>
       </motion.header>
       {/* Tips for smoother animated header: useTransform + useMotionTemplate */}

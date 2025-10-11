@@ -29,7 +29,11 @@ const NewsItemLight = ({ news, className }: NewsItemLightProps) => {
         title={news.attributes.title}
       >
         <span className="text-3xl">{news.attributes.titleIcon}</span>
-        <span className="lg:truncate"> {news.attributes.title}</span>
+        <span className="lg:truncate">
+          <Link href={LINKS.News.Detail.href({ newsSlug: news.slug })}>
+            {news.attributes.title}
+          </Link>
+        </span>
       </Typography>
 
       <NewsItemTags tags={news.attributes.tags} />

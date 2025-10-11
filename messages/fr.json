@@ -54,6 +54,22 @@
       "title": "Tâches"
     }
   },
+  "Links": {
+    "Community": {
+      "Discord": "Discord",
+      "Github": "Github"
+    },
+    "Lore": {
+      "History": "Lore"
+    },
+    "News": {
+      "All": "Actualités"
+    },
+    "Project": {
+      "Contribute": "Contribuer",
+      "Vision": "Vision"
+    }
+  },
   "LocaleSwitcher": {
     "en": "Anglais",
     "fr": "Francais",

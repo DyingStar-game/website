@@ -158,7 +158,7 @@ jobs:
         run: |
           set -euo pipefail
           # Force owner to lowercase for GHCR (Docker image references must be lowercase)
-          OWNER_LC=$(printf "%s" "${GITHUB_REPOSITORY_OWNER:-${{ github.repository_owner }}}" | tr '[:upper:]' '[:lower:]')
+          OWNER_LC=$(printf "%s" "${NEXT_PUBLIC_GITHUB_REPOSITORY_OWNER:-${{ github.repository_owner }}}" | tr '[:upper:]' '[:lower:]')
           IMAGE_FULL="ghcr.io/${OWNER_LC}/${IMAGE_NAME}"
           echo "Event: ${GITHUB_EVENT_NAME} | Ref: ${GITHUB_REF} | Ref name: ${GITHUB_REF_NAME}"
 
