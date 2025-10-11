@@ -13,8 +13,8 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { DynamicIcon } from "lucide-react/dynamic";
+
+import IconSwitch from "../iconAnimate/iconSwitch";
 
 export function HeaderBase({ children }: PropsWithChildren) {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,26 +42,12 @@ export function HeaderBase({ children }: PropsWithChildren) {
         )}
       >
         <div className="visible relative flex size-10 flex-1 items-center xl:invisible">
-          <div className="relative size-6">
-            <Menu
-              className={cn(
-                "absolute inset-0 transition-all duration-300 ease-in-out hover:cursor-pointer",
-                isOpen
-                  ? "pointer-events-none scale-75 rotate-45 opacity-0"
-                  : "pointer-events-auto scale-100 rotate-0 opacity-100",
-              )}
-              onClick={() => setIsOpen(true)}
-            />
-            <X
-              className={cn(
-                "absolute inset-0 transition-all duration-300 ease-in-out hover:cursor-pointer",
-                isOpen
-                  ? "pointer-events-auto scale-100 rotate-0 opacity-100"
-                  : "pointer-events-none scale-75 -rotate-45 opacity-0",
-              )}
-              onClick={() => setIsOpen(false)}
-            />
-          </div>
+          <IconSwitch
+            icon="menu"
+            switchIcon="x"
+            onClick={() => setIsOpen(!isOpen)}
+            isSwitch={isOpen}
+          />
         </div>
         <nav className="flex flex-1 flex-col justify-start gap-4 uppercase xl:flex-row xl:items-center xl:justify-center xl:gap-3 2xl:gap-8">
           {children}
