@@ -7,6 +7,7 @@ import {
   type GraphqlPaginatedProjectIssuesType,
   graphqlPaginatedProjectIssuesSchema,
 } from "@feat/api/github/schema/projectIssues.model";
+// This is necessary because NEXT_PUBLIC_GITHUB_REPO is a variable that can be used in both the front and back ends.
 import { env } from "@lib/env/client";
 import { githubGraphql } from "@lib/github/githubApi";
 

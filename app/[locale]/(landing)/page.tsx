@@ -2,6 +2,7 @@ import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
 import { LINKS } from "@feat/navigation/Links";
 import { LayoutMain } from "@feat/page/layout";
+// This is necessary because NEXT_PUBLIC_DISCORD_INVITE_ID is a variable that can be used in both the front and back ends.
 import { env } from "@lib/env/client";
 import { getTranslations } from "next-intl/server";
 
