@@ -4,10 +4,10 @@ on:
   workflow_call:
     inputs:
       node_version:
-        description: 'Node.js version to use'
+        description: "Node.js version to use"
         required: false
         type: string
-        default: '22'
+        default: "22"
 
 env:
   PNPM_HOME: ~/.local/share/pnpm

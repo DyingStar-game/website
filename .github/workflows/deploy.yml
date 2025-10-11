@@ -4,11 +4,11 @@ on:
   workflow_call:
     inputs:
       target:
-        description: 'Deployment target (prod/staging)'
+        description: "Deployment target (prod/staging)"
         required: true
         type: string
       tag_primary:
-        description: 'Primary image tag to deploy'
+        description: "Primary image tag to deploy"
         required: true
         type: string
 
