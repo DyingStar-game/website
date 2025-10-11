@@ -5,9 +5,8 @@ import {
   getIssuesWithAssigneeCount,
   getProjectCount,
 } from "@feat/api/github/hooks/indexedProjectIssues";
-import { action } from "@lib/actions/safe-actions";
-
-import { IssuesCountSchema } from "./IssuesCount.model";
+import { IssuesCountSchema } from "@feat/issue/get/IssuesCount.model";
+import { action } from "@lib/actions/safeActions";
 
 export const GetIssuesCountAction = action
   .outputSchema(IssuesCountSchema)

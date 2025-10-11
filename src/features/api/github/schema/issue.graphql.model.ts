@@ -1,14 +1,13 @@
+import { assigneeSchema } from "@feat/api/github/schema/assignnee.graphql.model";
+import { labelSchema } from "@feat/api/github/schema/label.graphql.model";
+import { graphqlPageInfoSchema } from "@feat/api/github/schema/pageInfo.graphql.model";
 import { z } from "zod";
 
-import { assigneeSchema } from "./assignnee.graphql.model";
-import { labelSchema } from "./label.graphql.model";
-import { graphqlPageInfoSchema } from "./pageInfo.graphql.model";
-
-function nodesSchema<T extends z.ZodTypeAny>(schema: T) {
+const nodesSchema = <T extends z.ZodTypeAny>(schema: T) => {
   return z.object({
     nodes: z.array(schema),
   });
-}
+};
 
 const contentSchema = z.object({
   id: z.string(),

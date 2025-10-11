@@ -5,7 +5,7 @@ import {
 import { IssuesWebhookSchema } from "@feat/issue/get/issuesWebhook.model";
 import { env } from "@lib/env/server";
 import { logger } from "@lib/logger";
-import { route } from "@lib/zod-route";
+import { route } from "@lib/zodRoute";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 

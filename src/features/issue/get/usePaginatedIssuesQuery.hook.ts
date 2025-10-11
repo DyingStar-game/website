@@ -1,7 +1,6 @@
+import type { GetPaginatedIssuesType } from "@feat/issue/get/getPaginatedIssues.model";
+import { paginatedIssuesQueryOptions } from "@feat/issue/get/paginatedIssuesQuery.options";
 import { useQuery } from "@tanstack/react-query";
-
-import type { GetPaginatedIssuesType } from "./getPaginatedIssues.model";
-import { paginatedIssuesQueryOptions } from "./paginatedIssuesQuery.options";
 
 export const usePaginatedIssuesQuery = ({
   page,

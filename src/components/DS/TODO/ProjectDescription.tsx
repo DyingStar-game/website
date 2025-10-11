@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
 import { Button } from "@ui/button";
+import { motion } from "framer-motion";
+import Link from "next/link";
 
-export default function ProjectDescription() {
+const ProjectDescription = () => {
   return (
     <section
       id="project"
@@ -70,5 +70,6 @@ export default function ProjectDescription() {
       </div>
     </section>
   );
-}
+};
 
+export default ProjectDescription;

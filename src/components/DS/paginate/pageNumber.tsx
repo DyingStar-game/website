@@ -1,11 +1,10 @@
 import type { ComponentProps } from "react";
 
+import type { PaginateModeType } from "@components/DS/paginate/paginate";
+import { PaginateAction } from "@components/DS/paginate/paginateAction";
 import type { PageInfoType } from "@feat/api/schema/pageInfo.model";
 import { cn } from "@lib/utils";
 import type { UrlObject } from "url";
-
-import type { PaginateModeType } from "./paginate";
-import { PaginateAction } from "./paginateAction";
 
 type PageNumberProps = ComponentProps<"div"> & {
   pageInfo: PageInfoType;

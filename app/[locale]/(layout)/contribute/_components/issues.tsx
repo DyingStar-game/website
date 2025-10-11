@@ -2,6 +2,10 @@
 
 import { useEffect, useState } from "react";
 
+import IssueCardsFallback from "@app/[locale]/(layout)/contribute/_components/issueCardsFallback";
+import IssueSearch from "@app/[locale]/(layout)/contribute/_components/issueSearch";
+import IssueStatus from "@app/[locale]/(layout)/contribute/_components/issueStatus";
+import IssuesNotFound from "@app/[locale]/(layout)/contribute/_components/issuesNotFound";
 import { IssueCard } from "@components/DS/issues/IssueCard";
 import { Paginate } from "@components/DS/paginate/paginate";
 import { useIssuesCountQuery } from "@feat/issue/get/useIssuesCountQuery.hook";
@@ -9,11 +13,6 @@ import { usePaginatedIssuesQuery } from "@feat/issue/get/usePaginatedIssuesQuery
 import { LayoutSection } from "@feat/page/layout";
 import { useDebounce } from "@hooks/useDebounce";
 import { cn } from "@lib/utils";
-
-import IssueCardsFallback from "./issueCardsFallback";
-import IssueSearch from "./issueSearch";
-import IssueStatus from "./issueStatus";
-import IssuesNotFound from "./issuesNotFound";
 
 export const Issues = () => {
   const [query, setQuery] = useState<string>("");

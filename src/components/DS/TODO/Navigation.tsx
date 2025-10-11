@@ -28,7 +28,7 @@ const rightNavItems: NavItem[] = [
   { label: "FORUM", href: "#", disabled: true },
 ];
 
-function buildLinkClasses(isActive: boolean, isDisabled?: boolean) {
+const buildLinkClasses = (isActive: boolean, isDisabled?: boolean) => {
   const base =
     "uppercase text-[0.58rem] tracking-[0.42em] px-5 py-2 rounded-none transition-all duration-300 font-semibold font-poppins border";
 
@@ -50,9 +50,9 @@ function buildLinkClasses(isActive: boolean, isDisabled?: boolean) {
     base,
     "border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-brand-dark bg-transparent",
   );
-}
+};
 
-export default function Navigation() {
+const Navigation = () => {
   // const { user, logout, isAuthenticated } = useSimpleAuth();
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -299,4 +299,6 @@ export default function Navigation() {
       )}
     </nav>
   );
-}
+};
+
+export default Navigation;

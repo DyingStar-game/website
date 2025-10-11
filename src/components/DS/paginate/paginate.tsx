@@ -1,14 +1,13 @@
 import type { ComponentProps } from "react";
 
+import PageNumber from "@components/DS/paginate/pageNumber";
+import { PaginateAction } from "@components/DS/paginate/paginateAction";
 import type { PageInfoType } from "@feat/api/schema/pageInfo.model";
 import { LayoutSection } from "@feat/page/layout";
 import { cn } from "@lib/utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { UrlObject } from "url";
-
-import PageNumber from "./pageNumber";
-import { PaginateAction } from "./paginateAction";
 
 export type PaginateModeType = "button" | "link";
 

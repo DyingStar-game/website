@@ -44,8 +44,8 @@ godot's network layer isn't mature enough for our needs.
 
 Here are the changes made:
 
-* We added a new network layer. We used a tool called Horizon Server, which is new but already quite functional, and we'll be contributing to it. We recoded the network part in godot. From now on, the player connects to the Horizon server, which in turn connects to the Godot game server.
-* **Spoiler alert: if you read this, it'll let you know how games work and ruin your next gaming sessions.** We moved all collision calculations (physics) to the godot server side. ||So on your PC, all players and items actually fly|| 😄
+- We added a new network layer. We used a tool called Horizon Server, which is new but already quite functional, and we'll be contributing to it. We recoded the network part in godot. From now on, the player connects to the Horizon server, which in turn connects to the Godot game server.
+- **Spoiler alert: if you read this, it'll let you know how games work and ruin your next gaming sessions.** We moved all collision calculations (physics) to the godot server side. ||So on your PC, all players and items actually fly|| 😄
 
 ### Gameplay issue identified
 
@@ -56,16 +56,16 @@ It's a problem, but it wasn't the goal of the test! It was inevitably frustratin
 
 Session 1 was intended to test the maximum number of players connected to the Horizon server and see when it teleported.
 
-We went up to 170 players, but they didn't teleport. We'll have to try to push it even further next time ^_^ (break everything to repair/optimize everything).
+We went up to 170 players, but they didn't teleport. We'll have to try to push it even further next time ^\_^ (break everything to repair/optimize everything).
 
 We still have some optimizations we can/must make.
 
 For server-side network traffic, we had:
 
-* 50 players: 50 Mbps
-* 93 players: 130 Mbps
-* 110 players: 114 Mbps
-* 146 players: 110 Mbps
+- 50 players: 50 Mbps
+- 93 players: 130 Mbps
+- 110 players: 114 Mbps
+- 146 players: 110 Mbps
 
 Since we weren't moving around much anymore A lot, that explains the drop in traffic when it escalated to player sessions.
 
@@ -93,7 +93,7 @@ GDScript backtrace (most recent call first):
 
 ## Conclusion
 
-Extremely happy with this test; it allows us to validate the new networking part with the Horizon server. We'll continue optimizing and integrating the props and a lot of other things for the next tests ^_^
+Extremely happy with this test; it allows us to validate the new networking part with the Horizon server. We'll continue optimizing and integrating the props and a lot of other things for the next tests ^\_^
 
 We'll be integrating the gorc part into the Horizon server in the coming days, which allows players to not see absolutely everything on my PC, even players and items that are 10 km away 😄
 Definitely a few other things; we'll tell you more when we know :p

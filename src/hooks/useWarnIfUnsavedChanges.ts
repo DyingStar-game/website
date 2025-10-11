@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { useNextTopLoaderStore } from "@feat/page/next-top-loader";
+import { useNextTopLoaderStore } from "@feat/page/nextTopLoader";
 
 // Comment : https://github.com/vercel/next.js/discussions/9662#discussioncomment-8819562
 export const useWarnIfUnsavedChanges = (unsaved: boolean, message?: string) => {

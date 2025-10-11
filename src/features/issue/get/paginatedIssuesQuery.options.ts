@@ -1,8 +1,7 @@
-import { resolveActionResult } from "@lib/actions/actions-utils";
+import { GetPaginatedIssuesAction } from "@feat/issue/get/getPaginatedIssues.action";
+import type { GetPaginatedIssuesType } from "@feat/issue/get/getPaginatedIssues.model";
+import { resolveActionResult } from "@lib/actions/actionsUtils";
 import { githubFactory } from "@lib/tanstack/queryKey";
-
-import { GetPaginatedIssuesAction } from "./getPaginatedIssues.action";
-import type { GetPaginatedIssuesType } from "./getPaginatedIssues.model";
 
 export const paginatedIssuesQueryOptions = ({
   page = 1,

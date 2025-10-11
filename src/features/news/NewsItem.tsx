@@ -1,7 +1,8 @@
 import React from "react";
 
+import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
-import type { News } from "@feat/news/news-manager";
+import type { News } from "@feat/news/newsManager";
 import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
 import { Avatar, AvatarFallback } from "@ui/avatar";
@@ -10,8 +11,6 @@ import { buttonVariants } from "@ui/button";
 import { ChevronRight, Minus, Tag } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import Image from "next/image";
-
-import { Typography } from "../../components/DS/typography";
 
 export type NewsItemProps = {
   news: News;

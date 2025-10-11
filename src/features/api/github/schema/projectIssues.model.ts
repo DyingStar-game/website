@@ -1,8 +1,7 @@
+import { IssueSize } from "@feat/api/github/schema/issueField.size.graphql";
+import { graphqlPageInfoSchema } from "@feat/api/github/schema/pageInfo.graphql.model";
 import { pageInfoSchema } from "@feat/api/schema/pageInfo.model";
 import { z } from "zod";
-
-import { IssueSize } from "./issueField.size.graphql";
-import { graphqlPageInfoSchema } from "./pageInfo.graphql.model";
 
 export const projectIssueSchema = z.object({
   id: z.string(),

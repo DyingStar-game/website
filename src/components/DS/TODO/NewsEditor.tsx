@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-export default function NewsEditor() {
+const NewsEditor = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [sendToDiscord, setSendToDiscord] = useState(true);
   const [message, setMessage] = useState("");
 
-  async function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const res = await fetch("/api/news", {
       method: "POST",
@@ -23,7 +23,7 @@ export default function NewsEditor() {
       const data = await res.json();
       setMessage(data.error ?? "Error");
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -52,12 +52,13 @@ export default function NewsEditor() {
       </label>
       <button
         type="submit"
-        className="rounded bg-cyan-600 px-4 py-2 text-white"
+        className="bg-cyan-600 rounded px-4 py-2 text-white"
       >
         Publier
       </button>
-      {message && <p className="text-sm text-gray-400">{message}</p>}
+      {message && <p className="text-gray-400 text-sm">{message}</p>}
     </form>
   );
-}
+};
 
+export default NewsEditor;

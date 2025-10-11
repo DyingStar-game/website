@@ -1,3 +1,4 @@
+import { Issues } from "@app/[locale]/(layout)/contribute/_components/issues";
 import Hero from "@components/DS/hero/hero";
 import { paginatedIssuesQueryOptions } from "@feat/issue/get/paginatedIssuesQuery.options";
 import { LayoutMain } from "@feat/page/layout";
@@ -5,9 +6,7 @@ import { getQueryClient } from "@lib/tanstack/getQueryClient";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { SiteConfig } from "site-config";
-
-import { Issues } from "./_components/issues";
+import { SiteConfig } from "siteConfig";
 
 // TODO : Refactor
 export const metadata: Metadata = {
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function ContributePage() {
+const ContributePage = async () => {
   const queryClient = getQueryClient();
   const t = await getTranslations("Issue.Hero");
 
@@ -38,4 +37,6 @@ export default async function ContributePage() {
       </LayoutMain>
     </>
   );
-}
+};
+
+export default ContributePage;

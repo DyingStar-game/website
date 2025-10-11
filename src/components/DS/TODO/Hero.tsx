@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import { Button } from "@ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@ui/button";
+import Link from "next/link";
 
-export default function Hero() {
+const Hero = () => {
   return (
     <section className="bg-brand-primary relative flex min-h-[82vh] items-center justify-center overflow-hidden pt-32 pb-24 md:min-h-[92vh]">
       <div className="bg-brand-primary absolute inset-0" />
@@ -90,5 +90,6 @@ export default function Hero() {
       <div className="border-brand-dark/15 pointer-events-none absolute top-[22%] left-1/2 h-[20rem] w-[20rem] -translate-x-1/2 rounded-full border" />
     </section>
   );
-}
+};
 
+export default Hero;

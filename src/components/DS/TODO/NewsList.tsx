@@ -1,6 +1,6 @@
-import type { News } from "@feat/news/news-manager";
+import type { News } from "@feat/news/newsManager";
 
-export default function NewsList({ news }: { news: News[] }) {
+const NewsList = ({ news }: { news: News[] }) => {
   if (!news.length) {
     return <p className="text-brand-primary/70">Aucune news pour le moment.</p>;
   }
@@ -22,5 +22,6 @@ export default function NewsList({ news }: { news: News[] }) {
       ))}
     </div>
   );
-}
+};
 
+export default NewsList;

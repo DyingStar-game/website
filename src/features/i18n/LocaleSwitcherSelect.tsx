@@ -34,7 +34,7 @@ export const LocaleSwitcherSelect = ({
   const params = useParams();
   const searchParams = useSearchParams();
 
-  function onChange(value: string) {
+  const onChange = (value: string) => {
     const locale = value as Locale;
     startTransition(() => {
       const currentSearchParams = new URLSearchParams(searchParams.toString());
@@ -52,7 +52,7 @@ export const LocaleSwitcherSelect = ({
         { locale },
       );
     });
-  }
+  };
 
   return (
     <Select

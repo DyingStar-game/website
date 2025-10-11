@@ -1,4 +1,4 @@
-import { ServerMdx } from "@feat/markdown/server-mdx";
+import { ServerMdx } from "@feat/markdown/serverMdx";
 import {
   LayoutHeader,
   LayoutMain,
@@ -6,7 +6,7 @@ import {
   LayoutTitle,
 } from "@feat/page/layout";
 import type { Metadata } from "next";
-import { SiteConfig } from "site-config";
+import { SiteConfig } from "siteConfig";
 
 const markdown = `Privacy demo`;
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-static";
 
-export default function page() {
+const PrivacyPage = () => {
   return (
     <LayoutMain>
       <LayoutHeader>
@@ -28,4 +28,6 @@ export default function page() {
       </LayoutSection>
     </LayoutMain>
   );
-}
+};
+
+export default PrivacyPage;

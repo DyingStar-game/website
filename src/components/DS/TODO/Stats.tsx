@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+
+import { motion } from "framer-motion";
 
 const stats = [
   { label: "Pionniers inscrits", value: 1280, suffix: "" },
@@ -10,7 +11,7 @@ const stats = [
   { label: "Événements narratifs joués", value: 19, suffix: "" },
 ];
 
-function AnimatedCounter({
+const AnimatedCounter = ({
   end,
   duration = 2000,
   suffix = "",
@@ -18,7 +19,7 @@ function AnimatedCounter({
   end: number;
   duration?: number;
   suffix?: string;
-}) {
+}) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -57,9 +58,9 @@ function AnimatedCounter({
       {suffix}
     </span>
   );
-}
+};
 
-export default function Stats() {
+const Stats = () => {
   return (
     <section className="from-brand-midnight via-brand-night to-brand-midnight border-brand-primary/20 relative border-y bg-gradient-to-r py-20">
       <div
@@ -101,5 +102,6 @@ export default function Stats() {
       </div>
     </section>
   );
-}
+};
 
+export default Stats;

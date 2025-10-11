@@ -7,12 +7,11 @@ import {
   type GraphqlPaginatedProjectIssuesType,
   graphqlPaginatedProjectIssuesSchema,
 } from "@feat/api/github/schema/projectIssues.model";
+import { GITHUB_ISSUE_FRAGMENT } from "@feat/issue/get/githubIssueFragments.graphql";
+import { GraphqlProjectIssueResponseToProjectIssuesTypeMapper } from "@feat/issue/get/graphqlProjectIssueResponseToProjectIssuesType.mapper";
 // This is necessary because NEXT_PUBLIC_GITHUB_REPO is a variable that can be used in both the front and back ends.
 import { env } from "@lib/env/client";
 import { githubGraphql } from "@lib/github/githubApi";
-
-import { GITHUB_ISSUE_FRAGMENT } from "./githubIssueFragments.graphql";
-import { GraphqlProjectIssueResponseToProjectIssuesTypeMapper } from "./graphqlProjectIssueResponseToProjectIssuesType.mapper";
 
 export const getGithubIssues = async (
   cursor?: string,

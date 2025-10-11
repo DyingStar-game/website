@@ -1,17 +1,16 @@
 "use client";
 
 import { Typography } from "@components/DS/typography";
-import { useCurrentPath } from "@hooks/useCurrentPath";
-import { cn } from "@lib/utils";
-import { LayoutGroup, motion } from "framer-motion";
-import Link from "next/link";
-
 import type {
   GeneratedNavigationLink,
   GeneratedNavigationLinksGroup,
   GeneratedNavigationLinksGroups,
   GeneratedNavigationLinks as GeneratedNavigationLinksSchema,
-} from "./navigation.model";
+} from "@feat/navigation/navigation.model";
+import { useCurrentPath } from "@hooks/useCurrentPath";
+import { cn } from "@lib/utils";
+import { LayoutGroup, motion } from "framer-motion";
+import Link from "next/link";
 
 const MotionLink = motion(Link);
 

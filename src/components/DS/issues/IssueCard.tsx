@@ -1,12 +1,15 @@
 "use client";
 
+import { DifficultyBadge } from "@components/DS/issues/issueCardDifficultyBadge";
+import { IssueCardStatus } from "@components/DS/issues/issueCardStatus";
+import { Typography } from "@components/DS/typography";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
 import { type ProjectIssueType } from "@feat/api/github/schema/projectIssues.model";
 import {
   getProjectBgColor,
   getProjectIcon,
   getProjectImage,
-} from "@feat/issue/project-helper";
+} from "@feat/issue/projectHelper";
 import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
@@ -18,10 +21,6 @@ import { ChevronRight, Tag, Users } from "lucide-react";
 import { DynamicIcon } from "lucide-react/dynamic";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-
-import { Typography } from "../typography";
-import { DifficultyBadge } from "./issueCardDifficultyBadge";
-import { IssueCardStatus } from "./issueCardStatus";
 
 export type TaskCardProps = {
   className?: string;

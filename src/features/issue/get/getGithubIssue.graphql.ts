@@ -3,10 +3,9 @@ import {
   graphqlProjectIssueSchema,
 } from "@feat/api/github/schema/issue.graphql.model";
 import type { ProjectIssuesType } from "@feat/api/github/schema/projectIssues.model";
+import { GITHUB_ISSUE_FRAGMENT } from "@feat/issue/get/githubIssueFragments.graphql";
+import { GraphqlProjectIssueResponseToProjectIssuesTypeMapper } from "@feat/issue/get/graphqlProjectIssueResponseToProjectIssuesType.mapper";
 import { githubGraphql } from "@lib/github/githubApi";
-
-import { GITHUB_ISSUE_FRAGMENT } from "./githubIssueFragments.graphql";
-import { GraphqlProjectIssueResponseToProjectIssuesTypeMapper } from "./graphqlProjectIssueResponseToProjectIssuesType.mapper";
 
 export const GetGithubIssue = async (
   issueId: string,

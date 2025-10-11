@@ -1,3 +1,6 @@
+import { NewsSection } from "@app/[locale]/(landing)/_components/newsSection";
+import { ProjectDescriptionSection } from "@app/[locale]/(landing)/_components/projectDescriptionSection";
+import { TaskSection } from "@app/[locale]/(landing)/_components/taskSection";
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
 import { LINKS } from "@feat/navigation/Links";
@@ -6,11 +9,7 @@ import { LayoutMain } from "@feat/page/layout";
 import { env } from "@lib/env/client";
 import { getTranslations } from "next-intl/server";
 
-import { NewsSection } from "./_components/newsSection";
-import { ProjectDescriptionSection } from "./_components/projectDescriptionSection";
-import { TaskSection } from "./_components/taskSection";
-
-export default async function HomePage() {
+const HomePage = async () => {
   const t = await getTranslations("Landing");
 
   return (
@@ -40,4 +39,6 @@ export default async function HomePage() {
       </LayoutMain>
     </>
   );
-}
+};
+
+export default HomePage;

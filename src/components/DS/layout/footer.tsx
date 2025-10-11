@@ -1,5 +1,7 @@
 "use client";
 
+import { getFooterLinks } from "@components/DS/layout/footer.link";
+import { Typography } from "@components/DS/typography";
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
 import { LINKS } from "@feat/navigation/Links";
 import { Layout } from "@feat/page/layout";
@@ -7,10 +9,7 @@ import { Link } from "@i18n/navigation";
 import { env } from "@lib/env/client";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { SiteConfig } from "site-config";
-
-import { Typography } from "../typography";
-import { getFooterLinks } from "./footer.link";
+import { SiteConfig } from "siteConfig";
 
 export const Footer = () => {
   const t = useTranslations();

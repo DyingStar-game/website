@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { HeaderBase } from "@components/DS/layout/headerBase";
+import NavLink from "@components/DS/layout/navLink";
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
 import { LocaleSwitcher } from "@feat/i18n/LocaleSwitcher";
 import { LINKS } from "@feat/navigation/Links";
@@ -10,10 +12,7 @@ import type { buttonVariants } from "@ui/button";
 import type { VariantProps } from "class-variance-authority";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 
-import { HeaderBase } from "./header-base";
-import NavLink from "./navLink";
-
-export function Header() {
+export const Header = () => {
   const [size, setSize] =
     useState<VariantProps<typeof buttonVariants>["size"]>("lg");
 
@@ -47,4 +46,4 @@ export function Header() {
       <LocaleSwitcher className="xl:hidden" size={size} />
     </HeaderBase>
   );
-}
+};

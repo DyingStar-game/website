@@ -2,9 +2,8 @@
 
 import { searchProjectIssues } from "@feat/api/github/hooks/indexedProjectIssues";
 import { PaginateIndexedProjectIssuesSchema } from "@feat/api/github/schema/projectIssues.model";
-import { action } from "@lib/actions/safe-actions";
-
-import { GetPaginatedIssuesSchema } from "./getPaginatedIssues.model";
+import { GetPaginatedIssuesSchema } from "@feat/issue/get/getPaginatedIssues.model";
+import { action } from "@lib/actions/safeActions";
 
 export const GetPaginatedIssuesAction = action
   .inputSchema(GetPaginatedIssuesSchema)

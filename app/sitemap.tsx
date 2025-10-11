@@ -1,7 +1,7 @@
 import { LINKS } from "@feat/navigation/Links";
-import { getNews } from "@feat/news/news-manager";
+import { getNews } from "@feat/news/newsManager";
 import { LOCALES } from "@i18n/config";
-import { createLocalizedUrl } from "@lib/server-url";
+import { createLocalizedUrl } from "@lib/serverUrl";
 import type { MetadataRoute } from "next";
 import type { Locale } from "next-intl";
 

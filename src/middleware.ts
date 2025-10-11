@@ -2,11 +2,13 @@ import { routing } from "@i18n/routing";
 import createMiddleware from "next-intl/middleware";
 import type { NextRequest } from "next/server";
 
-export default async function middleware(request: NextRequest) {
+const middleware = async (request: NextRequest) => {
   const handleI18nRouting = createMiddleware(routing);
   const response = handleI18nRouting(request);
   return response;
-}
+};
+
+export default middleware;
 
 export const config = {
   // matcher: [

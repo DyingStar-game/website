@@ -1,5 +1,6 @@
 "use client";
 
+import { Typography } from "@components/DS/typography";
 import { buttonVariants } from "@components/ui/button";
 import type { NavigationLink } from "@feat/navigation/navigation.model";
 import { DEFAULT_LOCALE } from "@i18n/config";
@@ -8,8 +9,6 @@ import { cn } from "@lib/utils";
 import type { VariantProps } from "class-variance-authority";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-
-import { Typography } from "../typography";
 
 type NavLinkProps = {
   link: NavigationLink;

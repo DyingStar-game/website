@@ -6,7 +6,7 @@ type InputProps = React.ComponentProps<"input"> & {
   icon?: React.ReactNode;
 };
 
-function Input({ className, type, icon, ...props }: InputProps) {
+const Input = ({ className, type, icon, ...props }: InputProps) => {
   return (
     <div className="relative">
       {icon && (
@@ -28,6 +28,6 @@ function Input({ className, type, icon, ...props }: InputProps) {
       />
     </div>
   );
-}
+};
 
 export { Input };
