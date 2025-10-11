@@ -1,0 +1,69 @@
+name: Lint & Type Check
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        description: 'Node.js version to use'
+        required: false
+        type: string
+        default: '22'
+
+env:
+  PNPM_HOME: ~/.local/share/pnpm
+
+jobs:
+  lint:
+    name: Code quality and type checking
+    runs-on: ubuntu-latest
+    container:
+      image: node:${{ inputs.node_version }}-alpine
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install gnu tar (fix BusyBox tar for cache)
+        run: |
+          apk update && apk add --no-cache tar jq
+          tar --version || true
+
+      - name: Enable Corepack & activate pinned pnpm
+        run: |
+          set -euo pipefail
+          corepack enable
+          # Extract pnpm version from package.json (packageManager field)
+          VERSION=$(jq -r '.packageManager|capture("pnpm@(?<v>.*)$").v' package.json)
+          echo "Detected pnpm version: $VERSION"
+          corepack prepare pnpm@${VERSION} --activate
+          pnpm --version
+
+      - name: Restore cached dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.local/share/pnpm
+          key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            node-modules-${{ runner.os }}-
+
+      - name: Restore environment files
+        uses: actions/cache@v4
+        with:
+          path: |
+            .env
+            .env.production
+          key: env-files-${{ github.run_id }}
+          restore-keys: |
+            env-files-${{ github.run_id }}
+
+      - name: Type generation
+        run: |
+          pnpm --reporter=append-only type:generate
+
+      - name: Lint and type check
+        run: |
+          pnpm --reporter=append-only lint:ci

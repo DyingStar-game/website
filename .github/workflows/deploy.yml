@@ -1,0 +1,54 @@
+name: Deploy Application
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        description: 'Deployment target (prod/staging)'
+        required: true
+        type: string
+      tag_primary:
+        description: 'Primary image tag to deploy'
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    name: Deploy (${{ inputs.target }})
+    runs-on: ubuntu-latest
+    if: ${{ inputs.target == 'staging' || inputs.target == 'prod' }}
+
+    steps:
+      - name: Checkout compose files
+        uses: actions/checkout@v4
+
+      - name: Choose compose file
+        id: choose
+        shell: bash
+        run: |
+          if [[ "${{ inputs.target }}" == "prod" ]]; then
+            echo "compose=${{ secrets.COMPOSE_FILE_PROD }}" >> $GITHUB_OUTPUT
+          else
+            echo "compose=${{ secrets.COMPOSE_FILE_STAGING }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+            # PAT read:packages + username du compte du PAT
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+            cd docker
+            echo "Using compose: ${{ steps.choose.outputs.compose }}"
+            echo "Deploying image: ${{ inputs.tag_primary }}"
+            docker compose -f ${{ steps.choose.outputs.compose }} pull --ignore-pull-failures
+            docker compose -f ${{ steps.choose.outputs.compose }} up -d --no-deps
+
+            echo "Containers:"
+            docker compose -f ${{ steps.choose.outputs.compose }} ps
