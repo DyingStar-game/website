@@ -2,7 +2,7 @@ import { DEFAULT_LOCALE } from "@i18n/config";
 import type { Locale } from "next-intl";
 
 const hostUrl =
-  process.env.NEXT_ENV === "production"
+  process.env.NODE_ENV === "production"
     ? (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dyingstar-game.com")
     : "http://localhost:3000";
 

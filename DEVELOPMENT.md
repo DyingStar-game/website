@@ -127,7 +127,6 @@ MEILI_MASTER_KEY=your_master_key_here
 
 # Next.js Configuration
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-NEXT_ENV=development
 
 # GitHub Integration (optional)
 NEXT_PUBLIC_GITHUB_REPO=your_repo_name
