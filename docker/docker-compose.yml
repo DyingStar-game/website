@@ -43,22 +43,10 @@ services:
 
   # Dev service for development work (lighter, no app by default)
   dev:
-    image: *node-image
+    extends: app
     command: tail -f /dev/null # Keep container running for exec commands
-    ports:
-      - "3000:3000"
-    volumes:
-      - ..:/app
-      - app_cache:/app/.cache
-    working_dir: /app
-    environment:
-      - MEILI_URL=http://meilisearch:7700
-    env_file:
-      - ../.env.local
     tty: true
     stdin_open: true
-    networks:
-      - backend
 
 volumes:
   meili_data:

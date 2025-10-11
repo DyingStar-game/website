@@ -1,0 +1,78 @@
+name: Dependencies
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        description: "Node.js version to use"
+        required: false
+        type: string
+        default: "22"
+
+env:
+  PNPM_HOME: ~/.local/share/pnpm
+
+jobs:
+  install:
+    name: Install and cache dependencies
+    runs-on: ubuntu-latest
+    container:
+      image: node:${{ inputs.node_version }}-alpine
+    permissions:
+      contents: read
+    outputs:
+      pnpm_version: ${{ steps.pnpm-version.outputs.pnpm_version }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install gnu tar (fix BusyBox tar for cache)
+        run: |
+          apk update && apk add --no-cache tar jq
+          tar --version || true
+
+      - name: Enable Corepack & activate pinned pnpm
+        id: pnpm-version
+        run: |
+          set -euo pipefail
+          corepack enable
+          # Extract pnpm version from package.json (packageManager field)
+          VERSION=$(jq -r '.packageManager|capture("pnpm@(?<v>.*)$").v' package.json)
+          echo "Detected pnpm version: $VERSION"
+          corepack prepare pnpm@${VERSION} --activate
+          pnpm --version
+          echo "pnpm_version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.local/share/pnpm
+          key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            node-modules-${{ runner.os }}-
+
+      - name: Install dependencies (pnpm install)
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: |
+          pnpm fetch --silent
+          pnpm --reporter=append-only install --frozen-lockfile --prefer-offline
+
+      - name: Allow build scripts (non-interactive)
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: pnpm config set allow-scripts "@parcel/watcher,@tailwindcss/oxide,esbuild,sharp"
+
+      - name: Create .env from .env.sample
+        run: cp .env.sample .env
+
+      - name: Cache environment files
+        uses: actions/cache@v4
+        with:
+          path: |
+            .env
+          key: env-files-${{ github.run_id }}
+          restore-keys: |
+            env-files-${{ github.run_id }}

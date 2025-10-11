@@ -1,0 +1,61 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+    tags: ["v*", "release-*"]
+  pull_request:
+    # Run on PRs to any branch for lint and build feedback
+  workflow_dispatch:
+
+concurrency:
+  group: cicd-${{ github.ref }}
+  cancel-in-progress: true
+
+# ========================================
+# 🔧 Configuration
+# ========================================
+# Centralized Node.js version for all workflows
+# Update this value to change the Node.js version across the entire pipeline
+# Current version: Node.js 22
+
+jobs:
+  # Always run dependencies first
+  deps:
+    name: Install Dependencies
+    uses: ./.github/workflows/deps.yml
+    with:
+      node_version: "22"
+
+  # Run lint and build in parallel after deps
+  lint:
+    name: Lint & Type Check
+    needs: deps
+    uses: ./.github/workflows/lint.yml
+    with:
+      node_version: "22"
+
+  build:
+    name: Build Application
+    needs: deps
+    uses: ./.github/workflows/build.yml
+    with:
+      node_version: "22"
+
+  # Only run image build on non-PR events
+  image:
+    name: Build Docker Image
+    needs: build
+    if: github.event_name != 'pull_request'
+    uses: ./.github/workflows/image.yml
+
+  # Only run deployment when we have a valid target
+  deploy:
+    name: Deploy Application
+    needs: image
+    if: needs.image.outputs.target != 'none' && needs.image.outputs.target != ''
+    uses: ./.github/workflows/deploy.yml
+    with:
+      target: ${{ needs.image.outputs.target }}
+      tag_primary: ${{ needs.image.outputs.tag_primary }}
+    secrets: inherit
