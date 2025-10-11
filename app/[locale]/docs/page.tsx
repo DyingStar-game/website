@@ -8,6 +8,7 @@ import {
 } from "@ui/card";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
+
 import { getDocs } from "./doc-manager";
 
 export const metadata = {

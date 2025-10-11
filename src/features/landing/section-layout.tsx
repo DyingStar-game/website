@@ -1,7 +1,8 @@
+import type { ComponentPropsWithoutRef } from "react";
+
 import { cn } from "@lib/utils";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
-import type { ComponentPropsWithoutRef } from "react";
 
 const sectionLayoutContainerVariants = cva("", {
   variants: {
@@ -11,7 +12,7 @@ const sectionLayoutContainerVariants = cva("", {
       primary: "bg-primary text-primary-foreground",
       invert: "bg-foreground text-background",
       image: "text-foreground backdrop-blur-sm backdrop-brightness-75",
-      transparent: "text-foreground bg-transparent",
+      transparent: "bg-transparent text-foreground",
     },
   },
   defaultVariants: {
@@ -68,4 +69,3 @@ export const SectionLayout = ({
     </div>
   );
 };
-

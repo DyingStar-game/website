@@ -1,3 +1,5 @@
+import type { PropsWithChildren } from "react";
+
 import { Typography } from "@components/DS/typography";
 import {
   Card,
@@ -6,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@ui/card";
-import type { PropsWithChildren } from "react";
 
 type Error401Props = PropsWithChildren<{
   title?: string;

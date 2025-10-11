@@ -1,9 +1,10 @@
 "use client";
 
 // Source : https://buildui.com/posts/toast-messages-in-react-server-components
-
 import { startTransition, useEffect, useOptimistic, useState } from "react";
+
 import { toast as sonnerToast } from "sonner";
+
 import type { ServerToastType } from "./server-toast.schema";
 
 type Toast = {

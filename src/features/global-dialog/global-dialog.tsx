@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+
 import type { DialogType } from "./global-dialog.store";
 import { useGlobalDialogStore } from "./global-dialog.store";
 

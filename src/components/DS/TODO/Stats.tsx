@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+
+import { motion } from "framer-motion";
 
 const stats = [
   { label: "Pionniers inscrits", value: 1280, suffix: "" },
@@ -102,4 +103,3 @@ export default function Stats() {
     </section>
   );
 }
-

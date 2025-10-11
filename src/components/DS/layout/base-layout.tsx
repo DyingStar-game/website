@@ -1,6 +1,7 @@
+import type { PropsWithChildren } from "react";
+
 import { Footer } from "@components/DS/layout/footer";
 import { Header } from "@components/DS/layout/header";
-import type { PropsWithChildren } from "react";
 
 export function BaseLayout(props: PropsWithChildren) {
   return (

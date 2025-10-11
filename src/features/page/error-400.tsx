@@ -1,3 +1,5 @@
+import type { PropsWithChildren } from "react";
+
 import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
 import { buttonVariants } from "@ui/button";
@@ -9,7 +11,6 @@ import {
   CardTitle,
 } from "@ui/card";
 import Link from "next/link";
-import type { PropsWithChildren } from "react";
 
 type Page400Props = PropsWithChildren<{
   title?: string;

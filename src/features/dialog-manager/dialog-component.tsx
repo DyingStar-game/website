@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 "use client";
 
+import { useState } from "react";
+
 import { Typography } from "@components/DS/typography";
 import {
   AlertDialog,
@@ -14,10 +16,12 @@ import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import { cn } from "@lib/utils";
-import { useState } from "react";
+
 import { LoadingButton } from "../form/submit-button";
 import { handleDialogAction, useDialogStore } from "./dialog-store";
 import type { Dialog } from "./dialog-types";
+
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 
 export function DialogComponent(props: { dialog: Dialog }) {
   const { dialog } = props;
@@ -62,7 +66,7 @@ export function DialogComponent(props: { dialog: Dialog }) {
           })}
         >
           {dialog.icon && (
-            <div className="bg-muted flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted">
               <dialog.icon className="size-6" />
             </div>
           )}

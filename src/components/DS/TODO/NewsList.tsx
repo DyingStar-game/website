@@ -23,4 +23,3 @@ export default function NewsList({ news }: { news: News[] }) {
     </div>
   );
 }
-

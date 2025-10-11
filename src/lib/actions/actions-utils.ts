@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  flattenValidationErrors,
   type SafeActionResult,
   type ValidationErrors,
+  flattenValidationErrors,
 } from "next-safe-action";
 import type { z } from "zod";
 

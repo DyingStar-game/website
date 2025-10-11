@@ -1,5 +1,6 @@
-import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
+
+import type { LucideIcon } from "lucide-react";
 
 type DialogVariant = "default" | "destructive" | "warning";
 type DialogSize = "sm" | "md" | "lg";

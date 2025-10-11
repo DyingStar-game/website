@@ -33,7 +33,9 @@ export async function getDocs(tags?: string[]) {
     try {
       const stat = await fs.stat(docsDirectory);
       if (!stat.isDirectory()) {
-        logger.warn(`[docs] Path exists but is not a directory: ${docsDirectory}`);
+        logger.warn(
+          `[docs] Path exists but is not a directory: ${docsDirectory}`,
+        );
         return [];
       }
     } catch (err: unknown) {
@@ -96,7 +98,9 @@ export async function getCurrentDoc(slug: string): Promise<DocType | null> {
     try {
       const stat = await fs.stat(docsDirectory);
       if (!stat.isDirectory()) {
-        logger.warn(`[docs] Path exists but is not a directory: ${docsDirectory}`);
+        logger.warn(
+          `[docs] Path exists but is not a directory: ${docsDirectory}`,
+        );
         return null;
       }
     } catch (err: unknown) {
@@ -104,7 +108,10 @@ export async function getCurrentDoc(slug: string): Promise<DocType | null> {
       if (e.code === "ENOENT") {
         return null; // Directory missing -> no doc
       }
-      logger.error(`[docs] Unexpected error accessing docs directory for slug ${slug}:`, e);
+      logger.error(
+        `[docs] Unexpected error accessing docs directory for slug ${slug}:`,
+        e,
+      );
       return null;
     }
 

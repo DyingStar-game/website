@@ -20,24 +20,24 @@ authorRoles:
 
 Here is the changelog for the version to be tested tonight (as a reminder, it's at 8:30 PM):
 
-* Moved player management to the server side
-* File reorganization
-* Fixed the player camera
-* Fixed the player rotation
-* Added 50cm and 4m boxes (spawn with the **E** and **R** keys)
-* Added a global chat, using MQTT. Display with **F12** and **ALT+T** to type in it
-* Added a ship
-* Added object persistence in the dgraph database
-* Added game localization (translation)
-* Added error messages (currently only used when disconnecting from the server)
-* Reworked the dynamic meshing server, switching from HTTP to MQTT protocol
-* Added inter-server replication of boxes and ships (only when spawning and only on already active servers)
-* Changed the player UI:
-* Displayed coordinates of the area managed by the server
-* Added a label above the player with the name of the server the player is on
-* Fixed labels (number of servers, number of players, etc.)
-* Changed the scene, two 5km planets (one gray and one orange) + two stations
-* Integrated FMOD audio server, but disabled for the moment (several issues identified)
+- Moved player management to the server side
+- File reorganization
+- Fixed the player camera
+- Fixed the player rotation
+- Added 50cm and 4m boxes (spawn with the **E** and **R** keys)
+- Added a global chat, using MQTT. Display with **F12** and **ALT+T** to type in it
+- Added a ship
+- Added object persistence in the dgraph database
+- Added game localization (translation)
+- Added error messages (currently only used when disconnecting from the server)
+- Reworked the dynamic meshing server, switching from HTTP to MQTT protocol
+- Added inter-server replication of boxes and ships (only when spawning and only on already active servers)
+- Changed the player UI:
+- Displayed coordinates of the area managed by the server
+- Added a label above the player with the name of the server the player is on
+- Fixed labels (number of servers, number of players, etc.)
+- Changed the scene, two 5km planets (one gray and one orange) + two stations
+- Integrated FMOD audio server, but disabled for the moment (several issues identified)
 
 # Play test number 2
 
@@ -52,9 +52,10 @@ Make a video or write a text about the problem encountered, and if possible, how
 We'll let you test it, switch from one server to another, what problems you encountered, what works.
 
 **WARNING**: The following issues are already known:
-* Black screen lasting less than a second when switching servers
-* Problems when switching servers too slowly (visual glitches for a few seconds and then getting stuck on one server)
-* When a server splits in two, the second server doesn't retrieve crates and ships from the first server (code not yet stable).
+
+- Black screen lasting less than a second when switching servers
+- Problems when switching servers too slowly (visual glitches for a few seconds and then getting stuck on one server)
+- When a server splits in two, the second server doesn't retrieve crates and ships from the first server (code not yet stable).
 
 ## Global Chat
 

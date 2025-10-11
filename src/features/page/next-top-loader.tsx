@@ -1,7 +1,8 @@
 "use client";
 
-import * as NProgress from "nprogress";
 import * as React from "react";
+
+import * as NProgress from "nprogress";
 import { create } from "zustand";
 
 type NextTopLoaderProps = {

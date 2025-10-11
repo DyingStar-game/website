@@ -16,7 +16,7 @@ export function CTASectionCard() {
         >
           Boost your productivity today
         </Typography>
-        <Typography className="mx-auto mt-6 max-w-xl text-lg/8 text-pretty text-gray-300">
+        <Typography className="text-gray-300 mx-auto mt-6 max-w-xl text-lg/8 text-pretty">
           Create an account and start posting today.
         </Typography>
         <div className="mt-10 flex items-center justify-center gap-x-6">

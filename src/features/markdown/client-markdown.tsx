@@ -1,8 +1,9 @@
 "use client";
 
+import { type ComponentPropsWithoutRef } from "react";
+
 import { cn } from "@lib/utils";
 import Markdown from "markdown-to-jsx";
-import { type ComponentPropsWithoutRef } from "react";
 
 type ClientMarkdownProps = ComponentPropsWithoutRef<typeof Markdown>;
 

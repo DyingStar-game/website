@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import { Button } from "@ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@ui/button";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -91,4 +91,3 @@ export default function Hero() {
     </section>
   );
 }
-

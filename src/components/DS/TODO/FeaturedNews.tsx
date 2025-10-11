@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import { motion } from "framer-motion";
 import { Button } from "@ui/button";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export type FeaturedNewsItem = {
   title: string;
@@ -102,7 +102,7 @@ export default function FeaturedNews({ items }: { items: FeaturedNewsItem[] }) {
                 sizes="(max-width: 1023px) 100vw, 50vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent" />
+              <div className="from-black/65 via-black/20 absolute inset-0 bg-gradient-to-t to-transparent" />
             </div>
             <div className="border-brand-primary/30 from-brand-primary/10 text-brand-primary/80 flex flex-col gap-4 border-t bg-gradient-to-r via-transparent to-white/5 px-8 py-8 text-xs tracking-[0.35em] uppercase">
               <span>Transmission visuelle</span>
@@ -127,4 +127,3 @@ export default function FeaturedNews({ items }: { items: FeaturedNewsItem[] }) {
     </section>
   );
 }
-
