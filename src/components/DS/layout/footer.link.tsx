@@ -9,42 +9,15 @@ import type {
 const FOOTER_LINKS: NavigationLinksGroups = [
   {
     title: "Project",
-    links: [
-      LINKS.Project.Roadmap,
-      LINKS.Project.Contribute,
-      LINKS.Project.Launcher,
-      LINKS.Project.Configuration,
-      LINKS.Project.Changelog,
-    ],
+    links: [LINKS.Project.Vision, LINKS.Project.Contribute, LINKS.News.All],
   },
   {
     title: "Lore",
-    links: [
-      LINKS.Lore.History,
-      LINKS.Lore.Items,
-      LINKS.Lore.Fauna,
-      LINKS.Lore.Tutorials,
-    ],
+    links: [LINKS.Lore.History],
   },
   {
     title: "Community",
-    links: [
-      LINKS.Community.Discord,
-      LINKS.Community.Github,
-      LINKS.Community.Youtube,
-      LINKS.Community.Forums,
-      LINKS.Community.Wiki,
-    ],
-  },
-  {
-    title: "Play now",
-    links: [
-      LINKS.Community.Discord,
-      LINKS.Community.Github,
-      LINKS.Community.Youtube,
-      LINKS.Community.Forums,
-      LINKS.Community.Wiki,
-    ],
+    links: [LINKS.Community.Discord, LINKS.Community.Github],
   },
 ];
 

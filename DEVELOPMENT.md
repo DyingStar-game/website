@@ -129,11 +129,11 @@ MEILI_MASTER_KEY=your_master_key_here
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 # GitHub Integration (optional)
-GITHUB_REPO=your_repo_name
+NEXT_PUBLIC_GITHUB_REPO=your_repo_name
 GITHUB_TOKEN=your_github_token
 
 # Discord Integration (optional)
-DISCORD_INVITE_ID=your_discord_invite_id
+NEXT_PUBLIC_DISCORD_INVITE_ID=your_NEXT_PUBLIC_DISCORD_INVITE_ID
 
 # YouTube Integration (optional)
 LAST_YOUTUBE_ID=your_youtube_id

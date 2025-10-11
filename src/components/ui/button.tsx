@@ -5,7 +5,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xs text-sm leading-7 font-light whitespace-nowrap uppercase transition-all outline-none focus-visible:border-ring focus-visible:ring focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 md:text-base lg:w-auto xl:leading-8 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xs text-sm leading-7 font-light whitespace-nowrap uppercase transition-all outline-none focus-visible:border-ring focus-visible:ring focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 md:text-base lg:w-auto xl:leading-8 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -33,7 +33,7 @@ const buttonVariants = cva(
         default:
           "px-6 py-2 has-[>svg:not(:only-child)]:p-3 [&_svg:not([class*='size-'])]:size-5 xl:[&_svg:not([class*='size-'])]:size-6",
         sm: "px-5 py-2 leading-none has-[>svg]:px-5",
-        lg: "px-8 py-5 text-base has-[>svg:not(:only-child)]:px-6 2xl:px-10 2xl:py-6 2xl:text-xl 2xl:has-[>svg:not(:only-child)]:px-7",
+        lg: "px-8 py-5 text-base has-[>svg:not(:only-child)]:px-6 2xl:px-10 2xl:py-6 2xl:text-xl 2xl:has-[>svg:not(:only-child)]:px-6",
         xl: "gap-4 rounded px-5 py-5 text-3xl font-extralight md:text-4xl lg:px-10 lg:py-6 lg:text-5xl lg:has-[>svg]:px-4 [&_svg:not([class*='size-'])]:size-8 md:[&_svg:not([class*='size-'])]:size-9 lg:[&_svg:not([class*='size-'])]:size-12",
         icon: "size-9",
       },

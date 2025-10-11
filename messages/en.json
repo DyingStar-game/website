@@ -60,6 +60,22 @@
       "title": "Tasks"
     }
   },
+  "Links": {
+    "Community": {
+      "Discord": "Discord",
+      "Github": "Github"
+    },
+    "Lore": {
+      "History": "Lore"
+    },
+    "News": {
+      "All": "News"
+    },
+    "Project": {
+      "Contribute": "Contribute",
+      "Vision": "Vision"
+    }
+  },
   "LocaleSwitcher": {
     "en": "English",
     "fr": "French",

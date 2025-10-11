@@ -37,7 +37,7 @@ export const CountInfo = ({
         {count ? (
           format.number(count)
         ) : (
-          <span className="h-9 w-full animate-pulse rounded-md bg-foreground/20" />
+          <span className="h-7 w-full animate-pulse rounded-md bg-foreground/20 sm:h-9" />
         )}
       </div>
     </div>
