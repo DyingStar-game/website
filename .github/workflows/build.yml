@@ -2,9 +2,9 @@ name: Build & Image Next.js
 
 on:
   push:
-    branches: [main, develop]
+    branches: [develop]
     # Push events for version tags (e.g. v1.2.3) will also trigger
-    tags: ["v*", "release-*"]
+    tags: ["v*"]
   pull_request:
     branches: [main, develop]
   workflow_dispatch:
