@@ -1,15 +1,19 @@
 ### What game engine do you use?
 
-- Currently, we use the GODOT engine. It's easily accessible, open-source, and documented. If we ever encounter technological constraints, we can modify this engine.
+- Today, we’re using version 4.5 of the [Godot](https://godotengine.org/) engine. It’s easily accessible, open-source, and has great documentation.
+
+### Why not use Unity or Unreal Engine?
+
+- DyingStar is an open-source project. It’s only natural that we want to use an open-source game engine as well. This therefore excludes Unity and Unreal Engine (the license we use forbids the use of Unreal Engine). Godot is still a young engine, but with the right expertise, it can achieve results comparable to those of major engines. If we ever encounter technological limitations, we’ll be able to contribute directly to Godot’s development and propose improvements on the project’s GitHub.
 
 ### Do you use AI?
 
-- **No, we forbid it**. We want to have human-like and original designs. AI also poses legal copyright issues that we don't want to deal with.
+- The use of AI in any artistic creation is strictly prohibited. We want to produce human-made, original designs. AI also raises legal copyright concerns that we prefer to avoid.
 
-### How can I participate in the project and where to start?
+### How can I join the project and where should I start?
 
-- You can join the [Discord server](https://discord.gg/K4a2mwwBAM) to interact with contributors and leads from each team. Tasks or training may be provided. You can also visit the [contribution](/fr/contribute) page.
+- You can join the [Discord server](https://discord.gg/K4a2mwwBAM) to chat with contributors and the leads of each team. Tasks or training may be provided. You can also check the [contribution page](/fr/contribute).
 
-### Can we play the game now?
+### Can the game be played right now?
 
-- The game is in development, it is not yet playable, it will take some time for that. However, we have regular player tests to test the technologies, the content, it is announced on the [Discord server](https://discord.gg/K4a2mwwBAM) and in the news.
+- The game is currently in the design phase, so it isn’t playable yet — it’ll take some time before that happens. However, we do hold regular player tests to evaluate technologies and content. These are announced on the [Discord server](https://discord.gg/K4a2mwwBAM) and in the news section of this website.

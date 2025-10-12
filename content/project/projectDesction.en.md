@@ -16,9 +16,3 @@ Our goal: to create, together, the ultimate space game, an open, living, and evo
 ## Game Description
 
 DyingStar is a space simulation game with immersive gameplay and a narrative universe.
-
-## Here are the game's constraints
-
-- Very few weapons
-- Punishing death
-- Changing planets must be an event, with strict constraints
