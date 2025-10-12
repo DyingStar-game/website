@@ -9,7 +9,7 @@ export const ProjectDescriptionSection = async () => {
 
   const markdownPath = path.join(
     process.cwd(),
-    "content/project",
+    `content/${locale}`,
     `projectDesction.${locale}.md`,
   );
   const markdown = fs.readFileSync(markdownPath, "utf-8");

@@ -9,7 +9,7 @@ export const FaqSection = async () => {
 
   const markdownPath = path.join(
     process.cwd(),
-    "content/faq",
+    `content/${locale}`,
     `faq.${locale}.md`,
   );
   const markdown = fs.readFileSync(markdownPath, "utf-8");
