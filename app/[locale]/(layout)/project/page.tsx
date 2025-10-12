@@ -20,7 +20,7 @@ const ProjectPage = async () => {
       </LayoutHeader>
       <ProjectDescriptionSection />
       <LayoutHeader>
-        {/* Text en dure ok*/}
+        {/* Hardcoded text ok */}
         <LayoutTitle>F.A.Q</LayoutTitle>
       </LayoutHeader>
       <FaqSection />
