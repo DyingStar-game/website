@@ -1,0 +1,17 @@
+{
+  "nact": {
+    "prefix": "napi",
+    "description": "Create the base for a API Route.",
+    "scope": "javascript,typescript",
+    "body": [
+      "import { NextResponse } from \"next/server\";",
+      "import { authHandler } from \"../api/handlers\";",
+      "",
+      "export const GET = authHandler({}, async ({ context }) => {",
+      "  $1",
+      "",
+      "  return NextResponse.json({ message: \"Hello, world!\" });",
+      "});",
+    ],
+  },
+}

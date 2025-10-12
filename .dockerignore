@@ -1,0 +1,32 @@
+# Dependencies and logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Environnements
+.env
+.env.*
+!.env.example
+
+# Git / CI
+.git
+.github
+
+# Docker
+Dockerfile
+Dockerfile.*
+.dockerignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+
+# Misc
+**/*.md
+  

@@ -1,0 +1,108 @@
+{
+  "Issue": {
+    "Hero": {
+      "description": "Rejoignez l'équipage et choisissez les missions qui correspondent à vos compétences. Chaque tâche renforce l'univers du MMO narratif et rapproche la communauté de la prochaine étape du voyage.",
+      "title": "Contribuer au projet Dying Star"
+    },
+    "IssueCard": {
+      "DifficultyBadge": {
+        "L": "niveau pro",
+        "M": "niveau intermédiaire",
+        "S": "tous niveaux",
+        "XL": "niveau expert"
+      },
+      "assigneesCount": "{count, plural, =0 {Aucun contributeur} =1 {1 contributeur} other {# contributeurs}}",
+      "button": {
+        "join": "Rejoindre"
+      }
+    },
+    "IssueSearch": {
+      "input": {
+        "placeholder": "Rechercher une tâche par mot-clé"
+      }
+    },
+    "IssueStatus": {
+      "Active": "Contributeurs actifs",
+      "Available": "Tâches disponibles",
+      "Projects": "Domaines couverts"
+    },
+    "IssuesNotFound": {
+      "label": "Aucune tâche trouvée"
+    }
+  },
+  "Landing": {
+    "CTA": {
+      "contribute": {
+        "action": "Comment contribuer",
+        "title": "Rejoignez-nous et contribuez au projet !"
+      },
+      "discord": {
+        "action": "Rejoindre le Discord",
+        "title": "Suivez l'aventure en direct !"
+      }
+    },
+    "News": {
+      "action": "Toutes les news",
+      "title": "Actualités"
+    },
+    "ProjectDescription": {
+      "title": "Présentation du projet"
+    },
+    "Task": {
+      "action": "Toutes les tâches",
+      "title": "Tâches"
+    }
+  },
+  "Layout": {
+    "Footer": {
+      "Community": "Communauté",
+      "Contribute": "Contribuer",
+      "Lore": "Lore",
+      "News": "Actualités",
+      "Project": "Projet"
+    }
+  },
+  "Links": {
+    "Community": {
+      "Discord": "Discord",
+      "Github": "Github"
+    },
+    "Lore": {
+      "History": "Lore"
+    },
+    "News": {
+      "All": "Actualités"
+    },
+    "Project": {
+      "Contribute": "Contribuer",
+      "Project": "Projet"
+    }
+  },
+  "LocaleSwitcher": {
+    "en": "Anglais",
+    "fr": "Francais",
+    "label": "Langue"
+  },
+  "News": {
+    "NewsDetailPagination": {
+      "button": {
+        "next": "Suivante",
+        "previous": "Précédente"
+      }
+    },
+    "NewsItem": {
+      "moreInfo": "Informations supplémentaires"
+    },
+    "button": {
+      "viewAll": "Voir toutes les actualités"
+    },
+    "notFound": "Aucune actualité trouvée",
+    "title": "Actualités"
+  },
+  "Paginate": {
+    "button": {
+      "next": "Suivante",
+      "previous": "Précédente"
+    }
+  }
+}

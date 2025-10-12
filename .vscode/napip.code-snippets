@@ -1,0 +1,25 @@
+{
+  "nact": {
+    "prefix": "napip",
+    "description": "Create the base for a POST API Route.",
+    "scope": "javascript,typescript",
+    "body": [
+      "import { NextResponse } from \"next/server\";",
+      "import { z } from \"zod\";",
+      "import { authHandler } from \"../api/handlers\";",
+      "",
+      "export const POST = authHandler(",
+      "  {",
+      "    bodySchema: z.object({",
+      "      $1",
+      "    }),",
+      "  },",
+      "  async ({ context }) => {",
+      "    $2",
+      "",
+      "    return NextResponse.json({ message: \"Hello, world!\" });",
+      "  },",
+      ");",
+    ],
+  },
+}

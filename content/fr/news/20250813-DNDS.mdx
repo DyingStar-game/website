@@ -1,0 +1,88 @@
+---
+title: DNDS 001
+titleIcon: 📰
+category: test
+description: Les dernières nouvelles du projet.
+keywords:
+  - news
+tags:
+  - Informations du projet
+  - DNDS
+coverUrl: /assets/images/news/DNDS.png
+date: 2025-08-13T13:25:00
+author: ddurieux
+authorRoles:
+  - Fondateur du projet
+---
+
+# DNDS 001
+
+## Introduction
+
+Cette news permet de présenter ce qu'il s'est passé sur le projet ces 7 derniers jours, car c'est pas simple à tout suivre 😄
+
+Cette première ne sera pas complète du tout (genre pas les noms des gens qui travaillent sur les éléments) et je m'en excuse, mais dans les prochaines (la suivante ou celle d'après), ça sera plus complet car on aura les chefs de département qui seront en place.
+
+## Wiki
+
+Le wiki est en place et commence à être rempli.
+
+Le lien pour lire : https://wiki.stardeception.com/share/5vf84esmdi/p/star-deception-wiki-oma1UdCMRB
+
+## Narrative
+
+L'équipe narrative avance et a défini pas mal de choses. Plusieurs axes doivent s'améliorer dans les jours à venir.
+
+## Gameplays
+
+Plusieurs gameplay ont reçus pas mal d'idées, notament le minage, le transport de ressources.
+
+## Gameplay Exploration de systèmes planétaires inconnus
+
+Firestones a présenté sa génération de systèmes planétaire ❤️
+Ils seront générés côté serveur, donc pas de data mining possible, ahah on vous voit \o/
+
+Il a également écrit le gameplay d'exploration de ces systèmes lointain, à découvrir ici : [message discord](https://discord.com/channels/1399325839665004554/1404482920655093812/1404482920655093812)
+
+## Planète tech
+
+Il y a actuellement 2 planet tech en prototype, avec LOD dynamiques...
+Celà nous permettra de voir laquelle est la plus intégrable à nos ambitions
+
+Des tests ont également été effectués dans le moteur de jeu, on peux gérer plusieurs centaines de parsec sur la map avec le double float ^\_^
+
+## Jeu
+
+Plusieurs intégrations :
+
+- restructuration de l'arborescence des fichiers du jeu
+- nouveau personnage (l'ancien était buggué)
+- gestion des joueurs côté serveur au lieu du coté client
+- chat global (inter-serveurs), touche F12, les émojis fonctionnent dedans 😄
+- remplacement de la map de test par une planète de 5km + vaisseau + station
+- ajout des caisses de 50cm et 4m, gérées coté serveur
+
+## Persistance
+
+La persistance des objects est en cours. Une base de données de type graph a été sélectionnée, mais est remise en question avec la taille de la map et donc des coordonnées en double float.
+
+Le code avance sur cette partie.
+
+## Audio
+
+Le travail sur l'audio avance aussi, prototypage et tests
+
+## Server meshing dynamic
+
+Il est en cours de recodage, passage des API REST en MQTT (encapsulé d'un webservice) qui est plus rapide et efficace
+Des optimisations commencent à être implémentés également
+
+## Votes
+
+Le vote de la DA est terminé, on prend en référence le jeu Satisfactory
+
+## Art
+
+On a eu le premier concept art des habitations de Sandbox
+
+![1er concept art](/assets/images/news/20250813-concept-art.png)
