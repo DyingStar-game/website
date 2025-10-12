@@ -265,6 +265,8 @@ jobs:
     needs: [docker-image]
     runs-on: ubuntu-latest
     if: ${{ needs.docker-image.outputs.target == 'staging' || needs.docker-image.outputs.target == 'prod' }}
+    environment:
+      name: ${{ startsWith(github.ref, 'refs/tags/v') && 'prod' || 'staging' }}
 
     steps:
       - name: Checkout compose files
