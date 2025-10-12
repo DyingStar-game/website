@@ -173,7 +173,7 @@ export default [
 
       // Warn on TODO/FIXME comments
       "no-warning-comments": [
-        "warn",
+        "off",
         {
           terms: ["TODO", "FIXME", "FIX", "REFACTOR"],
           location: "anywhere",
