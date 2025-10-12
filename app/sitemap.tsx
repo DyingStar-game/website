@@ -37,11 +37,12 @@ const generateNewsEntries = async (locale: Locale): Promise<SitemapEntry[]> => {
   );
 };
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const homepageEntries = generateHomePageEntries();
   const newsEntries = await Promise.all(
     LOCALES.map(async (locale) => generateNewsEntries(locale)),
   );
 
   return [...homepageEntries, ...newsEntries.flat()];
-}
+};
+export default sitemap;
