@@ -46,12 +46,20 @@
       "title": "Actualités"
     },
     "ProjectDescription": {
-      "content": "Contenu à définir",
       "title": "Présentation du projet"
     },
     "Task": {
       "action": "Toutes les tâches",
       "title": "Tâches"
+    }
+  },
+  "Layout": {
+    "Footer": {
+      "Community": "Communauté",
+      "Contribute": "Contribuer",
+      "Lore": "Lore",
+      "News": "Actualités",
+      "Project": "Projet"
     }
   },
   "Links": {
@@ -67,7 +75,7 @@
     },
     "Project": {
       "Contribute": "Contribuer",
-      "Vision": "Vision"
+      "Project": "Projet"
     }
   },
   "LocaleSwitcher": {

@@ -5,8 +5,6 @@ import type { Locale } from "next-intl";
 import path from "path";
 import { z } from "zod";
 
-const newsDirectory = path.join(process.cwd(), "content/news");
-
 const NewsAttributeSchema = z.object({
   title: z.string(),
   titleIcon: z.string().optional(),
@@ -34,7 +32,12 @@ export const getNews = async (
   locale: Locale,
   tags?: string[],
 ): Promise<News[]> => {
-  const newsLocalizedDirectory = path.join(newsDirectory, locale);
+  const newsLocalizedDirectory = path.join(
+    process.cwd(),
+    "content",
+    locale,
+    "news",
+  );
   const fileNames = await fs.readdir(newsLocalizedDirectory);
   const news: News[] = [];
   for await (const fileName of fileNames) {

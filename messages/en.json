@@ -52,12 +52,20 @@
       "title": "News"
     },
     "ProjectDescription": {
-      "content": "Content to be defined",
       "title": "Project overview"
     },
     "Task": {
       "action": "All tasks",
       "title": "Tasks"
+    }
+  },
+  "Layout": {
+    "Footer": {
+      "Community": "Community",
+      "Contribute": "Contribute",
+      "Lore": "Lore",
+      "News": "News",
+      "Project": "Project"
     }
   },
   "Links": {
@@ -73,7 +81,7 @@
     },
     "Project": {
       "Contribute": "Contribute",
-      "Vision": "Vision"
+      "Project": "Project"
     }
   },
   "LocaleSwitcher": {

@@ -1,6 +1,4 @@
 import { NewsSection } from "@app/[locale]/(landing)/_components/newsSection";
-import { ProjectDescriptionSection } from "@app/[locale]/(landing)/_components/projectDescriptionSection";
-import { TaskSection } from "@app/[locale]/(landing)/_components/taskSection";
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
 import { LINKS } from "@feat/navigation/Links";
@@ -24,8 +22,8 @@ const HomePage = async () => {
 
       <LayoutMain size="full">
         <NewsSection />
-        <ProjectDescriptionSection />
-        <TaskSection />
+        {/* <ProjectDescriptionSection /> */}
+        {/* <TaskSection /> */}
         <CtaWithButton
           title={t("CTA.discord.title")}
           action={{
