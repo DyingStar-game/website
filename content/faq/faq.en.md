@@ -1,45 +1,15 @@
-# My first question
+### What game engine do you use?
 
-- Answer to the first question
+- Currently, we use the GODOT engine. It's easily accessible, open-source, and documented. If we ever encounter technological constraints, we can modify this engine.
 
-# My second question
+### Do you use AI?
 
-- Answer to the second question
+- **No, we forbid it**. We want to have human-like and original designs. AI also poses legal copyright issues that we don't want to deal with.
 
-# 1 My third question
+### How can I participate in the project and where to start?
 
-## 2 My third question
+- You can join the [Discord server](https://discord.gg/K4a2mwwBAM) to interact with contributors and leads from each team. Tasks or training may be provided. You can also visit the [contribution](/fr/contribute) page.
 
-### 3Proident nulla pariatur quis fugiat velit officia quis consequat sint fugiat elit.
+### Can we play the game now?
 
-- Answer to the third question
-
-### 3Proident nulla pariatur quis fugiat velit officia quis consequat sint fugiat elit.
-
-- Answer to the third question
-
-### 3Proident nulla pariatur quis fugiat velit officia quis consequat sint fugiat elit.
-
-- Answer to the third question
-
-### 3Proident nulla pariatur quis fugiat velit officia quis consequat sint fugiat elit.
-
-- Answer to the third question
-
-### 3Proident nulla pariatur quis fugiat velit officia quis consequat sint fugiat elit.
-
-- Answer to the third question
-
-### 3Proident nulla pariatur quis fugiat velit officia quis consequat sint fugiat elit.
-
-- Answer to the third question
-
-## And other questions...
-
-# h1
-
-## h2
-
-### h3
-
-#### h4
+- The game is in development, it is not yet playable, it will take some time for that. However, we have regular player tests to test the technologies, the content, it is announced on the [Discord server](https://discord.gg/K4a2mwwBAM) and in the news.
