@@ -1,6 +1,6 @@
 "use client";
 
-import { getProjectStatusIcon } from "@feat/issue/project-helper";
+import { getProjectStatusIcon } from "@feat/issue/projectHelper";
 import { DynamicIcon } from "lucide-react/dynamic";
 
 type StatusInfoProps = {

@@ -8,7 +8,7 @@
     "dev": "next dev --turbopack --hostname 0.0.0.0",
     "start": "next start",
     "lint": "eslint . --fix",
-    "prettier": "prettier --check .",
+    "prettier": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "clean": "eslint . --fix && tsc --noEmit && prettier --write .",
     "lint:ci": "eslint . --max-warnings 0 && tsc --noEmit && prettier --check ."
@@ -47,6 +47,8 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
     "framer-motion": "^12.23.15",
     "front-matter": "^4.0.2",
     "input-otp": "^1.4.2",

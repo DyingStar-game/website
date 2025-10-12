@@ -1,3 +1,5 @@
+import type { PropsWithChildren } from "react";
+
 import { Typography } from "@components/DS/typography";
 import {
   Card,
@@ -6,13 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@ui/card";
-import type { PropsWithChildren } from "react";
 
 type Error401Props = PropsWithChildren<{
   title?: string;
 }>;
 
-export function Error401(props: Error401Props) {
+export const Error401 = (props: Error401Props) => {
   return (
     <Card className="w-full max-w-lg">
       <CardHeader className="flex flex-col">
@@ -26,4 +27,4 @@ export function Error401(props: Error401Props) {
       <CardFooter className="flex flex-row gap-2"></CardFooter>
     </Card>
   );
-}
+};

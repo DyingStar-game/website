@@ -15,28 +15,26 @@ authorRoles:
   - Fondateur du projet
 ---
 
-
 ## Compte-rendu du premier test
 
-Merci a tous pour le test grandeur nature de ce jour ❤️ 
+Merci a tous pour le test grandeur nature de ce jour ❤️
 
 Voici le retour sur le test de cet après-midi.
 
 On a pu tester avec **62 serveurs**, oui oui, 62 serveurs \o/
 
-## Problèmes déjà connus : 
+## Problèmes déjà connus :
 
-* se déplacer ne fait pas correctement changer de serveur
-* congestion du réseau, optimisations à effectuer dans le code
-* le TP des joueurs. Les joueurs se TP quand ils étaient sur un autre serveur. C'est normal, je n'ai pas voulu descendre le refresh trop bas dans ce premier test afin d'éviter une trop grosse charge (requêtes HTTP, CPU, réseau).
+- se déplacer ne fait pas correctement changer de serveur
+- congestion du réseau, optimisations à effectuer dans le code
+- le TP des joueurs. Les joueurs se TP quand ils étaient sur un autre serveur. C'est normal, je n'ai pas voulu descendre le refresh trop bas dans ce premier test afin d'éviter une trop grosse charge (requêtes HTTP, CPU, réseau).
 
-## Problèmes identifiés grâce au test 
+## Problèmes identifiés grâce au test
 
-* Problème du SDO (Orchestrateur des serveurs) qui avait une configuration trop faible et qui a refusé pas mal de requêtes des serveurs. Augmentation de la config faite en cours de test, mais trop tard. Ce problème a impacté les problèmes de disparition longue des joueurs, les compteurs qui n'étaient pas bons…
-* manque de supervision centralisée. Etant donné que les serveurs sont dispatchés chez plusieurs personnes, on n'a pas les données centralisées et agrégées, ce qui complique un peu l'analyse. On envisage d'avoir un serveur Zabbix central et une configuration de l'agent à déployer avec le serveur.
-* les serveurs ne donnent pas trop de données en temps réel sur le nombre de joueurs ou d'autres métriques... on va essayer de mettre un micro serveur HTTP dans le serveur afin de pouvoir récupérer ces infos et les envoyer dans Zabbix.
-* zones des serveurs. Après une rapide analyse, beaucoup de serveurs géraient des zones immenses sur 2 coordonnées mais sur la troisième c'était quelques mètres (8, 10, 14m), on doit ajouter un minimum sur les tailles de zone afin que le découpage puisse se faire autrement.
-
+- Problème du SDO (Orchestrateur des serveurs) qui avait une configuration trop faible et qui a refusé pas mal de requêtes des serveurs. Augmentation de la config faite en cours de test, mais trop tard. Ce problème a impacté les problèmes de disparition longue des joueurs, les compteurs qui n'étaient pas bons…
+- manque de supervision centralisée. Etant donné que les serveurs sont dispatchés chez plusieurs personnes, on n'a pas les données centralisées et agrégées, ce qui complique un peu l'analyse. On envisage d'avoir un serveur Zabbix central et une configuration de l'agent à déployer avec le serveur.
+- les serveurs ne donnent pas trop de données en temps réel sur le nombre de joueurs ou d'autres métriques... on va essayer de mettre un micro serveur HTTP dans le serveur afin de pouvoir récupérer ces infos et les envoyer dans Zabbix.
+- zones des serveurs. Après une rapide analyse, beaucoup de serveurs géraient des zones immenses sur 2 coordonnées mais sur la troisième c'était quelques mètres (8, 10, 14m), on doit ajouter un minimum sur les tailles de zone afin que le découpage puisse se faire autrement.
 
 Merci à tous pour ce test.
 

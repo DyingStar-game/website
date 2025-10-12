@@ -1,8 +1,10 @@
+import type {
+  GenericLinkSchema,
+  NavigationLink,
+} from "@feat/navigation/navigation.model";
 import { env } from "@lib/env/client";
 import { Info } from "lucide-react";
 import { z } from "zod";
-
-import type { GenericLinkSchema, NavigationLink } from "./navigation.model";
 
 // Constantes pour les chemins
 const PATHS = {

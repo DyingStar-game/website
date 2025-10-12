@@ -1,8 +1,8 @@
 import { Paginate } from "@components/DS/paginate/paginate";
 import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
-import NewsItem from "@feat/news/NewsItem";
-import { getNewsTags, getPaginatedNews } from "@feat/news/news-manager";
+import NewsItem from "@feat/news/newsItem";
+import { getNewsTags, getPaginatedNews } from "@feat/news/newsManager";
 import {
   LayoutHeader,
   LayoutMain,
@@ -16,7 +16,7 @@ import { FileQuestion } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { SiteConfig } from "site-config";
+import { SiteConfig } from "siteConfig";
 
 export const metadata: Metadata = {
   title: `${SiteConfig.title}'s news`,

@@ -1,7 +1,7 @@
 "use client";
 
 import type { IssueSize } from "@feat/api/github/schema/issueField.size.graphql";
-import { getProjectVariantSize } from "@feat/issue/project-helper";
+import { getProjectVariantSize } from "@feat/issue/projectHelper";
 import { Badge } from "@ui/badge";
 import { useTranslations } from "next-intl";
 

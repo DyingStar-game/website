@@ -1,6 +1,6 @@
 import { updateProjectIssues } from "@feat/api/github/hooks/indexedProjectIssues";
 import { env } from "@lib/env/server";
-import { route } from "@lib/zod-route";
+import { route } from "@lib/zodRoute";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 

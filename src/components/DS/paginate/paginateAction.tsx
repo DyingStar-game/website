@@ -1,10 +1,9 @@
+import type { PaginateModeType } from "@components/DS/paginate/paginate";
 import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
 import { Button, buttonVariants } from "@ui/button";
 import type { VariantProps } from "class-variance-authority";
 import type { UrlObject } from "url";
-
-import type { PaginateModeType } from "./paginate";
 
 type PaginateActionProps = VariantProps<typeof Button> & {
   mode: PaginateModeType;
@@ -16,7 +15,7 @@ type PaginateActionProps = VariantProps<typeof Button> & {
   prefetch?: boolean;
 };
 
-export function PaginateAction({
+export const PaginateAction = ({
   mode,
   children,
   disabled,
@@ -26,7 +25,7 @@ export function PaginateAction({
   size = "default",
   className,
   prefetch,
-}: PaginateActionProps) {
+}: PaginateActionProps) => {
   if (mode === "link" && href) {
     return (
       <Link
@@ -55,4 +54,4 @@ export function PaginateAction({
       {children}
     </Button>
   );
-}
+};

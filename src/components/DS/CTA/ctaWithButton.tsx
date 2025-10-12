@@ -1,5 +1,4 @@
 import type { ComponentProps } from "react";
-import React from "react";
 
 import { Typography } from "@components/DS/typography";
 import { Layout, LayoutSection } from "@feat/page/layout";

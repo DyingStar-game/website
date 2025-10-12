@@ -1,4 +1,4 @@
-import { route } from "@lib/zod-route";
+import { route } from "@lib/zodRoute";
 import { NextResponse } from "next/server";
 
 export const GET = route.handler(async () => {

@@ -1,18 +1,15 @@
+import { IssueStatus } from "@feat/api/github/schema/issueField.status.graphql";
+import type {
+  PaginateIndexedProjectIssuesType,
+  ProjectIssueType,
+  ProjectIssuesType,
+} from "@feat/api/github/schema/projectIssues.model";
 import { GetGithubIssue } from "@feat/issue/get/getGithubIssue.graphql";
 import { getGithubIssues } from "@feat/issue/get/getGithubIssues.graphql";
 import { meili } from "@lib/meilisearch/meilisearchClient";
 import type { FacetHit } from "meilisearch";
 
-import { IssueStatus } from "../schema/issueField.status.graphql";
-import type {
-  PaginateIndexedProjectIssuesType,
-  ProjectIssueType,
-  ProjectIssuesType,
-} from "../schema/projectIssues.model";
-
 const ISSUES_INDEX = "gh_issues";
-
-const DEFAULT_FILTER = `${filterableAttribute("status")} = "${IssueStatus.TODO}" OR ${filterableAttribute("status")} = "${IssueStatus.IN_PROGRESS}"`;
 
 const SORTABLE_ATTRIBUTES = [
   "updatedAt",
@@ -20,9 +17,9 @@ const SORTABLE_ATTRIBUTES = [
 
 type SortableAttributeType = (typeof SORTABLE_ATTRIBUTES)[number];
 
-function sortableAttribute<K extends SortableAttributeType>(key: K): K {
+const sortableAttribute = <K extends SortableAttributeType>(key: K): K => {
   return key;
-}
+};
 
 const FILTERABLE_ATTRIBUTES = [
   "projectName",
@@ -32,11 +29,13 @@ const FILTERABLE_ATTRIBUTES = [
 
 type FilterableAttributeType = (typeof FILTERABLE_ATTRIBUTES)[number];
 
-function filterableAttribute<K extends FilterableAttributeType>(key: K): K {
+const filterableAttribute = <K extends FilterableAttributeType>(key: K): K => {
   return key;
-}
+};
 
-export async function updateProjectIssues() {
+const DEFAULT_FILTER = `${filterableAttribute("status")} = "${IssueStatus.TODO}" OR ${filterableAttribute("status")} = "${IssueStatus.IN_PROGRESS}"`;
+
+export const updateProjectIssues = async () => {
   const allIssues = await fetchAllProjectIssues();
 
   await meili.deleteIndexIfExists(ISSUES_INDEX);
@@ -58,12 +57,12 @@ export async function updateProjectIssues() {
 
   const addTask = await meili.index(ISSUES_INDEX).addDocuments(allIssues);
   await meili.tasks.waitForTask(addTask.taskUid);
-}
+};
 
-async function fetchAllProjectIssues(
+const fetchAllProjectIssues = async (
   issues: ProjectIssuesType = [],
   cursor?: string,
-) {
+) => {
   const response = await getGithubIssues(cursor);
 
   if (response.pageInfo.endCursor) {
@@ -74,7 +73,7 @@ async function fetchAllProjectIssues(
   }
 
   return issues.concat(response.issues);
-}
+};
 
 export const deleteProjectIssue = async (issueId: string) => {
   const deleteTask = await meili.index(ISSUES_INDEX).deleteDocument(issueId);
@@ -89,12 +88,12 @@ export const updateProjectIssue = async (issueId: string) => {
   await meili.tasks.waitForTask(updateTask.taskUid);
 };
 
-export async function searchProjectIssues(
+export const searchProjectIssues = async (
   page: number,
   query: string | null,
   projects: string[] | null,
   pageSize = 6,
-) {
+) => {
   const filter = [DEFAULT_FILTER];
   if (projects) {
     filter.push(
@@ -125,17 +124,17 @@ export async function searchProjectIssues(
   };
 
   return pageResponse;
-}
+};
 
-export async function getIssuesCount(): Promise<number> {
+export const getIssuesCount = async (): Promise<number> => {
   const res = await meili.index<ProjectIssueType>(ISSUES_INDEX).search(null, {
     filter: [DEFAULT_FILTER],
   });
 
   return res.estimatedTotalHits;
-}
+};
 
-export async function getIssuesWithAssigneeCount(): Promise<number> {
+export const getIssuesWithAssigneeCount = async (): Promise<number> => {
   const res = await meili.index<ProjectIssueType>(ISSUES_INDEX).search("", {
     filter: [`${filterableAttribute("hasAssignees")} = true`, DEFAULT_FILTER],
   });
@@ -145,9 +144,9 @@ export async function getIssuesWithAssigneeCount(): Promise<number> {
   );
 
   return uniqueAssignees.length;
-}
+};
 
-export async function getProjectCount(): Promise<FacetHit[]> {
+export const getProjectCount = async (): Promise<FacetHit[]> => {
   const filter = [DEFAULT_FILTER];
   const res = await meili
     .index<ProjectIssueType>(ISSUES_INDEX)
@@ -157,6 +156,6 @@ export async function getProjectCount(): Promise<FacetHit[]> {
     });
 
   return res.facetHits;
-}
+};
 
 //TODO: Refactor this file

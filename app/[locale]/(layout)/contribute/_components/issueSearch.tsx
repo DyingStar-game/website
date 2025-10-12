@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 
+import IssueSearchButtonFallback from "@app/[locale]/(layout)/contribute/_components/issueSearchButtonFallback";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import type { IssuesCountType } from "@feat/issue/get/IssuesCount.model";
@@ -7,8 +8,6 @@ import { LayoutSection } from "@feat/page/layout";
 import { cn } from "@lib/utils";
 import { Circle, CircleCheckBig, Minus, SearchIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
-
-import IssueSearchButtonFallback from "./issueSearchButtonFallback";
 
 type IssueSearchProps = {
   query: string;

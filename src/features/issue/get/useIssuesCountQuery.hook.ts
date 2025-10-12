@@ -1,8 +1,7 @@
-import { resolveActionResult } from "@lib/actions/actions-utils";
+import { GetIssuesCountAction } from "@feat/issue/get/getIssuesCount.action";
+import { resolveActionResult } from "@lib/actions/actionsUtils";
 import { githubFactory } from "@lib/tanstack/queryKey";
 import { useQuery } from "@tanstack/react-query";
-
-import { GetIssuesCountAction } from "./getIssuesCount.action";
 
 export const useIssuesCountQuery = () => {
   const queryHook = useQuery({

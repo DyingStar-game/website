@@ -15,8 +15,8 @@ export default function NotFoundPage() {
   return (
     <Card className="mx-auto w-full max-w-md">
       <CardHeader className="text-center">
-        <div className="bg-destructive/10 mx-auto mb-4 flex size-12 items-center justify-center rounded-full">
-          <AlertCircle className="text-destructive size-6" />
+        <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-destructive/10">
+          <AlertCircle className="size-6 text-destructive" />
         </div>
         <CardTitle className="text-2xl">Page Not Found</CardTitle>
         <CardDescription>
@@ -25,7 +25,7 @@ export default function NotFoundPage() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="bg-muted rounded-lg p-4 text-sm">
+        <div className="rounded-lg bg-muted p-4 text-sm">
           <p className="mb-2 font-medium">What might have happened?</p>
           <p className="text-muted-foreground">
             The page may have been moved, deleted, or you might have mistyped

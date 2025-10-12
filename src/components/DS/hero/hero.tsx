@@ -1,8 +1,7 @@
 import type { ComponentProps } from "react";
 
+import { Typography } from "@components/DS/typography";
 import { Layout, LayoutSection } from "@feat/page/layout";
-
-import { Typography } from "../typography";
 
 type HeroProps = ComponentProps<"section"> & {
   title: string;

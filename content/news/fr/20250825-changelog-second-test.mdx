@@ -16,34 +16,30 @@ authorRoles:
   - Fondateur du projet
 ---
 
-
 # Changelog
 
 Voici le changelog de la version à tester ce soir (pour rappel, c'est à 20h30) :
 
-* passage de la gestion joueur côté serveur
-* réorganisation des fichiers
-* fix de la caméra du joueur
-* fix de la rotation du joueur
-* ajout des boites de 50cm et 4m (spawner avec les touches **E** et **R**)
-* ajout d'un chat global, utilisant MQTT. Afficher avec **F12** et **ALT+T** pour écrire dedans
-* ajout d'un vaisseau
-* ajout de la persistance des objects dans la base dgraph
-* ajout de la localisation (traduction) du jeu
-* ajout de message d'erreur (utilisé uniquement lors de la déconnexion au serveur actuellement)
-* rework du serveur meshing dynamique, passage du protocole HTTP à MQTT
-* ajout de la réplication inter-serveurs des boites et du vaisseau (uniquement quand on spawn et que sur les serveurs déjà actifs) 
-* modification UI joueur : 
-  * affichage coordonnées de la zone gérée par le serveur
-  * ajout d'un label au dessus du joueur avec le nom du serveur sur lequel se situe le joueur
-  * correction des labels (nombre de serveur, nombre de joueurs..)
-* changement de la scène, 2 planètes de 5km (1 grise et 1 orange) + 2 stations
-* intégration serveur audio FMOD, mais désactivé pour le moment (plusieurs problèmes identifiés)
-
-
+- passage de la gestion joueur côté serveur
+- réorganisation des fichiers
+- fix de la caméra du joueur
+- fix de la rotation du joueur
+- ajout des boites de 50cm et 4m (spawner avec les touches **E** et **R**)
+- ajout d'un chat global, utilisant MQTT. Afficher avec **F12** et **ALT+T** pour écrire dedans
+- ajout d'un vaisseau
+- ajout de la persistance des objects dans la base dgraph
+- ajout de la localisation (traduction) du jeu
+- ajout de message d'erreur (utilisé uniquement lors de la déconnexion au serveur actuellement)
+- rework du serveur meshing dynamique, passage du protocole HTTP à MQTT
+- ajout de la réplication inter-serveurs des boites et du vaisseau (uniquement quand on spawn et que sur les serveurs déjà actifs)
+- modification UI joueur :
+  - affichage coordonnées de la zone gérée par le serveur
+  - ajout d'un label au dessus du joueur avec le nom du serveur sur lequel se situe le joueur
+  - correction des labels (nombre de serveur, nombre de joueurs..)
+- changement de la scène, 2 planètes de 5km (1 grise et 1 orange) + 2 stations
+- intégration serveur audio FMOD, mais désactivé pour le moment (plusieurs problèmes identifiés)
 
 # Play test numéro 2
-
 
 Voici ce qu'il faudra tester
 
@@ -51,17 +47,17 @@ Voici ce qu'il faudra tester
 
 Faites une vidéo ou écrivez un text sur le problème rencontré, et si possible comment le reproduire
 
-
 ## Server meshing dynamic
 
 On vous laisse tester, passer d'un serveur à l'autre, quels sont les problèmes rencontrés, qu'est ce qui fonctionne
 
-**ATTENTION**: les problèmes suivants sont déjà connus : 
-* écran noir de moins d'une seconde quand on change de serveurs
-* problèmes quand on passe d'un serveur à l'autre trop lentement (bugs visuels pendant quelques secondes et puis on reste bloqué sur un serveur)
-* quand un serveur se sépare en deux, le second ne récupère pas les caisses et vaisseau du premier serveur (code pas encore stable)
+**ATTENTION**: les problèmes suivants sont déjà connus :
 
-## Chat Global 
+- écran noir de moins d'une seconde quand on change de serveurs
+- problèmes quand on passe d'un serveur à l'autre trop lentement (bugs visuels pendant quelques secondes et puis on reste bloqué sur un serveur)
+- quand un serveur se sépare en deux, le second ne récupère pas les caisses et vaisseau du premier serveur (code pas encore stable)
+
+## Chat Global
 
 Il y a un chat global, accessible via F12, vous pouvez écrire, les emoji fonctionnent. Ecrire un max de messages et voir comment ça réagit
 Pour écrire, faire ALT+T.
@@ -84,5 +80,3 @@ Si vous voyez d'autres choses pas ouf ou qui ne fonctionnent pas, reportez aussi
 Merci à tous et à tout à l'heure, 20h30 !
 
 [Event Discord](https://discord.com/events/1399325839665004554/1402189058469396585)
-
-

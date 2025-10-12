@@ -1,3 +1,4 @@
+import { getDocs } from "@app/[locale]/docs/docManager";
 import { buttonVariants } from "@ui/button";
 import {
   Card,
@@ -8,7 +9,6 @@ import {
 } from "@ui/card";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
-import { getDocs } from "./doc-manager";
 
 export const metadata = {
   title: "Documentation | Lumail",

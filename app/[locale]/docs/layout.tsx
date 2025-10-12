@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
 
+import { DocSidebar } from "@app/[locale]/docs/_components/docSidebar";
+import { getDocs } from "@app/[locale]/docs/docManager";
 import { LayoutMain } from "@feat/page/layout";
-
-import { DocSidebar } from "./_components/doc-sidebar";
-import { getDocs } from "./doc-manager";
 
 export default async function RouteLayout(props: { children: ReactNode }) {
   const docs = await getDocs();

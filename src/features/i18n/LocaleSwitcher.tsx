@@ -2,6 +2,11 @@
 
 import { Suspense } from "react";
 
+import {
+  LocaleSwitcherSelect,
+  type LocaleSwitcherSelectItemsType,
+  type LocaleSwitcherSelectProps,
+} from "@feat/i18n/LocaleSwitcherSelect";
 import { routing } from "@i18n/routing";
 import { cn } from "@lib/utils";
 import * as SelectPrimitive from "@radix-ui/react-select";
@@ -10,12 +15,6 @@ import { Select } from "@ui/select";
 import type { VariantProps } from "class-variance-authority";
 import { LoaderCircle } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-
-import {
-  LocaleSwitcherSelect,
-  type LocaleSwitcherSelectItemsType,
-  type LocaleSwitcherSelectProps,
-} from "./LocaleSwitcherSelect";
 
 type LocaleSwitcherProps = VariantProps<typeof buttonVariants> & {
   className?: string;

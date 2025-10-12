@@ -1,5 +1,5 @@
-import type { News } from "@feat/news/news-manager";
-import { SiteConfig } from "site-config";
+import type { News } from "@feat/news/newsManager";
+import { SiteConfig } from "siteConfig";
 
 type MetadataImageProps = {
   post: News;

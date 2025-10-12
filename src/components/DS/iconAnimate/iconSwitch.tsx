@@ -1,9 +1,8 @@
 import type { ComponentProps } from "react";
 
+import IconFadeAnimate from "@components/DS/iconAnimate/iconFadeAnimate";
 import { cn } from "@lib/utils";
 import type { IconName } from "lucide-react/dynamic";
-
-import IconFadeAnimate from "./iconFadeAnimate";
 
 type IconSwitchProps = ComponentProps<"div"> & {
   icon: IconName;

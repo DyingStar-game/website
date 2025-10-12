@@ -3,7 +3,7 @@ import { LINKS } from "@feat/navigation/Links";
 import { buttonVariants } from "@ui/button";
 import Link from "next/link";
 
-export function Page404() {
+export const Page404 = () => {
   return (
     <main className="flex h-full flex-col items-center justify-center gap-8">
       <div className="space-y-3 text-center">
@@ -23,4 +23,4 @@ export function Page404() {
       </div>
     </main>
   );
-}
+};

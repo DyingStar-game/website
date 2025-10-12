@@ -11,6 +11,7 @@
     "moduleResolution": "bundler",
     "noEmit": true,
     "paths": {
+      "@app/*": ["../app/*"],
       "@assets/*": ["public/assets/*"],
       "@components/*": ["components/*"],
       "@feat/*": ["features/*"],

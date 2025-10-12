@@ -3,8 +3,8 @@
 import { type PropsWithChildren } from "react";
 
 import { Toaster } from "@components/ui/sonner";
-import { DialogManagerRenderer } from "@feat/dialog-manager/dialog-manager-renderer";
-import { GlobalDialogLazy } from "@feat/global-dialog/global-dialog-lazy";
+import { DialogManagerRenderer } from "@feat/dialog-manager/dialogManagerRenderer";
+import { GlobalDialogLazy } from "@feat/global-dialog/globalDialogLazy";
 import { getQueryClient } from "@lib/tanstack/getQueryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

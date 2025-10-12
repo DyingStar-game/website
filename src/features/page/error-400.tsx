@@ -1,3 +1,5 @@
+import type { PropsWithChildren } from "react";
+
 import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
 import { buttonVariants } from "@ui/button";
@@ -9,13 +11,12 @@ import {
   CardTitle,
 } from "@ui/card";
 import Link from "next/link";
-import type { PropsWithChildren } from "react";
 
 type Page400Props = PropsWithChildren<{
   title?: string;
 }>;
 
-export function Error400(props: Page400Props) {
+export const Error400 = (props: Page400Props) => {
   return (
     <Card className="w-full">
       <CardHeader className="flex flex-col">
@@ -37,4 +38,4 @@ export function Error400(props: Page400Props) {
       </CardFooter>
     </Card>
   );
-}
+};

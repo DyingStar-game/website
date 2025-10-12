@@ -1,14 +1,15 @@
+import type { PropsWithChildren } from "react";
+
 import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
 import { buttonVariants } from "@ui/button";
 import Link from "next/link";
-import type { PropsWithChildren } from "react";
 
 type Page400Props = PropsWithChildren<{
   title?: string;
 }>;
 
-export function Page400(props: Page400Props) {
+export const Page400 = (props: Page400Props) => {
   return (
     <main className="flex flex-col items-center gap-8">
       <div className="max-w-lg space-y-3 text-center">
@@ -23,10 +24,13 @@ export function Page400(props: Page400Props) {
         )}
       </div>
       <div className="flex items-center gap-4">
-        <Link href={LINKS.Landing.Landing.href()} className={buttonVariants({ variant: "invert" })}>
+        <Link
+          href={LINKS.Landing.Landing.href()}
+          className={buttonVariants({ variant: "invert" })}
+        >
           Go back home
         </Link>
       </div>
     </main>
   );
-}
+};

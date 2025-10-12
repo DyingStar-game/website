@@ -1,9 +1,9 @@
+import { getCurrentDoc, getDocs } from "@app/[locale]/docs/docManager";
 import { Typography } from "@components/DS/typography";
-import { ServerMdx } from "@feat/markdown/server-mdx";
+import { ServerMdx } from "@feat/markdown/serverMdx";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/tabs";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getCurrentDoc, getDocs } from "../doc-manager";
 
 export const dynamic = "force-static";
 
@@ -54,7 +54,7 @@ export default async function RoutePage(
   return (
     <div className="flex max-w-full flex-1 flex-row gap-4 lg:gap-12">
       <ServerMdx
-        className="prose dark:prose-invert lg:prose-lg mx-auto flex-2"
+        className="mx-auto prose flex-2 lg:prose-lg dark:prose-invert"
         source={doc.content}
       />
 
@@ -80,10 +80,10 @@ export default async function RoutePage(
                   value={lang}
                   className="code-example rounded-md"
                 >
-                  <div className="bg-muted/20 rounded-md p-1">
+                  <div className="rounded-md bg-muted/20 p-1">
                     <ServerMdx
                       source={`\`\`\`${lang}\n${code}\n\`\`\``}
-                      className="prose dark:prose-invert prose-sm"
+                      className="prose prose-sm dark:prose-invert"
                     />
                   </div>
                 </TabsContent>
@@ -114,7 +114,7 @@ export default async function RoutePage(
                     value={lang}
                     className="code-example rounded-md"
                   >
-                    <div className="bg-muted/20 rounded-md p-1">
+                    <div className="rounded-md bg-muted/20 p-1">
                       <ServerMdx
                         source={`\`\`\`json\n${result}\n\`\`\``}
                         className="prose prose-sm"
@@ -125,7 +125,7 @@ export default async function RoutePage(
               })
             ) : (
               <TabsContent value="success">
-                <div className="bg-muted/20 rounded-md p-1">
+                <div className="rounded-md bg-muted/20 p-1">
                   <ServerMdx source="No results available" className="pros" />
                 </div>
               </TabsContent>

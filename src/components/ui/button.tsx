@@ -50,13 +50,13 @@ export type ButtonProps = React.ComponentProps<"button"> &
     asChild?: boolean;
   };
 
-function Button({
+const Button = ({
   className,
   variant,
   size,
   asChild = false,
   ...props
-}: ButtonProps) {
+}: ButtonProps) => {
   const Comp = asChild ? Slot : "button";
 
   return (
@@ -66,6 +66,6 @@ function Button({
       {...props}
     />
   );
-}
+};
 
 export { Button, buttonVariants };
