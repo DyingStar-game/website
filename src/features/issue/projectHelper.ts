@@ -1,7 +1,6 @@
 import type { badgeVariants } from "@components/ui/badge";
 import { IssueSize } from "@feat/api/github/schema/issueField.size.graphql";
 import { IssueStatus } from "@feat/api/github/schema/issueField.status.graphql";
-//TODO: Refactor this
 import illustration2D from "@feat/issue/assets/im_2d_illustration.png";
 import ui2D from "@feat/issue/assets/im_2d_ui.png";
 import ux2D from "@feat/issue/assets/im_2d_ux.png";

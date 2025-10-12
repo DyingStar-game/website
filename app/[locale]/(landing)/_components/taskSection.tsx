@@ -1,4 +1,4 @@
-import { IssueCard } from "@components/DS/issues/IssueCard";
+import { IssueCard } from "@components/DS/issues/issueCard";
 import { searchProjectIssues } from "@feat/api/github/hooks/indexedProjectIssues";
 import { LINKS } from "@feat/navigation/Links";
 import { LayoutContentTitle, LayoutSection } from "@feat/page/layout";
