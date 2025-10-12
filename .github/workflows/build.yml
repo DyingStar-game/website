@@ -181,7 +181,7 @@ jobs:
           elif [[ "${{ steps.meta.outputs.target }}" == "prod" ]]; then
             VER="${GITHUB_REF_NAME}"   # vX.Y.Z
             echo "tag_primary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VER}" >> $GITHUB_OUTPUT
-            echo "tag_secondary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_OUTPUT
+            echo "tag_secondary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:prod" >> $GITHUB_OUTPUT
           else
             echo "tag_primary=" >> $GITHUB_OUTPUT
             echo "tag_secondary=" >> $GITHUB_OUTPUT
