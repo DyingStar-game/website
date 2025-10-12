@@ -9,7 +9,7 @@ import type {
 const FOOTER_LINKS: NavigationLinksGroups = [
   {
     title: "Project",
-    links: [LINKS.Project.Vision, LINKS.Project.Contribute, LINKS.News.All],
+    links: [LINKS.Project.Project, LINKS.Project.Contribute, LINKS.News.All],
   },
   {
     title: "Lore",

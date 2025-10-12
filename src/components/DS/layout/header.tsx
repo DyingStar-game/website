@@ -24,7 +24,7 @@ export const Header = () => {
 
   return (
     <HeaderBase>
-      <NavLink link={LINKS.Project.Vision} size={size} />
+      <NavLink link={LINKS.Project.Project} size={size} />
       <NavLink link={LINKS.Lore.History} size={size} />
       <Link
         href={LINKS.Landing.Landing.href()}

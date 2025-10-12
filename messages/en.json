@@ -52,7 +52,6 @@
       "title": "News"
     },
     "ProjectDescription": {
-      "content": "Content to be defined",
       "title": "Project overview"
     },
     "Task": {
@@ -73,7 +72,7 @@
     },
     "Project": {
       "Contribute": "Contribute",
-      "Vision": "Vision"
+      "Project": "Project"
     }
   },
   "LocaleSwitcher": {
