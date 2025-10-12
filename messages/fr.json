@@ -53,6 +53,15 @@
       "title": "Tâches"
     }
   },
+  "Layout": {
+    "Footer": {
+      "Community": "Communauté",
+      "Contribute": "Contribuer",
+      "Lore": "Lore",
+      "News": "Actualités",
+      "Project": "Projet"
+    }
+  },
   "Links": {
     "Community": {
       "Discord": "Discord",
@@ -66,7 +75,7 @@
     },
     "Project": {
       "Contribute": "Contribuer",
-      "Project": "Project"
+      "Project": "Projet"
     }
   },
   "LocaleSwitcher": {

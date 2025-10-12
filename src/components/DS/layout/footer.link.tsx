@@ -8,15 +8,15 @@ import type {
 
 const FOOTER_LINKS: NavigationLinksGroups = [
   {
-    title: "Project",
+    title: "Layout.Footer.Project",
     links: [LINKS.Project.Project, LINKS.Project.Contribute, LINKS.News.All],
   },
   {
-    title: "Lore",
+    title: "Layout.Footer.Lore",
     links: [LINKS.Lore.History],
   },
   {
-    title: "Community",
+    title: "Layout.Footer.Community",
     links: [LINKS.Community.Discord, LINKS.Community.Github],
   },
 ];

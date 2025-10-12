@@ -59,6 +59,15 @@
       "title": "Tasks"
     }
   },
+  "Layout": {
+    "Footer": {
+      "Community": "Community",
+      "Contribute": "Contribute",
+      "Lore": "Lore",
+      "News": "News",
+      "Project": "Project"
+    }
+  },
   "Links": {
     "Community": {
       "Discord": "Discord",
