@@ -2,7 +2,7 @@ type IssueCardsFallbackProps = {
   count?: number;
 };
 
-const IssueCardsFallback = ({ count = 3 }: IssueCardsFallbackProps) => {
+export const IssueCardsFallback = ({ count = 3 }: IssueCardsFallbackProps) => {
   return (
     <>
       {Array.from({ length: count }).map((_, i) => (
@@ -14,5 +14,3 @@ const IssueCardsFallback = ({ count = 3 }: IssueCardsFallbackProps) => {
     </>
   );
 };
-
-export default IssueCardsFallback;

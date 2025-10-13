@@ -1,16 +1,26 @@
+import type { ComponentProps } from "react";
+
 import { CountInfo } from "@components/DS/countInfo/CountInfo";
 import type { IssuesCountType } from "@feat/issue/get/IssuesCount.model";
+import { cn } from "@lib/utils";
 import { useTranslations } from "next-intl";
 
-type IssueStatusProps = {
+type IssueStatusProps = ComponentProps<"div"> & {
   projectCount?: IssuesCountType;
 };
 
-const IssueStatus = ({ projectCount }: IssueStatusProps) => {
+export const IssueStatus = ({
+  projectCount,
+  className,
+  ...props
+}: IssueStatusProps) => {
   const t = useTranslations("Issue.IssueStatus");
 
   return (
-    <div className="flex flex-col gap-8 xl:flex-row">
+    <div
+      className={cn("flex flex-col gap-8 xl:flex-row", className)}
+      {...props}
+    >
       <CountInfo
         className="flex-1"
         icon="bookmark-check"
@@ -32,5 +42,3 @@ const IssueStatus = ({ projectCount }: IssueStatusProps) => {
     </div>
   );
 };
-
-export default IssueStatus;
