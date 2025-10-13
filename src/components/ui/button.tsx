@@ -34,7 +34,7 @@ const buttonVariants = cva(
           "px-6 py-2 has-[>svg:not(:only-child)]:p-3 [&_svg:not([class*='size-'])]:size-5 xl:[&_svg:not([class*='size-'])]:size-6",
         sm: "px-5 py-2 leading-none has-[>svg]:px-5",
         lg: "px-8 py-5 text-base has-[>svg:not(:only-child)]:px-6 2xl:px-10 2xl:py-6 2xl:text-xl 2xl:has-[>svg:not(:only-child)]:px-6",
-        xl: "gap-4 rounded px-5 py-5 text-2xl font-extralight sm:text-3xl md:text-4xl lg:px-10 lg:py-6 lg:text-5xl lg:has-[>svg]:px-4 [&_svg:not([class*='size-'])]:size-8 md:[&_svg:not([class*='size-'])]:size-9 lg:[&_svg:not([class*='size-'])]:size-12",
+        xl: "gap-4 rounded px-5 py-5 text-2xl leading-none font-extralight sm:text-3xl md:text-4xl lg:px-10 lg:py-6 lg:text-5xl lg:has-[>svg]:px-4 xl:leading-none [&_svg:not([class*='size-'])]:size-8 md:[&_svg:not([class*='size-'])]:size-9 lg:[&_svg:not([class*='size-'])]:size-12",
         icon: "size-9",
       },
     },
