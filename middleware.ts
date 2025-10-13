@@ -3,7 +3,8 @@ import { DEFAULT_LOCALE } from "@i18n/config";
 import { env } from "@lib/env/server";
 import { routing } from "i18n/routing";
 import createMiddleware from "next-intl/middleware";
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 const maintenanceEnd = env.MAINTENANCE_END && new Date(env.MAINTENANCE_END);
 
