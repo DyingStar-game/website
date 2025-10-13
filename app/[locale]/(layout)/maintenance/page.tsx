@@ -3,11 +3,12 @@ import React from "react";
 import { LayoutMain } from "@feat/page/layout";
 import ReactPlayer from "react-player";
 
-export default function Maintenance() {
+const MaintenancePage = async (props: PageProps<"/[locale]/maintenance">) => {
+  const { locale } = await props.params;
   return (
     <LayoutMain>
       <ReactPlayer
-        src="/assets/videos/DS_site_maintenance_1080p.mp4"
+        src={`/assets/videos/DS_site_maintenance_1080p_${locale}.mp4`}
         autoPlay
         loop
         muted
@@ -15,4 +16,6 @@ export default function Maintenance() {
       />
     </LayoutMain>
   );
-}
+};
+
+export default MaintenancePage;
