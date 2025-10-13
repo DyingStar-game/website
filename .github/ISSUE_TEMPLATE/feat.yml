@@ -1,8 +1,8 @@
 name: ✨ Feature Request
 description: Proposer une nouvelle fonctionnalité
-title: ""
 labels: ["enhancement"]
 assignees: []
+type: "Feature"
 projects: ["13"]
 body:
   - type: markdown
@@ -19,46 +19,51 @@ body:
     validations:
       required: true
 
-  - type: markdown
-    attributes:
-      value: |
-        ## Il est possible de mettre des titres
-
-        - ça permet de structurer le texte
-        - ça permet de faire des listes
-        - ça permet de mettre des liens
-        - ça permet de mettre des images
-        - ça permet de mettre des tableaux
-
   - type: textarea
-    id: tasks
+    id: design
     attributes:
-      label: Ce que vous devez faire
-      description: "Décris les tâches à effectuer"
-      value: |
-        # Ce que vous devez faire
-
-        ## Design
-
-        ## Frontend
-
-        ## Backend
-
-        ## Intégration
+      label: Design
+      description: "Tâches liées au design"
+      placeholder: "Décris les tâches de design nécessaires..."
     validations:
       required: false
 
-  - type: markdown
+  - type: textarea
+    id: frontend
     attributes:
+      label: Frontend
+      description: "Tâches liées au frontend"
+      placeholder: "Décris les tâches frontend nécessaires..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: backend
+    attributes:
+      label: Backend
+      description: "Tâches liées au backend"
+      placeholder: "Décris les tâches backend nécessaires..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: integration
+    attributes:
+      label: Intégration
+      description: "Tâches liées à l'intégration (CI/CD, observabilité, doc, etc.)"
+      placeholder: "Décris les tâches d'intégration nécessaires..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: before
+    attributes:
+      label: Avant de vous jeter dans le code
       value: |
-        Avant de vous jeter dans le code, assurez-vous de bien avoir compris ce qu'il faut faire et comment faire.
-        Au besoin pingez le lead Web dans le salon discord et posez vos questions.
+        Avant de vous jeter dans le code, assurez-vous de bien avoir compris ce qu'il faut faire et comment faire.  
+        Au besoin, pingez le lead Web dans le salon Discord et posez vos questions.  
         Plusieurs personnes peuvent travailler ensemble sur cette issue.
 
-  - type: input
-    id: discord
-    attributes:
-      label: Lien du post Discord
-      placeholder: "https://discord.com/channels/..."
+        [Post Discord]()
     validations:
-      required: true
+      required: false
