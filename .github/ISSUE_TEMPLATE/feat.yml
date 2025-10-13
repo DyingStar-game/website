@@ -1,0 +1,87 @@
+name: ✨ Feature Request
+description: Proposer une nouvelle fonctionnalité
+title: "[FEAT] "
+labels: ["enhancement"]
+assignees: []
+projects: ["13"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        On commence par une mise en contexte, ici on veut expliquer ce qu'on veut faire dans notre issue.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexte
+      description: Explique le problème ou le besoin que cette feature adresse
+      placeholder: "Décris le contexte et pourquoi cette feature est nécessaire..."
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Il est possible de mettre des titres
+
+        - ça permet de structurer le texte
+        - ça permet de faire des listes
+        - ça permet de mettre des liens
+        - ça permet de mettre des images
+        - ça permet de mettre des tableaux
+
+  - type: markdown
+    attributes:
+      value: |
+        # Ce que vous devez faire
+
+  - type: textarea
+    id: design
+    attributes:
+      label: Design
+      description: "Tâches liées au design"
+      placeholder: "Décris les tâches de design nécessaires..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: frontend
+    attributes:
+      label: Frontend
+      description: "Tâches liées au frontend"
+      placeholder: "Décris les tâches frontend nécessaires..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: backend
+    attributes:
+      label: Backend
+      description: "Tâches liées au backend"
+      placeholder: "Décris les tâches backend nécessaires..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: integration
+    attributes:
+      label: Intégration
+      description: "Tâches liées à l'intégration"
+      placeholder: "Décris les tâches d'intégration nécessaires..."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        Avant de vous jeter dans le code, assurez-vous de bien avoir compris ce qu'il faut faire et comment faire.
+        Au besoin pingez le lead Web dans le salon discord et posez vos questions.
+        Plusieurs personnes peuvent travailler ensemble sur cette issue.
+
+  - type: input
+    id: discord
+    attributes:
+      label: Lien du post Discord (optionnel)
+      placeholder: "https://discord.com/channels/..."
+    validations:
+      required: true
