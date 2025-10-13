@@ -1,9 +1,10 @@
 "use client";
 
-import { type PropsWithChildren, useState } from "react";
+import { type PropsWithChildren, useEffect, useState } from "react";
 
 import IconSwitch from "@components/DS/iconAnimate/iconSwitch";
 import { LocaleSwitcher } from "@feat/i18n/LocaleSwitcher";
+import { usePathname } from "@i18n/navigation";
 import { cn } from "@lib/utils";
 import type { buttonVariants } from "@ui/button";
 import type { VariantProps } from "class-variance-authority";
@@ -16,6 +17,7 @@ import {
 } from "framer-motion";
 
 export const HeaderBase = ({ children }: PropsWithChildren) => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [size, setSize] =
     useState<VariantProps<typeof buttonVariants>["size"]>("lg");
@@ -27,6 +29,10 @@ export const HeaderBase = ({ children }: PropsWithChildren) => {
   useMotionValueEvent(scrollY, "change", (latest) => {
     setSize(latest < 100 ? "lg" : "default");
   });
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <>
