@@ -1,6 +1,6 @@
 name: ✨ Feature Request
 description: Proposer une nouvelle fonctionnalité
-title: "[FEAT] "
+title: ""
 labels: ["enhancement"]
 assignees: []
 projects: ["13"]
@@ -30,44 +30,21 @@ body:
         - ça permet de mettre des images
         - ça permet de mettre des tableaux
 
-  - type: markdown
+  - type: textarea
+    id: tasks
     attributes:
+      label: Ce que vous devez faire
+      description: "Décris les tâches à effectuer"
       value: |
         # Ce que vous devez faire
 
-  - type: textarea
-    id: design
-    attributes:
-      label: Design
-      description: "Tâches liées au design"
-      placeholder: "Décris les tâches de design nécessaires..."
-    validations:
-      required: false
+        ## Design
 
-  - type: textarea
-    id: frontend
-    attributes:
-      label: Frontend
-      description: "Tâches liées au frontend"
-      placeholder: "Décris les tâches frontend nécessaires..."
-    validations:
-      required: false
+        ## Frontend
 
-  - type: textarea
-    id: backend
-    attributes:
-      label: Backend
-      description: "Tâches liées au backend"
-      placeholder: "Décris les tâches backend nécessaires..."
-    validations:
-      required: false
+        ## Backend
 
-  - type: textarea
-    id: integration
-    attributes:
-      label: Intégration
-      description: "Tâches liées à l'intégration"
-      placeholder: "Décris les tâches d'intégration nécessaires..."
+        ## Intégration
     validations:
       required: false
 
@@ -81,7 +58,7 @@ body:
   - type: input
     id: discord
     attributes:
-      label: Lien du post Discord (optionnel)
+      label: Lien du post Discord
       placeholder: "https://discord.com/channels/..."
     validations:
       required: true
