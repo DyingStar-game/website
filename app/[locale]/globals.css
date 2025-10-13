@@ -10,6 +10,8 @@
 
 @theme inline {
   --color-white: hsl(0, 0%, 100%);
+  --color-white-sun: var(--white-sun);
+  --color-blue-steel: var(--blue-steel);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -96,6 +98,8 @@
 }
 
 :root {
+  --white-sun: #fffffb;
+  --blue-steel: #4964ab;
   --background: #151413;
   --foreground: hsl(43.24, 100%, 51.57%);
   --muted: hsl(15, 4.88%, 16.08%);

@@ -1,20 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import IssueCardsFallback from "@app/[locale]/(layout)/contribute/_components/issueCardsFallback";
-import IssueSearch from "@app/[locale]/(layout)/contribute/_components/issueSearch";
-import IssueStatus from "@app/[locale]/(layout)/contribute/_components/issueStatus";
-import IssuesNotFound from "@app/[locale]/(layout)/contribute/_components/issuesNotFound";
+import { IssueCardsFallback } from "@app/[locale]/(layout)/contribute/_components/issueCardsFallback";
+import { IssueSearch } from "@app/[locale]/(layout)/contribute/_components/issueSearch";
+import { IssueStatus } from "@app/[locale]/(layout)/contribute/_components/issueStatus";
+import { IssuesNotFound } from "@app/[locale]/(layout)/contribute/_components/issuesNotFound";
 import { IssueCard } from "@components/DS/issues/issueCard";
 import { Paginate } from "@components/DS/paginate/paginate";
 import { useIssuesCountQuery } from "@feat/issue/get/useIssuesCountQuery.hook";
 import { usePaginatedIssuesQuery } from "@feat/issue/get/usePaginatedIssuesQuery.hook";
 import { LayoutSection } from "@feat/page/layout";
 import { useDebounce } from "@hooks/useDebounce";
-import { cn } from "@lib/utils";
 
 export const Issues = () => {
+  const issueCardsRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
@@ -38,6 +38,26 @@ export const Issues = () => {
     setPage(1);
   }, [debounced, selectedProjects]);
 
+  useEffect(() => {
+    if (issueCardsRef.current) {
+      const header = document.getElementById("fixed-header");
+      const headerOffset = header ? header.getBoundingClientRect().height : 0;
+
+      const parent = issueCardsRef.current.parentElement;
+      const styles = parent ? window.getComputedStyle(parent) : null;
+      const gap = parseFloat(styles ? styles.gap : "0");
+
+      const elementPosition =
+        issueCardsRef.current.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerOffset - gap;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  }, [page]);
+
   return (
     <LayoutSection>
       <IssueStatus projectCount={projectCount} />
@@ -51,7 +71,8 @@ export const Issues = () => {
       />
 
       <div
-        className={cn("grid grid-cols-1 gap-8 lg:grid-cols-2 2xl:grid-cols-3")}
+        className="grid grid-cols-1 gap-8 lg:grid-cols-2 2xl:grid-cols-3"
+        ref={issueCardsRef}
       >
         {!isFetching ? (
           projectIssues && projectIssues.issues.length > 0 ? (

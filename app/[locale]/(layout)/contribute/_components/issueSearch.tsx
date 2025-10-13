@@ -4,12 +4,13 @@ import IssueSearchButtonFallback from "@app/[locale]/(layout)/contribute/_compon
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import type { IssuesCountType } from "@feat/issue/get/IssuesCount.model";
+import type { LayoutSectionProps } from "@feat/page/layout";
 import { LayoutSection } from "@feat/page/layout";
 import { cn } from "@lib/utils";
 import { Circle, CircleCheckBig, Minus, SearchIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
-type IssueSearchProps = {
+type IssueSearchProps = LayoutSectionProps & {
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
   projectCount?: IssuesCountType;
@@ -17,19 +18,22 @@ type IssueSearchProps = {
   selectedProjects: string[];
 };
 
-const IssueSearch = ({
+export const IssueSearch = ({
   query,
   setQuery,
   projectCount,
   selectedProjects,
   toggleProject,
+  className,
+  ...props
 }: IssueSearchProps) => {
   const t = useTranslations("Issue.IssueSearch");
   const formatter = useFormatter();
   return (
     <LayoutSection
-      className="gap-5 rounded-md bg-card p-4 sm:p-8"
+      className={cn("gap-5 rounded-md bg-card p-4 sm:p-8", className)}
       padding="none"
+      {...props}
     >
       <Input
         id="search"
@@ -76,5 +80,3 @@ const IssueSearch = ({
     </LayoutSection>
   );
 };
-
-export default IssueSearch;

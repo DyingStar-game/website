@@ -1,0 +1,69 @@
+name: ✨ Feature Request
+description: Proposer une nouvelle fonctionnalité
+labels: ["enhancement"]
+assignees: []
+type: "Feature"
+projects: ["13"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        On commence par une mise en contexte, ici on veut expliquer ce qu'on veut faire dans notre issue.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexte
+      description: Explique le problème ou le besoin que cette feature adresse
+      placeholder: "Décris le contexte et pourquoi cette feature est nécessaire..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: design
+    attributes:
+      label: Design
+      description: "Tâches liées au design"
+      placeholder: "Décris les tâches de design nécessaires..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: frontend
+    attributes:
+      label: Frontend
+      description: "Tâches liées au frontend"
+      placeholder: "Décris les tâches frontend nécessaires..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: backend
+    attributes:
+      label: Backend
+      description: "Tâches liées au backend"
+      placeholder: "Décris les tâches backend nécessaires..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: integration
+    attributes:
+      label: Intégration
+      description: "Tâches liées à l'intégration (CI/CD, observabilité, doc, etc.)"
+      placeholder: "Décris les tâches d'intégration nécessaires..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: before
+    attributes:
+      label: Avant de vous jeter dans le code
+      value: |
+        Avant de vous jeter dans le code, assurez-vous de bien avoir compris ce qu'il faut faire et comment faire.  
+        Au besoin, pingez le lead Web dans le salon Discord et posez vos questions.  
+        Plusieurs personnes peuvent travailler ensemble sur cette issue.
+
+        [Post Discord]()
+    validations:
+      required: false

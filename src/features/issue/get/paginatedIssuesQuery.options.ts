@@ -7,7 +7,7 @@ export const paginatedIssuesQueryOptions = ({
   page = 1,
   query = "",
   projects = [],
-  pageSize = 6,
+  pageSize = 12,
 }: Partial<GetPaginatedIssuesType> = {}) => {
   return {
     queryKey: githubFactory.PaginatedIssues({

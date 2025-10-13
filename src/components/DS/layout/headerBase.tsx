@@ -1,9 +1,10 @@
 "use client";
 
-import { type PropsWithChildren, useState } from "react";
+import { type PropsWithChildren, useEffect, useState } from "react";
 
 import IconSwitch from "@components/DS/iconAnimate/iconSwitch";
 import { LocaleSwitcher } from "@feat/i18n/LocaleSwitcher";
+import { usePathname } from "@i18n/navigation";
 import { cn } from "@lib/utils";
 import type { buttonVariants } from "@ui/button";
 import type { VariantProps } from "class-variance-authority";
@@ -16,6 +17,7 @@ import {
 } from "framer-motion";
 
 export const HeaderBase = ({ children }: PropsWithChildren) => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [size, setSize] =
     useState<VariantProps<typeof buttonVariants>["size"]>("lg");
@@ -28,9 +30,14 @@ export const HeaderBase = ({ children }: PropsWithChildren) => {
     setSize(latest < 100 ? "lg" : "default");
   });
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   return (
     <>
       <motion.header
+        id="fixed-header"
         style={{ height, backgroundColor: bg }}
         className={cn(
           "fixed inset-x-0 top-0 z-50 flex items-start justify-center gap-4 overflow-hidden p-4 shadow-md xl:items-center xl:p-7 2xl:gap-8",

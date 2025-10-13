@@ -10,6 +10,8 @@ export const env = createEnv({
     GITHUB_TOKEN: z.string(),
 
     LAST_YOUTUBE_ID: z.string().optional(),
+
+    MAINTENANCE_END: z.string().optional(),
   },
   experimental__runtimeEnv: process.env,
 });
