@@ -12,7 +12,7 @@
     "noEmit": true,
     "paths": {
       "@app/*": ["../app/*"],
-      "@assets/*": ["public/assets/*"],
+      "@assets/*": ["../public/assets/*"],
       "@components/*": ["components/*"],
       "@feat/*": ["features/*"],
       "@hooks/*": ["hooks/*"],
