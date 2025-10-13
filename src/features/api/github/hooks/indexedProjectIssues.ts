@@ -12,6 +12,7 @@ import type { FacetHit } from "meilisearch";
 const ISSUES_INDEX = "gh_issues";
 
 const SORTABLE_ATTRIBUTES = [
+  "priority",
   "updatedAt",
 ] as const satisfies (keyof ProjectIssueType)[];
 
@@ -109,7 +110,10 @@ export const searchProjectIssues = async (
     hitsPerPage: pageSize,
     page,
     filter,
-    sort: [`${sortableAttribute("updatedAt")}:desc`],
+    sort: [
+      `${sortableAttribute("priority")}:asc`,
+      `${sortableAttribute("updatedAt")}:desc`,
+    ],
   });
 
   const pageResponse: PaginateIndexedProjectIssuesType = {
