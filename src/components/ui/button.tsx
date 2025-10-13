@@ -23,7 +23,7 @@ const buttonVariants = cva(
           "border border-transparent font-light hover:border-primary [&.active]:bg-foreground [&.active]:text-background",
         link: "text-primary underline-offset-4 hover:underline",
         invert:
-          "border:transparent border bg-background text-foreground hover:border-background hover:bg-background/25 hover:text-background",
+          "border:transparent border-background bg-background text-foreground hover:border-background-3 hover:bg-linear-to-br hover:from-background-1 hover:to-background-3 hover:text-foreground",
         success: "bg-success text-success-foreground hover:bg-success/90",
         warning: "bg-warning text-warning-foreground hover:bg-warning/90",
         filter:
@@ -34,7 +34,7 @@ const buttonVariants = cva(
           "px-6 py-2 has-[>svg:not(:only-child)]:p-3 [&_svg:not([class*='size-'])]:size-5 xl:[&_svg:not([class*='size-'])]:size-6",
         sm: "px-5 py-2 leading-none has-[>svg]:px-5",
         lg: "px-8 py-5 text-base has-[>svg:not(:only-child)]:px-6 2xl:px-10 2xl:py-6 2xl:text-xl 2xl:has-[>svg:not(:only-child)]:px-6",
-        xl: "gap-4 rounded px-5 py-5 text-3xl font-extralight md:text-4xl lg:px-10 lg:py-6 lg:text-5xl lg:has-[>svg]:px-4 [&_svg:not([class*='size-'])]:size-8 md:[&_svg:not([class*='size-'])]:size-9 lg:[&_svg:not([class*='size-'])]:size-12",
+        xl: "gap-4 rounded px-5 py-5 text-2xl font-extralight sm:text-3xl md:text-4xl lg:px-10 lg:py-6 lg:text-5xl lg:has-[>svg]:px-4 [&_svg:not([class*='size-'])]:size-8 md:[&_svg:not([class*='size-'])]:size-9 lg:[&_svg:not([class*='size-'])]:size-12",
         icon: "size-9",
       },
     },
