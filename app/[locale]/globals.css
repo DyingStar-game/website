@@ -98,8 +98,8 @@
 }
 
 :root {
-  --white-sun:#FFFFFB;
-  --blue-steel:#4964AB;
+  --white-sun: #fffffb;
+  --blue-steel: #4964ab;
   --background: #151413;
   --foreground: hsl(43.24, 100%, 51.57%);
   --muted: hsl(15, 4.88%, 16.08%);
