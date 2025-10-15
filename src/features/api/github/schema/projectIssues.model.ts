@@ -13,6 +13,7 @@ export const projectIssueSchema = z.object({
   priority: z.string().nullable(),
   team: z.string().nullable(),
   size: z.enum(IssueSize).nullable(),
+  techno: z.string().nullable(),
   discordUrl: z.string().nullable(),
   hasAssignees: z.boolean(),
   assignees: z.array(

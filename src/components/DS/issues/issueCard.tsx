@@ -114,6 +114,11 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
                 <Tag /> {label}
               </Badge>
             ))}
+            {issue.techno && (
+              <Badge key={1} variant="category">
+                <Tag /> {issue.techno}
+              </Badge>
+            )}
           </div>
         )}
       </div>

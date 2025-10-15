@@ -38,6 +38,7 @@ export const GraphqlProjectIssueResponseToProjectIssuesTypeMapper = (
         })),
         size: (getFieldByName("Size")?.name?.trim() ??
           null) as IssueSize | null,
+        techno: getFieldByName("Techno")?.name?.trim() ?? null,
         discordUrl: getFieldByName("Post Discord")?.text?.trim() ?? null,
       };
 
