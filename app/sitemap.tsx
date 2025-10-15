@@ -55,10 +55,9 @@ const generateNewsPageEntries = (): SitemapEntry[] => {
 };
 
 const generateNewsDetailPageEntries = async (): Promise<SitemapEntry[][]> => {
-  const news = await getNews(DEFAULT_LOCALE);
-
-  return LOCALES.map((locale) =>
-    news.map((news) =>
+  const allNews = LOCALES.map(async (locale) => {
+    const news = await getNews(locale);
+    return news.map((news) =>
       createSitemapEntry(
         createLocalizedUrl(
           locale,
@@ -66,8 +65,10 @@ const generateNewsDetailPageEntries = async (): Promise<SitemapEntry[][]> => {
         ),
         news.attributes.date,
       ),
-    ),
-  );
+    );
+  });
+
+  return Promise.all(allNews);
 };
 
 const generateContributePageEntries = (): SitemapEntry[] => {
