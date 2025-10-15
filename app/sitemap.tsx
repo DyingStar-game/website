@@ -1,48 +1,100 @@
 import { LINKS } from "@feat/navigation/Links";
 import { getNews } from "@feat/news/newsManager";
-import { LOCALES } from "@i18n/config";
+import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
 import { createLocalizedUrl } from "@lib/serverUrl";
 import type { MetadataRoute } from "next";
-import type { Locale } from "next-intl";
 
 type SitemapEntry = MetadataRoute.Sitemap[number];
 
 const createSitemapEntry = (
-  url: SitemapEntry["url"],
-  lastModified: SitemapEntry["lastModified"],
-  changeFrequency: SitemapEntry["changeFrequency"] = "monthly",
-): SitemapEntry => ({
-  url,
-  lastModified,
-  changeFrequency,
-});
-
-const generateHomePageEntries = (): SitemapEntry[] => {
-  return LOCALES.map((locale) =>
-    createSitemapEntry(createLocalizedUrl(locale), new Date()),
-  );
+  url: string,
+  lastModified: Date | string,
+  changeFrequency: "monthly" | "weekly" | "daily" = "monthly",
+  alternatesLanguages?: Record<string, string>,
+): SitemapEntry => {
+  return {
+    url,
+    lastModified,
+    changeFrequency,
+    ...(alternatesLanguages && {
+      alternates: {
+        languages: alternatesLanguages,
+      },
+    }),
+  };
 };
 
-const generateNewsEntries = async (locale: Locale): Promise<SitemapEntry[]> => {
-  const news = await getNews(locale);
+const createSitemapEntries = (
+  path: string,
+  lastModified: Date | string,
+  changeFrequency: "monthly" | "weekly" | "daily" = "monthly",
+): SitemapEntry[] => {
+  // Create alternates entries
+  const alternatesLanguages: Record<string, string> = {};
+  LOCALES.forEach((locale) => {
+    alternatesLanguages[locale] = createLocalizedUrl(locale, path);
+  });
+  alternatesLanguages["x-default"] = createLocalizedUrl(DEFAULT_LOCALE, path);
 
-  return news.map((news) =>
+  return LOCALES.map((locale) =>
     createSitemapEntry(
-      createLocalizedUrl(
-        locale,
-        LINKS.News.Detail.href({ newsSlug: news.slug }),
-      ),
-      news.attributes.date,
+      createLocalizedUrl(locale, path),
+      lastModified,
+      changeFrequency,
+      alternatesLanguages,
     ),
   );
 };
 
+const generateHomePageEntries = (): SitemapEntry[] => {
+  return createSitemapEntries(LINKS.Landing.Landing.href(), new Date());
+};
+
+const generateNewsPageEntries = (): SitemapEntry[] => {
+  return createSitemapEntries(LINKS.News.All.href(), new Date());
+};
+
+const generateNewsDetailPageEntries = async (): Promise<SitemapEntry[][]> => {
+  const news = await getNews(DEFAULT_LOCALE);
+
+  return LOCALES.map((locale) =>
+    news.map((news) =>
+      createSitemapEntry(
+        createLocalizedUrl(
+          locale,
+          LINKS.News.Detail.href({ newsSlug: news.slug }),
+        ),
+        news.attributes.date,
+      ),
+    ),
+  );
+};
+
+const generateContributePageEntries = (): SitemapEntry[] => {
+  return createSitemapEntries(
+    LINKS.Project.Contribute.href(),
+    new Date(),
+    "daily",
+  );
+};
+
+const generateProjectPageEntries = (): SitemapEntry[] => {
+  return createSitemapEntries(LINKS.Project.Project.href(), new Date());
+};
+
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const homepageEntries = generateHomePageEntries();
-  const newsEntries = await Promise.all(
-    LOCALES.map(async (locale) => generateNewsEntries(locale)),
-  );
+  const projectPageEntries = generateProjectPageEntries();
+  const contributePageEntries = generateContributePageEntries();
+  const newsPageEntries = generateNewsPageEntries();
+  const newsDetailPageEntries = await generateNewsDetailPageEntries();
 
-  return [...homepageEntries, ...newsEntries.flat()];
+  return [
+    ...homepageEntries,
+    ...projectPageEntries,
+    ...contributePageEntries,
+    ...newsPageEntries,
+    ...newsDetailPageEntries.flat(),
+  ];
 };
 export default sitemap;

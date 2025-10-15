@@ -64,8 +64,8 @@ export const Footer = () => {
           </p>
           <div className="text-gray-400 flex items-center space-x-6 text-sm">
             <span>Version {env.NEXT_PUBLIC_APP_VERSION}</span>
-            <span>•</span>
-            <span>Serveurs: Unknown</span>
+            {/* <span>•</span>
+            <span>Serveurs: Unknown</span> */}
             <div className="bg-orange-500 h-2 w-2 animate-pulse rounded-full"></div>
           </div>
         </motion.div>
