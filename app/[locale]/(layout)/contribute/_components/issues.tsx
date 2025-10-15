@@ -19,6 +19,7 @@ import type { ItemList, WithContext } from "schema-dts";
 
 export const Issues = () => {
   const issueCardsRef = useRef<HTMLDivElement>(null);
+  const previousPage = useRef<number>(1);
   const [query, setQuery] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
@@ -44,6 +45,13 @@ export const Issues = () => {
   }, [debounced, selectedProjects]);
 
   useEffect(() => {
+    // Ignore first render
+    if (previousPage.current === page) {
+      return;
+    }
+
+    previousPage.current = page;
+
     if (issueCardsRef.current) {
       const header = document.getElementById("fixed-header");
       const headerOffset = header ? header.getBoundingClientRect().height : 0;

@@ -15,15 +15,8 @@ const nextConfig: NextConfig = {
   },
   typedRoutes: true,
   images: {
-    unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        port: "",
-        pathname: "/**",
-      },
-    ],
+    imageSizes: [32, 64, 96, 128],
+    deviceSizes: [640, 768, 1024, 1280, 1536],
   },
   output: "standalone",
   transpilePackages: ["@t3-oss/env-nextjs", "@t3-oss/env-core"],
