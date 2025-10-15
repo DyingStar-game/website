@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
   images: {
     imageSizes: [32, 64, 96, 128],
     deviceSizes: [640, 768, 1024, 1280, 1536],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
   output: "standalone",
   transpilePackages: ["@t3-oss/env-nextjs", "@t3-oss/env-core"],
