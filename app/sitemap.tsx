@@ -8,7 +8,7 @@ type SitemapEntry = MetadataRoute.Sitemap[number];
 
 const createSitemapEntry = (
   url: string,
-  lastModified: Date | string,
+  lastModified: Date | string = new Date(),
   changeFrequency: "monthly" | "weekly" | "daily" = "monthly",
   alternatesLanguages?: Record<string, string>,
 ): SitemapEntry => {
@@ -26,7 +26,7 @@ const createSitemapEntry = (
 
 const createSitemapEntries = (
   path: string,
-  lastModified: Date | string,
+  lastModified: Date | string = new Date(),
   changeFrequency: "monthly" | "weekly" | "daily" = "monthly",
 ): SitemapEntry[] => {
   // Create alternates entries
@@ -47,11 +47,11 @@ const createSitemapEntries = (
 };
 
 const generateHomePageEntries = (): SitemapEntry[] => {
-  return createSitemapEntries(LINKS.Landing.Landing.href(), new Date());
+  return createSitemapEntries(LINKS.Landing.Landing.href());
 };
 
 const generateNewsPageEntries = (): SitemapEntry[] => {
-  return createSitemapEntries(LINKS.News.All.href(), new Date());
+  return createSitemapEntries(LINKS.News.All.href());
 };
 
 const generateNewsDetailPageEntries = async (): Promise<SitemapEntry[][]> => {
@@ -80,7 +80,15 @@ const generateContributePageEntries = (): SitemapEntry[] => {
 };
 
 const generateProjectPageEntries = (): SitemapEntry[] => {
-  return createSitemapEntries(LINKS.Project.Project.href(), new Date());
+  return createSitemapEntries(LINKS.Project.Project.href());
+};
+
+const generatePrivacyPageEntries = (): SitemapEntry[] => {
+  return createSitemapEntries(LINKS.Legal.privacy.href());
+};
+
+const generateTermsPageEntries = (): SitemapEntry[] => {
+  return createSitemapEntries(LINKS.Legal.terms.href());
 };
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
@@ -89,6 +97,8 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const contributePageEntries = generateContributePageEntries();
   const newsPageEntries = generateNewsPageEntries();
   const newsDetailPageEntries = await generateNewsDetailPageEntries();
+  const privacyPageEntries = generatePrivacyPageEntries();
+  const termsPageEntries = generateTermsPageEntries();
 
   return [
     ...homepageEntries,
@@ -96,6 +106,8 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     ...contributePageEntries,
     ...newsPageEntries,
     ...newsDetailPageEntries.flat(),
+    ...privacyPageEntries,
+    ...termsPageEntries,
   ];
 };
 export default sitemap;
