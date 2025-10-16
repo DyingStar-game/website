@@ -1,5 +1,8 @@
 import { updateProjectIssues } from "@feat/api/github/hooks/indexedProjectIssues";
-import { env } from "@lib/env/server";
+import {
+  logWebhookMiddleware,
+  validateWebhookSecretMiddleware,
+} from "@lib/middleware/webhook";
 import { route } from "@lib/zodRoute";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -11,10 +14,9 @@ export const POST = route
       secret: z.string(),
     }),
   )
-  .handler(async (_, { query }) => {
-    if (query.secret !== env.GH_WEBHOOK_SECRET)
-      return NextResponse.json({ message: "Invalid Access" }, { status: 403 });
-
+  .use(validateWebhookSecretMiddleware)
+  .use(logWebhookMiddleware)
+  .handler(async () => {
     await updateProjectIssues();
 
     return NextResponse.json({ message: "DB loaded" }, { status: 200 });

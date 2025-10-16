@@ -1,4 +1,5 @@
 import { ApplicationError } from "@lib/errors/applicationError";
+import { WebhookError } from "@lib/errors/webhookError";
 import { ZodRouteError } from "@lib/errors/zodRouteError";
 import { logger } from "@lib/logger";
 import { createZodRoute } from "next-zod-route";
@@ -26,6 +27,14 @@ export const route = createZodRoute({
         {
           status: e.status,
         },
+      );
+    }
+
+    if (e instanceof WebhookError) {
+      logger.debug("[DEV] - WebhookError", e);
+      return NextResponse.json(
+        { message: e.message },
+        { status: e.statusCode },
       );
     }
 
