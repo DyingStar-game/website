@@ -110,4 +110,5 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     ...termsPageEntries,
   ];
 };
+
 export default sitemap;
