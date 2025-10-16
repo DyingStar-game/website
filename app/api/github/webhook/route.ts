@@ -8,14 +8,8 @@ import { handleGithubWebhook } from "@lib/github/webhook";
 import { logWebhookMiddleware } from "@lib/middleware/webhook";
 import { route } from "@lib/zodRoute";
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 export const POST = route
-  .query(
-    z.object({
-      secret: z.string(),
-    }),
-  )
   .body(IssuesWebhookSchema)
   .use(logWebhookMiddleware)
   .handler(async (request, { body }) => {
