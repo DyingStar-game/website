@@ -5,10 +5,7 @@ import {
 import { IssuesWebhookSchema } from "@feat/issue/get/issuesWebhook.model";
 import { env } from "@lib/env/server";
 import { handleGithubWebhook } from "@lib/github/webhook";
-import {
-  logWebhookMiddleware,
-  validateWebhookSecretMiddleware,
-} from "@lib/middleware/webhook";
+import { logWebhookMiddleware } from "@lib/middleware/webhook";
 import { route } from "@lib/zodRoute";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -20,7 +17,6 @@ export const POST = route
     }),
   )
   .body(IssuesWebhookSchema)
-  .use(validateWebhookSecretMiddleware)
   .use(logWebhookMiddleware)
   .handler(async (request, { body }) => {
     if (env.GH_WEBHOOK_SECRET) {

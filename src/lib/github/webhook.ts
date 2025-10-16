@@ -23,7 +23,7 @@ export const handleGithubWebhook = async (request: Request, body: string) => {
       logger.debug({
         body,
         secret: env.GH_WEBHOOK_SECRET,
-        headerShouldBe: `x-hub-signature-256: sha256=${signToUse}`,
+        headerShouldBe: `x-hub-signature-256: ${signToUse}`,
         headerReceive: `x-hub-signature-256: ${signature}`,
       });
     }
