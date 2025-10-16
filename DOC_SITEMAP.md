@@ -11,7 +11,7 @@ This guide explains the steps to keep the sitemap up to date when adding, modify
 
 ## 2. Modifying a Page or URL
 
-- **Update the route** in `@feat/navigation/Links` and everywhere it is used.
+- **Update the route** in `@feat/navigation/Links`.
 - **Adapt the corresponding generator function** in `app/sitemap.tsx` if the path or logic changes.
 - **Check alternates** (multilingual links) to ensure they point to the correct paths.
 - **Test the sitemap** to ensure the modified page appears correctly.
