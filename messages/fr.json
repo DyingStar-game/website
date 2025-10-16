@@ -65,7 +65,7 @@
   "Links": {
     "Community": {
       "Discord": "Discord",
-      "Github": "Github"
+      "Github": "GitHub"
     },
     "Lore": {
       "History": "Lore"
@@ -80,7 +80,7 @@
   },
   "LocaleSwitcher": {
     "en": "Anglais",
-    "fr": "Francais",
+    "fr": "Français",
     "label": "Langue"
   },
   "News": {
