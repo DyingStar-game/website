@@ -61,6 +61,7 @@ const HomePage = async (props: PageProps<"/[locale]">) => {
     <>
       <CtaWithButton
         title={t("CTA.contribute.title")}
+        titleAs={"h1"}
         action={{
           label: t("CTA.contribute.action"),
           href: LINKS.Project.Contribute.href(),

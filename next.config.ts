@@ -15,8 +15,9 @@ const nextConfig: NextConfig = {
   },
   typedRoutes: true,
   images: {
-    imageSizes: [32, 64, 96, 128],
-    deviceSizes: [640, 768, 1024, 1280, 1536],
+    imageSizes: [320, 480, 640, 768, 1024, 1280, 1536],
+    qualities: [75, 80],
+    deviceSizes: [320, 480, 640, 768, 1024, 1280, 1536],
     remotePatterns: [
       {
         protocol: "https",

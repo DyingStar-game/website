@@ -6,6 +6,7 @@ import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export type NewsItemLightProps = {
   news: News;
@@ -13,6 +14,8 @@ export type NewsItemLightProps = {
 };
 
 const NewsItemLight = ({ news, className }: NewsItemLightProps) => {
+  const t = useTranslations("News.NewsItemLight");
+
   return (
     <article
       className={cn(
@@ -50,6 +53,7 @@ const NewsItemLight = ({ news, className }: NewsItemLightProps) => {
             "w-auto",
           )}
         >
+          <span className="sr-only">{t("moreInfo")}</span>
           <ChevronRight />
         </Link>
       </div>

@@ -117,7 +117,12 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
           <span className="text-5xl">{attributes.titleIcon}</span>
           {attributes.title}
         </Typography>
-        <OptimizedImage src={attributes.coverUrl} alt={attributes.title} />
+        <OptimizedImage
+          src={attributes.coverUrl}
+          alt={attributes.title}
+          priority
+          loading="eager"
+        />
         <ServerMdx className="mb-8" source={news.content} />
         <NewsItemTags tags={attributes.tags} />
         <NewsItemAuthor author={attributes.author} date={attributes.date} />

@@ -14,7 +14,7 @@ export const OptimizedImage = ({
   width,
   height,
   className,
-  quality = 95,
+  quality = 80,
   containerSizes,
   ...props
 }: OptimizedImageProps) => {
@@ -22,13 +22,15 @@ export const OptimizedImage = ({
   const imgHeight = height ? Number(height) : 1440;
 
   const defaultSizes = `
-    (max-width: 640px) calc(100vw - 4rem), 
-    (max-width: 768px) calc(640px - 4rem), 
-    (max-width: 1024px) calc(768px - 4rem), 
-    (max-width: 1280px) calc(1024px - 4rem), 
-    (max-width: 1536px) calc(1280px - 4rem), 
-    calc(1536px - 4rem)
-  `; // Optimize for tailwind container sizes + container padding (px-4 => 4rem)
+    (max-width: 320px) 100vw,
+    (max-width: 480px) 320px,
+    (max-width: 640px) 480px, 
+    (max-width: 768px) 640px, 
+    (max-width: 1024px) 768px, 
+    (max-width: 1280px) 1024px, 
+    (max-width: 1536px) 1280px, 
+    1536px
+  `; // Optimize for tailwind container sizes
 
   return (
     <Image
