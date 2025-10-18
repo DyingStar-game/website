@@ -1,6 +1,10 @@
+import type {
+  GenericLinkSchema,
+  NavigationLink,
+} from "@feat/navigation/navigation.model";
+import { env } from "@lib/env/client";
 import { Info } from "lucide-react";
 import { z } from "zod";
-import type { GenericLinkSchema, NavigationLink } from "./navigation.type";
 
 // Constantes pour les chemins
 const PATHS = {
@@ -48,12 +52,12 @@ export const LINKS = {
     Landing: createLink("/", "Project", undefined, false),
   },
   News: {
-    All: createLink("/news", "All News", undefined, false),
-    News: createLink(`${PATHS.NEWS}`, "News", { Icon: Info }, true),
+    All: createLink("/news", "Links.News.All", undefined, false),
+    Detail: createLink(`${PATHS.NEWS}`, "News", { Icon: Info }, true),
   },
 
   Project: {
-    Tickets: createLink("/tickets", "Tickets", { disabled: true }, false),
+    Contribute: createLink("/contribute", "Links.Project.Contribute", {}),
     Launcher: createLink("/launcher", "Launcher", { disabled: true }, false),
     Configuration: createLink(
       "/configuration",
@@ -63,21 +67,34 @@ export const LINKS = {
     ),
     Changelog: createLink("/changelog", "Changelog", { disabled: true }, false),
     Roadmap: createLink("/roadmap", "Roadmap", { disabled: true }, false),
+    Project: createLink("/project", "Links.Project.Project", {}, false),
   },
 
   Lore: {
-    History: createLink("/history", "History", { disabled: true }, false),
+    History: createLink(
+      "/history",
+      "Links.Lore.History",
+      { disabled: true },
+      false,
+    ),
     Items: createLink("/items", "Items", { disabled: true }, false),
     Fauna: createLink("/fauna", "Fauna", { disabled: true }, false),
     Tutorials: createLink("/tutorials", "Tutorials", { disabled: true }, false),
   },
 
   Community: {
-    Discord: createLink("/discord", "Discord", { disabled: true }, false),
-    Github: createLink("/github", "GitHub", { disabled: true }, false),
-    Youtube: createLink("/youtube", "YouTube", { disabled: true }, false),
-    Forums: createLink("/forums", "Forums", { disabled: true }, false),
-    Wiki: createLink("/wiki", "Wiki", { disabled: true }, false),
+    Discord: createLink(
+      `https://discord.gg/${env.NEXT_PUBLIC_DISCORD_INVITE_ID}`,
+      "Links.Community.Discord",
+      {},
+      false,
+    ),
+    Github: createLink(
+      `https://github.com/${env.NEXT_PUBLIC_GITHUB_REPO}`,
+      "Links.Community.Github",
+      {},
+      false,
+    ),
   },
 
   Support: {

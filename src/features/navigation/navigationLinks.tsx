@@ -1,16 +1,16 @@
 "use client";
 
 import { Typography } from "@components/DS/typography";
-import { useCurrentPath } from "@hooks/useCurrentPath";
-import { cn } from "@lib/utils";
-import { LayoutGroup, motion } from "framer-motion";
-import Link from "next/link";
 import type {
   GeneratedNavigationLink,
   GeneratedNavigationLinksGroup,
   GeneratedNavigationLinksGroups,
   GeneratedNavigationLinks as GeneratedNavigationLinksSchema,
-} from "./navigation.type";
+} from "@feat/navigation/navigation.model";
+import { useCurrentPath } from "@hooks/useCurrentPath";
+import { cn } from "@lib/utils";
+import { LayoutGroup, motion } from "framer-motion";
+import Link from "next/link";
 
 const MotionLink = motion(Link);
 
@@ -54,7 +54,7 @@ export const NavigationLinks = ({
                       {currentPath === link.href && (
                         <motion.div
                           layoutId={"motion-link"}
-                          className="bg-accent absolute inset-0 rounded-lg"
+                          className="absolute inset-0 rounded-lg bg-accent"
                         ></motion.div>
                       )}
                       <div className="relative flex w-full items-center gap-x-1.5 text-left">

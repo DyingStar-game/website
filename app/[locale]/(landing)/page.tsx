@@ -1,38 +1,35 @@
+import { NewsSection } from "@app/[locale]/(landing)/_components/newsSection";
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
-import { Typography } from "@components/DS/typography";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
 import { LINKS } from "@feat/navigation/Links";
-import NewsItem from "@feat/news/NewsItem";
-import NewsItemLight from "@feat/news/NewsItemLight";
-import { getLastNews } from "@feat/news/news-manager";
-import {
-  LayoutContentTitle,
-  LayoutMain,
-  LayoutSection,
-} from "@feat/page/layout";
-import type { Locale } from "next-intl";
-import { getLocale, getTranslations } from "next-intl/server";
+import { LayoutMain } from "@feat/page/layout";
+// This is necessary because NEXT_PUBLIC_DISCORD_INVITE_ID is a variable that can be used in both the front and back ends.
+import { env } from "@lib/env/client";
+import { getTranslations } from "next-intl/server";
 
-export default async function HomePage() {
+const HomePage = async () => {
   const t = await getTranslations("Landing");
 
   return (
     <>
       <CtaWithButton
         title={t("CTA.contribute.title")}
-        action={{ label: t("CTA.contribute.action"), href: "#" }} //TODO: href
+        action={{
+          label: t("CTA.contribute.action"),
+          href: LINKS.Project.Contribute.href(),
+        }}
       />
 
       <LayoutMain size="full">
         <NewsSection />
-        <ProjectDescriptionSection />
-        <TaskSection />
+        {/* <ProjectDescriptionSection /> */}
+        {/* <TaskSection /> */}
         <CtaWithButton
           title={t("CTA.discord.title")}
           action={{
             label: t("CTA.discord.action"),
             icon: <LogoDiscordSvg />,
-            href: `https://discord.gg/${process.env.DISCORD_INVITE_ID ?? "K4a2mwwBAM"}`,
+            href: `https://discord.gg/${env.NEXT_PUBLIC_DISCORD_INVITE_ID}`,
             target: "_blank",
           }}
         />
@@ -40,65 +37,6 @@ export default async function HomePage() {
       </LayoutMain>
     </>
   );
-}
-
-const NewsSection = async () => {
-  const t = await getTranslations("Landing.News");
-  const locale = await getLocale();
-  const lastNews = await getLastNews(locale as Locale, 5);
-  return (
-    <LayoutSection className="gap-14" size="container">
-      <LayoutContentTitle
-        title={t("title")}
-        action={{ label: t("action"), href: LINKS.News.All.href() }}
-      />
-      <div className="divide-solide flex flex-col gap-7 divide-y divide-input border-b border-input">
-        {lastNews.map((news, index) =>
-          index < 2 ? (
-            <NewsItem key={news.slug} news={news} className="pb-7" />
-          ) : (
-            <NewsItemLight key={news.slug} news={news} className="pb-7" />
-          ),
-        )}
-      </div>
-    </LayoutSection>
-  );
 };
 
-const ProjectDescriptionSection = async () => {
-  const t = await getTranslations("Landing.ProjectDescription");
-  return (
-    <LayoutSection size="container" className="gap-6">
-      <LayoutContentTitle title={t("title")} />
-      <Typography variant="p">{t("content")}</Typography>
-    </LayoutSection>
-  );
-};
-
-const TaskSection = async () => {
-  const t = await getTranslations("Landing.Task");
-
-  return (
-    <LayoutSection className="gap-14" size="container">
-      <LayoutContentTitle
-        title={t("title")}
-        action={{ label: t("action"), href: "#" }}
-      />
-      <div className="divide-solide flex flex-col gap-7 divide-y divide-input border-b border-input">
-        Add TaskCard here
-      </div>
-    </LayoutSection>
-  );
-};
-
-// const YoutubeSection = async () => {
-//   return (
-//     <LayoutSection size="container">
-//       <iframe
-//         className="aspect-video"
-//         src={`https://www.youtube.com/embed/${process.env.LAST_YOUTUBE_ID ?? "rB1vgn3QwoY"}`}
-//         allowFullScreen
-//       />
-//     </LayoutSection>
-//   );
-// };
+export default HomePage;

@@ -69,7 +69,7 @@ export const LayoutMain = ({
   );
 };
 
-type LayoutSectionProps = React.ComponentProps<"section"> &
+export type LayoutSectionProps = React.ComponentProps<"section"> &
   VariantProps<typeof layoutVariants>;
 
 export const LayoutSection = ({

@@ -1,13 +1,14 @@
 import { Suspense } from "react";
 
+import { Providers } from "@app/[locale]/providers";
 import { Footer } from "@components/DS/layout/footer";
 import { Header } from "@components/DS/layout/header";
-import { FloatingLegalFooter } from "@components/DS/legal/floating-legal-footer";
-import { TailwindIndicator } from "@components/utils/tailwind-indicator";
-import { NextTopLoader } from "@feat/page/next-top-loader";
-import { ServerToaster } from "@feat/server-sonner/server-toaster";
+import { FloatingLegalFooter } from "@components/DS/legal/floatingLegalFooter";
+import { TailwindIndicator } from "@components/utils/tailwindIndicator";
+import { NextTopLoader } from "@feat/page/nextTopLoader";
+import { ServerToaster } from "@feat/serverSonner/serverToaster";
 import { routing } from "@i18n/routing";
-import { getServerUrl } from "@lib/server-url";
+import { getServerUrl } from "@lib/serverUrl";
 import { cn } from "@lib/utils";
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -15,10 +16,9 @@ import { setRequestLocale } from "next-intl/server";
 import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { SiteConfig } from "site-config";
+import { SiteConfig } from "siteConfig";
 
 import "./globals.css";
-import { Providers } from "./providers";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 const PoppinsFont = Poppins({
-  weight: ["200", "300", "400", "500", "600", "700"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });
 
@@ -62,7 +62,7 @@ export default async function LocaleLayout({
         suppressHydrationWarning
         className={cn(
           "min-h-screen antialiased",
-          // "before:top-40 before:w-2/3 before:min-w-[1800px] before:bg-[url('/images/bg-circles.svg')]",
+          // "before:top-40 before:w-2/3 before:min-w-[1800px] before:bg-[url('/assets/images/bg-circles.svg')]",
           // "before:pointer-events-none before:fixed before:bottom-0 before:left-1/2 before:z-0 before:-translate-x-1/2 before:bg-cover before:bg-top before:bg-no-repeat before:opacity-30 before:content-['']",
         )}
       >

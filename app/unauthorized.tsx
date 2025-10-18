@@ -1,6 +1,7 @@
-import GridBackground from "@components/DS/grid-background";
-import { Error401 } from "@feat/page/error-401";
 import type { PropsWithChildren } from "react";
+
+import GridBackground from "@components/DS/gridBackground";
+import { Error401 } from "@feat/page/error-401";
 
 const SQUARE_SIZE = 20;
 const SQUARE_COLOR = "color-mix(in srgb, var(--muted) 50%, transparent)";

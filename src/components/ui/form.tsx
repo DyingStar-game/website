@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 
+import * as React from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useDebounceFn } from "@hooks/use-debounce-fn";
+import { useDebounceFn } from "@hooks/useDebounceFn";
 import { cn } from "@lib/utils";
 import type * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
 import { Label } from "@ui/label";
-import * as React from "react";
 import type {
   SubmitHandler,
   UseFormProps,
@@ -15,15 +15,17 @@ import type {
 } from "react-hook-form";
 import {
   Controller,
+  type ControllerProps,
+  type FieldPath,
+  type FieldValues,
   FormProvider,
   useForm,
   useFormContext,
   useFormState,
-  type ControllerProps,
-  type FieldPath,
-  type FieldValues,
 } from "react-hook-form";
 import type * as z from "zod";
+
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
 export type FormProps<T extends FieldValues> = Omit<
   React.ComponentProps<"form">,
@@ -126,7 +128,7 @@ const FormItemContext = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue,
 );
 
-function FormItem({ className, ...props }: React.ComponentProps<"div">) {
+const FormItem = ({ className, ...props }: React.ComponentProps<"div">) => {
   const id = React.useId();
 
   return (
@@ -138,12 +140,12 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
       />
     </FormItemContext.Provider>
   );
-}
+};
 
-function FormLabel({
+const FormLabel = ({
   className,
   ...props
-}: React.ComponentProps<typeof LabelPrimitive.Root>) {
+}: React.ComponentProps<typeof LabelPrimitive.Root>) => {
   const { error, formItemId } = useFormField();
 
   return (
@@ -155,9 +157,9 @@ function FormLabel({
       {...props}
     />
   );
-}
+};
 
-function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
+const FormControl = ({ ...props }: React.ComponentProps<typeof Slot>) => {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 
@@ -174,22 +176,25 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
       {...props}
     />
   );
-}
+};
 
-function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
+const FormDescription = ({
+  className,
+  ...props
+}: React.ComponentProps<"p">) => {
   const { formDescriptionId } = useFormField();
 
   return (
     <p
       data-slot="form-description"
       id={formDescriptionId}
-      className={cn("text-muted-foreground text-sm", className)}
+      className={cn("text-sm text-muted-foreground", className)}
       {...props}
     />
   );
-}
+};
 
-function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
+const FormMessage = ({ className, ...props }: React.ComponentProps<"p">) => {
   const { error, formMessageId } = useFormField();
   const body = error ? String(error.message ?? "") : props.children;
 
@@ -201,13 +206,13 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-message"
       id={formMessageId}
-      className={cn("text-destructive text-sm", className)}
+      className={cn("text-sm text-destructive", className)}
       {...props}
     >
       {body}
     </p>
   );
-}
+};
 
 type UseZodFormProps<
   Input extends FieldValues,
@@ -241,4 +246,3 @@ export {
   useFormField,
   useZodForm,
 };
-

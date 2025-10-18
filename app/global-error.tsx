@@ -1,9 +1,9 @@
 "use client";
 
-import { HeaderBase } from "@components/DS/layout/header-base";
+import { HeaderBase } from "@components/DS/layout/headerBase";
 import { Page400 } from "@feat/page/page-400";
 
-export default function ErrorPage() {
+const ErrorPage = () => {
   return (
     <div className="relative flex min-h-screen flex-col">
       <HeaderBase />
@@ -12,4 +12,6 @@ export default function ErrorPage() {
       </div>
     </div>
   );
-}
+};
+
+export default ErrorPage;

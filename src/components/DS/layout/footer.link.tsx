@@ -4,47 +4,20 @@ import type {
   NavigationLink,
   NavigationLinksGroup,
   NavigationLinksGroups,
-} from "@feat/navigation/navigation.type";
+} from "@feat/navigation/navigation.model";
 
 const FOOTER_LINKS: NavigationLinksGroups = [
   {
-    title: "Project",
-    links: [
-      LINKS.Project.Roadmap,
-      LINKS.Project.Tickets,
-      LINKS.Project.Launcher,
-      LINKS.Project.Configuration,
-      LINKS.Project.Changelog,
-    ],
+    title: "Layout.Footer.Project",
+    links: [LINKS.Project.Project, LINKS.Project.Contribute, LINKS.News.All],
   },
   {
-    title: "Lore",
-    links: [
-      LINKS.Lore.History,
-      LINKS.Lore.Items,
-      LINKS.Lore.Fauna,
-      LINKS.Lore.Tutorials,
-    ],
+    title: "Layout.Footer.Lore",
+    links: [LINKS.Lore.History],
   },
   {
-    title: "Community",
-    links: [
-      LINKS.Community.Discord,
-      LINKS.Community.Github,
-      LINKS.Community.Youtube,
-      LINKS.Community.Forums,
-      LINKS.Community.Wiki,
-    ],
-  },
-  {
-    title: "Play now",
-    links: [
-      LINKS.Community.Discord,
-      LINKS.Community.Github,
-      LINKS.Community.Youtube,
-      LINKS.Community.Forums,
-      LINKS.Community.Wiki,
-    ],
+    title: "Layout.Footer.Community",
+    links: [LINKS.Community.Discord, LINKS.Community.Github],
   },
 ];
 

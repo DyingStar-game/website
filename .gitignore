@@ -46,3 +46,10 @@ src/generated
 /ci-artifacts
 
 .playwright-mcp
+gitkraken-amd64.deb
+
+.local/
+
+.cache/
+
+!docker/.env

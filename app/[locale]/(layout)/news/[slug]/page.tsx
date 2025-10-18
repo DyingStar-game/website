@@ -1,12 +1,12 @@
 import { Typography } from "@components/DS/typography";
-import { ServerMdx } from "@feat/markdown/server-mdx";
+import { ServerMdx } from "@feat/markdown/serverMdx";
 import { LINKS } from "@feat/navigation/Links";
-import { NewsItemAuthor, NewsItemTags } from "@feat/news/NewsItem";
-import { getCurrentNews, getNews } from "@feat/news/news-manager";
+import { NewsItemAuthor, NewsItemTags } from "@feat/news/newsItem";
+import { getCurrentNews, getNews } from "@feat/news/newsManager";
 import { LayoutMain, LayoutSection } from "@feat/page/layout";
 import { LOCALES } from "@i18n/config";
 import { Link } from "@i18n/navigation";
-import { createLocalizedUrl, getServerUrl } from "@lib/server-url";
+import { createLocalizedUrl, getServerUrl } from "@lib/serverUrl";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
@@ -18,9 +18,9 @@ import { notFound } from "next/navigation";
 
 export const dynamic = "force-static";
 
-export async function generateMetadata(
+export const generateMetadata = async (
   props: PageProps<"/[locale]/news/[slug]">,
-): Promise<Metadata> {
+): Promise<Metadata> => {
   const params = await props.params;
   const news = await getCurrentNews(params.slug, params.locale);
 
@@ -41,14 +41,14 @@ export async function generateMetadata(
       description: news.attributes.description,
       url: createLocalizedUrl(
         params.locale,
-        LINKS.News.News.href({ newsSlug: news.slug }),
+        LINKS.News.Detail.href({ newsSlug: news.slug }),
       ),
       type: "article",
     },
   };
-}
+};
 
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
   const allNews = await Promise.all(
     LOCALES.map(async (locale) => {
       const newsItems = await getNews(locale);
@@ -60,11 +60,9 @@ export async function generateStaticParams() {
   );
 
   return allNews.flat();
-}
+};
 
-export default async function RoutePage(
-  props: PageProps<"/[locale]/news/[slug]">,
-) {
+const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
   const params = await props.params;
   const news = await getCurrentNews(params.slug, params.locale as Locale);
 
@@ -113,7 +111,7 @@ export default async function RoutePage(
       />
     </LayoutMain>
   );
-}
+};
 
 type NewsDetailPaginationProps = {
   previousSlug?: string;
@@ -132,7 +130,7 @@ const NewsDetailPagination = ({
         {previousSlug && (
           <Link
             href={{
-              pathname: LINKS.News.News.href({ newsSlug: previousSlug }),
+              pathname: LINKS.News.Detail.href({ newsSlug: previousSlug }),
             }}
             className={cn(buttonVariants({ variant: "outline" }), "group")}
             prefetch
@@ -147,7 +145,7 @@ const NewsDetailPagination = ({
         {nextSlug && (
           <Link
             href={{
-              pathname: LINKS.News.News.href({ newsSlug: nextSlug }),
+              pathname: LINKS.News.Detail.href({ newsSlug: nextSlug }),
             }}
             className={cn(buttonVariants({ variant: "outline" }), "group")}
             prefetch
@@ -160,3 +158,5 @@ const NewsDetailPagination = ({
     </LayoutSection>
   );
 };
+
+export default RoutePage;

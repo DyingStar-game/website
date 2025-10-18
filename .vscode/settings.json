@@ -1,15 +1,16 @@
 {
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["cx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-  ],
+  "cSpell.enabled": false,
   "cSpell.words": ["nuqs", "Nuqs", "uploadthing", "utapi", "zustand"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
   "eslint.workingDirectories": [{ "mode": "auto" }],
-  "notebook.codeActionsOnSave": {},
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.associations": {
     "*.css": "tailwindcss"
   },
-  "i18n-ally.localesPaths": ["messages"]
+  "i18n-ally.localesPaths": ["messages"],
+  "notebook.codeActionsOnSave": {},
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ]
 }

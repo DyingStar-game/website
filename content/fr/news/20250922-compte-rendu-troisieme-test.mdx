@@ -1,0 +1,100 @@
+---
+title: Compte-rendu du troisième test
+titleIcon: 🗒️
+category: test
+description: Compte-rendu du troisième play test.
+keywords:
+  - news
+tags:
+  - Informations du projet
+  - play test
+coverUrl: /assets/images/news/debriefing.png
+date: 2025-09-22T07:47:00
+author: ddurieux
+authorRoles:
+  - Fondateur du projet
+---
+
+# Résultat du test 3
+
+## Remerciements
+
+Je tiens, en premier lieu, à vous remercier pour votre temps lors des tests.
+
+Cela nous permet de tester nos techs, alors forcément, ce n'est pas super "intéressant" pour vous parce que c'est encore à moitié buggé, mais pour nous, ça permet d'améliorer le jeu à chaque fois.
+
+Merci \o/
+
+### Rappel des tests précédents
+
+**Test 1**
+
+Ce test nous a permis de tester le serveur meshing dynamique, avec des joueurs répartis sur 62 serveurs et se voyant.
+Il y avait des bugs, mais ça semble bien tenir la route sur le fonctionnement imaginé.
+
+**Test 2**
+
+On a déplacé la gestion du joueur côté serveur, ajouté les caisses.
+
+Ça fonctionnait très très bien à une dizaine de joueurs (le pré-test interne), mais quand on a lancé le test, le serveur Godot s'est effondré vers 20 - 25 joueurs.
+
+La couche réseau de Godot n'est pas assez mature pour notre besoin.
+
+### Modifications sur le test 3
+
+Voici les modifications effectuées :
+
+- On a ajouté une nouvelle couche réseau. On a utilisé un outil qui s'appelle Horizon server, qui est jeune mais déjà bien fonctionnel, sur lequel on va contribuer. On a recodé la partie réseau dans Godot. Désormais, le joueur se connecte au serveur Horizon, qui lui se connecte au serveur de jeu Godot.
+- **Attention, spoiler, si vous lisez ça, ça va vous permettre de savoir comment les jeux fonctionnent et vous gâcher vos prochaines sessions de jeu.** On a déplacé tout le calcul de collision (la physique) côté serveur Godot. ||Donc sur votre PC, tous les joueurs et les items en fait volent|| 😄
+
+### Problème de gameplay identifié
+
+Le problème principal, c'est le mélange des joueurs, où un autre vous contrôlait.
+C'est un problème, mais ce n'était pas le but du test ! C'était forcément frustrant pour le joueur, et on va corriger ça 😄
+
+### Session 1
+
+La session 1 était destinée à tester le nombre maximum de joueurs connectés au serveur Horizon et voir quand ça se TP.
+
+On est monté à 170 joueurs, ça ne se TP (téléporte) pas. Faudra qu'on essaye de pousser encore plus la prochaine fois ^\_^ (tout casser pour tout réparer / optimiser).
+
+On a encore des optimisations qu'on peut / doit faire.
+
+Pour le trafic réseau côté serveur, on avait :
+
+- 50 joueurs : 50 Mbps
+- 93 joueurs : 130 Mbps
+- 110 joueurs : 114 Mbps
+- 146 joueurs : 110 Mbps
+
+Vu qu'on ne bougeait plus trop à beaucoup, ça explique la baisse de trafic quand ça a dégénéré au niveau des sessions joueurs.
+
+Le CPU et la RAM étaient assez bas, ce qui est top !
+
+### Session 2
+
+On a activé le spawn des caisses de 50 cm.
+
+On a pu en spawn 5 000, sans trop de soucis. Ça ne se TP pas, ce qui est excellent 😉
+
+Après, ça a commencé à poser problème, le serveur Godot a planté au niveau mémoire.
+Ça semble être lié au tableau des props à renvoyer au serveur Horizon côté serveur Godot pour mettre à jour les positions. Ça sature.
+
+(je mets là pour les devs :p)
+
+```
+ERROR: Condition "outbound_buffer_size > 0 && (wslay_event_get_queued_msg_length(wsl_ctx) + p_buffer_size > (uint32_t)outbound_buffer_size)" is true. Returning: ERR_OUT_OF_MEMORY
+   at: _send (modules/websocket/wsl_peer.cpp:784)
+   GDScript backtrace (most recent call first):
+       [0] send_props_newposition_to_horizon (res://server/server.gd:667)
+       [1] _physics_process (res://server/server.gd:87)
+```
+
+## Conclusion
+
+Extrêmement content de ce test, ça nous permet de valider la nouvelle partie réseau avec le serveur Horizon. On va continuer l'optimisation et l'intégration des props et pas mal de choses pour les prochains tests ^\_^
+
+On va intégrer la partie "gorc" dans les prochains jours dans le serveur Horizon, qui permet aux joueurs de ne pas voir absolument tout sur leur PC, même les joueurs et items qui sont à 10 km 😄
+Certainement quelques autres choses, on vous en dira plus quand on le saura :p
+
+Le jeu avance bien, on continue sur notre lancée 🚀 🔥

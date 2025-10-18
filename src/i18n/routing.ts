@@ -1,6 +1,5 @@
+import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
 import { defineRouting } from "next-intl/routing";
-
-import { DEFAULT_LOCALE, LOCALES } from "./config";
 
 export const routing = defineRouting({
   locales: LOCALES,

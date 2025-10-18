@@ -10,6 +10,8 @@
 
 @theme inline {
   --color-white: hsl(0, 0%, 100%);
+  --color-white-sun: var(--white-sun);
+  --color-blue-steel: var(--blue-steel);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -60,6 +62,21 @@
   --radius-xl: calc(var(--radius) + 0.25rem);
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+  --color-blue: var(--blue);
+  --color-easy: var(--easy);
+  --color-moderate: var(--moderate);
+  --color-advance: var(--advance);
+  --color-expert: var(--expert);
+
+  --color-art-2d: var(--art-2d);
+  --color-art-3d: var(--art-3d);
+  --color-audio: var(--audio);
+  --color-dev-website: var(--dev-website);
+  --color-dev-network: var(--dev-network);
+  --color-dev-infra: var(--dev-infra);
+  --color-dev-engine: var(--dev-engine);
+  --color-lore: var(--lore);
+  --color-uxui: var(--uxui);
 
   @keyframes accordion-down {
     from {
@@ -81,6 +98,8 @@
 }
 
 :root {
+  --white-sun: #fffffb;
+  --blue-steel: #4964ab;
   --background: #151413;
   --foreground: hsl(43.24, 100%, 51.57%);
   --muted: hsl(15, 4.88%, 16.08%);
@@ -129,6 +148,22 @@
   --background-1: var(--background);
   --background-2: hsl(231, 82%, 6%);
   --background-3: hsl(339, 80%, 12%);
+
+  --blue: #396a92;
+  --easy: #1a8b7d;
+  --moderate: #f28c0a;
+  --advance: #e85f0c;
+  --expert: #d01317;
+
+  --art-2d: #13685e;
+  --art-3d: #0f574e;
+  --audio: #396a92;
+  --dev-website: #7f245b;
+  --dev-network: #6f1f4f;
+  --dev-infra: #501639;
+  --dev-engine: #40122d;
+  --lore: #6d298e;
+  --uxui: #9f3619;
 }
 
 @utility prose-dyingstar {
@@ -148,4 +183,16 @@
   --tw-prose-td-borders: var(--color-border);
   --tw-prose-kbd: var(--color-foreground);
   --tw-prose-kbd-shadows: var(--color-foreground);
+}
+
+/** Fix margin when LocaleSwitcher opened **/
+html {
+  scrollbar-gutter: stable;
+}
+
+@layer base {
+  html body[data-scroll-locked],
+  body[data-scroll-locked] {
+    margin-right: 0 !important;
+  }
 }

@@ -2,18 +2,19 @@ name: Build & Image Next.js
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [develop]
     # Push events for version tags (e.g. v1.2.3) will also trigger
-    tags: [ 'v*', 'release-*' ]
+    tags: ["v*"]
   pull_request:
-    branches: [ main, develop ]
-  # Manual trigger: build & push image tagged with branch name
+    branches: [main, develop]
   workflow_dispatch:
-    inputs: {}
-
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  IMAGE_NAME: website
+  REGISTRY: ghcr.io/dyingstar-game
 
 jobs:
   build:
@@ -33,57 +34,78 @@ jobs:
 
       - name: Install gnu tar (fix BusyBox tar for cache)
         run: |
-          apk update && apk add --no-cache tar
+          apk update && apk add --no-cache tar jq
           tar --version || true
+
       - name: Enable Corepack & activate pinned pnpm
         id: pnpm-version
         run: |
           set -euo pipefail
           corepack enable
           # Extract pnpm version from package.json (packageManager field)
-          VERSION=$(grep -E '"packageManager"' package.json | sed -E 's/.*pnpm@([^" ]+).*/\1/')
+          VERSION=$(jq -r '.packageManager|capture("pnpm@(?<v>.*)$").v' package.json)
           echo "Detected pnpm version: $VERSION"
           corepack prepare pnpm@${VERSION} --activate
           pnpm --version
           echo "pnpm_version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Cache pnpm store
+      - name: Setup Node (with pnpm cache)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: "pnpm"
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Restore Next.js build cache
         uses: actions/cache@v4
         with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          path: .next/cache
+          key: next-cache-${{ runner.os }}-${{ hashFiles('next.config.mjs') }}
           restore-keys: |
-            pnpm-
+            next-cache-${{ runner.os }}-
 
       - name: Install dependencies (pnpm install)
-        run: pnpm --reporter=append-only install --frozen-lockfile
+        env:
+          PNPM_HOME: ~/.local/share/pnpm
+        run: |
+          pnpm fetch --silent
+          pnpm --reporter=append-only install --frozen-lockfile --prefer-offline
 
       - name: Allow build scripts (non-interactive)
-        run: |
-          pnpm config set allow-scripts "@parcel/watcher,@tailwindcss/oxide,esbuild,sharp"
+        run: pnpm config set allow-scripts "@parcel/watcher,@tailwindcss/oxide,esbuild,sharp"
 
-      - name: Lint
-        run: pnpm --reporter=append-only lint
+      - name: Recreate .env from secret
+        run: |
+          echo "Creating .env from secret WEBSITE_ENV_FILE"
+          # Secret WEBSITE_ENV_FILE must contain full multi-line contents of .env
+          # This env file is needed for the build process
+          printf '%s\n' "${{ secrets.WEBSITE_ENV_FILE }}" > .env
+          sed -i 's/\r$//' .env
 
       - name: Recreate .env.production from secret
         run: |
-          echo "Creating .env.production from secret WEBSITE_ENV_PRODUCTION_FILE"
-          # Secret WEBSITE_ENV_PRODUCTION_FILE must contain full multi-line contents of .env.production
-          printf "%s" "${{ secrets.WEBSITE_ENV_PRODUCTION_FILE }}" > .env.production
+          echo "Creating .env.production from secret WEBSITE_ENV_FILE"
+          # Secret WEBSITE_ENV_FILE must contain full multi-line contents of .env.production
+          printf "%s" "${{ secrets.WEBSITE_ENV_FILE }}" > .env.production
+
+      - name: Type generation
+        run: |
+          pnpm --reporter=append-only type:generate
+
+      - name: Lint
+        run: |
+          pnpm --reporter=append-only lint:ci
 
       - name: Build (Next.js)
         env:
           NODE_OPTIONS: --max-old-space-size=4096
+          NEXT_TELEMETRY_DISABLED: 1
         run: pnpm --reporter=append-only build
-      
-      - name: Clean up .next/cache to reduce artifact size
-        run: rm -rf .next/cache
 
       - name: Prune dev dependencies from node_modules
         run: pnpm prune --prod
 
       - name: Pack runtime artifact (preserve pnpm symlinks)
-        if: success()
         run: |
           set -euo pipefail
           echo "Creating runtime.tar.gz (symlinks preserved)"
@@ -93,16 +115,15 @@ jobs:
             public \
             package.json \
             pnpm-lock.yaml
-          tar -tzf runtime.tar.gz | head -40 || true
 
       - name: Upload runtime artifact (tarball)
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: next-runtime
           path: runtime.tar.gz
-          retention-days: 7
+          retention-days: 1
           if-no-files-found: error
+          compression-level: 0
 
   docker-image:
     name: Build production Docker image (runtime)
@@ -111,11 +132,10 @@ jobs:
     permissions:
       contents: read
       packages: write
-    env:
-      IMAGE_NAME: dyingstar-website
-      # REGISTRY will be rebuilt in lowercase inside the script (GitHub Actions does not provide a toLower function)
-      REGISTRY: ghcr.io/${{ github.repository_owner }}
-      TAG: ${{ github.sha }}
+    outputs:
+      target: ${{ steps.meta.outputs.target }}
+      tag_primary: ${{ steps.tags.outputs.tag_primary }}
+      tag_secondary: ${{ steps.tags.outputs.tag_secondary }}
     steps:
       - name: Checkout (minimal)
         uses: actions/checkout@v4
@@ -125,78 +145,159 @@ jobs:
         with:
           name: next-runtime
           path: artifact
-      
+
       - name: Extract runtime artifact (restore symlinks)
         run: |
           set -euo pipefail
           tar -xzf artifact/runtime.tar.gz
-          # Quick sanity check: list symlinks inside node_modules (expect pnpm structure)
-          find .next/standalone/node_modules -maxdepth 1 -type l -printf '%f -> %l\n' | head -20 || true
-          ls -1 .next/standalone/node_modules/.pnpm | head -20 || true
 
-      - name: Build image (docker/Dockerfile.prod)
-        run: docker build -f docker/Dockerfile.prod -t $IMAGE_NAME:$TAG .
-
-      - name: Log in to GitHub Container Registry
-        # Login if manual run or tag event
-        if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo "$GITHUB_TOKEN" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Tag & Push image to GHCR
-        # Push image if manual run (branch tag) or tag event (validated on main)
-        if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/') }}
-        env:
-          REF_NAME: ${{ github.ref_name }}
-          DEFAULT_BRANCH: main
+      - name: Decide target (prod/staging/none)
+        id: meta
+        shell: bash
         run: |
           set -euo pipefail
-          # Force owner to lowercase for GHCR (Docker image references must be lowercase)
-          OWNER_LC=$(printf "%s" "${GITHUB_REPOSITORY_OWNER:-${{ github.repository_owner }}}" | tr '[:upper:]' '[:lower:]')
-          IMAGE_FULL="ghcr.io/${OWNER_LC}/${IMAGE_NAME}"
-          echo "Event: ${GITHUB_EVENT_NAME} | Ref: ${GITHUB_REF} | Ref name: ${GITHUB_REF_NAME}"
-
-          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
-            # Sanitize branch name for Docker tag
-            BRANCH_TAG=$(printf "%s" "${GITHUB_REF_NAME}" | tr '[:upper:]' '[:lower:]' | sed -E 's#[^a-z0-9._-]+#-#g' | sed -E 's#^-+##; s#-+$##')
-            # Truncate to 120 chars (Docker tag limit is 128)
-            BRANCH_TAG=${BRANCH_TAG:0:120}
-            if [ -z "${BRANCH_TAG}" ]; then
-              echo "Failed to derive branch tag" >&2
-              exit 1
-            fi
-            echo "Manual run: pushing image tagged '${BRANCH_TAG}'"
-            docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:${BRANCH_TAG}
-            docker push $IMAGE_FULL:${BRANCH_TAG}
-            echo "Pushed image: $IMAGE_FULL:${BRANCH_TAG}"
-            docker image ls | grep $IMAGE_NAME | head -5 || true
-            exit 0
+          TARGET="none"
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            TARGET="prod"
+          elif [[ "${GITHUB_REF}" == "refs/heads/develop" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            TARGET="staging"
           fi
-
-          # Tag event path
-          echo "Tag run: validating commit is on ${DEFAULT_BRANCH}"
-          git fetch origin $DEFAULT_BRANCH --depth=1
-          if git merge-base --is-ancestor $GITHUB_SHA origin/$DEFAULT_BRANCH; then
-            echo "Commit is on $DEFAULT_BRANCH. Proceeding with push."
+          if [[ "$TARGET" == "prod" ]]; then
+            echo "platforms=linux/amd64,linux/arm64" >> "$GITHUB_OUTPUT"
           else
-            echo "Commit not on $DEFAULT_BRANCH. Skipping registry push." >&2
-            exit 0
+            echo "platforms=linux/amd64" >> "$GITHUB_OUTPUT"
           fi
-          echo "Tagging image with commit SHA: $IMAGE_FULL:$TAG"
-          docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:$TAG
+          echo "target=$TARGET" >> "$GITHUB_OUTPUT"
+          echo "Target decided: $TARGET"
+      - name: Compute tags
+        id: tags
+        shell: bash
+        run: |
+          set -euo pipefail
+          SHORT_SHA="${GITHUB_SHA::7}"
+          if [[ "${{ steps.meta.outputs.target }}" == "staging" ]]; then
+            echo "tag_primary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging" >> $GITHUB_OUTPUT
+            echo "tag_secondary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging-${SHORT_SHA}" >> $GITHUB_OUTPUT
+          elif [[ "${{ steps.meta.outputs.target }}" == "prod" ]]; then
+            VER="${GITHUB_REF_NAME}"   # vX.Y.Z
+            echo "tag_primary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VER}" >> $GITHUB_OUTPUT
+            echo "tag_secondary=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:prod" >> $GITHUB_OUTPUT
+          else
+            echo "tag_primary=" >> $GITHUB_OUTPUT
+            echo "tag_secondary=" >> $GITHUB_OUTPUT
+          fi
 
-          VERSION_TAG="$REF_NAME"
-          echo "Tagging image with version tag: $IMAGE_FULL:$VERSION_TAG"
-          docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:$VERSION_TAG
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Set up QEMU
+        if: ${{ contains(steps.meta.outputs.platforms, 'arm64') }}
+        uses: docker/setup-qemu-action@v3
 
-          echo "Tagging image with latest: $IMAGE_FULL:latest"
-          docker tag $IMAGE_NAME:$TAG $IMAGE_FULL:latest
+      - name: Decide push/cache policy
+        id: policy
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET="${{ steps.meta.outputs.target }}"
+          IS_PR="${{ github.event_name == 'pull_request' }}"
+          IS_FORK="false"
+          if [[ "$IS_PR" == "true" && "${{ github.event.pull_request.head.repo.fork }}" == "true" ]]; then IS_FORK="true"; fi
 
-          echo "Pushing tags..."
-          docker push $IMAGE_FULL:$TAG
-          docker push $IMAGE_FULL:$VERSION_TAG
-          docker push $IMAGE_FULL:latest
+          PUSH=false
+          if [[ "$TARGET" == "prod" ]]; then
+            # prod: uniquement sur tag v*
+            if [[ "${GITHUB_REF}" == refs/tags/v* && "$IS_PR" != "true" ]]; then PUSH=true; fi
+          elif [[ "$TARGET" == "staging" ]]; then
+            # staging: develop ou dispatch, pas en PR
+            if [[ "$IS_PR" != "true" ]]; then PUSH=true; fi
+          fi
 
-          echo "Pushed images:"
-          docker image ls | grep $IMAGE_NAME | head -5 || true
+          USE_GHA_CACHE=false
+          if [[ "$PUSH" != "true" || "$TARGET" == "none" || "$IS_PR" == "true" ]]; then USE_GHA_CACHE=true; fi
+
+          echo "push=$PUSH"  >> "$GITHUB_OUTPUT"
+          echo "use_gha_cache=$USE_GHA_CACHE" >> "$GITHUB_OUTPUT"
+          echo "policy -> push=$PUSH ga_cache=$USE_GHA_CACHE target=$TARGET"
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        if: ${{ steps.policy.outputs.push == 'true' }}
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build local (pas de push, cache GHA Si possible)
+      - name: Build (no push)
+        if: ${{ steps.policy.outputs.push != 'true' || steps.meta.outputs.target == 'none' }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile.prod
+          platforms: ${{ steps.meta.outputs.platforms }}
+          push: false
+          provenance: false
+          # on tag quand même localement pour valider la build
+          tags: |
+            ${{ steps.tags.outputs.tag_secondary }}
+            ${{ steps.tags.outputs.tag_primary }}
+          cache-from: ${{ steps.policy.outputs.use_gha_cache == 'true' && 'type=gha' || '' }}
+          cache-to: ${{ steps.policy.outputs.use_gha_cache == 'true' && 'type=gha,mode=max' || '' }}
+
+      # Build & Push (avec cache registry)
+      - name: Build & Push
+        if: ${{ steps.policy.outputs.push == 'true' && steps.meta.outputs.target != 'none' }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile.prod
+          platforms: ${{ steps.meta.outputs.platforms }}
+          push: true
+          provenance: false
+          tags: |
+            ${{ steps.tags.outputs.tag_primary }}
+            ${{ steps.tags.outputs.tag_secondary }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
+
+  deploy:
+    name: Deploy (${{ needs.docker-image.outputs.target }})
+    needs: [docker-image]
+    runs-on: ubuntu-latest
+    if: ${{ needs.docker-image.outputs.target == 'staging' || needs.docker-image.outputs.target == 'prod' }}
+    environment:
+      name: ${{ startsWith(github.ref, 'refs/tags/v') && 'prod' || 'staging' }}
+
+    steps:
+      - name: Checkout compose files
+        uses: actions/checkout@v4
+
+      - name: Choose compose file
+        id: choose
+        shell: bash
+        run: |
+          if [[ "${{ needs.docker-image.outputs.target }}" == "prod" ]]; then
+            echo "compose=${{ secrets.COMPOSE_FILE_PROD }}" >> $GITHUB_OUTPUT
+          else
+            echo "compose=${{ secrets.COMPOSE_FILE_STAGING }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+            # PAT read:packages + username du compte du PAT
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+            cd docker
+            echo "Using compose: ${{ steps.choose.outputs.compose }}"
+            docker compose -f ${{ steps.choose.outputs.compose }} pull --ignore-pull-failures
+            docker compose -f ${{ steps.choose.outputs.compose }} up -d --no-deps
+
+            echo "Containers:"
+            docker compose -f ${{ steps.choose.outputs.compose }} ps

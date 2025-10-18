@@ -1,16 +1,18 @@
 "use client";
 
+import { getFooterLinks } from "@components/DS/layout/footer.link";
+import { Typography } from "@components/DS/typography";
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
 import { LINKS } from "@feat/navigation/Links";
 import { Layout } from "@feat/page/layout";
 import { Link } from "@i18n/navigation";
+import { env } from "@lib/env/client";
 import { motion } from "framer-motion";
-import { SiteConfig } from "site-config";
-
-import { Typography } from "../typography";
-import { getFooterLinks } from "./footer.link";
+import { useTranslations } from "next-intl";
+import { SiteConfig } from "siteConfig";
 
 export const Footer = () => {
+  const t = useTranslations();
   return (
     <Layout asChild padding="none" className="gap-5 pb-8">
       <footer>
@@ -21,7 +23,7 @@ export const Footer = () => {
           {getFooterLinks().map((group) => (
             <div key={group.title} className="flex flex-col gap-4">
               <Typography variant="h4" className="self-center md:self-auto">
-                {group.title}
+                {t(group.title)}
               </Typography>
               <nav className="flex flex-col gap-2">
                 {group.links.map((link) =>
@@ -31,7 +33,7 @@ export const Footer = () => {
                         variant="default"
                         className="text-foreground/40"
                       >
-                        {link.label}
+                        {t(link.label)}
                       </Typography>
                     </Link>
                   ) : (
@@ -40,7 +42,7 @@ export const Footer = () => {
                       variant="default"
                       className="cursor-not-allowed text-muted"
                     >
-                      {link.label} (Soon)
+                      {t(link.label)} (Soon)
                     </Typography>
                   ),
                 )}
@@ -61,9 +63,9 @@ export const Footer = () => {
             reserved.
           </p>
           <div className="text-gray-400 flex items-center space-x-6 text-sm">
-            <span>Version 0.1.0</span>
-            <span>•</span>
-            <span>Serveurs: Unknown</span>
+            <span>Version {env.NEXT_PUBLIC_APP_VERSION}</span>
+            {/* <span>•</span>
+            <span>Serveurs: Unknown</span> */}
             <div className="bg-orange-500 h-2 w-2 animate-pulse rounded-full"></div>
           </div>
         </motion.div>

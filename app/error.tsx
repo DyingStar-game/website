@@ -1,6 +1,6 @@
 "use client";
 
-import { HeaderBase } from "@components/DS/layout/header-base";
+import { HeaderBase } from "@components/DS/layout/headerBase";
 import { Page400 } from "@feat/page/page-400";
 
 export default function ErrorPage() {

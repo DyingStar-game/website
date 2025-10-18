@@ -1,0 +1,101 @@
+---
+title: Third Playtest Report
+titleIcon: 🗒️
+category: test
+description: Third Playtest Report
+keywords:
+  - news
+tags:
+  - Project information
+  - play test
+coverUrl: /assets/images/news/debriefing.png
+date: 2025-09-22T07:47:00
+author: ddurieux
+authorRoles:
+  - Project Founder
+---
+
+# Test 3 Results
+
+## Acknowledgments
+
+First of all, I would like to thank you for your time during the tests.
+
+This allows us to test our technologies, so of course, it's not very 'interesting' for you because it's still half-bugged, but for us, it allows us to improve the game each time.
+
+Thank you \o/
+
+### Reminder of previous tests
+
+**Test 1**
+
+This test allowed us to test the dynamic meshing server, with players spread across 62 servers and able to see each other.
+There were some bugs, but it seems to work well as expected.
+
+**Test 2**
+
+We moved player management to the server side and added crates.
+
+It worked very well with about ten players (the internal pre-test), but when we launched the test, the godot server collapsed around 20-25 players.
+
+godot's network layer isn't mature enough for our needs.
+
+### Changes to Test 3
+
+Here are the changes made:
+
+- We added a new network layer. We used a tool called Horizon Server, which is new but already quite functional, and we'll be contributing to it. We recoded the network part in godot. From now on, the player connects to the Horizon server, which in turn connects to the Godot game server.
+- **Spoiler alert: if you read this, it'll let you know how games work and ruin your next gaming sessions.** We moved all collision calculations (physics) to the godot server side. ||So on your PC, all players and items actually fly|| 😄
+
+### Gameplay issue identified
+
+The main problem was the mixing of players, or someone else was controlling you.
+It's a problem, but it wasn't the goal of the test! It was inevitably frustrating for the player, and we're going to fix that 😄
+
+### Session 1
+
+Session 1 was intended to test the maximum number of players connected to the Horizon server and see when it teleported.
+
+We went up to 170 players, but they didn't teleport. We'll have to try to push it even further next time ^\_^ (break everything to repair/optimize everything).
+
+We still have some optimizations we can/must make.
+
+For server-side network traffic, we had:
+
+- 50 players: 50 Mbps
+- 93 players: 130 Mbps
+- 110 players: 114 Mbps
+- 146 players: 110 Mbps
+
+Since we weren't moving around much anymore A lot, that explains the drop in traffic when it escalated to player sessions.
+
+The CPU and RAM were quite low, which is great!
+
+### Session 2
+
+We enabled the 50cm crate spawn.
+
+We were able to spawn 5,000 of them without too much trouble. They don't TP, which is great 😉
+
+After that, things started to go wrong; the Godot server crashed due to memory issues.
+
+It seems to be related to the props table to be sent back to the Horizon server on the Godot server side to update the positions. It's saturated.
+
+(I'm putting it here for the devs :p)
+
+```
+ERROR: Condition "outbound_buffer_size > 0 && (wslay_event_get_queued_msg_length(wsl_ctx) + p_buffer_size > (uint32_t)outbound_buffer_size)" is true. Returning: ERR_OUT_OF_MEMORY
+at: _send (modules/websocket/wsl_peer.cpp:784)
+GDScript backtrace (most recent call first):
+[0] send_props_newposition_to_horizon (res://server/server.gd:667)
+[1] _physics_process (res://server/server.gd:87)
+```
+
+## Conclusion
+
+Extremely happy with this test; it allows us to validate the new networking part with the Horizon server. We'll continue optimizing and integrating the props and a lot of other things for the next tests ^\_^
+
+We'll be integrating the gorc part into the Horizon server in the coming days, which allows players to not see absolutely everything on my PC, even players and items that are 10 km away 😄
+Definitely a few other things; we'll tell you more when we know :p
+
+The game is progressing well, we keep up the momentum 🚀 🔥
