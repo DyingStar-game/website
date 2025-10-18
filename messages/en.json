@@ -37,6 +37,9 @@
     }
   },
   "Landing": {
+    "Metadata": {
+      "description": "Website in english"
+    },
     "CTA": {
       "contribute": {
         "action": "How to contribute",

@@ -13,7 +13,9 @@ export default function middleware(request: NextRequest) {
     "/api",
     "/_next/static",
     "/_next/image",
-    "/favicon.ico",
+    "/favicon",
+    "/apple-icon",
+    "/icon",
     "/sitemap.xml",
     "/robots.txt",
     "/assets",
@@ -44,7 +46,7 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|assets).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|apple-icon.png|icon.png|sitemap.xml|robots.txt|assets).*)",
   ],
   runtime: "nodejs",
 };

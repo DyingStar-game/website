@@ -15,6 +15,7 @@
       "@assets/*": ["../public/assets/*"],
       "@components/*": ["components/*"],
       "@feat/*": ["features/*"],
+      "@messages/*": ["../messages/*"],
       "@hooks/*": ["hooks/*"],
       "@i18n/*": ["i18n/*"],
       "@lib/*": ["lib/*"],

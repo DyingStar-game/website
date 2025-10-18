@@ -7,12 +7,13 @@ import { FloatingLegalFooter } from "@components/DS/legal/floatingLegalFooter";
 import { TailwindIndicator } from "@components/utils/tailwindIndicator";
 import { NextTopLoader } from "@feat/page/nextTopLoader";
 import { ServerToaster } from "@feat/serverSonner/serverToaster";
+import { type Locale } from "@i18n/config";
 import { routing } from "@i18n/routing";
 import { getServerUrl } from "@lib/serverUrl";
-import { cn } from "@lib/utils";
+import { cn, getMetadataSource, localMapper } from "@lib/utils";
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getLocale, setRequestLocale } from "next-intl/server";
 import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -24,10 +25,47 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: SiteConfig.title,
-  description: SiteConfig.description,
-  metadataBase: new URL(getServerUrl()),
+export const generateMetadata = async (): Promise<Metadata> => {
+  const locale = (await getLocale()) as Locale;
+  const metadataSource = getMetadataSource(locale);
+
+  return {
+    title: SiteConfig.title,
+    description: metadataSource.Landing.Metadata.description,
+    metadataBase: new URL(getServerUrl()),
+    openGraph: {
+      siteName: SiteConfig.title,
+      type: "website",
+      locale: localMapper(locale),
+    },
+    robots: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+      googleBot: "index, follow",
+    },
+    // alternates: {
+    //   types: {
+    //     "application/rss+xml": "https://dminhvu.com/rss.xml"
+    //   }
+    // },
+    applicationName: SiteConfig.title,
+    appleWebApp: {
+      title: SiteConfig.title,
+      statusBarStyle: "default",
+      capable: true,
+    },
+    // verification: {
+    //   google: "YOUR_DATA",
+    //   yandex: ["YOUR_DATA"],
+    //   other: {
+    //     "msvalidate.01": ["YOUR_DATA"],
+    //     "facebook-domain-verification": ["YOUR_DATA"]
+    //   }
+    // }
+  };
 };
 
 const PoppinsFont = Poppins({

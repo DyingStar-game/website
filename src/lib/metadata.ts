@@ -11,9 +11,9 @@ import type { Metadata, ResolvingMetadata } from "next";
 export const combineWithParentMetadata =
   (metadata: Metadata) =>
   async (
-    _: {
-      params: Promise<Record<string, string>>;
-      searchParams?: Promise<Record<string, string | string[] | undefined>>;
+    _props: {
+      params: Record<string, string>;
+      searchParams?: Record<string, string | string[] | undefined>;
     },
     parent: ResolvingMetadata,
   ): Promise<Metadata> => {
