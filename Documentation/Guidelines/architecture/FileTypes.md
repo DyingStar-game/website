@@ -23,7 +23,7 @@ Quick reference table for all file types:
 | Extension/Pattern    | Purpose                                             | Location                                   | Example                            |
 | -------------------- | --------------------------------------------------- | ------------------------------------------ | ---------------------------------- |
 | `*.tsx`              | React components with JSX                           | `src/components/`, `src/features/`, `app/` | `button.tsx`, `header.tsx`         |
-| `*.ts`               | Pure TypeScript logic (utilities, configs, helpers) | `src/lib/`, `src/hooks/`, `src/i18n/`      | `utils.ts`, `logger.ts`            |
+| `*.ts`               | Pure TypeScript logic (utilities, configs, helpers) | `src/lib/`, `src/hooks/`, `src/i18n/`, `src/features/`, `app/`      | `utils.ts`, `logger.ts`            |
 | `*.type.ts`          | Type definitions and Zod schemas                    | Any `src/` subdirectory                    | `navigation.type.ts`               |
 | `*.hook.ts`          | Custom React hooks (outside `src/hooks/`)           | `src/features/*/`                          | `use-news-filter.hook.ts`          |
 | `*.link.ts`          | Navigation link logic and definitions               | `src/features/navigation/`                 | `footer.link.tsx`, `Links.ts`      |
@@ -527,20 +527,6 @@ function CreateNewsForm() {
 
 import { action } from "@lib/actions/safe-actions";
 import { z } from "zod";
-
-// src/lib/actions/newsletter.action.ts
-
-// src/lib/actions/newsletter.action.ts
-
-// src/lib/actions/newsletter.action.ts
-
-// src/lib/actions/newsletter.action.ts
-
-// src/lib/actions/newsletter.action.ts
-
-// src/lib/actions/newsletter.action.ts
-
-// src/lib/actions/newsletter.action.ts
 
 // src/lib/actions/newsletter.action.ts
 
