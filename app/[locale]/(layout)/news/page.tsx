@@ -10,24 +10,36 @@ import {
   LayoutTitle,
 } from "@feat/page/layout";
 import { Link } from "@i18n/navigation";
+import { combineWithParentMetadata } from "@lib/metadata";
 import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
 import { FileQuestion } from "lucide-react";
-import type { Metadata } from "next";
+import type { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { SiteConfig } from "siteConfig";
 
-export const metadata: Metadata = {
-  title: `${SiteConfig.title}'s news`,
-  description: SiteConfig.description,
-  keywords: ["news"],
-  openGraph: {
-    title: `${SiteConfig.title}'s news`,
-    description: SiteConfig.description,
-    url: SiteConfig.prodUrl,
-    type: "website",
+export const generateMetadata = async (
+  props: {
+    params: Record<string, string>;
+    searchParams?: Record<string, string | string[] | undefined>;
   },
+  parent: ResolvingMetadata,
+) => {
+  const t = await getTranslations("News.Metadata");
+
+  const mergeFn = combineWithParentMetadata({
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    openGraph: {
+      url: LINKS.News.All.href(),
+      type: "article",
+    },
+    alternates: {
+      canonical: LINKS.News.All.href(),
+    },
+  });
+  return mergeFn(props, parent);
 };
 
 export default async function NewsPage(props: PageProps<"/[locale]/news">) {

@@ -3,14 +3,11 @@ import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
 import { LINKS } from "@feat/navigation/Links";
 import { LayoutMain } from "@feat/page/layout";
-import type { Locale } from "@i18n/config";
 // This is necessary because NEXT_PUBLIC_DISCORD_INVITE_ID is a variable that can be used in both the front and back ends.
 import { env } from "@lib/env/client";
 import { combineWithParentMetadata } from "@lib/metadata";
-import { getMetadataSource } from "@lib/utils";
 import type { ResolvingMetadata } from "next";
-import { getLocale, getTranslations } from "next-intl/server";
-import { SiteConfig } from "siteConfig";
+import { getTranslations } from "next-intl/server";
 
 export const generateMetadata = async (
   props: {
@@ -19,44 +16,18 @@ export const generateMetadata = async (
   },
   parent: ResolvingMetadata,
 ) => {
-  const locale = (await getLocale()) as Locale;
-  const metadataSource = getMetadataSource(locale);
+  const t = await getTranslations("Landing.Metadata");
 
   const mergeFn = combineWithParentMetadata({
-    title: "Landing",
-    description: "test",
-    keywords: ["Dying Star", "Dying Star Game", "DyingStar", "Star Deception"],
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
     openGraph: {
-      url: SiteConfig.prodUrl,
+      url: LINKS.Landing.Landing.href(),
       type: "website",
-      title: SiteConfig.title,
-      description: metadataSource.Landing.Metadata.description,
-      images: [
-        {
-          url: SiteConfig.metaImage,
-          width: 1200,
-          height: 630,
-          alt: SiteConfig.metaImageAlt,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: SiteConfig.title,
-      description: metadataSource.Landing.Metadata.description,
-      creator: "@dyingstargame",
-      site: SiteConfig.prodUrl,
-      images: [
-        {
-          url: SiteConfig.metaImage,
-          width: 1200,
-          height: 630,
-          alt: SiteConfig.metaImageAlt,
-        },
-      ],
     },
     alternates: {
-      canonical: SiteConfig.prodUrl,
+      canonical: LINKS.Landing.Landing.href(),
     },
   });
   return mergeFn(props, parent);

@@ -1,5 +1,10 @@
 {
   "Issue": {
+    "Metadata": {
+      "title": "'s contribute",
+      "description": "Contributes's description",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception"
+    },
     "Hero": {
       "description": "Join the crew and choose the missions that correspond to your skills. Each task strengthens the narrative universe of the MMO and brings the community closer to the next step of the journey.",
       "title": "Contribute to the Dying Star project"
@@ -38,7 +43,9 @@
   },
   "Landing": {
     "Metadata": {
-      "description": "Website in english"
+      "title": "Landing",
+      "description": "Website in english",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception"
     },
     "CTA": {
       "contribute": {
@@ -62,7 +69,17 @@
       "title": "Tasks"
     }
   },
+  "Project": {
+    "Metadata": {
+      "title": "Project",
+      "description": "Website in english",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception"
+    }
+  },
   "Layout": {
+    "Metadata": {
+      "description": "Website in english"
+    },
     "Footer": {
       "Community": "Community",
       "Contribute": "Contribute",
@@ -93,6 +110,11 @@
     "label": "Language"
   },
   "News": {
+    "Metadata": {
+      "title": "News",
+      "description": "Website in english",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception"
+    },
     "NewsDetailPagination": {
       "button": {
         "next": "Next",

@@ -18,14 +18,3 @@ export const localMapper = (locale:Locale) => {
       return "fr_FR";
   }
 };
-
-export const getMetadataSource = (locale:Locale) => {
-  switch (locale) {
-    case "fr":
-      return fr;
-    case "en":
-      return en;
-    default:
-      return fr;
-  }
-};

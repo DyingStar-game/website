@@ -28,12 +28,14 @@
     },
     "IssuesNotFound": {
       "label": "Aucune tâche trouvée"
+    },
+    "Metadata": {
+      "description": "Description de la page de contribution",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception",
+      "title": " contribution"
     }
   },
   "Landing": {
-    "Metadata": {
-      "description": "Site en français"
-    },
     "CTA": {
       "contribute": {
         "action": "Comment contribuer",
@@ -43,6 +45,11 @@
         "action": "Rejoindre le Discord",
         "title": "Suivez l'aventure en direct !"
       }
+    },
+    "Metadata": {
+      "description": "Site en français",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception",
+      "title": "Landing"
     },
     "News": {
       "action": "Toutes les news",
@@ -63,6 +70,9 @@
       "Lore": "Lore",
       "News": "Actualités",
       "Project": "Projet"
+    },
+    "Metadata": {
+      "description": "Site en français"
     }
   },
   "Links": {
@@ -87,6 +97,11 @@
     "label": "Langue"
   },
   "News": {
+    "Metadata": {
+      "description": "Site en français",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception",
+      "title": "News"
+    },
     "NewsDetailPagination": {
       "button": {
         "next": "Suivante",
@@ -106,6 +121,13 @@
     "button": {
       "next": "Suivante",
       "previous": "Précédente"
+    }
+  },
+  "Project": {
+    "Metadata": {
+      "description": "Site en français",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception",
+      "title": "Project"
     }
   }
 }

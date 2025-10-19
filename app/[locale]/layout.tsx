@@ -7,13 +7,12 @@ import { FloatingLegalFooter } from "@components/DS/legal/floatingLegalFooter";
 import { TailwindIndicator } from "@components/utils/tailwindIndicator";
 import { NextTopLoader } from "@feat/page/nextTopLoader";
 import { ServerToaster } from "@feat/serverSonner/serverToaster";
-import { type Locale } from "@i18n/config";
 import { routing } from "@i18n/routing";
 import { getServerUrl } from "@lib/serverUrl";
-import { cn, getMetadataSource, localMapper } from "@lib/utils";
+import { cn } from "@lib/utils";
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getLocale, setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -26,18 +25,12 @@ export function generateStaticParams() {
 }
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const locale = (await getLocale()) as Locale;
-  const metadataSource = getMetadataSource(locale);
+  const t = await getTranslations("Layout.Metadata");
 
   return {
     title: SiteConfig.title,
-    description: metadataSource.Landing.Metadata.description,
+    description: t("description"),
     metadataBase: new URL(getServerUrl()),
-    openGraph: {
-      siteName: SiteConfig.title,
-      type: "website",
-      locale: localMapper(locale),
-    },
     robots: {
       index: true,
       follow: true,
@@ -46,16 +39,23 @@ export const generateMetadata = async (): Promise<Metadata> => {
       "max-video-preview": -1,
       googleBot: "index, follow",
     },
+    applicationName: SiteConfig.title,
     // alternates: {
     //   types: {
     //     "application/rss+xml": "https://dminhvu.com/rss.xml"
     //   }
     // },
-    applicationName: SiteConfig.title,
+    alternates: {
+      canonical: SiteConfig.prodUrl,
+    },
     appleWebApp: {
       title: SiteConfig.title,
       statusBarStyle: "default",
       capable: true,
+    },
+    twitter: {
+      creator: "@dyingstargame",
+      site: SiteConfig.prodUrl,
     },
     // verification: {
     //   google: "YOUR_DATA",
@@ -129,4 +129,7 @@ export default async function LocaleLayout({
       </body>
     </html>
   );
+}
+function getTranslation(arg0: string) {
+  throw new Error("Function not implemented.");
 }

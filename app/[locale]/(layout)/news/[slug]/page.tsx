@@ -6,11 +6,12 @@ import { getCurrentNews, getNews } from "@feat/news/newsManager";
 import { LayoutMain, LayoutSection } from "@feat/page/layout";
 import { LOCALES } from "@i18n/config";
 import { Link } from "@i18n/navigation";
-import { createLocalizedUrl, getServerUrl } from "@lib/serverUrl";
+import { combineWithParentMetadata } from "@lib/metadata";
+import { getServerUrl } from "@lib/serverUrl";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
-import type { Metadata } from "next";
+import type { ResolvingMetadata } from "next";
 import { type Locale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
@@ -19,16 +20,19 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-static";
 
 export const generateMetadata = async (
-  props: PageProps<"/[locale]/news/[slug]">,
-): Promise<Metadata> => {
+  props: {
+    params: Record<string, string>;
+    searchParams?: Record<string, string | string[] | undefined>;
+  },
+  parent: ResolvingMetadata,
+) => {
   const params = await props.params;
   const news = await getCurrentNews(params.slug, params.locale);
-
   if (!news) {
     notFound();
   }
 
-  return {
+  const mergeFn = combineWithParentMetadata({
     title: news.attributes.title,
     description: news.attributes.description,
     keywords: news.attributes.keywords,
@@ -39,13 +43,14 @@ export const generateMetadata = async (
     openGraph: {
       title: news.attributes.title,
       description: news.attributes.description,
-      url: createLocalizedUrl(
-        params.locale,
-        LINKS.News.Detail.href({ newsSlug: news.slug }),
-      ),
+      url: LINKS.News.Detail.href({ newsSlug: news.slug }),
       type: "article",
     },
-  };
+    alternates: {
+      canonical: LINKS.News.Detail.href({ newsSlug: news.slug }),
+    },
+  });
+  return mergeFn(props, parent);
 };
 
 export const generateStaticParams = async () => {
