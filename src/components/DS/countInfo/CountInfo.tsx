@@ -21,23 +21,23 @@ export const CountInfo = ({
   return (
     <div
       className={cn(
-        "border-foreground bg-foreground flex items-center gap-4 overflow-hidden rounded-md border-2",
+        "flex items-center gap-4 overflow-hidden rounded-md border-2 border-foreground bg-foreground",
         className,
       )}
       {...props}
     >
-      <div className="text-background inline-flex flex-1 items-center justify-start gap-2 overflow-hidden py-2 pl-2 text-base font-medium sm:text-xl">
+      <div className="inline-flex flex-1 items-center justify-start gap-2 overflow-hidden py-2 pl-2 text-base font-medium text-background sm:text-xl">
         {icon && (
           <DynamicIcon name={icon} className="size-8 shrink-0 sm:size-10" />
         )}
         <span className="truncate">{title}</span>
       </div>
 
-      <div className="bg-background text-foreground flex min-w-24 items-center justify-center rounded-sm p-4 text-xl font-extrabold sm:text-3xl md:min-w-28">
+      <div className="flex min-w-24 items-center justify-center rounded-sm bg-background p-4 text-xl font-extrabold text-foreground sm:text-3xl md:min-w-28">
         {count ? (
           format.number(count)
         ) : (
-          <span className="bg-foreground/20 h-7 w-full animate-pulse rounded-md sm:h-9" />
+          <span className="h-7 w-full animate-pulse rounded-md bg-foreground/20 sm:h-9" />
         )}
       </div>
     </div>

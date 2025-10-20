@@ -54,7 +54,7 @@ export const NavigationLinks = ({
                       {currentPath === link.href && (
                         <motion.div
                           layoutId={"motion-link"}
-                          className="bg-accent absolute inset-0 rounded-lg"
+                          className="absolute inset-0 rounded-lg bg-accent"
                         ></motion.div>
                       )}
                       <div className="relative flex w-full items-center gap-x-1.5 text-left">

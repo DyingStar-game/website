@@ -12,7 +12,7 @@ const Hero = ({ title, description, ...props }: HeroProps) => {
   return (
     <LayoutSection size={"container"} {...props}>
       <Layout asChild padding="none">
-        <div className="pt-15 lg:pt-22 flex max-w-4xl flex-col justify-center text-center md:pt-20">
+        <div className="flex max-w-4xl flex-col justify-center pt-15 text-center md:pt-20 lg:pt-22">
           <Typography variant="h1">{title}</Typography>
           {description && <Typography variant="p">{description}</Typography>}
         </div>

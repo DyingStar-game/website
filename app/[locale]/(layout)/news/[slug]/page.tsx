@@ -112,7 +112,7 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
         <ChevronLeft />
         {t("button.viewAll")}
       </Link>
-      <LayoutSection className="border-input gap-8 border-b pb-8">
+      <LayoutSection className="gap-8 border-b border-input pb-8">
         <Typography variant="h3" as="h1" className="flex items-center gap-4">
           <span className="text-5xl">{attributes.titleIcon}</span>
           {attributes.title}

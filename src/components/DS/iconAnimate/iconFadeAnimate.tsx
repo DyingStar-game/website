@@ -22,8 +22,8 @@ const IconFadeAnimate = ({
         "transition-all duration-300 ease-in-out",
         className,
         animation === "fadeOut"
-          ? "rotate-45 scale-75 opacity-0"
-          : "rotate-0 scale-100 opacity-100",
+          ? "scale-75 rotate-45 opacity-0"
+          : "scale-100 rotate-0 opacity-100",
       )}
       {...props}
     />

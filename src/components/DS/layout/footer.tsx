@@ -40,7 +40,7 @@ export const Footer = () => {
                     <Typography
                       key={link.href}
                       variant="default"
-                      className="text-muted cursor-not-allowed"
+                      className="cursor-not-allowed text-muted"
                     >
                       {t(link.label)} (Soon)
                     </Typography>
@@ -52,21 +52,21 @@ export const Footer = () => {
         </div>
 
         <motion.div
-          className="border-input text-input mt-12 flex flex-col items-center justify-between border-t pt-8 md:flex-row"
+          className="mt-12 flex flex-col items-center justify-between border-t border-input pt-8 text-input md:flex-row"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
           viewport={{ once: true }}
         >
-          <p className="mb-4 text-sm text-gray-400 md:mb-0">
+          <p className="text-gray-400 mb-4 text-sm md:mb-0">
             © {new Date().getFullYear()} {SiteConfig.title}. All rights
             reserved.
           </p>
-          <div className="flex items-center space-x-6 text-sm text-gray-400">
+          <div className="text-gray-400 flex items-center space-x-6 text-sm">
             <span>Version {env.NEXT_PUBLIC_APP_VERSION}</span>
             {/* <span>•</span>
             <span>Serveurs: Unknown</span> */}
-            <div className="h-2 w-2 animate-pulse rounded-full bg-orange-500"></div>
+            <div className="bg-orange-500 h-2 w-2 animate-pulse rounded-full"></div>
           </div>
         </motion.div>
       </footer>

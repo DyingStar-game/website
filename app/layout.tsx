@@ -21,7 +21,7 @@ export default async function RootLayout({ children }: Props) {
     <html
       className={cn(
         PoppinsFont.className,
-        "bg-linear-120 from-background-1 via-background-2 to-background-3 text-foreground h-full bg-fixed",
+        "h-full bg-linear-120 from-background-1 via-background-2 to-background-3 bg-fixed text-foreground",
       )}
       suppressHydrationWarning
     >

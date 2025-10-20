@@ -14,7 +14,7 @@ export const ServerMdx = (props: ServerMdxProps) => {
   return (
     <div
       className={cn(
-        "prose prose-dyingstar max-w-full",
+        "prose max-w-full prose-dyingstar",
         // "prose-p:text-lg md:prose-p:text-xl lg:prose-p:text-2xl",
         // "prose-ul:text-lg md:prose-ul:text-xl lg:prose-ul:text-2xl",
         // "prose-ol:text-lg md:prose-ol:text-xl lg:prose-ol:text-2xl",

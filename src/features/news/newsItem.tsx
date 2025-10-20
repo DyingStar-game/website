@@ -29,7 +29,7 @@ const NewsItem = ({ news, className }: NewsItemProps) => {
         </Link>
       </Typography>
       <div className="flex flex-col gap-7 xl:max-h-72 xl:flex-row">
-        <div className="max-w-128 relative aspect-video w-full self-center">
+        <div className="relative aspect-video w-full max-w-128 self-center">
           <Image
             src={news.attributes.coverUrl}
             alt={news.attributes.title}
@@ -41,7 +41,7 @@ const NewsItem = ({ news, className }: NewsItemProps) => {
         <div className="flex flex-1 flex-col gap-4">
           <Typography
             variant="p"
-            className="line-clamp-6 flex-1 overflow-hidden text-ellipsis text-justify"
+            className="line-clamp-6 flex-1 overflow-hidden text-justify text-ellipsis"
             title={news.attributes.description}
           >
             {news.attributes.description}
@@ -87,7 +87,7 @@ export const NewsItemAuthor = ({
   return (
     <div
       className={cn(
-        "text-foreground flex items-center gap-3 font-light uppercase",
+        "flex items-center gap-3 font-light text-foreground uppercase",
         className,
       )}
     >
@@ -95,7 +95,7 @@ export const NewsItemAuthor = ({
         <AvatarFallback>{author.slice(0, 2).toUpperCase()}</AvatarFallback>
       </Avatar>
       {author}
-      <Minus className="text-input rotate-90" />
+      <Minus className="rotate-90 text-input" />
       {format.dateTime(date, { dateStyle: "short" })}
     </div>
   );

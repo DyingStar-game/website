@@ -148,7 +148,7 @@ export default async function NewsPage(props: PageProps<"/[locale]/news">) {
         </LayoutSection>
       ) : (
         <>
-          <LayoutSection className="divide-solide divide-input border-input flex flex-col gap-7 divide-y border-b">
+          <LayoutSection className="divide-solide flex flex-col gap-7 divide-y divide-input border-b border-input">
             {paginatedNews.news.map((post) => (
               <NewsItem key={post.slug} news={post} className="pb-7" />
             ))}

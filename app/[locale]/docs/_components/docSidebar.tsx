@@ -114,7 +114,7 @@ const DocLink = ({ doc, isActive }: DocLinkProps) => {
     <Link
       href={`/docs/${doc.slug}`}
       className={cn(
-        "text-muted-foreground hover:text-foreground inline-flex items-center gap-2 rounded-md px-2 py-1 text-sm transition",
+        "inline-flex items-center gap-2 rounded-md px-2 py-1 text-sm text-muted-foreground transition hover:text-foreground",
         {
           "text-primary": isActive,
         },

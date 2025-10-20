@@ -12,7 +12,7 @@ const sectionLayoutContainerVariants = cva("", {
       primary: "bg-primary text-primary-foreground",
       invert: "bg-foreground text-background",
       image: "text-foreground backdrop-blur-sm backdrop-brightness-75",
-      transparent: "text-foreground bg-transparent",
+      transparent: "bg-transparent text-foreground",
     },
   },
   defaultVariants: {
@@ -59,7 +59,7 @@ export const SectionLayout = ({
     >
       <div
         className={cn(
-          "lg:py-22 m-auto px-4 py-20",
+          "m-auto px-4 py-20 lg:py-22",
           sectionLayoutVariants({ size }),
           className,
         )}

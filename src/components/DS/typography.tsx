@@ -20,19 +20,19 @@ type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any
 export const typographyVariants = cva("text-foreground", {
   variants: {
     variant: {
-      h1: "text-5xl font-normal uppercase tracking-tight md:text-6xl lg:text-7xl",
-      h2: "text-4xl font-normal uppercase tracking-tight transition-colors md:text-5xl lg:text-6xl",
-      h3: "text-xl font-normal uppercase tracking-tight md:text-xl lg:text-2xl",
-      h4: "text-xl font-normal uppercase tracking-tight",
+      h1: "text-5xl font-normal tracking-tight uppercase md:text-6xl lg:text-7xl",
+      h2: "text-4xl font-normal tracking-tight uppercase transition-colors md:text-5xl lg:text-6xl",
+      h3: "text-xl font-normal tracking-tight uppercase md:text-xl lg:text-2xl",
+      h4: "text-xl font-normal tracking-tight uppercase",
       p: "text-lg font-light text-white md:text-xl lg:text-2xl",
       default: "",
       quote: "mt-6 border-l-2 pl-6 italic",
-      code: "bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
-      lead: "text-muted-foreground text-xl",
+      code: "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+      lead: "text-xl text-muted-foreground",
       large: "text-lg font-semibold",
-      small: "text-sm font-medium leading-none",
-      muted: "text-muted-foreground text-sm",
-      link: "font-medium text-cyan-600 hover:underline",
+      small: "text-sm leading-none font-medium",
+      muted: "text-sm text-muted-foreground",
+      link: "text-cyan-600 font-medium hover:underline",
     },
   },
   defaultVariants: {

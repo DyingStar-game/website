@@ -61,7 +61,7 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
           {issue.team && (
             <div className="flex gap-1 overflow-hidden">
               <Users />
-              <span className="text-foreground truncate uppercase">
+              <span className="truncate text-foreground uppercase">
                 {issue.team}
               </span>
             </div>
@@ -91,7 +91,7 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
           <Typography
             variant="h3"
             title={issue.title}
-            className="line-clamp-2 flex-1 items-stretch gap-4 overflow-hidden text-ellipsis font-medium text-white"
+            className="line-clamp-2 flex-1 items-stretch gap-4 overflow-hidden font-medium text-ellipsis text-white"
           >
             {issue.title}
           </Typography>
@@ -124,7 +124,7 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
       >
         <div
           className={cn(
-            "sm:min-h-17 flex flex-1 items-center justify-start gap-2 sm:flex-col sm:items-start sm:justify-center",
+            "flex flex-1 items-center justify-start gap-2 sm:min-h-17 sm:flex-col sm:items-start sm:justify-center",
           )}
         >
           <span className="text-sm font-light uppercase md:text-base">

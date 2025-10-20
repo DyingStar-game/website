@@ -28,10 +28,10 @@ export const CtaWithButton = ({
       {...props}
     >
       <Layout asChild padding="default">
-        <div className="lg:gap-22 flex max-w-4xl flex-col justify-center gap-10">
+        <div className="flex max-w-4xl flex-col justify-center gap-10 lg:gap-22">
           <Typography
             variant="h2"
-            className="text-primary-foreground text-center text-4xl font-medium md:text-5xl lg:text-6xl"
+            className="text-center text-4xl font-medium text-primary-foreground md:text-5xl lg:text-6xl"
           >
             {title}
           </Typography>

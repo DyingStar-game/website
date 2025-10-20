@@ -67,7 +67,7 @@ export const DialogComponent = (props: { dialog: Dialog }) => {
           })}
         >
           {dialog.icon && (
-            <div className="bg-muted flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted">
               <dialog.icon className="size-6" />
             </div>
           )}
