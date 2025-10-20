@@ -11,6 +11,7 @@ import { IssueCard } from "@components/DS/issues/issueCard";
 import { Paginate } from "@components/DS/paginate/paginate";
 import { useIssuesCountQuery } from "@feat/issue/get/useIssuesCountQuery.hook";
 import { usePaginatedIssuesQuery } from "@feat/issue/get/usePaginatedIssuesQuery.hook";
+import { LINKS } from "@feat/navigation/Links";
 import { LayoutSection } from "@feat/page/layout";
 import { useDebounce } from "@hooks/useDebounce";
 import { useTranslations } from "next-intl";
@@ -75,7 +76,7 @@ export const Issues = () => {
         name: issue.title,
         dateCreated: issue.createdAt,
         dateModified: issue.updatedAt,
-        isPartOf: "https://github.com/owner/repo",
+        isPartOf: LINKS.Community.Github.href(),
         keywords: issue.labels,
         contributor: issue.assignees.map((assignee) => ({
           "@type": "Person",
