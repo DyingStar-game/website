@@ -98,6 +98,10 @@
       "Discord": "Discord",
       "Github": "GitHub"
     },
+    "Legal": {
+      "privacy": "Privacy",
+      "terms": "Terms"
+    },
     "Lore": {
       "History": "Lore"
     },
@@ -154,11 +158,37 @@
       "previous": "Previous"
     }
   },
+  "Privacy": {
+    "JsonLd": {
+      "Article": {
+        "headline": "Privacy Policy"
+      }
+    },
+    "Metadata": {
+      "description": "Information about the privacy policy",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, privacy, private life, legal",
+      "title": "Privacy Policy"
+    },
+    "title": "Privacy Policy"
+  },
   "Project": {
     "Metadata": {
       "description": "Overview of the DyingStar project",
       "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Project, Overview",
       "title": "Project"
     }
+  },
+  "Terms": {
+    "JsonLd": {
+      "Article": {
+        "headline": "Terms of Use"
+      }
+    },
+    "Metadata": {
+      "description": "Information about the terms of use",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Terms of Use, legal",
+      "title": "Terms of Use"
+    },
+    "title": "Terms of Use"
   }
 }

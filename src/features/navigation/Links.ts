@@ -105,8 +105,8 @@ export const LINKS = {
   },
 
   Legal: {
-    terms: createLink("/terms", "Terms", { disabled: true }, false),
-    privacy: createLink("/privacy", "Privacy", { disabled: true }, false),
+    terms: createLink("/legal/terms", "Terms", { disabled: true }, false),
+    privacy: createLink("/legal/privacy", "Privacy", { disabled: true }, false),
     cookies: createLink("/cookies", "Cookies", { disabled: true }, false),
     rgpd: createLink("/rgpd", "RGPD", { disabled: true }, false),
   },
