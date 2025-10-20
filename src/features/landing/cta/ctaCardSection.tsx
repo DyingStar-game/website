@@ -12,11 +12,11 @@ export const CTASectionCard = () => {
       <Card className="relative isolate overflow-hidden py-24 text-center shadow-2xl lg:rounded-3xl">
         <Typography
           as="h2"
-          className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl"
+          className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl"
         >
           Boost your productivity today
         </Typography>
-        <Typography className="text-gray-300 mx-auto mt-6 max-w-xl text-lg/8 text-pretty">
+        <Typography className="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-300">
           Create an account and start posting today.
         </Typography>
         <div className="mt-10 flex items-center justify-center gap-x-6">
@@ -35,7 +35,7 @@ export const CTASectionCard = () => {
         <svg
           viewBox="0 0 1024 1024"
           aria-hidden="true"
-          className="absolute top-1/2 left-1/2 -z-10 size-256 -translate-x-1/2 mask-[radial-gradient(closest-side,white,transparent)]"
+          className="size-256 mask-[radial-gradient(closest-side,white,transparent)] absolute left-1/2 top-1/2 -z-10 -translate-x-1/2"
         >
           <circle
             r={512}

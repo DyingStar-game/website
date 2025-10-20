@@ -16,7 +16,7 @@ export const NewsSection = async () => {
         title={t("title")}
         action={{ label: t("action"), href: LINKS.News.All.href() }}
       />
-      <div className="divide-solide flex flex-col gap-7 divide-y divide-input border-b border-input">
+      <div className="divide-solide divide-input border-input flex flex-col gap-7 divide-y border-b">
         {lastNews.map((news, index) =>
           index < 2 ? (
             <NewsItem key={news.slug} news={news} className="pb-7" />

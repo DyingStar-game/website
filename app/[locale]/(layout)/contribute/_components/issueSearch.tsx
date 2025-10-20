@@ -31,7 +31,7 @@ export const IssueSearch = ({
   const formatter = useFormatter();
   return (
     <LayoutSection
-      className={cn("gap-5 rounded-md bg-card p-4 sm:p-8", className)}
+      className={cn("bg-card gap-5 rounded-md p-4 sm:p-8", className)}
       padding="none"
       {...props}
     >
@@ -54,7 +54,7 @@ export const IssueSearch = ({
                 onClick={() => toggleProject(count.value)}
                 className={cn(
                   isSelected && "active",
-                  "w-full justify-start gap-3 pr-4 pl-3.5",
+                  "w-full justify-start gap-3 pl-3.5 pr-4",
                 )}
               >
                 <span>

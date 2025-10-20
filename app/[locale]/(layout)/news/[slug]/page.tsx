@@ -1,3 +1,4 @@
+import { JsonLd } from "@components/DS/jsonLd";
 import { Typography } from "@components/DS/typography";
 import { ServerMdx } from "@feat/markdown/serverMdx";
 import { LINKS } from "@feat/navigation/Links";
@@ -7,7 +8,7 @@ import { LayoutMain, LayoutSection } from "@feat/page/layout";
 import { LOCALES } from "@i18n/config";
 import { Link } from "@i18n/navigation";
 import { combineWithParentMetadata } from "@lib/metadata";
-import { getServerUrl } from "@lib/serverUrl";
+import { createLocalizedUrl, getServerUrl } from "@lib/serverUrl";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
@@ -16,6 +17,7 @@ import { type Locale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import type { NewsArticle, WithContext } from "schema-dts";
 
 export const dynamic = "force-static";
 
@@ -78,6 +80,24 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
   const t = await getTranslations("News");
   const attributes = news.attributes;
 
+  const newsDetailPageJsonLd: WithContext<NewsArticle> = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: attributes.title,
+    about: attributes.description,
+    keywords: attributes.keywords,
+    dateCreated: attributes.date.toISOString(),
+    publisher: {
+      "@type": "Person",
+      name: attributes.author,
+    },
+    inLanguage: params.locale,
+    url: createLocalizedUrl(
+      params.locale,
+      LINKS.News.Detail.href({ newsSlug: news.slug }),
+    ),
+  };
+
   return (
     <LayoutMain>
       <Link
@@ -92,7 +112,7 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
         <ChevronLeft />
         {t("button.viewAll")}
       </Link>
-      <LayoutSection className="gap-8 border-b border-input pb-8">
+      <LayoutSection className="border-input gap-8 border-b pb-8">
         <Typography variant="h3" as="h1" className="flex items-center gap-4">
           <span className="text-5xl">{attributes.titleIcon}</span>
           {attributes.title}
@@ -114,6 +134,7 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
         previousSlug={news.previousSlug}
         nextSlug={news.nextSlug}
       />
+      <JsonLd data={newsDetailPageJsonLd} />
     </LayoutMain>
   );
 };

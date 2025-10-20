@@ -54,7 +54,7 @@ export default async function RoutePage(
   return (
     <div className="flex max-w-full flex-1 flex-row gap-4 lg:gap-12">
       <ServerMdx
-        className="mx-auto prose flex-2 lg:prose-lg dark:prose-invert"
+        className="prose flex-2 lg:prose-lg dark:prose-invert mx-auto"
         source={doc.content}
       />
 
@@ -80,7 +80,7 @@ export default async function RoutePage(
                   value={lang}
                   className="code-example rounded-md"
                 >
-                  <div className="rounded-md bg-muted/20 p-1">
+                  <div className="bg-muted/20 rounded-md p-1">
                     <ServerMdx
                       source={`\`\`\`${lang}\n${code}\n\`\`\``}
                       className="prose prose-sm dark:prose-invert"
@@ -114,7 +114,7 @@ export default async function RoutePage(
                     value={lang}
                     className="code-example rounded-md"
                   >
-                    <div className="rounded-md bg-muted/20 p-1">
+                    <div className="bg-muted/20 rounded-md p-1">
                       <ServerMdx
                         source={`\`\`\`json\n${result}\n\`\`\``}
                         className="prose prose-sm"
@@ -125,7 +125,7 @@ export default async function RoutePage(
               })
             ) : (
               <TabsContent value="success">
-                <div className="rounded-md bg-muted/20 p-1">
+                <div className="bg-muted/20 rounded-md p-1">
                   <ServerMdx source="No results available" className="pros" />
                 </div>
               </TabsContent>

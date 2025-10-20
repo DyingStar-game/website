@@ -7,7 +7,7 @@ import { cn } from "@lib/utils";
 import { type VariantProps, cva } from "class-variance-authority";
 
 const keyboardShortcutVariants = cva(
-  "border-b-gray-200 text-gray-800 ring-gray-300 dark:border-b-gray-950 inline-flex items-center justify-center rounded border-y border-t-white bg-accent px-1.5 font-sans text-[11px] ring-1 dark:border-t-transparent dark:text-white dark:ring-white/15",
+  "bg-accent inline-flex items-center justify-center rounded border-y border-b-gray-200 border-t-white px-1.5 font-sans text-[11px] text-gray-800 ring-1 ring-gray-300 dark:border-b-gray-950 dark:border-t-transparent dark:text-white dark:ring-white/15",
   {
     variants: {
       size: {
@@ -16,7 +16,7 @@ const keyboardShortcutVariants = cva(
         lg: "h-6 px-2 text-sm font-medium",
       },
       isKeyDown: {
-        true: "translate-y-0.5 bg-accent shadow-none",
+        true: "bg-accent translate-y-0.5 shadow-none",
       },
     },
     defaultVariants: {

@@ -14,7 +14,7 @@ const layoutVariants = cva("flex flex-col gap-14", {
       full: "w-full",
     },
     padding: {
-      default: "py-15 md:py-20 lg:py-22",
+      default: "py-15 lg:py-22 md:py-20",
       none: "",
     },
   },

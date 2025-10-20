@@ -41,9 +41,9 @@ export const HeaderBase = ({ children }: PropsWithChildren) => {
         style={{ height, backgroundColor: bg }}
         className={cn(
           "fixed inset-x-0 top-0 z-50 flex items-start justify-center gap-4 overflow-hidden p-4 shadow-md xl:items-center xl:p-7 2xl:gap-8",
-          "min-h-[72px] border-b border-input",
+          "border-input min-h-[72px] border-b",
           isOpen
-            ? "h-auto! max-h-screen bg-background!"
+            ? "h-auto! bg-background! max-h-screen"
             : "max-h-18! xl:max-h-35!",
         )}
       >

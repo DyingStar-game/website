@@ -1,13 +1,16 @@
 import { NewsSection } from "@app/[locale]/(landing)/_components/newsSection";
 import { CtaWithButton } from "@components/DS/CTA/ctaWithButton";
+import { JsonLd } from "@components/DS/jsonLd";
 import { LogoDiscordSvg } from "@components/svg/logoDiscord";
 import { LINKS } from "@feat/navigation/Links";
 import { LayoutMain } from "@feat/page/layout";
 // This is necessary because NEXT_PUBLIC_DISCORD_INVITE_ID is a variable that can be used in both the front and back ends.
 import { env } from "@lib/env/client";
 import { combineWithParentMetadata } from "@lib/metadata";
+import { createLocalizedUrl } from "@lib/serverUrl";
 import type { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
+import type { VideoGame, WebSite, WithContext } from "schema-dts";
 
 export const generateMetadata = async (
   props: {
@@ -33,8 +36,26 @@ export const generateMetadata = async (
   return mergeFn(props, parent);
 };
 
-const HomePage = async () => {
+const HomePage = async (props: PageProps<"/[locale]">) => {
+  const locale = (await props.params).locale;
   const t = await getTranslations("Landing");
+
+  const websiteJsonLd: WithContext<WebSite> = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: t("JsonLd.WebSite.name"),
+    url: createLocalizedUrl(locale, LINKS.Landing.Landing.href()),
+    description: t("JsonLd.WebSite.description"),
+    inLanguage: locale,
+  };
+
+  const videoGameJsonLd: WithContext<VideoGame> = {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    name: t("JsonLd.VideoGame.name"),
+    description: t("JsonLd.VideoGame.description"),
+    inLanguage: locale,
+  };
 
   return (
     <>
@@ -60,6 +81,8 @@ const HomePage = async () => {
           }}
         />
         {/* <YoutubeSection /> */}
+        <JsonLd data={websiteJsonLd} />
+        <JsonLd data={videoGameJsonLd} />
       </LayoutMain>
     </>
   );

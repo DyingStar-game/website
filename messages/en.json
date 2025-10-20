@@ -1,10 +1,5 @@
 {
   "Issue": {
-    "Metadata": {
-      "title": "'s contribute",
-      "description": "Contributes's description",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception"
-    },
     "Hero": {
       "description": "Join the crew and choose the missions that correspond to your skills. Each task strengthens the narrative universe of the MMO and brings the community closer to the next step of the journey.",
       "title": "Contribute to the Dying Star project"
@@ -21,12 +16,6 @@
         "join": "Join"
       }
     },
-    "IssuePagination": {
-      "button": {
-        "next": "Next",
-        "previous": "Previous"
-      }
-    },
     "IssueSearch": {
       "input": {
         "placeholder": "Search a task by keyword"
@@ -39,14 +28,22 @@
     },
     "IssuesNotFound": {
       "label": "No tasks found"
+    },
+    "JsonLd": {
+      "CollectionPage": {
+        "name": "All contributions"
+      },
+      "ItemList": {
+        "name": "List of contributions"
+      }
+    },
+    "Metadata": {
+      "description": "Contributions from the game DyingStar",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Contributions, Issues, Tasks",
+      "title": "Contribute"
     }
   },
   "Landing": {
-    "Metadata": {
-      "title": "Landing",
-      "description": "Website in english",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception"
-    },
     "CTA": {
       "contribute": {
         "action": "How to contribute",
@@ -56,6 +53,21 @@
         "action": "Join Discord",
         "title": "Follow the adventure live!"
       }
+    },
+    "JsonLd": {
+      "VideoGame": {
+        "description": "Game description",
+        "name": "DyingStar"
+      },
+      "WebSite": {
+        "description": "Website in english",
+        "name": "DyingStar"
+      }
+    },
+    "Metadata": {
+      "description": "Landing page of DyingStar game",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception",
+      "title": "Landing"
     },
     "News": {
       "action": "All news",
@@ -69,23 +81,16 @@
       "title": "Tasks"
     }
   },
-  "Project": {
-    "Metadata": {
-      "title": "Project",
-      "description": "Website in english",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception"
-    }
-  },
   "Layout": {
-    "Metadata": {
-      "description": "Website in english"
-    },
     "Footer": {
       "Community": "Community",
       "Contribute": "Contribute",
       "Lore": "Lore",
       "News": "News",
       "Project": "Project"
+    },
+    "Metadata": {
+      "description": "Website of DyingStar game"
     }
   },
   "Links": {
@@ -109,11 +114,24 @@
     "fr": "French",
     "label": "Language"
   },
+  "Manifest": {
+    "description": "Creation of the DyingStar community game",
+    "name": "DyingStar game website",
+    "shortName": "DyingStar"
+  },
   "News": {
+    "JsonLd": {
+      "CollectionPage": {
+        "name": "All news"
+      },
+      "ItemList": {
+        "name": "List of news"
+      }
+    },
     "Metadata": {
-      "title": "News",
-      "description": "Website in english",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception"
+      "description": "News about the DyingStar game",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, News, Video Game",
+      "title": "News"
     },
     "NewsDetailPagination": {
       "button": {
@@ -134,6 +152,13 @@
     "button": {
       "next": "Next",
       "previous": "Previous"
+    }
+  },
+  "Project": {
+    "Metadata": {
+      "description": "Overview of the DyingStar project",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Project, Overview",
+      "title": "Project"
     }
   }
 }

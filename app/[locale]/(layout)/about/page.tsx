@@ -30,19 +30,19 @@ const AboutPage = () => {
         <div className="mx-auto max-w-2xl text-center">
           <Typography
             variant="p"
-            className="text-base/7 font-semibold text-primary"
+            className="text-primary text-base/7 font-semibold"
           >
             About us
           </Typography>
           <Typography
             variant="h1"
-            className="mt-2 text-5xl font-semibold tracking-tight text-foreground sm:text-7xl"
+            className="text-foreground mt-2 text-5xl font-semibold tracking-tight sm:text-7xl"
           >
             Building trust through authentic testimonials
           </Typography>
           <Typography
             variant="p"
-            className="mt-8 text-lg font-medium text-pretty text-muted-foreground sm:text-xl/8"
+            className="text-muted-foreground mt-8 text-pretty text-lg font-medium sm:text-xl/8"
           >
             A platform you can trust, built by a dedicated founder committed to
             continuous innovation, regular updates, and transparent
@@ -57,13 +57,13 @@ const AboutPage = () => {
           <div className="lg:pr-8">
             <Typography
               variant="h2"
-              className="text-2xl font-semibold tracking-tight text-pretty text-foreground"
+              className="text-foreground text-pretty text-2xl font-semibold tracking-tight"
             >
               Our commitment to you
             </Typography>
             <Typography
               variant="p"
-              className="mt-6 text-base/7 text-muted-foreground"
+              className="text-muted-foreground mt-6 text-base/7"
             >
               NOW.TS is built with a long-term vision and unwavering commitment
               to our users. We understand that choosing a platform means
@@ -72,7 +72,7 @@ const AboutPage = () => {
             </Typography>
             <Typography
               variant="p"
-              className="mt-8 text-base/7 text-muted-foreground"
+              className="text-muted-foreground mt-8 text-base/7"
             >
               That's why we guarantee regular updates, continuous feature
               improvements, and transparent communication about every change.
@@ -83,28 +83,28 @@ const AboutPage = () => {
           </div>
           <div className="pt-16 lg:row-span-2 lg:-mr-16 xl:mr-auto">
             <div className="-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 xl:gap-8">
-              <div className="aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-border">
+              <div className="outline-border aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1">
                 <img
                   alt="Content creator recording testimonial"
                   src="https://codelynx.mlvcdn.com/images/2025-08-22/IMG_6608.jpeg"
                   className="block size-full object-cover"
                 />
               </div>
-              <div className="-mt-8 aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-border lg:-mt-40">
+              <div className="outline-border -mt-8 aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 lg:-mt-40">
                 <img
                   alt="Team collaboration on testimonials"
                   src="https://codelynx.mlvcdn.com/images/2025-08-22/IMG_7415.jpeg"
                   className="block size-full object-cover"
                 />
               </div>
-              <div className="aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-border">
+              <div className="outline-border aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1">
                 <img
                   alt="Digital testimonial showcase"
                   src="https://codelynx.mlvcdn.com/images/2025-08-22/IMG_9392.jpeg"
                   className="block size-full object-cover"
                 />
               </div>
-              <div className="-mt-8 aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-border lg:-mt-40">
+              <div className="outline-border -mt-8 aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 lg:-mt-40">
                 <img
                   alt="Creator success story"
                   src="https://codelynx.mlvcdn.com/images/2025-08-22/IMG_9896 2.jpeg"
@@ -116,41 +116,41 @@ const AboutPage = () => {
           <div className="max-lg:mt-16 lg:col-span-1">
             <Typography
               variant="p"
-              className="text-base/7 font-semibold text-muted-foreground"
+              className="text-muted-foreground text-base/7 font-semibold"
             >
               Our reliability promise
             </Typography>
-            <hr className="mt-6 border-t border-border" />
+            <hr className="border-border mt-6 border-t" />
             <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
-              <div className="flex flex-col gap-y-2 border-b border-dotted border-border pb-4">
-                <dt className="text-sm/6 text-muted-foreground">
+              <div className="border-border flex flex-col gap-y-2 border-b border-dotted pb-4">
+                <dt className="text-muted-foreground text-sm/6">
                   Weekly Updates
                 </dt>
-                <dd className="order-first text-6xl font-semibold tracking-tight text-foreground">
+                <dd className="text-foreground order-first text-6xl font-semibold tracking-tight">
                   <span>100</span>%
                 </dd>
               </div>
-              <div className="flex flex-col gap-y-2 border-b border-dotted border-border pb-4">
-                <dt className="text-sm/6 text-muted-foreground">
+              <div className="border-border flex flex-col gap-y-2 border-b border-dotted pb-4">
+                <dt className="text-muted-foreground text-sm/6">
                   Uptime Guarantee
                 </dt>
-                <dd className="order-first text-6xl font-semibold tracking-tight text-foreground">
+                <dd className="text-foreground order-first text-6xl font-semibold tracking-tight">
                   <span>99.9</span>%
                 </dd>
               </div>
-              <div className="flex flex-col gap-y-2 max-sm:border-b max-sm:border-dotted max-sm:border-border max-sm:pb-4">
-                <dt className="text-sm/6 text-muted-foreground">
+              <div className="max-sm:border-border flex flex-col gap-y-2 max-sm:border-b max-sm:border-dotted max-sm:pb-4">
+                <dt className="text-muted-foreground text-sm/6">
                   Response Time
                 </dt>
-                <dd className="order-first text-6xl font-semibold tracking-tight text-foreground">
+                <dd className="text-foreground order-first text-6xl font-semibold tracking-tight">
                   <span>&lt;24</span>h
                 </dd>
               </div>
               <div className="flex flex-col gap-y-2">
-                <dt className="text-sm/6 text-muted-foreground">
+                <dt className="text-muted-foreground text-sm/6">
                   Years Committed
                 </dt>
-                <dd className="order-first text-6xl font-semibold tracking-tight text-foreground">
+                <dd className="text-foreground order-first text-6xl font-semibold tracking-tight">
                   <span>10</span>+
                 </dd>
               </div>

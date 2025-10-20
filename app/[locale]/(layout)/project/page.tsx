@@ -1,12 +1,15 @@
 import { ProjectDescriptionSection } from "@app/[locale]/(layout)/project/_components/projectDescriptionSection";
+import { JsonLd } from "@components/DS/jsonLd";
+import { LINKS } from "@feat/navigation/Links";
 import { LayoutHeader, LayoutMain, LayoutTitle } from "@feat/page/layout";
 import { LOCALES } from "@i18n/config";
+import { combineWithParentMetadata } from "@lib/metadata";
+import { createLocalizedUrl } from "@lib/serverUrl";
 import type { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
+import type { Article, WithContext } from "schema-dts";
 
 import { FaqSection } from "./_components/faqSection";
-import { combineWithParentMetadata } from "@lib/metadata";
-import { LINKS } from "@feat/navigation/Links";
 
 export const dynamic = "force-static";
 
@@ -43,6 +46,15 @@ export const generateStaticParams = async () => {
 const ProjectPage = async (props: PageProps<"/[locale]/project">) => {
   const { locale } = await props.params;
   const t = await getTranslations("Landing.ProjectDescription");
+
+  const projectPageJsonLd: WithContext<Article> = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: t("title"),
+    inLanguage: locale,
+    url: createLocalizedUrl(locale, LINKS.Project.Project.href()),
+  };
+
   return (
     <LayoutMain>
       <LayoutHeader>
@@ -54,6 +66,7 @@ const ProjectPage = async (props: PageProps<"/[locale]/project">) => {
         <LayoutTitle>F.A.Q</LayoutTitle>
       </LayoutHeader>
       <FaqSection locale={locale} />
+      <JsonLd data={projectPageJsonLd} />
     </LayoutMain>
   );
 };

@@ -44,7 +44,7 @@ export const Paginate = ({
     >
       <div className="flex flex-1 justify-between gap-4">
         <PaginateAction
-          className="group flex-1 sm:flex-0"
+          className="sm:flex-0 group flex-1"
           mode={mode}
           disabled={!canPrev}
           onClick={() => setPage?.((p) => p - 1)}
@@ -69,7 +69,7 @@ export const Paginate = ({
         )}
 
         <PaginateAction
-          className="group flex-1 sm:flex-0"
+          className="sm:flex-0 group flex-1"
           mode={mode}
           disabled={!canNext}
           onClick={() => setPage?.((p) => p + 1)}

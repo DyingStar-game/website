@@ -13,7 +13,7 @@ const Avatar = ({
     <AvatarPrimitive.Root
       data-slot="avatar"
       className={cn(
-        "relative flex size-8 shrink-0 overflow-hidden rounded-full border-2 border-background",
+        "border-background relative flex size-8 shrink-0 overflow-hidden rounded-full border-2",
         className,
       )}
       {...props}
@@ -42,7 +42,7 @@ const AvatarFallback = ({
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
       className={cn(
-        "flex size-full items-center justify-center rounded-full bg-muted",
+        "bg-muted flex size-full items-center justify-center rounded-full",
         className,
       )}
       {...props}

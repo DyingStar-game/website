@@ -1,14 +1,16 @@
 import { Issues } from "@app/[locale]/(layout)/contribute/_components/issues";
 import Hero from "@components/DS/hero/hero";
+import { JsonLd } from "@components/DS/jsonLd";
 import { paginatedIssuesQueryOptions } from "@feat/issue/get/paginatedIssuesQuery.options";
 import { LINKS } from "@feat/navigation/Links";
 import { LayoutMain } from "@feat/page/layout";
-// import { Locale } from "@i18n/config";
 import { combineWithParentMetadata } from "@lib/metadata";
+import { createLocalizedUrl } from "@lib/serverUrl";
 import { getQueryClient } from "@lib/tanstack/getQueryClient";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import type { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
+import type { CollectionPage, HowTo, WithContext } from "schema-dts";
 
 export const generateMetadata = async (
   props: {
@@ -34,19 +36,44 @@ export const generateMetadata = async (
   return mergeFn(props, parent);
 };
 
-const ContributePage = async () => {
+const ContributePage = async (props: PageProps<"/[locale]/contribute">) => {
+  const params = await props.params;
   const queryClient = getQueryClient();
-  const t = await getTranslations("Issue.Hero");
+  const t = await getTranslations("Issue");
 
   void queryClient.prefetchQuery(paginatedIssuesQueryOptions());
 
+  const currentUrl = createLocalizedUrl(
+    params.locale,
+    LINKS.Project.Contribute.href(),
+  );
+
+  const contributePageJsonLd: WithContext<HowTo> = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: t("Hero.title"),
+    about: t("Hero.description"),
+    inLanguage: params.locale,
+    url: currentUrl,
+  };
+
+  const collectionPageJsonLd: WithContext<CollectionPage> = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: t("JsonLd.CollectionPage.name"),
+    url: currentUrl,
+    inLanguage: params.locale,
+  };
+
   return (
     <>
-      <Hero title={t("title")} description={t("description")} />
+      <Hero title={t("Hero.title")} description={t("Hero.description")} />
       <LayoutMain>
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Issues />
         </HydrationBoundary>
+        <JsonLd data={contributePageJsonLd} />
+        <JsonLd data={collectionPageJsonLd} />
       </LayoutMain>
     </>
   );

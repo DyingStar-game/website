@@ -3,8 +3,8 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { getLocale } from "next-intl/server";
 import { SiteConfig } from "siteConfig";
 
-import { localMapper } from "./utils";
 import { createLocalizedUrl } from "./serverUrl";
+import { localMapper } from "./utils";
 
 /**
  * Add a suffix to the title of the parent metadata

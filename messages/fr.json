@@ -29,10 +29,18 @@
     "IssuesNotFound": {
       "label": "Aucune tâche trouvée"
     },
+    "JsonLd": {
+      "CollectionPage": {
+        "name": "Les contributions"
+      },
+      "ItemList": {
+        "name": "Liste des contributions"
+      }
+    },
     "Metadata": {
-      "description": "Description de la page de contribution",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception",
-      "title": " contribution"
+      "description": "Les contributions du jeu DyingStar",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Contributions, Tâches, Issues",
+      "title": "Contributions"
     }
   },
   "Landing": {
@@ -46,10 +54,20 @@
         "title": "Suivez l'aventure en direct !"
       }
     },
+    "JsonLd": {
+      "VideoGame": {
+        "description": "Description du jeu",
+        "name": "DyingStar"
+      },
+      "WebSite": {
+        "description": "Description du site",
+        "name": "DyingStar"
+      }
+    },
     "Metadata": {
-      "description": "Site en français",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception",
-      "title": "Landing"
+      "description": "La page d'accueil du jeu DyingStar",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Accueil",
+      "title": "Accueil"
     },
     "News": {
       "action": "Toutes les news",
@@ -72,7 +90,7 @@
       "Project": "Projet"
     },
     "Metadata": {
-      "description": "Site en français"
+      "description": "Site web du jeu DyingStar"
     }
   },
   "Links": {
@@ -96,11 +114,24 @@
     "fr": "Français",
     "label": "Langue"
   },
+  "Manifest": {
+    "description": "Création de jeu communautaire DyingStar",
+    "name": "Site web du jeu DyingStar",
+    "shortName": "DyingStar"
+  },
   "News": {
+    "JsonLd": {
+      "CollectionPage": {
+        "name": "Les actualités"
+      },
+      "ItemList": {
+        "name": "Liste des actualités"
+      }
+    },
     "Metadata": {
-      "description": "Site en français",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception",
-      "title": "News"
+      "description": "Les actualités du jeu DyingStar",
+      "keywords": "Dying Star, Jeu Dying Star, DyingStar, Star Deception, Actualités, News, Jeu Vidéo",
+      "title": "Actualités"
     },
     "NewsDetailPagination": {
       "button": {
@@ -125,9 +156,9 @@
   },
   "Project": {
     "Metadata": {
-      "description": "Site en français",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception",
-      "title": "Project"
+      "description": "La présentation du projet DyingStar",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Projet, Présentation",
+      "title": "Projet"
     }
   }
 }

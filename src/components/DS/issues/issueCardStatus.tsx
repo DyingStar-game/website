@@ -12,7 +12,7 @@ export const IssueCardStatus = ({ status, className }: StatusInfoProps) => {
   return (
     <div className={className}>
       <DynamicIcon name={getProjectStatusIcon(status)} />
-      <span className="truncate text-foreground uppercase">{status}</span>
+      <span className="text-foreground truncate uppercase">{status}</span>
     </div>
   );
 };

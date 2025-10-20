@@ -16,7 +16,7 @@ const BreadcrumbList = ({
     <ol
       data-slot="breadcrumb-list"
       className={cn(
-        "flex flex-wrap items-center gap-1.5 text-sm break-words text-muted-foreground sm:gap-2.5",
+        "text-muted-foreground flex flex-wrap items-center gap-1.5 break-words text-sm sm:gap-2.5",
         className,
       )}
       {...props}
@@ -49,7 +49,7 @@ const BreadcrumbLink = ({
   return (
     <Comp
       data-slot="breadcrumb-link"
-      className={cn("transition-colors hover:text-foreground", className)}
+      className={cn("hover:text-foreground transition-colors", className)}
       {...props}
     />
   );
@@ -65,7 +65,7 @@ const BreadcrumbPage = ({
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn("font-normal text-foreground", className)}
+      className={cn("text-foreground font-normal", className)}
       {...props}
     />
   );
