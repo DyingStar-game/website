@@ -27,16 +27,6 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    services:
-      meilisearch:
-        image: getmeili/meilisearch:v1.22.3
-        ports:
-          - 7700:7700
-        options: >-
-          --health-cmd="sh -c 'curl -f http://meilisearch:7700/health || exit 1'"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
 
     steps:
       - name: Checkout repository
@@ -58,9 +48,6 @@ jobs:
           corepack prepare pnpm@${VERSION} --activate
           pnpm --version
           echo "pnpm_version=$VERSION" >> "$GITHUB_OUTPUT"
-
-      - name: Install curl (required for Meilisearch health check)
-        run: apk add --no-cache curl
 
       - name: Setup Node (with pnpm cache)
         uses: actions/setup-node@v4
@@ -100,46 +87,6 @@ jobs:
           echo "Creating .env.production from secret WEBSITE_ENV_FILE"
           # Secret WEBSITE_ENV_FILE must contain full multi-line contents of .env.production
           printf "%s" "${{ secrets.WEBSITE_ENV_FILE }}" > .env.production
-
-      - name: Wait for Meilisearch
-        run: |
-          echo "Waiting for Meilisearch to be ready at http://meilisearch:7700..."
-          READY=false
-          for i in {1..30}; do
-            if curl -s -f http://meilisearch:7700/health > /dev/null; then
-              echo "Meilisearch is ready!"
-              READY=true
-              break
-            else
-              echo "Still waiting ($i/30)..."
-              sleep 2
-            fi
-          done
-          if [ "$READY" = false ]; then
-            echo "Meilisearch did not become ready after 30 attempts." >&2
-            exit 1
-          fi
-
-      - name: Seed Meilisearch index
-        run: |
-          echo "Creating index 'gh_issues' in Meilisearch..."
-          if ! curl -s -X POST "http://meilisearch:7700/indexes" \
-            -H "Content-Type: application/json" \
-            -d '{"uid": "gh_issues", "primaryKey": "id"}'; then
-            echo "Failed to create index 'gh_issues' in Meilisearch." >&2
-            exit 1
-          fi
-
-          echo "Updating filterable and sortable attributes for 'gh_issues' index..."
-          if ! curl -s -X PATCH "http://meilisearch:7700/indexes/gh_issues/settings" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "filterableAttributes": ["projectName", "hasAssignees", "status"],
-              "sortableAttributes": ["priority", "updatedAt"]
-            }'; then
-            echo "Failed to update attributes for 'gh_issues' index." >&2
-            exit 1
-          fi
 
       - name: Type generation
         run: |
