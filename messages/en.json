@@ -178,6 +178,10 @@
       "title": "Project"
     }
   },
+  "RSS": {
+    "description": "RSS feed for the Dying Star community game",
+    "title": "Dying Star"
+  },
   "Terms": {
     "JsonLd": {
       "Article": {

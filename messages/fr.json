@@ -178,6 +178,10 @@
       "title": "Projet"
     }
   },
+  "RSS": {
+    "description": "Flux RSS du jeu communautaire Dying Star",
+    "title": "Dying Star"
+  },
   "Terms": {
     "JsonLd": {
       "Article": {
