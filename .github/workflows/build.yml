@@ -15,7 +15,6 @@ concurrency:
 env:
   IMAGE_NAME: website
   REGISTRY: ghcr.io/dyingstar-game
-  MEILI_URL: http://meilisearch:7700
 
 jobs:
   build:
@@ -34,7 +33,7 @@ jobs:
         ports:
           - 7700:7700
         options: >-
-          --health-cmd="sh -c 'curl -f ${MEILI_URL:-http://meilisearch:7700}/health || exit 1'"
+          --health-cmd="sh -c 'curl -f http://meilisearch:7700/health || exit 1'"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -104,10 +103,10 @@ jobs:
 
       - name: Wait for Meilisearch
         run: |
-          echo "Waiting for Meilisearch to be ready at ${{ env.MEILI_URL }}..."
+          echo "Waiting for Meilisearch to be ready at http://meilisearch:7700..."
           READY=false
           for i in {1..30}; do
-            if curl -f ${{ env.MEILI_URL }}/health; then
+            if curl -s -f http://meilisearch:7700/health > /dev/null; then
               echo "Meilisearch is ready!"
               READY=true
               break
@@ -124,17 +123,23 @@ jobs:
       - name: Seed Meilisearch index
         run: |
           echo "Creating index 'gh_issues' in Meilisearch..."
-          curl -X POST "${{ env.MEILI_URL }}/indexes" \
+          if ! curl -s -X POST "http://meilisearch:7700/indexes" \
             -H "Content-Type: application/json" \
-            -d '{"uid": "gh_issues", "primaryKey": "id"}'
+            -d '{"uid": "gh_issues", "primaryKey": "id"}'; then
+            echo "Failed to create index 'gh_issues' in Meilisearch." >&2
+            exit 1
+          fi
 
           echo "Updating filterable and sortable attributes for 'gh_issues' index..."
-          curl -X PATCH "${{ env.MEILI_URL }}/indexes/gh_issues/settings" \
+          if ! curl -s -X PATCH "http://meilisearch:7700/indexes/gh_issues/settings" \
             -H "Content-Type: application/json" \
             -d '{
               "filterableAttributes": ["projectName", "hasAssignees", "status"],
               "sortableAttributes": ["priority", "updatedAt"]
-            }'
+            }'; then
+            echo "Failed to update attributes for 'gh_issues' index." >&2
+            exit 1
+          fi
 
       - name: Type generation
         run: |
