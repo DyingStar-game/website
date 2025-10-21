@@ -24,7 +24,7 @@ export const GET = route.handler(async (_, { params }) => {
     favicon: `${SiteConfig.prodUrl}/icons/favicon.ico`,
     copyright: `© ${new Date().getFullYear()} ${SiteConfig.title}`,
     feedLinks: {
-      rss2: createLocalizedUrl(locale, "/rss.xml"),
+      rss2: createLocalizedUrl(locale, LINKS.Community.Rss.href()),
     },
   });
 

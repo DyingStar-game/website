@@ -86,15 +86,16 @@ export const LINKS = {
     Discord: createLink(
       `https://discord.gg/${env.NEXT_PUBLIC_DISCORD_INVITE_ID}`,
       "Links.Community.Discord",
-      {},
+      { target: "_blank" },
       false,
     ),
     Github: createLink(
       `https://github.com/${env.NEXT_PUBLIC_GITHUB_REPO}`,
       "Links.Community.Github",
-      {},
+      { target: "_blank" },
       false,
     ),
+    Rss: createLink("/rss.xml", "Links.Community.Rss", { target: "_blank" }),
   },
 
   Support: {

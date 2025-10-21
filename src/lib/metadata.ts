@@ -1,3 +1,4 @@
+import { LINKS } from "@feat/navigation/Links";
 import type { Locale } from "@i18n/config";
 import type { Metadata, ResolvingMetadata } from "next";
 import { getLocale } from "next-intl/server";
@@ -43,5 +44,14 @@ export const combineWithParentMetadata =
         },
       }),
       title: `${parentMetadata.title?.absolute} · ${metadata.title}`,
+      alternates: {
+        ...metadata.alternates,
+        types: {
+          "application/rss+xml": createLocalizedUrl(
+            locale,
+            LINKS.Community.Rss.href(),
+          ),
+        },
+      },
     };
   };
