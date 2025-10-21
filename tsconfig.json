@@ -18,6 +18,7 @@
       "@hooks/*": ["hooks/*"],
       "@i18n/*": ["i18n/*"],
       "@lib/*": ["lib/*"],
+      "@messages/*": ["../messages/*"],
       "@type/*": ["types/*"],
       "@ui/*": ["components/ui/*"]
     },

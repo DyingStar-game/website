@@ -1,20 +1,23 @@
 import { LogoSvg } from "@components/svg/logoSvg";
-import Link from "next/link";
+import { LINKS } from "@feat/navigation/Links";
+import { Link } from "@i18n/navigation";
+import { getTranslations } from "next-intl/server";
 
-export const FloatingLegalFooter = () => {
+export const FloatingLegalFooter = async () => {
+  const t = await getTranslations("Links");
   return (
     <div className="fixed right-2 bottom-2 flex items-center gap-2">
       <Link
         className="text-xs text-muted-foreground hover:underline"
-        href="/legal/privacy"
+        href={LINKS.Legal.privacy.href()}
       >
-        Privacy
+        {t("Legal.privacy")}
       </Link>
       <Link
         className="text-xs text-muted-foreground hover:underline"
-        href="/legal/terms"
+        href={LINKS.Legal.terms.href()}
       >
-        Terms
+        {t("Legal.terms")}
       </Link>
       <LogoSvg size={12} />
     </div>

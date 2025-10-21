@@ -1,3 +1,4 @@
+import { JsonLd } from "@components/DS/jsonLd";
 import { Typography } from "@components/DS/typography";
 import { ServerMdx } from "@feat/markdown/serverMdx";
 import { LINKS } from "@feat/navigation/Links";
@@ -6,29 +7,34 @@ import { getCurrentNews, getNews } from "@feat/news/newsManager";
 import { LayoutMain, LayoutSection } from "@feat/page/layout";
 import { LOCALES } from "@i18n/config";
 import { Link } from "@i18n/navigation";
+import { combineWithParentMetadata } from "@lib/metadata";
 import { createLocalizedUrl, getServerUrl } from "@lib/serverUrl";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
-import type { Metadata } from "next";
+import type { ResolvingMetadata } from "next";
 import { type Locale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import type { NewsArticle, WithContext } from "schema-dts";
 
 export const dynamic = "force-static";
 
 export const generateMetadata = async (
-  props: PageProps<"/[locale]/news/[slug]">,
-): Promise<Metadata> => {
+  props: {
+    params: Record<string, string>;
+    searchParams?: Record<string, string | string[] | undefined>;
+  },
+  parent: ResolvingMetadata,
+) => {
   const params = await props.params;
   const news = await getCurrentNews(params.slug, params.locale);
-
   if (!news) {
     notFound();
   }
 
-  return {
+  const mergeFn = combineWithParentMetadata({
     title: news.attributes.title,
     description: news.attributes.description,
     keywords: news.attributes.keywords,
@@ -39,13 +45,14 @@ export const generateMetadata = async (
     openGraph: {
       title: news.attributes.title,
       description: news.attributes.description,
-      url: createLocalizedUrl(
-        params.locale,
-        LINKS.News.Detail.href({ newsSlug: news.slug }),
-      ),
+      url: LINKS.News.Detail.href({ newsSlug: news.slug }),
       type: "article",
     },
-  };
+    alternates: {
+      canonical: LINKS.News.Detail.href({ newsSlug: news.slug }),
+    },
+  });
+  return mergeFn(props, parent);
 };
 
 export const generateStaticParams = async () => {
@@ -72,6 +79,24 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
 
   const t = await getTranslations("News");
   const attributes = news.attributes;
+
+  const newsDetailPageJsonLd: WithContext<NewsArticle> = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: attributes.title,
+    about: attributes.description,
+    keywords: attributes.keywords,
+    dateCreated: attributes.date.toISOString(),
+    publisher: {
+      "@type": "Person",
+      name: attributes.author,
+    },
+    inLanguage: params.locale,
+    url: createLocalizedUrl(
+      params.locale,
+      LINKS.News.Detail.href({ newsSlug: news.slug }),
+    ),
+  };
 
   return (
     <LayoutMain>
@@ -109,6 +134,7 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
         previousSlug={news.previousSlug}
         nextSlug={news.nextSlug}
       />
+      <JsonLd data={newsDetailPageJsonLd} />
     </LayoutMain>
   );
 };

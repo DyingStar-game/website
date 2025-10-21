@@ -28,10 +28,10 @@ export const Footer = () => {
               <nav className="flex flex-col gap-2">
                 {group.links.map((link) =>
                   !link.disabled ? (
-                    <Link key={link.href} href={link.href}>
+                    <Link key={link.href} {...link}>
                       <Typography
                         variant="default"
-                        className="text-foreground/40"
+                        className="text-foreground/40 hover:text-foreground/80"
                       >
                         {t(link.label)}
                       </Typography>

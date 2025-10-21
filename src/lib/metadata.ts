@@ -1,4 +1,11 @@
+import { LINKS } from "@feat/navigation/Links";
+import type { Locale } from "@i18n/config";
 import type { Metadata, ResolvingMetadata } from "next";
+import { getLocale } from "next-intl/server";
+import { SiteConfig } from "siteConfig";
+
+import { createLocalizedUrl } from "./serverUrl";
+import { localMapper } from "./utils";
 
 /**
  * Add a suffix to the title of the parent metadata
@@ -11,15 +18,40 @@ import type { Metadata, ResolvingMetadata } from "next";
 export const combineWithParentMetadata =
   (metadata: Metadata) =>
   async (
-    _: {
-      params: Promise<Record<string, string>>;
-      searchParams?: Promise<Record<string, string | string[] | undefined>>;
+    _props: {
+      params: Record<string, string>;
+      searchParams?: Record<string, string | string[] | undefined>;
     },
     parent: ResolvingMetadata,
   ): Promise<Metadata> => {
+    const locale = (await getLocale()) as Locale;
     const parentMetadata = await parent;
     return {
       ...metadata,
+      ...(metadata.openGraph && {
+        openGraph: {
+          ...metadata.openGraph,
+          locale: localMapper(locale),
+          url: createLocalizedUrl(locale, metadata.openGraph.url?.toString()),
+          images: [
+            {
+              url: SiteConfig.metaImage,
+              width: 1200,
+              height: 630,
+              alt: SiteConfig.metaImageAlt,
+            },
+          ],
+        },
+      }),
       title: `${parentMetadata.title?.absolute} · ${metadata.title}`,
+      alternates: {
+        ...metadata.alternates,
+        types: {
+          "application/rss+xml": createLocalizedUrl(
+            locale,
+            LINKS.Community.Rss.href(),
+          ),
+        },
+      },
     };
   };
