@@ -36,11 +36,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
       googleBot: "index, follow",
     },
     applicationName: SiteConfig.title,
-    // alternates: {
-    //   types: {
-    //     "application/rss+xml": "https://dminhvu.com/rss.xml"
-    //   }
-    // },
     alternates: {
       canonical: SiteConfig.prodUrl,
     },
@@ -53,14 +48,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
       creator: "@dyingstargame",
       site: SiteConfig.prodUrl,
     },
-    // verification: {
-    //   google: "YOUR_DATA",
-    //   yandex: ["YOUR_DATA"],
-    //   other: {
-    //     "msvalidate.01": ["YOUR_DATA"],
-    //     "facebook-domain-verification": ["YOUR_DATA"]
-    //   }
-    // }
   };
 };
 

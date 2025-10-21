@@ -96,7 +96,8 @@
   "Links": {
     "Community": {
       "Discord": "Discord",
-      "Github": "GitHub"
+      "Github": "GitHub",
+      "Rss": "RSS"
     },
     "Legal": {
       "privacy": "Politique de confidentialité",
@@ -177,6 +178,10 @@
       "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Projet, Présentation",
       "title": "Projet"
     }
+  },
+  "RSS": {
+    "description": "Flux RSS du jeu communautaire Dying Star",
+    "title": "Dying Star"
   },
   "Terms": {
     "JsonLd": {
