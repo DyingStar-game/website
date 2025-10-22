@@ -1,4 +1,5 @@
 import { JsonLd } from "@components/DS/jsonLd";
+import { OptimizedImage } from "@components/DS/optimizedImage/optimizeImage";
 import { Typography } from "@components/DS/typography";
 import { ServerMdx } from "@feat/markdown/serverMdx";
 import { LINKS } from "@feat/navigation/Links";
@@ -15,7 +16,6 @@ import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
 import type { ResolvingMetadata } from "next";
 import { type Locale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { NewsArticle, WithContext } from "schema-dts";
 
@@ -117,15 +117,12 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
           <span className="text-5xl">{attributes.titleIcon}</span>
           {attributes.title}
         </Typography>
-        <div className="relative aspect-video w-full self-center">
-          <Image
-            src={attributes.coverUrl}
-            alt={attributes.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
+        <OptimizedImage
+          src={attributes.coverUrl}
+          alt={attributes.title}
+          priority
+          loading="eager"
+        />
         <ServerMdx className="mb-8" source={news.content} />
         <NewsItemTags tags={attributes.tags} />
         <NewsItemAuthor author={attributes.author} date={attributes.date} />

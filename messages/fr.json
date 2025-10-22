@@ -147,6 +147,9 @@
     "NewsItem": {
       "moreInfo": "Informations supplémentaires"
     },
+    "NewsItemLight": {
+      "moreInfo": "Informations supplémentaires"
+    },
     "button": {
       "viewAll": "Voir toutes les actualités"
     },
