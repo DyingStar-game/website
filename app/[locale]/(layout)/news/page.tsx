@@ -1,3 +1,4 @@
+import { JsonLd } from "@components/DS/jsonLd";
 import { Paginate } from "@components/DS/paginate/paginate";
 import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
@@ -10,24 +11,38 @@ import {
   LayoutTitle,
 } from "@feat/page/layout";
 import { Link } from "@i18n/navigation";
+import { combineWithParentMetadata } from "@lib/metadata";
+import { createLocalizedUrl } from "@lib/serverUrl";
 import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
 import { FileQuestion } from "lucide-react";
-import type { Metadata } from "next";
+import type { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { SiteConfig } from "siteConfig";
+import type { CollectionPage, ItemList, WithContext } from "schema-dts";
 
-export const metadata: Metadata = {
-  title: `${SiteConfig.title}'s news`,
-  description: SiteConfig.description,
-  keywords: ["news"],
-  openGraph: {
-    title: `${SiteConfig.title}'s news`,
-    description: SiteConfig.description,
-    url: SiteConfig.prodUrl,
-    type: "website",
+export const generateMetadata = async (
+  props: {
+    params: Record<string, string>;
+    searchParams?: Record<string, string | string[] | undefined>;
   },
+  parent: ResolvingMetadata,
+) => {
+  const t = await getTranslations("News.Metadata");
+
+  const mergeFn = combineWithParentMetadata({
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    openGraph: {
+      url: LINKS.News.All.href(),
+      type: "article",
+    },
+    alternates: {
+      canonical: LINKS.News.All.href(),
+    },
+  });
+  return mergeFn(props, parent);
 };
 
 export default async function NewsPage(props: PageProps<"/[locale]/news">) {
@@ -47,6 +62,45 @@ export default async function NewsPage(props: PageProps<"/[locale]/news">) {
   const paginatedNews = await getPaginatedNews(params.locale, tags, page);
 
   const t = await getTranslations("News");
+
+  const currentUrl = createLocalizedUrl(params.locale, LINKS.News.All.href(), {
+    page,
+  });
+
+  const collectionPageJsonLd: WithContext<CollectionPage> = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: t("JsonLd.CollectionPage.name"),
+    url: currentUrl,
+    inLanguage: params.locale,
+  };
+
+  const newsListJsonLd: WithContext<ItemList> = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: t("JsonLd.ItemList.name"),
+    url: currentUrl,
+    itemListElement: paginatedNews.news.map((news, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      item: {
+        "@type": "NewsArticle",
+        url: createLocalizedUrl(
+          params.locale,
+          LINKS.News.Detail.href({ newsSlug: news.slug }),
+        ),
+        headline: news.attributes.title,
+        about: news.attributes.description,
+        keywords: news.attributes.keywords,
+        dateCreated: news.attributes.date.toISOString(),
+        creator: {
+          "@type": "Person",
+          name: news.attributes.author,
+        },
+        inLanguage: params.locale,
+      },
+    })),
+  };
 
   return (
     <LayoutMain>
@@ -109,6 +163,8 @@ export default async function NewsPage(props: PageProps<"/[locale]/news">) {
           />
         </>
       )}
+      <JsonLd data={collectionPageJsonLd} />
+      <JsonLd data={newsListJsonLd} />
     </LayoutMain>
   );
 }

@@ -16,22 +16,30 @@ export const Footer = () => {
   return (
     <Layout asChild padding="none" className="gap-5 pb-8">
       <footer>
-        <Link href={LINKS.Landing.Landing.href()} className="self-center">
+        <Link
+          href={LINKS.Landing.Landing.href()}
+          className="self-center"
+          aria-label={SiteConfig.title}
+        >
           <LogoNameSvg className="h-10 w-auto" />
         </Link>
         <div className="flex flex-col justify-around gap-8 md:flex-row">
           {getFooterLinks().map((group) => (
             <div key={group.title} className="flex flex-col gap-4">
-              <Typography variant="h4" className="self-center md:self-auto">
+              <Typography
+                variant="h4"
+                as={"h2"}
+                className="self-center md:self-auto"
+              >
                 {t(group.title)}
               </Typography>
               <nav className="flex flex-col gap-2">
                 {group.links.map((link) =>
                   !link.disabled ? (
-                    <Link key={link.href} href={link.href}>
+                    <Link key={link.href} {...link}>
                       <Typography
                         variant="default"
-                        className="text-foreground/40"
+                        className="text-foreground/40 hover:text-foreground/80"
                       >
                         {t(link.label)}
                       </Typography>
