@@ -28,6 +28,19 @@
     },
     "IssuesNotFound": {
       "label": "Aucune tâche trouvée"
+    },
+    "JsonLd": {
+      "CollectionPage": {
+        "name": "Les contributions"
+      },
+      "ItemList": {
+        "name": "Liste des contributions"
+      }
+    },
+    "Metadata": {
+      "description": "Les contributions du jeu DyingStar",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Contributions, Tâches, Issues",
+      "title": "Contributions"
     }
   },
   "Landing": {
@@ -40,6 +53,21 @@
         "action": "Rejoindre le Discord",
         "title": "Suivez l'aventure en direct !"
       }
+    },
+    "JsonLd": {
+      "VideoGame": {
+        "description": "Description du jeu",
+        "name": "DyingStar"
+      },
+      "WebSite": {
+        "description": "Description du site",
+        "name": "DyingStar"
+      }
+    },
+    "Metadata": {
+      "description": "La page d'accueil du jeu DyingStar",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Accueil",
+      "title": "Accueil"
     },
     "News": {
       "action": "Toutes les news",
@@ -60,12 +88,20 @@
       "Lore": "Lore",
       "News": "Actualités",
       "Project": "Projet"
+    },
+    "Metadata": {
+      "description": "Site web du jeu DyingStar"
     }
   },
   "Links": {
     "Community": {
       "Discord": "Discord",
-      "Github": "Github"
+      "Github": "GitHub",
+      "Rss": "RSS"
+    },
+    "Legal": {
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation"
     },
     "Lore": {
       "History": "Lore"
@@ -80,10 +116,28 @@
   },
   "LocaleSwitcher": {
     "en": "Anglais",
-    "fr": "Francais",
+    "fr": "Français",
     "label": "Langue"
   },
+  "Manifest": {
+    "description": "Création de jeu communautaire DyingStar",
+    "name": "Site web du jeu DyingStar",
+    "shortName": "DyingStar"
+  },
   "News": {
+    "JsonLd": {
+      "CollectionPage": {
+        "name": "Les actualités"
+      },
+      "ItemList": {
+        "name": "Liste des actualités"
+      }
+    },
+    "Metadata": {
+      "description": "Les actualités du jeu DyingStar",
+      "keywords": "Dying Star, Jeu Dying Star, DyingStar, Star Deception, Actualités, News, Jeu Vidéo",
+      "title": "Actualités"
+    },
     "NewsDetailPagination": {
       "button": {
         "next": "Suivante",
@@ -91,6 +145,9 @@
       }
     },
     "NewsItem": {
+      "moreInfo": "Informations supplémentaires"
+    },
+    "NewsItemLight": {
       "moreInfo": "Informations supplémentaires"
     },
     "button": {
@@ -104,5 +161,42 @@
       "next": "Suivante",
       "previous": "Précédente"
     }
+  },
+  "Privacy": {
+    "JsonLd": {
+      "Article": {
+        "headline": "Politique de confidentialité"
+      }
+    },
+    "Metadata": {
+      "description": "Informations sur la politique de confidentialté",
+      "keywords": "Dying Star, Jeu Dying Star, DyingStar, Star Deception, confidentialité, vie privée, légal",
+      "title": "Politique de confidentialité"
+    },
+    "title": "Politique de confidentialité"
+  },
+  "Project": {
+    "Metadata": {
+      "description": "La présentation du projet DyingStar",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Projet, Présentation",
+      "title": "Projet"
+    }
+  },
+  "RSS": {
+    "description": "Flux RSS du jeu communautaire Dying Star",
+    "title": "Dying Star"
+  },
+  "Terms": {
+    "JsonLd": {
+      "Article": {
+        "headline": "Conditions d'utilisation"
+      }
+    },
+    "Metadata": {
+      "description": "Informations sur les conditions d'utilisation",
+      "keywords": "Dying Star, Jeu Dying Star, DyingStar, Star Deception, Conditions d'utilisation, légal",
+      "title": "Conditions d'utilisation"
+    },
+    "title": "Conditions d'utilisation"
   }
 }

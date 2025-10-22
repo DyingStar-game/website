@@ -15,13 +15,13 @@ const nextConfig: NextConfig = {
   },
   typedRoutes: true,
   images: {
-    unoptimized: true,
+    imageSizes: [320, 480, 640, 768, 1024, 1280, 1536],
+    qualities: [75, 80],
+    deviceSizes: [320, 480, 640, 768, 1024, 1280, 1536],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "images.unsplash.com",
-        port: "",
-        pathname: "/**",
+        hostname: "**",
       },
     ],
   },

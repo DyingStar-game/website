@@ -1,3 +1,5 @@
+import { JsonLd } from "@components/DS/jsonLd";
+import { OptimizedImage } from "@components/DS/optimizedImage/optimizeImage";
 import { Typography } from "@components/DS/typography";
 import { ServerMdx } from "@feat/markdown/serverMdx";
 import { LINKS } from "@feat/navigation/Links";
@@ -6,29 +8,33 @@ import { getCurrentNews, getNews } from "@feat/news/newsManager";
 import { LayoutMain, LayoutSection } from "@feat/page/layout";
 import { LOCALES } from "@i18n/config";
 import { Link } from "@i18n/navigation";
+import { combineWithParentMetadata } from "@lib/metadata";
 import { createLocalizedUrl, getServerUrl } from "@lib/serverUrl";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
-import type { Metadata } from "next";
+import type { ResolvingMetadata } from "next";
 import { type Locale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import Image from "next/image";
 import { notFound } from "next/navigation";
+import type { NewsArticle, WithContext } from "schema-dts";
 
 export const dynamic = "force-static";
 
 export const generateMetadata = async (
-  props: PageProps<"/[locale]/news/[slug]">,
-): Promise<Metadata> => {
+  props: {
+    params: Record<string, string>;
+    searchParams?: Record<string, string | string[] | undefined>;
+  },
+  parent: ResolvingMetadata,
+) => {
   const params = await props.params;
   const news = await getCurrentNews(params.slug, params.locale);
-
   if (!news) {
     notFound();
   }
 
-  return {
+  const mergeFn = combineWithParentMetadata({
     title: news.attributes.title,
     description: news.attributes.description,
     keywords: news.attributes.keywords,
@@ -39,13 +45,14 @@ export const generateMetadata = async (
     openGraph: {
       title: news.attributes.title,
       description: news.attributes.description,
-      url: createLocalizedUrl(
-        params.locale,
-        LINKS.News.Detail.href({ newsSlug: news.slug }),
-      ),
+      url: LINKS.News.Detail.href({ newsSlug: news.slug }),
       type: "article",
     },
-  };
+    alternates: {
+      canonical: LINKS.News.Detail.href({ newsSlug: news.slug }),
+    },
+  });
+  return mergeFn(props, parent);
 };
 
 export const generateStaticParams = async () => {
@@ -73,6 +80,24 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
   const t = await getTranslations("News");
   const attributes = news.attributes;
 
+  const newsDetailPageJsonLd: WithContext<NewsArticle> = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: attributes.title,
+    about: attributes.description,
+    keywords: attributes.keywords,
+    dateCreated: attributes.date.toISOString(),
+    publisher: {
+      "@type": "Person",
+      name: attributes.author,
+    },
+    inLanguage: params.locale,
+    url: createLocalizedUrl(
+      params.locale,
+      LINKS.News.Detail.href({ newsSlug: news.slug }),
+    ),
+  };
+
   return (
     <LayoutMain>
       <Link
@@ -92,15 +117,12 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
           <span className="text-5xl">{attributes.titleIcon}</span>
           {attributes.title}
         </Typography>
-        <div className="relative aspect-video w-full self-center">
-          <Image
-            src={attributes.coverUrl}
-            alt={attributes.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
+        <OptimizedImage
+          src={attributes.coverUrl}
+          alt={attributes.title}
+          priority
+          loading="eager"
+        />
         <ServerMdx className="mb-8" source={news.content} />
         <NewsItemTags tags={attributes.tags} />
         <NewsItemAuthor author={attributes.author} date={attributes.date} />
@@ -109,6 +131,7 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
         previousSlug={news.previousSlug}
         nextSlug={news.nextSlug}
       />
+      <JsonLd data={newsDetailPageJsonLd} />
     </LayoutMain>
   );
 };

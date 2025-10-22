@@ -13,8 +13,11 @@ export default function middleware(request: NextRequest) {
     "/api",
     "/_next/static",
     "/_next/image",
-    "/favicon.ico",
+    "/favicon",
+    "/apple-icon",
+    "/icon",
     "/sitemap.xml",
+    "/manifest",
     "/robots.txt",
     "/assets",
     LINKS.Maintenance.href(),
@@ -44,7 +47,7 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|assets).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|apple-icon.png|icon|sitemap.xml|manifest|robots.txt|assets).*)",
   ],
   runtime: "nodejs",
 };

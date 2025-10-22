@@ -13,9 +13,10 @@ import Image from "next/image";
 export type NewsItemProps = {
   news: News;
   className?: string;
+  priority?: boolean;
 };
 
-const NewsItem = ({ news, className }: NewsItemProps) => {
+const NewsItem = ({ news, className, priority }: NewsItemProps) => {
   const t = useTranslations("News.NewsItem");
 
   return (
@@ -35,7 +36,8 @@ const NewsItem = ({ news, className }: NewsItemProps) => {
             alt={news.attributes.title}
             fill
             className="object-cover"
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 70vw, 512px" // Optimize for tailwind breakpoint size
+            sizes="512px"
+            priority={priority}
           />
         </div>
         <div className="flex flex-1 flex-col gap-4">
