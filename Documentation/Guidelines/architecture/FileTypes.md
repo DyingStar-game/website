@@ -20,26 +20,26 @@ This document provides a comprehensive guide to the file naming conventions and 
 
 Quick reference table for all file types:
 
-| Extension/Pattern    | Purpose                                             | Location                                   | Example                            |
-| -------------------- | --------------------------------------------------- | ------------------------------------------ | ---------------------------------- |
-| `*.tsx`              | React components with JSX                           | `src/components/`, `src/features/`, `app/` | `button.tsx`, `header.tsx`         |
-| `*.ts`               | Pure TypeScript logic (utilities, configs, helpers) | `src/lib/`, `src/hooks/`, `src/i18n/`, `src/features/`, `app/`      | `utils.ts`, `logger.ts`            |
-| `*.type.ts`          | Type definitions and Zod schemas                    | Any `src/` subdirectory                    | `navigation.type.ts`               |
-| `*.hook.ts`          | Custom React hooks (outside `src/hooks/`)           | `src/features/*/`                          | `use-news-filter.hook.ts`          |
-| `*.link.ts`          | Navigation link logic and definitions               | `src/features/navigation/`                 | `footer.link.tsx`, `Links.ts`      |
-| `*.query.ts`         | Prisma database queries                             | `src/lib/queries/`                         | `user.query.ts`                    |
-| `*.query.hook.ts`    | TanStack Query (React Query) queries                | `src/features/*/`                          | `news.query.hook.ts`               |
-| `*.mutation.hook.ts` | TanStack Query mutations                            | `src/features/*/`                          | `create-user.mutation.hook.ts`     |
-| `*.action.ts`        | Server actions (Next.js Server Actions)             | `src/lib/actions/`                         | `newsletter.action.ts`             |
-| `*.mdx`              | Markdown with JSX for content-driven pages          | `content/news/`, `app/`                    | `demo.mdx`                         |
-| `*.config.ts`        | Configuration files                                 | Root, `src/i18n/`                          | `next.config.ts`, `site-config.ts` |
-| `middleware.ts`      | Next.js middleware (routing, i18n, auth)            | Root, `src/`                               | `middleware.ts`                    |
-| `layout.tsx`         | Next.js layouts                                     | `app/` segments                            | `layout.tsx`                       |
-| `page.tsx`           | Next.js pages/routes                                | `app/` segments                            | `page.tsx`                         |
-| `loading.tsx`        | Next.js loading UI                                  | `app/` segments                            | `loading.tsx`                      |
-| `error.tsx`          | Next.js error boundaries                            | `app/` segments                            | `error.tsx`, `global-error.tsx`    |
-| `not-found.tsx`      | Next.js 404 pages                                   | `app/` segments                            | `not-found.tsx`                    |
-| `route.ts`           | Next.js API routes                                  | `app/api/`                                 | `route.ts`                         |
+| Extension/Pattern    | Purpose                                             | Location                                                       | Example                            |
+| -------------------- | --------------------------------------------------- | -------------------------------------------------------------- | ---------------------------------- |
+| `*.tsx`              | React components with JSX                           | `src/components/`, `src/features/`, `app/`                     | `button.tsx`, `header.tsx`         |
+| `*.ts`               | Pure TypeScript logic (utilities, configs, helpers) | `src/lib/`, `src/hooks/`, `src/i18n/`, `src/features/`, `app/` | `utils.ts`, `logger.ts`            |
+| `*.model.ts`         | Type definitions and Zod schemas                    | Any `src/` subdirectory                                        | `navigation.model.ts`              |
+| `*.hook.ts`          | Custom React hooks (outside `src/hooks/`)           | `src/features/*/`                                              | `use-news-filter.hook.ts`          |
+| `*.link.ts`          | Navigation link logic and definitions               | `src/features/navigation/`                                     | `footer.link.tsx`, `Links.ts`      |
+| `*.query.ts`         | Prisma database queries                             | `src/lib/queries/`                                             | `user.query.ts`                    |
+| `*.query.hook.ts`    | TanStack Query (React Query) queries                | `src/features/*/`                                              | `news.query.hook.ts`               |
+| `*.mutation.hook.ts` | TanStack Query mutations                            | `src/features/*/`                                              | `create-user.mutation.hook.ts`     |
+| `*.action.ts`        | Server actions (Next.js Server Actions)             | `src/lib/actions/`                                             | `newsletter.action.ts`             |
+| `*.mdx`              | Markdown with JSX for content-driven pages          | `content/news/`, `app/`                                        | `demo.mdx`                         |
+| `*.config.ts`        | Configuration files                                 | Root, `src/i18n/`                                              | `next.config.ts`, `site-config.ts` |
+| `middleware.ts`      | Next.js middleware (routing, i18n, auth)            | Root, `src/`                                                   | `middleware.ts`                    |
+| `layout.tsx`         | Next.js layouts                                     | `app/` segments                                                | `layout.tsx`                       |
+| `page.tsx`           | Next.js pages/routes                                | `app/` segments                                                | `page.tsx`                         |
+| `loading.tsx`        | Next.js loading UI                                  | `app/` segments                                                | `loading.tsx`                      |
+| `error.tsx`          | Next.js error boundaries                            | `app/` segments                                                | `error.tsx`, `global-error.tsx`    |
+| `not-found.tsx`      | Next.js 404 pages                                   | `app/` segments                                                | `not-found.tsx`                    |
+| `route.ts`           | Next.js API routes                                  | `app/api/`                                                     | `route.ts`                         |
 
 ---
 
@@ -159,7 +159,7 @@ export function cn(...inputs: ClassValue[]) {
 
 ---
 
-### 3. `*.type.ts` - Type Definitions and Schemas
+### 3. `*.model.ts` - Type Definitions and Schemas
 
 **Purpose**: Dedicated files for TypeScript type definitions and Zod validation schemas. This pattern centralizes type safety and runtime validation.
 
@@ -175,9 +175,18 @@ export function cn(...inputs: ClassValue[]) {
 **Example**:
 
 ```ts
-// src/features/navigation/navigation.type.ts
+// src/features/issue/get/IssuesCount.model.ts
+import type { FacetHit } from "meilisearch";
+import { z } from "zod";
 
-TODO ADD FILE EXAMPLE
+export const IssuesCountSchema = z.object({
+  openIssueCount: z.number(),
+  openIssueWithAssigneeCount: z.number(),
+  countByProject: z.array(z.custom<FacetHit>()),
+});
+
+export type IssuesCountType = z.infer<typeof IssuesCountSchema>;
+
 
 ```
 
@@ -819,7 +828,7 @@ The codebase follows a feature-based architecture where related files are co-loc
 
 ```
 src/features/news/
-├── news.type.ts              # Types and schemas
+├── news.model.ts              # Types and schemas
 ├── news-manager.ts           # Core business logic
 ├── news.query.hook.ts        # Data fetching
 ├── NewsItem.tsx              # Component
@@ -904,7 +913,7 @@ import { Button } from "@ui/button";
 ### 2. **Type Safety**
 
 - Always use TypeScript
-- Define types in `*.type.ts` files
+- Define types in `*.model.ts` files
 - Use Zod for runtime validation
 
 ### 3. **Co-location**
@@ -965,6 +974,3 @@ By following these conventions, developers can:
 - Scale the application confidently
 
 ---
-
-**Last Updated**: October 2025  
-**Maintained By**: DyingStar Web Development Team

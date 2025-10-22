@@ -68,24 +68,24 @@ Explore and categorize:
   - ui/ (shadcn/ui primitives)
   - svg/ (SVG components)
   - utils/ (Component utilities)
-  
+
 - src/features/ (Vertical slices)
   - List each feature folder
   - Document file patterns (*.tsx, *.type.ts, *.hook.ts, etc.)
-  
+
 - src/hooks/ (Cross-cutting hooks)
   - List all hook files
-  
+
 - src/i18n/ (Internationalization)
   - config.ts, routing.ts, navigation.ts, request.ts
-  
+
 - src/lib/ (Libraries & utilities)
   - actions/
   - env/
   - errors/
   - format/
   - Individual utility files
-  
+
 - src/types/ (Global types)
 
 - Root level src/ files (middleware.ts, site-config.ts)
@@ -208,12 +208,14 @@ Documentation:
 Handles **routing**, **layouts**, and **entry points** of the application following Next.js 15 conventions.
 
 ```
+
 app/
-├── 📁 [locale]/               # Internationalized routes (en, fr, etc.)
-│   ├── 📁 (layout)/           # Route group - Static pages
-│   │   └── 📁 pageName/       # Page folder
-│   ├── 📁 @modal/             # Parallel route - Modal system
-│   └── 📁 docs/               # User documentation
+├── 📁 [locale]/ # Internationalized routes (en, fr, etc.)
+│ ├── 📁 (layout)/ # Route group - Static pages
+│ │ └── 📁 pageName/ # Page folder
+│ ├── 📁 @modal/ # Parallel route - Modal system
+│ └── 📁 docs/ # User documentation
+
 ```
 
 **Key Concepts:**
@@ -239,15 +241,19 @@ app/
 ## 📂 Root Directory
 
 ### Configuration Files
+
 [Bullet list of ALL config files with descriptions]
 
 ### Package Management
+
 [package.json, pnpm-lock.yaml with descriptions]
 
 ### Build & Development
+
 [Makefile, middleware.ts with descriptions]
 
 ### Documentation & Legal
+
 [README.md, LICENSE with descriptions]
 
 ---
@@ -257,9 +263,11 @@ app/
 [Detailed explanation of routing layer]
 
 ### Root Level (app/)
+
 [ASCII tree with ALL files and descriptions]
 
 ### Internationalized Routes (app/[locale]/)
+
 [Complete ASCII tree showing EVERY route segment and file]
 
 **Key Concepts:**
@@ -272,24 +280,31 @@ app/
 [Introduction]
 
 ### src/components/ — Reusable UI Components
+
 [Complete tree showing DS/, ui/, svg/, utils/ with ALL files]
 
 ### src/features/ — Business Features
+
 [Complete tree showing each feature folder with its files]
 
 ### src/hooks/ — Cross-cutting React Hooks
+
 [List all hook files]
 
 ### src/i18n/ — Internationalization Configuration
+
 [List all i18n files]
 
 ### src/lib/ — Libraries and Utilities
+
 [Complete tree with all subdirectories and files]
 
 ### src/types/ — Global TypeScript Types
+
 [List type files]
 
 ### Other src/ Files
+
 [middleware.ts, site-config.ts]
 
 ---
@@ -327,12 +342,15 @@ app/
 ## 🔄 Data Flow Examples
 
 ### News Pipeline
+
 [Diagram showing data flow]
 
 ### Component Import Flow
+
 [Diagram showing component hierarchy]
 
 ### i18n Flow
+
 [Diagram showing internationalization flow]
 
 ---
@@ -364,6 +382,7 @@ app/
 ### src/components/ui/ — shadcn/ui primitives
 
 ```
+
 src/components/ui/
 ├── accordion.tsx
 ├── alert.tsx
@@ -374,6 +393,7 @@ src/components/ui/
 ├── form.tsx
 ├── input.tsx
 └── ...
+
 ```
 
 [Continue with complete list]
@@ -388,6 +408,7 @@ src/components/ui/
 **When to Update:**
 
 Only update if you discover:
+
 - New file type patterns (e.g., `*.service.ts`, `*.util.ts`)
 - Changes to existing patterns
 - New conventions being used
@@ -540,8 +561,3 @@ After completing all updates, verify:
 **Remember:** This documentation is critical for onboarding, maintenance, and project understanding. Quality matters more than speed.
 
 ---
-
-**Version:** 1.0  
-**Last Updated:** October 2025  
-**Maintained By:** DyingStar Development Team
-

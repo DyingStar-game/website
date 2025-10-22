@@ -11,7 +11,7 @@
     "prettier": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "clean": "eslint . --fix && tsc --noEmit && prettier --write .",
-    "lint:ci": "eslint . --max-warnings 0 && tsc --noEmit && prettier --check ."
+    "lint:ci": "eslint . --max-warnings 0 && tsc --noEmit && prettier --check .",
     "adr:generate": "adr-log -d ./Documentation/Guidelines/architecture/ADR -i ./Documentation/Guidelines/architecture/ADRs.md"
   },
   "dependencies": {

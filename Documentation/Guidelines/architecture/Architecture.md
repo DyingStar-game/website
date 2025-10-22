@@ -70,6 +70,16 @@ Non-functional requirement for the project are:
 | Reliability       | Mean time to recovery                                                                                                                                                               | System should be able to recover from failure under 5 mins |
 | Usability         | Usability can be described as the capacity of a system to provide a condition for its users to perform the tasks safely, effectively, and efficiently while enjoying the experience | Browsers: Chrome, IE, Firefox                              |
 
+## Services
+
+The list of services we will use to build the application are as follows:
+
+| Service       | Description   | Version |
+| ------------- | ------------- | ------- |
+| [Meilisearch] | Search engine | 1.0.0   |
+
+TODO : Crée un HLD pour les services
+
 ## Project Structure Documentation
 
 The project structure is documented in multiple files for better organization:
