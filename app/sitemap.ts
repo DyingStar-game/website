@@ -1,8 +1,10 @@
 import { LINKS } from "@feat/navigation/Links";
+import type { News } from "@feat/news/newsManager";
 import { getNews } from "@feat/news/newsManager";
 import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
 import { createLocalizedUrl } from "@lib/serverUrl";
 import type { MetadataRoute } from "next";
+import type { Locale } from "next-intl";
 
 type SitemapEntry = MetadataRoute.Sitemap[number];
 
@@ -64,11 +66,39 @@ const generateNewsDetailPageEntries = async (): Promise<SitemapEntry[][]> => {
           LINKS.News.Detail.href({ newsSlug: news.slug }),
         ),
         news.attributes.date,
+        "monthly",
+        alternatesLanguagesNewsDetail(locale, news),
       ),
     );
   });
 
   return Promise.all(allNews);
+};
+
+const alternatesLanguagesNewsDetail = (locale: Locale, news: News) => {
+  const alternatesLanguages: Record<string, string> = {};
+
+  const addAlternateLanguage = (currentLocale: string, slug: string) => {
+    const localizedNews = createLocalizedUrl(
+      currentLocale,
+      LINKS.News.Detail.href({ newsSlug: slug }),
+    );
+    alternatesLanguages[currentLocale] = localizedNews;
+
+    if (currentLocale === DEFAULT_LOCALE) {
+      alternatesLanguages["x-default"] = localizedNews;
+    }
+  };
+
+  addAlternateLanguage(locale, news.slug);
+
+  Object.entries(news.attributes.alternates).forEach(
+    ([alternateLocale, alternate]) => {
+      addAlternateLanguage(alternateLocale, alternate);
+    },
+  );
+
+  return alternatesLanguages;
 };
 
 const generateContributePageEntries = (): SitemapEntry[] => {

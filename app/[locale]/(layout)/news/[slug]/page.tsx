@@ -3,8 +3,13 @@ import { OptimizedImage } from "@components/DS/optimizedImage/optimizeImage";
 import { Typography } from "@components/DS/typography";
 import { ServerMdx } from "@feat/markdown/serverMdx";
 import { LINKS } from "@feat/navigation/Links";
-import { NewsItemAuthor, NewsItemTags } from "@feat/news/newsItem";
-import { getCurrentNews, getNews } from "@feat/news/newsManager";
+import { NewsItemAuthor } from "@feat/news/newsItemAuthor";
+import { NewsItemTags } from "@feat/news/newsItemTags";
+import {
+  getAlternateNews,
+  getCurrentNews,
+  getNews,
+} from "@feat/news/newsManager";
 import { LayoutMain, LayoutSection } from "@feat/page/layout";
 import { LOCALES } from "@i18n/config";
 import { Link } from "@i18n/navigation";
@@ -16,7 +21,7 @@ import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
 import type { ResolvingMetadata } from "next";
 import { type Locale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { NewsArticle, WithContext } from "schema-dts";
 
 export const dynamic = "force-static";
@@ -34,8 +39,10 @@ export const generateMetadata = async (
     notFound();
   }
 
+  const t = await getTranslations("News");
+
   const mergeFn = combineWithParentMetadata({
-    title: news.attributes.title,
+    title: `${t("Metadata.title")} · ${news.attributes.title}`,
     description: news.attributes.description,
     keywords: news.attributes.keywords,
     authors: {
@@ -43,8 +50,6 @@ export const generateMetadata = async (
       url: getServerUrl(params.locale),
     },
     openGraph: {
-      title: news.attributes.title,
-      description: news.attributes.description,
       url: LINKS.News.Detail.href({ newsSlug: news.slug }),
       type: "article",
     },
@@ -74,7 +79,16 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
   const news = await getCurrentNews(params.slug, params.locale as Locale);
 
   if (!news) {
-    notFound();
+    const alternateNews = await getAlternateNews(
+      params.slug,
+      params.locale as Locale,
+    );
+
+    if (!alternateNews) {
+      notFound();
+    }
+
+    redirect(LINKS.News.Detail.href({ newsSlug: alternateNews.slug }));
   }
 
   const t = await getTranslations("News");

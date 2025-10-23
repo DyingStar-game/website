@@ -1,4 +1,4 @@
-import { routing } from "@i18n/routing";
+import { LOCALES } from "@i18n/config";
 import fm from "front-matter";
 import fs from "fs/promises";
 import type { Locale } from "next-intl";
@@ -16,6 +16,7 @@ const NewsAttributeSchema = z.object({
   date: z.date(),
   author: z.string(),
   authorRoles: z.array(z.string()),
+  alternates: z.partialRecord(z.enum(LOCALES), z.string()),
 });
 
 type NewsAttributes = z.infer<typeof NewsAttributeSchema>;
@@ -136,22 +137,23 @@ export const getNewsTags = async (locale: Locale) => {
 
 export const getCurrentNews = async (slug: string, locale: Locale) => {
   const findNews = await findNewsByLocale(slug, locale);
-
-  if (!findNews) {
-    const fallBackFindNews = await findNewsByLocale(
-      slug,
-      routing.defaultLocale,
-    );
-    return fallBackFindNews;
-  }
-
   return findNews;
 };
 
 const findNewsByLocale = async (slug: string, locale: Locale) => {
   const news = await getNews(locale);
 
-  return news.find((p) => p.slug === slug);
+  const findNews = news.find((p) => p.slug === slug);
+
+  return findNews;
+};
+
+export const getAlternateNews = async (slug: string, locale: Locale) => {
+  const news = await getNews(locale);
+
+  return news.find((n) => {
+    return Object.values(n.attributes.alternates).includes(slug);
+  });
 };
 
 export const getLastNews = async (

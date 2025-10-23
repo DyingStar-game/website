@@ -38,7 +38,7 @@
       }
     },
     "Metadata": {
-      "description": "Les contributions du jeu DyingStar",
+      "description": "Les contributions du jeu Dying Star",
       "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Contributions, Tâches, Issues",
       "title": "Contributions"
     }
@@ -57,15 +57,15 @@
     "JsonLd": {
       "VideoGame": {
         "description": "Description du jeu",
-        "name": "DyingStar"
+        "name": "Dying Star"
       },
       "WebSite": {
         "description": "Description du site",
-        "name": "DyingStar"
+        "name": "Dying Star"
       }
     },
     "Metadata": {
-      "description": "La page d'accueil du jeu DyingStar",
+      "description": "La page d'accueil du jeu Dying Star",
       "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Accueil",
       "title": "Accueil"
     },
@@ -90,7 +90,7 @@
       "Project": "Projet"
     },
     "Metadata": {
-      "description": "Site web du jeu DyingStar"
+      "description": "Site web du jeu Dying Star"
     }
   },
   "Links": {
@@ -120,9 +120,9 @@
     "label": "Langue"
   },
   "Manifest": {
-    "description": "Création de jeu communautaire DyingStar",
-    "name": "Site web du jeu DyingStar",
-    "shortName": "DyingStar"
+    "description": "Création du jeu communautaire Dying Star",
+    "name": "Site web du jeu Dying Star",
+    "shortName": "Dying Star"
   },
   "News": {
     "JsonLd": {
@@ -134,7 +134,7 @@
       }
     },
     "Metadata": {
-      "description": "Les actualités du jeu DyingStar",
+      "description": "Les actualités du jeu Dying Star",
       "keywords": "Dying Star, Jeu Dying Star, DyingStar, Star Deception, Actualités, News, Jeu Vidéo",
       "title": "Actualités"
     },
@@ -177,7 +177,7 @@
   },
   "Project": {
     "Metadata": {
-      "description": "La présentation du projet DyingStar",
+      "description": "Présentation du projet Dying Star",
       "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Projet, Présentation",
       "title": "Projet"
     }

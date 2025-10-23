@@ -1,6 +1,8 @@
 {
   "cSpell.enabled": false,
   "cSpell.words": ["nuqs", "Nuqs", "uploadthing", "utapi", "zustand"],
+  "conventionalCommits.gitmoji": false,
+  "conventionalCommits.scopes": ["Loader", "Versions"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
   "eslint.workingDirectories": [{ "mode": "auto" }],
