@@ -1,5 +1,5 @@
 import { LINKS } from "@feat/navigation/Links";
-import NewsItem from "@feat/news/newsItem";
+import { NewsItem } from "@feat/news/newsItem";
 import NewsItemLight from "@feat/news/newsItemLight";
 import { getLastNews } from "@feat/news/newsManager";
 import { LayoutContentTitle, LayoutSection } from "@feat/page/layout";
