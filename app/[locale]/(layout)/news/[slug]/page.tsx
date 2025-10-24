@@ -11,15 +11,17 @@ import {
   getNews,
 } from "@feat/news/newsManager";
 import { LayoutMain, LayoutSection } from "@feat/page/layout";
+import type { Locale } from "@i18n/config";
 import { LOCALES } from "@i18n/config";
 import { Link } from "@i18n/navigation";
+import { alternatesLanguagesNewsDetail } from "@lib/alternate";
 import { combineWithParentMetadata } from "@lib/metadata";
 import { createLocalizedUrl, getServerUrl } from "@lib/serverUrl";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
 import type { ResolvingMetadata } from "next";
-import { type Locale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
 import type { NewsArticle, WithContext } from "schema-dts";
@@ -34,6 +36,7 @@ export const generateMetadata = async (
   parent: ResolvingMetadata,
 ) => {
   const params = await props.params;
+  const locale = params.locale as Locale;
   const news = await getCurrentNews(params.slug, params.locale);
   if (!news) {
     notFound();
@@ -47,7 +50,7 @@ export const generateMetadata = async (
     keywords: news.attributes.keywords,
     authors: {
       name: news.attributes.author,
-      url: getServerUrl(params.locale),
+      url: getServerUrl(locale),
     },
     openGraph: {
       url: LINKS.News.Detail.href({ newsSlug: news.slug }),
@@ -55,6 +58,7 @@ export const generateMetadata = async (
     },
     alternates: {
       canonical: LINKS.News.Detail.href({ newsSlug: news.slug }),
+      languages: alternatesLanguagesNewsDetail(locale, news),
     },
   });
   return mergeFn(props, parent);
