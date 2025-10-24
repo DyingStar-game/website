@@ -3,7 +3,7 @@ import type { Locale } from "next-intl";
 
 const hostUrl =
   process.env.NODE_ENV === "production"
-    ? (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dyingstar-game.com")
+    ? (process.env.NEXT_PUBLIC_SITE_URL ?? "https://dyingstar-game.com")
     : "http://localhost:3000";
 
 /**

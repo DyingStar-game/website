@@ -1,7 +1,7 @@
 {
   "Issue": {
     "Hero": {
-      "description": "Join the crew and choose the missions that correspond to your skills. Each task strengthens the narrative universe of the MMO and brings the community closer to the next step of the journey.",
+      "description": "Join the crew and choose the missions that correspond to your skills. Each task strengthens the narrative universe of the space MMO and brings the community closer to the next step of the journey.",
       "title": "Contribute to the Dying Star project"
     },
     "IssueCard": {
@@ -38,8 +38,8 @@
       }
     },
     "Metadata": {
-      "description": "Contributions from the game DyingStar",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Contributions, Issues, Tasks",
+      "description": "Join the Dying Star crew and contribute to the project's missions. Participate in the development of the space MMO and explore the tasks available on GitHub.",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, space MMO, contribute, missions, open source project, GitHub, Dying Star community, participation, collaborative development, issues, tasks",
       "title": "Contribute"
     }
   },
@@ -65,8 +65,8 @@
       }
     },
     "Metadata": {
-      "description": "Landing page of DyingStar game",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception",
+      "description": "Join Dying Star, a collaborative space MMO where the community builds a living narrative universe. Explore the lore, follow the project's progress, and contribute to the game's missions.",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, space MMO, collaborative game, narrative universe, community game, space simulation, contribution, missions, lore, news, participatory development, open-source project, living universe, science fiction, godot",
       "title": "Landing"
     },
     "News": {
@@ -134,8 +134,8 @@
       }
     },
     "Metadata": {
-      "description": "News about the DyingStar game",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, News, Video Game",
+      "description": "Follow the latest news about Dying Star: find out about development progress, major milestones for the space MMO, and new additions to the universe.",
+      "keywords": "Dying Star, Dying Star game, DyingStar, Star Deception, Dying Star, news, game development, space MMO, update, project progress, logbook, game stages, Dying Star news, game universe",
       "title": "News"
     },
     "NewsDetailPagination": {
@@ -169,16 +169,16 @@
       }
     },
     "Metadata": {
-      "description": "Information about the privacy policy",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, privacy, private life, legal",
+      "description": "Discover Dying Star's privacy policy: how we collect, use, and protect your data while respecting your privacy.",
+      "keywords": "Dying Star, Dying Star game, DyingStar, Star Deception, privacy policy, personal data, privacy, data protection, GDPR, security, user information",
       "title": "Privacy Policy"
     },
     "title": "Privacy Policy"
   },
   "Project": {
     "Metadata": {
-      "description": "Overview of the DyingStar project",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Project, Overview",
+      "description": "Discover the Dying Star project: an open-source space MMO created by the community, for the community, with an immersive and collaborative universe.",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, open-source project, space MMO, community game, narrative universe, collaborative development, space simulation, participatory creation, independent game, player collective",
       "title": "Project"
     }
   },
@@ -193,8 +193,8 @@
       }
     },
     "Metadata": {
-      "description": "Information about the terms of use",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, Terms of Use, legal",
+      "description": "Check out the terms of use for Dying Star: access rules, user rights, and responsibilities to enjoy the space MMO safely.",
+      "keywords": "Dying Star, Dying Star game, DyingStar, Star Deception, terms of use, game rules, user rights, obligations, space MMO, security, terms and conditions",
       "title": "Terms of Use"
     },
     "title": "Terms of Use"
