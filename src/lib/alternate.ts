@@ -2,12 +2,13 @@ import { LINKS } from "@feat/navigation/Links";
 import type { News } from "@feat/news/newsManager";
 import type { Locale } from "@i18n/config";
 import { DEFAULT_LOCALE, LOCALES } from "@i18n/config";
-import type { Languages } from "next/dist/lib/metadata/types/alternative-urls-types";
 
 import { createLocalizedUrl } from "./serverUrl";
 
-export const alternateLanguages = (path: string): Languages<string> => {
-  const alternatesLanguages: Languages<string> = {};
+export type Languages = Partial<Record<Locale | "x-default", string>>;
+
+export const alternateLanguages = (path: string): Languages => {
+  const alternatesLanguages: Languages = {} as Languages;
   LOCALES.forEach((locale) => {
     alternatesLanguages[locale] = createLocalizedUrl(locale, path);
   });
@@ -19,8 +20,8 @@ export const alternateLanguages = (path: string): Languages<string> => {
 export const alternatesLanguagesNewsDetail = (
   locale: Locale,
   news: News,
-): Languages<string> => {
-  const alternatesLanguages: Languages<string> = {};
+): Languages => {
+  const alternatesLanguages: Languages = {} as Languages;
 
   const addAlternateLanguage = (currentLocale: Locale, slug: string) => {
     const localizedNews = createLocalizedUrl(

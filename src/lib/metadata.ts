@@ -1,5 +1,5 @@
 import { LINKS } from "@feat/navigation/Links";
-import { type Locale } from "@i18n/config";
+import type { Locale } from "@i18n/config";
 import type { Metadata, ResolvingMetadata } from "next";
 import { getLocale } from "next-intl/server";
 import { SiteConfig } from "siteConfig";
