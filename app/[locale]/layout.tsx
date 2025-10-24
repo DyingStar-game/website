@@ -11,8 +11,9 @@ import { routing } from "@i18n/routing";
 import { getServerUrl } from "@lib/serverUrl";
 import { cn } from "@lib/utils";
 import type { Metadata } from "next";
+import type { Locale } from "next-intl";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
 import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -24,11 +25,12 @@ export function generateStaticParams() {
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("Layout.Metadata");
+  const locale = (await getLocale()) as Locale;
 
   return {
     title: SiteConfig.title,
     description: t("description"),
-    metadataBase: new URL(getServerUrl()),
+    metadataBase: new URL(getServerUrl(locale)),
     robots: {
       index: true,
       follow: true,
@@ -38,9 +40,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
       googleBot: "index, follow",
     },
     applicationName: SiteConfig.title,
-    alternates: {
-      canonical: SiteConfig.prodUrl,
-    },
     appleWebApp: {
       title: SiteConfig.title,
       statusBarStyle: "default",

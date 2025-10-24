@@ -1,9 +1,10 @@
 import { LINKS } from "@feat/navigation/Links";
-import type { Locale } from "@i18n/config";
+import { type Locale } from "@i18n/config";
 import type { Metadata, ResolvingMetadata } from "next";
 import { getLocale } from "next-intl/server";
 import { SiteConfig } from "siteConfig";
 
+import { alternateLanguages } from "./alternate";
 import { createLocalizedUrl } from "./serverUrl";
 import { localMapper } from "./utils";
 
@@ -26,6 +27,7 @@ export const combineWithParentMetadata =
   ): Promise<Metadata> => {
     const locale = (await getLocale()) as Locale;
     const parentMetadata = await parent;
+
     return {
       ...metadata,
       ...(metadata.openGraph && {
@@ -46,12 +48,22 @@ export const combineWithParentMetadata =
       title: `${parentMetadata.title?.absolute} · ${metadata.title}`,
       alternates: {
         ...metadata.alternates,
+        canonical: createLocalizedUrl(
+          locale,
+          metadata.alternates?.canonical?.toString(),
+        ),
         types: {
           "application/rss+xml": createLocalizedUrl(
             locale,
             LINKS.Community.Rss.href(),
           ),
         },
+        ...(metadata.alternates?.languages ??
+          (metadata.alternates?.canonical?.toString() && {
+            languages: alternateLanguages(
+              metadata.alternates.canonical.toString(),
+            ),
+          })),
       },
     };
   };
