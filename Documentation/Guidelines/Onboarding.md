@@ -2,13 +2,14 @@
 
 Please install following tools
 
-| Tool                              | Version           | Required |
-| --------------------------------- | ----------------- | -------- |
-| [Node.js](https://nodejs.org/en)  | 22.14.0 or higher | Yes      |
-| [Docker](https://www.docker.com/) | 28.4.0 or higher  | Yes      |
-| [Docker](https://www.docker.com/) | 28.4.0 or higher  | Yes      |
-| [Git](https://git-scm.com/)       | 2.50.0 or higher  | Yes      |
-| [pnpm](https://pnpm.io/)          | 10.0.0 or higher  | Yes      |
+| Tool                                               | Version           | Required |
+| -------------------------------------------------- | ----------------- | -------- |
+| [Node.js](https://nodejs.org/en)                   | 22.20.0 or higher | Yes      |
+| [Docker](https://www.docker.com/)                  | 24.0.0 or higher  | Yes      |
+| [Docker Compose](https://docs.docker.com/compose/) | 2.20.0 or higher  | Yes      |
+| [Make](https://www.gnu.org/software/make/)         | 3.81 or higher    | Yes      |
+| [Git](https://git-scm.com/)                        | 2.50.0 or higher  | Yes      |
+| [pnpm](https://pnpm.io/)                           | 10.17.1 or higher | Yes      |
 
 # Git command-line configuration
 
@@ -41,16 +42,8 @@ git clone git@github.com:DyingStar-game/website.git
 
 ## Setup
 
-1. Copy `.env.example` to `.env.local` and fill in the required environment variables
-2. Run `make dev` to start the development server. This will install dependencies and start the server.
-3. Open your browser and navigate to `http://localhost:3000` to see the website.
-4. To stop the development server, stop the Docker container with `Ctrl+C` in the terminal where `make dev` was run.
-
-## Notes
-
-- The development server supports hot-reloading, so any changes you make to the code will automatically be reflected in the browser.
-- If you need to install new dependencies, you can do so by running `make add-dependency <package-name>` or `make add-dev-dependency <package-name>` for dev dependencies.
-
-## Environment Variables
-
-- The workflow expects a secret named `WEBSITE_ENV_PRODUCTION_FILE` containing the contents of the `.env.production` file. This file is created during the CI process to ensure that sensitive information is not hardcoded in the repository
+1. Copy `.env.sample` to `.env.local` and fill in the required environment variables
+2. Run `make up` to start the development environment (MeiliSearch service)
+3. Run `make pnpm dev` to start the Next.js development server
+4. Open your browser and navigate to `http://localhost:3000` to see the website.
+5. To stop the development server, press `Ctrl+C` in the terminal where `make pnpm dev` was run.

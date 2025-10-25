@@ -10,7 +10,7 @@ The list of technologies we will use to build the application are as follows:
 
 | Technology                       | Description               | Version  |
 | -------------------------------- | ------------------------- | -------- |
-| [Next.js]                        | Base framework            | 15.5.3   |
+| [Next.js]                        | Base framework            | 15.5.6   |
 | [React]                          | UI library                | 19.1.1   |
 | [TypeScript]                     | Type safety               | 5.9.2    |
 | [pnpm]                           | Package manager           | 10.17.1  |
@@ -76,9 +76,9 @@ The list of services we will use to build the application are as follows:
 
 | Service       | Description   | Version |
 | ------------- | ------------- | ------- |
-| [Meilisearch] | Search engine | 1.0.0   |
+| [Meilisearch] | Search engine | 1.22.3  |
 
-TODO : Crée un HLD pour les services
+HLD for the services is available in the [web excalidraw](https://excalidraw.com/#room=605670133765d25f7dad,ilvMr8eaNTosJ5krQmHY9A) file.
 
 ## Project Structure Documentation
 

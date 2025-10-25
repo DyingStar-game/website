@@ -40,7 +40,86 @@ _Only the Website Lead can merge the `feat` or `fix` branch into the `develop` b
 
 ### Creating hotfix process :
 
-TODO
+#### 1. Creating the hotfix branch
+
+Create the branch from `main` (not from `develop`):
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b hotfix/hotfix-1.2.4
+```
+
+> 📝 **Note**: The hotfix increments the PATCH number (1.2.3 → 1.2.4)
+
+#### 2. Fixing the critical bug
+
+- Fix **only** the critical bug
+- Do **not** make other changes
+- Test locally
+
+```bash
+make pnpm clean
+make pnpm build
+```
+
+#### 3. Updating the version
+
+Edit `package.json`:
+
+```json
+{
+  "version": "1.2.4"
+}
+```
+
+#### 4. Commit and push
+
+```bash
+git add .
+git commit -m "hotfix: fix critical bug in production"
+git push origin hotfix/hotfix-1.2.4
+```
+
+#### 5. Pull Request to `main`
+
+- Create a PR from `hotfix/hotfix-1.2.4` to `main`
+- **Title**: `[HOTFIX] v1.2.4 - Description of the critical bug`
+- Mark the PR as urgent
+- Immediately notify the Website Lead
+
+#### 6. Express review and merge
+
+- Quick but thorough review by the Website Lead
+- Merge into `main`
+
+#### 7. Tag creation
+
+```bash
+git checkout main
+git pull origin main
+git tag -a v1.2.4 -m "Hotfix 1.2.4"
+git push origin v1.2.4
+```
+
+Production deployment is triggered automatically.
+
+#### 8. Merge-back to `develop`
+
+**IMPORTANT**: The hotfix must also be integrated into `develop`:
+
+```bash
+git checkout develop
+git pull origin develop
+git merge main
+git push origin develop
+```
+
+This triggers a staging deployment with the fix.
+
+#### 9. Creating the GitHub Release
+
+Create a release on GitHub documenting the hotfix.
 
 ### Creating release process :
 
