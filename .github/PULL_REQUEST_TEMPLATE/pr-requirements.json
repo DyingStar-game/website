@@ -1,0 +1,73 @@
+{
+  "feature:component:add": {
+    "title": "Component Addition Checklist",
+    "items": [
+      "Update documentation",
+      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
+    ],
+    "docs": [
+      "Next.js: https://nextjs.org/docs/app/api-reference/components"
+    ]
+  },
+  "feature:page:add": {
+    "title": "New Page Addition Checklist",
+    "items": [
+      "Add the link in the Links.ts file",
+      "Add metadata",
+      "Add the corresponding JSON.LD to the page (Using JsonLd component and DynamicJsonLd component with schema-dts library)",
+      "Update the sitemap",
+      "Readable page elements must use locale and be present in [fr.json] and [en.json] files",
+      "Verify responsive page behavior (using tailwind)",
+      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
+    ],
+    "docs": [
+      "Sitemap: /DOC_SITEMAP.md",
+      "Schema-dts: https://github.com/google/schema-dts"
+    ]
+  },
+  "feature:news:add": {
+    "title": "News Addition Checklist",
+    "items": [
+      "Update documentation",
+      "Spell check",
+      "News must be in French and English in their respective directories with appropriate names",
+      "Verify tag names"
+    ],
+    "docs": [
+      "Repository directories: /content/fr/news | /content/en/news"
+    ]
+  },
+  "feature:api:add": {
+    "title": "API Route Addition Checklist",
+    "items": [
+      "Set up exception reporting in the appropriate log",
+      "Implement API unavailability handling",
+      "Use zod for data mapping",
+      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
+    ],
+    "docs": [
+      "Zod: https://zod.dev/"
+    ]
+  },
+  "feature:color:add": {
+    "title": "CSS Color Addition Checklist",
+    "items": [
+      "Check if the color doesn't already exist in the global.css file",
+      "Reference the color as a variable in the global.css file",
+      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
+    ],
+    "docs": [
+      "CSS: /app/global.css"
+    ]
+  },
+  "feature:lib:add": {
+    "title": "Library Addition Checklist",
+    "items": [
+      "Update documentation",
+      "Check for known CVEs"
+    ],
+    "docs": [
+      "Documentation: GuidlineWiki branch"
+    ]
+  }
+}

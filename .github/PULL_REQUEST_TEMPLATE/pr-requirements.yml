@@ -1,9 +1,0 @@
-feature:ui:
-  title: "UI feature checks"
-  items:
-    - "Story liée référencée (ex: Closes #123)"
-    - "Snapshots/Visuels mis à jour"
-    - "Accessibilité: pas de régression évidente"
-  docs:
-    - "Design system: /docs/design-system"
-    - "A11y checklist: /docs/a11y"
