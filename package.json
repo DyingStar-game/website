@@ -1,6 +1,6 @@
 {
   "name": "dying-star",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "build": "next build --turbo",
@@ -11,7 +11,8 @@
     "prettier": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "clean": "eslint . --fix && tsc --noEmit && prettier --write .",
-    "lint:ci": "eslint . --max-warnings 0 && tsc --noEmit && prettier --check ."
+    "lint:ci": "eslint . --max-warnings 0 && tsc --noEmit && prettier --check .",
+    "adr:generate": "adr-log -d ./Documentation/Guidelines/architecture/ADR -i ./Documentation/Guidelines/architecture/ADRs.md"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -107,6 +108,7 @@
     "@typescript-eslint/eslint-plugin": "^8.42.0",
     "@typescript-eslint/parser": "^8.42.0",
     "@vitejs/plugin-react": "^5.0.2",
+    "adr-log": "^2.2.0",
     "cross-fetch": "^4.1.0",
     "dotenv": "^17.2.2",
     "eslint": "^9.35.0",

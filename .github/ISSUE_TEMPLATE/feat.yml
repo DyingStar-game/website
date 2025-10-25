@@ -59,11 +59,10 @@ body:
     id: before
     attributes:
       label: Avant de vous jeter dans le code
+      placeholder: "Quelques conseils avant de vous jeter dans le code..."
       value: |
         Avant de vous jeter dans le code, assurez-vous de bien avoir compris ce qu'il faut faire et comment faire.  
         Au besoin, pingez le lead Web dans le salon Discord et posez vos questions.  
         Plusieurs personnes peuvent travailler ensemble sur cette issue.
-
-        [Post Discord]()
     validations:
       required: false
