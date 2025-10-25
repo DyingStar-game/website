@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: Read PR body & mapping, build requirements markdown
+      - name: Read PR body & mapping, build requirements markdown (dynamic requirements)
         id: build
         uses: actions/github-script@v7
         with:
@@ -27,9 +27,7 @@ jobs:
             const fs = require('fs');
             const body = context.payload.pull_request.body || "";
             const map = JSON.parse(fs.readFileSync('.github/PULL_REQUEST_TEMPLATE/pr-requirements.json','utf8'));
-            // 1) extraire les cases cochées: "- [x] key"
             const checked = [...body.matchAll(/^- \[x\]\s+([a-z0-9:-]+)/gmi)].map(m=>m[1]);
-            // 2) construire la section
             let sections = [];
             for (const key of checked) {
               if (!map[key]) continue;
@@ -40,20 +38,16 @@ jobs:
             }
             const requirements = sections.length
               ? `## Requirements\n\n${sections.join('\n\n')}`
-              : `## Requirements\n\n_Aucune case cochée._`;
+              : `## Requirements\n\n_No checkbox checked._`;
 
-            // 3) remplace la zone balisée ET retire les commentaires HTML
             const start = '<!-- REQUIREMENTS:START -->';
             const end   = '<!-- REQUIREMENTS:END -->';
 
-            // Récupère le contenu avant (en retirant aussi "<!-- DO NOT EDIT BELOW -->")
             let before = body.split(start)[0];
             before = before.replace(/<!-- DO NOT EDIT BELOW -->\s*$/gm, '').trimEnd();
 
-            // Récupère le contenu après
             const after = (body.split(end)[1] ?? '').trimStart();
 
-            // Reconstruit le body SANS les balises HTML
             const newBody = before + '\n\n' + requirements + (after ? '\n\n' + after : '');
 
             core.setOutput('newBody', newBody);
