@@ -2,7 +2,7 @@ import { JsonLd } from "@components/DS/jsonLd";
 import { Paginate } from "@components/DS/paginate/paginate";
 import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
-import NewsItem from "@feat/news/newsItem";
+import { NewsItem } from "@feat/news/newsItem";
 import { getNewsTags, getPaginatedNews } from "@feat/news/newsManager";
 import {
   LayoutHeader,

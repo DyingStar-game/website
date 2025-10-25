@@ -3,12 +3,13 @@ import { LINKS } from "@feat/navigation/Links";
 import type { News } from "@feat/news/newsManager";
 import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
-import { Avatar, AvatarFallback } from "@ui/avatar";
-import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
-import { ChevronRight, Minus, Tag } from "lucide-react";
-import { useFormatter, useTranslations } from "next-intl";
+import { ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
+
+import { NewsItemAuthor } from "./newsItemAuthor";
+import { NewsItemTags } from "./newsItemTags";
 
 export type NewsItemProps = {
   news: News;
@@ -16,7 +17,7 @@ export type NewsItemProps = {
   priority?: boolean;
 };
 
-const NewsItem = ({ news, className, priority }: NewsItemProps) => {
+export const NewsItem = ({ news, className, priority }: NewsItemProps) => {
   const t = useTranslations("News.NewsItem");
 
   return (
@@ -72,53 +73,3 @@ const NewsItem = ({ news, className, priority }: NewsItemProps) => {
     </article>
   );
 };
-
-type NewsItemAuthorProps = {
-  author: string;
-  date: Date;
-  className?: string;
-};
-
-export const NewsItemAuthor = ({
-  author,
-  date,
-  className,
-}: NewsItemAuthorProps) => {
-  const format = useFormatter();
-
-  return (
-    <div
-      className={cn(
-        "flex items-center gap-3 font-light text-foreground uppercase",
-        className,
-      )}
-    >
-      <Avatar>
-        <AvatarFallback>{author.slice(0, 2).toUpperCase()}</AvatarFallback>
-      </Avatar>
-      {author}
-      <Minus className="rotate-90 text-input" />
-      {format.dateTime(date, { dateStyle: "short" })}
-    </div>
-  );
-};
-
-type NewsItemTagsProps = {
-  tags: string[];
-};
-
-export const NewsItemTags = ({ tags }: NewsItemTagsProps) => {
-  return (
-    <div className="flex flex-wrap gap-4">
-      {tags.map((tag) => {
-        return (
-          <Badge key={tag} variant="category">
-            <Tag /> {tag}
-          </Badge>
-        );
-      })}
-    </div>
-  );
-};
-
-export default NewsItem;
