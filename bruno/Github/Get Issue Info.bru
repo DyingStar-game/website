@@ -1,0 +1,86 @@
+meta {
+  name: Get Issue Info
+  type: graphql
+  seq: 1
+}
+
+post {
+  url: https://api.github.com/graphql
+  body: graphql
+  auth: inherit
+}
+
+body:graphql {
+  query GetIssue($issueId: ID!) {
+    node(id: $issueId) {
+      ... on Issue {
+        id
+        projectItems(first: 1) {
+          nodes {
+            id
+            project {
+              title
+              number
+            }
+            content {
+              ... on Issue {
+                id
+                title
+                url
+                state
+                createdAt
+                updatedAt
+                labels(first: 5) {
+                  nodes {
+                    name
+                  }
+                }
+                assignees(first: 10) {
+                  nodes {
+                    login
+                    avatarUrl
+                  }
+                }
+              }
+            }
+            fieldValues(first: 10) {
+              nodes {
+                ... on ProjectV2ItemFieldTextValue {
+                  text
+                  field {
+                    ... on ProjectV2Field {
+                      name
+                    }
+                  }
+                }
+                ... on ProjectV2ItemFieldNumberValue {
+                  number
+                  field {
+                    ... on ProjectV2Field {
+                      name
+                    }
+                  }
+                }
+                ... on ProjectV2ItemFieldSingleSelectValue {
+                  name
+                  color
+                  field {
+                    ... on ProjectV2SingleSelectField {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
