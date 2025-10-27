@@ -2,7 +2,7 @@ name: PR Dynamic Requirements
 
 on:
   pull_request:
-    types: [opened, edited, synchronize]
+    types: [opened]
     branches: [develop]
 
 jobs:
