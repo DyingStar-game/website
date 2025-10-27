@@ -1,16 +1,51 @@
 {
+  "feature:api:add": {
+    "docs": ["Zod: https://zod.dev/"],
+    "items": [
+      "Set up exception reporting in the appropriate log",
+      "Implement API unavailability handling",
+      "Use zod for data mapping",
+      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
+    ],
+    "title": "API Route Addition Checklist"
+  },
+  "feature:color:add": {
+    "docs": ["CSS: /app/global.css"],
+    "items": [
+      "Check if the color doesn't already exist in the global.css file",
+      "Reference the color as a variable in the global.css file",
+      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
+    ],
+    "title": "CSS Color Addition Checklist"
+  },
   "feature:component:add": {
-    "title": "Component Addition Checklist",
+    "docs": ["Next.js: https://nextjs.org/docs/app/api-reference/components"],
     "items": [
       "Update documentation",
       "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
     ],
-    "docs": [
-      "Next.js: https://nextjs.org/docs/app/api-reference/components"
-    ]
+    "title": "Component Addition Checklist"
+  },
+  "feature:lib:add": {
+    "docs": ["Documentation: GuidlineWiki branch"],
+    "items": ["Update documentation", "Check for known CVEs"],
+    "title": "Library Addition Checklist"
+  },
+  "feature:news:add": {
+    "docs": ["Repository directories: /content/fr/news | /content/en/news"],
+    "items": [
+      "Update documentation",
+      "Spell check",
+      "News must be in French and English in their respective directories with appropriate names",
+      "Verify tag names"
+    ],
+    "title": "News Addition Checklist"
   },
   "feature:page:add": {
-    "title": "New Page Addition Checklist",
+    "docs": [
+      "Sitemap: /DOC_SITEMAP.md",
+      "Schema-dts: https://github.com/google/schema-dts"
+    ],
     "items": [
       "Add the link in the Links.ts file",
       "Add metadata",
@@ -20,54 +55,6 @@
       "Verify responsive page behavior (using tailwind)",
       "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
     ],
-    "docs": [
-      "Sitemap: /DOC_SITEMAP.md",
-      "Schema-dts: https://github.com/google/schema-dts"
-    ]
-  },
-  "feature:news:add": {
-    "title": "News Addition Checklist",
-    "items": [
-      "Update documentation",
-      "Spell check",
-      "News must be in French and English in their respective directories with appropriate names",
-      "Verify tag names"
-    ],
-    "docs": [
-      "Repository directories: /content/fr/news | /content/en/news"
-    ]
-  },
-  "feature:api:add": {
-    "title": "API Route Addition Checklist",
-    "items": [
-      "Set up exception reporting in the appropriate log",
-      "Implement API unavailability handling",
-      "Use zod for data mapping",
-      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
-    ],
-    "docs": [
-      "Zod: https://zod.dev/"
-    ]
-  },
-  "feature:color:add": {
-    "title": "CSS Color Addition Checklist",
-    "items": [
-      "Check if the color doesn't already exist in the global.css file",
-      "Reference the color as a variable in the global.css file",
-      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
-    ],
-    "docs": [
-      "CSS: /app/global.css"
-    ]
-  },
-  "feature:lib:add": {
-    "title": "Library Addition Checklist",
-    "items": [
-      "Update documentation",
-      "Check for known CVEs"
-    ],
-    "docs": [
-      "Documentation: GuidlineWiki branch"
-    ]
+    "title": "New Page Addition Checklist"
   }
 }

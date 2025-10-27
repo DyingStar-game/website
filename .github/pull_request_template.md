@@ -1,10 +1,12 @@
 ## 🎯 Objective
+
 Briefly describe what this PR does and why.  
-*Ex: Added `/stats` command to the Discord bot.*
+_Ex: Added `/stats` command to the Discord bot._
 
 ---
 
 ## 🧩 Changes
+
 - ...
 - ...
 - ...
@@ -12,7 +14,9 @@ Briefly describe what this PR does and why.
 ---
 
 ## ✅ Checklist
+
 Check what you have done:
+
 - [ ] feature:component:add - Added a component
 - [ ] feature:page:add - Added a page
 - [ ] feature:news:add - Added a news item
@@ -20,12 +24,12 @@ Check what you have done:
 - [ ] feature:color:add - Added a CSS color
 - [ ] feature:lib:add - Added a library
 
-
 <!-- DO NOT EDIT BELOW -->
 <!-- REQUIREMENTS:START -->
-<!-- REQUIREMENTS:END -->
----
+
+## <!-- REQUIREMENTS:END -->
 
 ## 🔍 Notes
+
 Points to verify, specific comments, or particular context:  
-*Ex: Check the listener behavior after merging into `develop`.*
+_Ex: Check the listener behavior after merging into `develop`._
