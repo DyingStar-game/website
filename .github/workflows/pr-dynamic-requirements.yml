@@ -1,0 +1,71 @@
+name: PR Dynamic Requirements
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+    branches: [develop]
+
+jobs:
+  pr-requirements:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node (pnpm)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Read PR body & mapping, build requirements markdown (dynamic requirements)
+        id: build
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = context.payload.pull_request.body || "";
+            const map = JSON.parse(fs.readFileSync('.github/PULL_REQUEST_TEMPLATE/pr-requirements.json','utf8'));
+            const checked = [...body.matchAll(/^- \[x\]\s+([a-z0-9:-]+)/gmi)].map(m=>m[1]);
+            let sections = [];
+            for (const key of checked) {
+              if (!map[key]) continue;
+              const { title, items = [], docs = [] } = map[key];
+              const itemsMd = items.map(i => `- [ ] ${i}`).join('\n');
+              const docsMd  = docs.map(d => `- ${d}`).join('\n');
+              sections.push(`### ${title}\n${itemsMd}\n\n**Docs**\n${docsMd}`);
+            }
+            const requirements = sections.length
+              ? `## Requirements\n\n${sections.join('\n\n')}`
+              : `## Requirements\n\n_No checkbox checked._`;
+
+            const start = '<!-- REQUIREMENTS:START -->';
+            const end   = '<!-- REQUIREMENTS:END -->';
+
+            let before = body.split(start)[0];
+            before = before.replace(/<!-- DO NOT EDIT BELOW -->\s*$/gm, '').trimEnd();
+
+            const after = (body.split(end)[1] ?? '').trimStart();
+
+            const newBody = before + '\n\n' + requirements + (after ? '\n\n' + after : '');
+
+            core.setOutput('newBody', newBody);
+
+      # - name: Fail if DB change without tests
+      #   if: contains(steps.build.outputs.newBody, 'Database changes') && !contains(steps.build.outputs.newBody, 'Unit tests')
+      #   run: |
+      #     echo "DB change requires unit tests selection."
+      #     exit 1
+
+      - name: Update PR body
+        if: steps.build.outputs.newBody != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              body: `${{ steps.build.outputs.newBody }}`
+            });
