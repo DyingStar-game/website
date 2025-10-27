@@ -1,7 +1,7 @@
-export enum IssueSize {
-  XS = "XS",
-  S = "S",
-  M = "M",
-  L = "L",
-  XL = "XL",
+export enum IssueComplexity {
+  veryEasy = "VeryEasy",
+  easy = "Easy",
+  moderate = "Moderate",
+  advance = "Advance",
+  expert = "Expert",
 }

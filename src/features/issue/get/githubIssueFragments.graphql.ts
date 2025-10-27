@@ -1,14 +1,14 @@
 export const GITHUB_ISSUE_FRAGMENT = `
   ... on Issue {
-    id
-    projectItems(first: 1) {
-      nodes {
-        id
-        project {
-          title
-          number
-        }
-        content {
+      id
+      projectItems(first: 1) {
+        nodes {
+          id
+          project {
+            title
+            number
+          }
+          content {
             ... on Issue {
               id
               title
@@ -29,7 +29,7 @@ export const GITHUB_ISSUE_FRAGMENT = `
               }
             }
           }
-        fieldValues(first: 10) {
+          fieldValues(first: 10) {
             nodes {
               ... on ProjectV2ItemFieldTextValue {
                 text
@@ -56,9 +56,17 @@ export const GITHUB_ISSUE_FRAGMENT = `
                   }
                 }
               }
+              ... on ProjectV2ItemFieldDateValue {
+                date
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+              }
             }
           }
+        }
       }
     }
-  }
 `;

@@ -1,12 +1,12 @@
 "use client";
 
-import type { IssueSize } from "@feat/api/github/schema/issueField.size.graphql";
+import type { IssueComplexity } from "@feat/api/github/schema/issueField.size.graphql";
 import { getProjectVariantSize } from "@feat/issue/projectHelper";
 import { Badge } from "@ui/badge";
 import { useTranslations } from "next-intl";
 
 type DifficultyBadgeProps = {
-  size: IssueSize;
+  size: IssueComplexity;
   className?: string;
 };
 

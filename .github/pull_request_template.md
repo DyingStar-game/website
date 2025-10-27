@@ -32,3 +32,7 @@ Check what you have done:
 
 Points to verify, specific comments, or particular context:  
 _Ex: Check the listener behavior after merging into `develop`._
+
+## Issues that this PR closes
+
+- Closes #
