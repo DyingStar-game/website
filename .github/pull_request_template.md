@@ -26,8 +26,7 @@ Check what you have done:
 
 <!-- DO NOT EDIT BELOW -->
 <!-- REQUIREMENTS:START -->
-
-## <!-- REQUIREMENTS:END -->
+<!-- REQUIREMENTS:END -->
 
 ## 🔍 Notes
 
