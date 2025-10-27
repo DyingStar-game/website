@@ -9,7 +9,7 @@ import devArchi from "@assets/images/issue/im_dev_architech.png";
 import devBis from "@assets/images/issue/im_dev_bis.png";
 import devServer from "@assets/images/issue/im_dev_server.png";
 import type { badgeVariants } from "@components/ui/badge";
-import { IssueSize } from "@feat/api/github/schema/issueField.size.graphql";
+import { IssueComplexity } from "@feat/api/github/schema/issueField.size.graphql";
 import { IssueStatus } from "@feat/api/github/schema/issueField.status.graphql";
 import type { VariantProps } from "class-variance-authority";
 import type { IconName } from "lucide-react/dynamic";
@@ -81,15 +81,17 @@ export const getProjectBgColor = (projectNumber: number): BgColorClass => {
 
 type VariantBadgeType = VariantProps<typeof badgeVariants>["variant"];
 
-const variantSizeMap: Record<IssueSize, VariantBadgeType> = {
-  [IssueSize.XS]: "veryEasy",
-  [IssueSize.S]: "easy",
-  [IssueSize.M]: "moderate",
-  [IssueSize.L]: "advance",
-  [IssueSize.XL]: "expert",
+const variantSizeMap: Record<IssueComplexity, VariantBadgeType> = {
+  [IssueComplexity.veryEasy]: "veryEasy",
+  [IssueComplexity.easy]: "easy",
+  [IssueComplexity.moderate]: "moderate",
+  [IssueComplexity.advance]: "advance",
+  [IssueComplexity.expert]: "expert",
 };
 
-export const getProjectVariantSize = (size: IssueSize): VariantBadgeType => {
+export const getProjectVariantSize = (
+  size: IssueComplexity,
+): VariantBadgeType => {
   return variantSizeMap[size];
 };
 

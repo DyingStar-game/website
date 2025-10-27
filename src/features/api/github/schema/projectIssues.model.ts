@@ -1,4 +1,4 @@
-import { IssueSize } from "@feat/api/github/schema/issueField.size.graphql";
+import { IssueComplexity } from "@feat/api/github/schema/issueField.size.graphql";
 import { graphqlPageInfoSchema } from "@feat/api/github/schema/pageInfo.graphql.model";
 import { pageInfoSchema } from "@feat/api/schema/pageInfo.model";
 import { z } from "zod";
@@ -12,7 +12,7 @@ export const projectIssueSchema = z.object({
   status: z.string().nullable(),
   priority: z.string().nullable(),
   team: z.string().nullable(),
-  size: z.enum(IssueSize).nullable(),
+  complexity: z.enum(IssueComplexity).nullable(),
   discordUrl: z.string().nullable(),
   hasAssignees: z.boolean(),
   assignees: z.array(
@@ -24,6 +24,8 @@ export const projectIssueSchema = z.object({
   labels: z.array(z.string()),
   createdAt: z.string(),
   updatedAt: z.string(),
+  startDate: z.date().nullable(),
+  endDate: z.date().nullable(),
 });
 
 export type ProjectIssueType = z.infer<typeof projectIssueSchema>;

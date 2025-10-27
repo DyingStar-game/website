@@ -23,6 +23,7 @@ const itemFieldValue = z.union([
   z.object({
     text: z.string().optional(),
     name: z.string().optional(),
+    date: z.date().optional(),
     color: z.string().optional(),
     field: z
       .object({
