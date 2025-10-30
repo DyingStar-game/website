@@ -6,10 +6,11 @@
     },
     "IssueCard": {
       "DifficultyBadge": {
-        "L": "pro level",
-        "M": "intermediate level",
-        "S": "all levels",
-        "XL": "expert level"
+        "Advance": "pro level",
+        "Easy": "easy level",
+        "Expert": "expert level",
+        "Moderate": "intermediate level",
+        "VeryEasy": "all levels"
       },
       "assigneesCount": "{count, plural, =0 {No contributor} =1 {1 contributor} other {# contributors}}",
       "button": {
