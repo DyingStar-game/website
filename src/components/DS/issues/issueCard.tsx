@@ -96,9 +96,9 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
           </Typography>
         </motion.div>
 
-        {(issue.size ?? issue.priority) && (
+        {(issue.complexity ?? issue.priority) && (
           <div className="flex items-start justify-between gap-2">
-            {issue.size && <DifficultyBadge size={issue.size} />}
+            {issue.complexity && <DifficultyBadge size={issue.complexity} />}
             {issue.priority && (
               <Badge className="ml-auto" variant="outlineWhite">
                 {issue.priority}
