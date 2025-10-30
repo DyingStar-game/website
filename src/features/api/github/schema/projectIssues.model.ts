@@ -24,8 +24,8 @@ export const projectIssueSchema = z.object({
   labels: z.array(z.string()),
   createdAt: z.string(),
   updatedAt: z.string(),
-  startDate: z.date().nullable(),
-  endDate: z.date().nullable(),
+  startDate: z.string().nullable(),
+  endDate: z.string().nullable(),
 });
 
 export type ProjectIssueType = z.infer<typeof projectIssueSchema>;
