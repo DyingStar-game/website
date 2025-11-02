@@ -1,5 +1,5 @@
 import type { GraphqlProjectIssueType } from "@feat/api/github/schema/issue.graphql.model";
-import type { IssueSize } from "@feat/api/github/schema/issueField.size.graphql";
+import type { IssueComplexity } from "@feat/api/github/schema/issueField.size.graphql";
 import type { ProjectIssueType } from "@feat/api/github/schema/projectIssues.model";
 import {
   type ProjectIssuesType,
@@ -36,9 +36,11 @@ export const GraphqlProjectIssueResponseToProjectIssuesTypeMapper = (
           login: assignee.login,
           avatarUrl: assignee.avatarUrl ?? null,
         })),
-        size: (getFieldByName("Size")?.name?.trim() ??
-          null) as IssueSize | null,
+        complexity: (getFieldByName("Complexity")?.name?.trim() ??
+          null) as IssueComplexity | null,
         discordUrl: getFieldByName("Post Discord")?.text?.trim() ?? null,
+        startDate: getFieldByName("StartDate")?.date ?? null,
+        endDate: getFieldByName("EndDate")?.date ?? null,
       };
 
       return projectIssueSchema.parse(issue);

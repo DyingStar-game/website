@@ -1,0 +1,6 @@
+{
+  "ignore": ["node_modules", ".git"],
+  "name": "DyingStarWebsite",
+  "type": "collection",
+  "version": "1"
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Load DB
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/initMeilisearch?secret={{GH_WEBHOOK_SECRET}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  secret: {{GH_WEBHOOK_SECRET}}
+}
+
+settings {
+  encodeUrl: true
+}
