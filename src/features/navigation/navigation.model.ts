@@ -25,6 +25,7 @@ const BaseNavigationLinkSchema = z
     label: z.string(),
     hidden: z.boolean().optional(),
     disabled: z.boolean().optional(),
+    target: z.enum(["_self", "_blank", "_parent", "_top"]).optional(),
   })
   .strict();
 

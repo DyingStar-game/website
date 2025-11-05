@@ -1,11 +1,13 @@
 import { Typography } from "@components/DS/typography";
 import { LINKS } from "@feat/navigation/Links";
-import { NewsItemAuthor, NewsItemTags } from "@feat/news/newsItem";
+import { NewsItemAuthor } from "@feat/news/newsItemAuthor";
+import { NewsItemTags } from "@feat/news/newsItemTags";
 import type { News } from "@feat/news/newsManager";
 import { Link } from "@i18n/navigation";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export type NewsItemLightProps = {
   news: News;
@@ -13,6 +15,8 @@ export type NewsItemLightProps = {
 };
 
 const NewsItemLight = ({ news, className }: NewsItemLightProps) => {
+  const t = useTranslations("News.NewsItemLight");
+
   return (
     <article
       className={cn(
@@ -50,6 +54,7 @@ const NewsItemLight = ({ news, className }: NewsItemLightProps) => {
             "w-auto",
           )}
         >
+          <span className="sr-only">{t("moreInfo")}</span>
           <ChevronRight />
         </Link>
       </div>

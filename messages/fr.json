@@ -1,7 +1,7 @@
 {
   "Issue": {
     "Hero": {
-      "description": "Rejoignez l'équipage et choisissez les missions qui correspondent à vos compétences. Chaque tâche renforce l'univers du MMO narratif et rapproche la communauté de la prochaine étape du voyage.",
+      "description": "Rejoignez l'équipage et choisissez les missions qui correspondent à vos compétences. Chaque tâche renforce l'univers du MMO spatial et rapproche la communauté de la prochaine étape du voyage.",
       "title": "Contribuer au projet Dying Star"
     },
     "IssueCard": {
@@ -28,6 +28,19 @@
     },
     "IssuesNotFound": {
       "label": "Aucune tâche trouvée"
+    },
+    "JsonLd": {
+      "CollectionPage": {
+        "name": "Les contributions"
+      },
+      "ItemList": {
+        "name": "Liste des contributions"
+      }
+    },
+    "Metadata": {
+      "description": "Rejoignez l'équipage de Dying Star et contribuez aux missions du projet. Participez à l'élaboration du MMO spatial et explorez les tâches disponibles sur GitHub.",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, MMO spatial, contribuer, missions, projet open source, GitHub, communauté Dying Star, participation, développement collaboratif, issues, taches",
+      "title": "Contributions"
     }
   },
   "Landing": {
@@ -40,6 +53,21 @@
         "action": "Rejoindre le Discord",
         "title": "Suivez l'aventure en direct !"
       }
+    },
+    "JsonLd": {
+      "VideoGame": {
+        "description": "Description du jeu",
+        "name": "Dying Star"
+      },
+      "WebSite": {
+        "description": "Description du site",
+        "name": "Dying Star"
+      }
+    },
+    "Metadata": {
+      "description": "Rejoignez Dying Star, un MMO spatial collaboratif où la communauté construit un univers narratif vivant. Explorez le lore, suivez l'avancement du projet et contribuez aux missions du jeu.",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, MMO spatial, jeu collaboratif, univers narratif, jeu communautaire, simulation spatiale, contribution, missions, lore, actualités, développement participatif, projet open-source, univers vivant, science-fiction, godot",
+      "title": "Accueil"
     },
     "News": {
       "action": "Toutes les news",
@@ -60,12 +88,20 @@
       "Lore": "Lore",
       "News": "Actualités",
       "Project": "Projet"
+    },
+    "Metadata": {
+      "description": "Site web du jeu Dying Star"
     }
   },
   "Links": {
     "Community": {
       "Discord": "Discord",
-      "Github": "Github"
+      "Github": "GitHub",
+      "Rss": "RSS"
+    },
+    "Legal": {
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation"
     },
     "Lore": {
       "History": "Lore"
@@ -80,10 +116,28 @@
   },
   "LocaleSwitcher": {
     "en": "Anglais",
-    "fr": "Francais",
+    "fr": "Français",
     "label": "Langue"
   },
+  "Manifest": {
+    "description": "Création du jeu communautaire Dying Star",
+    "name": "Site web du jeu Dying Star",
+    "shortName": "Dying Star"
+  },
   "News": {
+    "JsonLd": {
+      "CollectionPage": {
+        "name": "Les actualités"
+      },
+      "ItemList": {
+        "name": "Liste des actualités"
+      }
+    },
+    "Metadata": {
+      "description": "Suivez les dernières actualités de Dying Star : découvrez l'avancement du développement, les grandes étapes du MMO spatial et les nouveautés de l'univers.",
+      "keywords": "Dying Star, Jeu Dying Star, DyingStar, Star Deception, Dying Star, actualités, développement du jeu, MMO spatial, mise à jour, progression du projet, journal de bord, étapes du jeu, nouveautés Dying Star, univers du jeu",
+      "title": "Actualités"
+    },
     "NewsDetailPagination": {
       "button": {
         "next": "Suivante",
@@ -91,6 +145,9 @@
       }
     },
     "NewsItem": {
+      "moreInfo": "Informations supplémentaires"
+    },
+    "NewsItemLight": {
       "moreInfo": "Informations supplémentaires"
     },
     "button": {
@@ -104,5 +161,42 @@
       "next": "Suivante",
       "previous": "Précédente"
     }
+  },
+  "Privacy": {
+    "JsonLd": {
+      "Article": {
+        "headline": "Politique de confidentialité"
+      }
+    },
+    "Metadata": {
+      "description": "Découvrez la politique de confidentialité de Dying Star : comment nous collectons, utilisons et protégeons vos données tout en respectant votre vie privée.",
+      "keywords": "Dying Star, Jeu Dying Star, DyingStar, Star Deception, politique de confidentialité, données personnelles, vie privée, protection des données, RGPD, sécurité, informations utilisateurs",
+      "title": "Politique de confidentialité"
+    },
+    "title": "Politique de confidentialité"
+  },
+  "Project": {
+    "Metadata": {
+      "description": "Découvrez le projet Dying Star : un MMO spatial open-source créé par la communauté, pour la communauté, avec un univers immersif et collaboratif.",
+      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, projet open-source, MMO spatial, jeu communautaire, univers narratif, développement collaboratif, simulation spatiale, création participative, jeu indépendant, collectif de joueurs",
+      "title": "Projet"
+    }
+  },
+  "RSS": {
+    "description": "Flux RSS du jeu communautaire Dying Star",
+    "title": "Dying Star"
+  },
+  "Terms": {
+    "JsonLd": {
+      "Article": {
+        "headline": "Conditions d'utilisation"
+      }
+    },
+    "Metadata": {
+      "description": "Consultez les conditions d'utilisation de Dying Star : règles d'accès, droits et responsabilités des utilisateurs pour profiter du MMO spatial en toute sécurité.",
+      "keywords": "Dying Star, Jeu Dying Star, DyingStar, Star Deception, conditions d'utilisation, règles du jeu, droits utilisateurs, obligations, MMO spatial, sécurité, termes et conditions",
+      "title": "Conditions d'utilisation"
+    },
+    "title": "Conditions d'utilisation"
   }
 }

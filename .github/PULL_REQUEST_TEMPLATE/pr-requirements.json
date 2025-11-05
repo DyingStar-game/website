@@ -1,0 +1,60 @@
+{
+  "feature:api:add": {
+    "docs": ["Zod: https://zod.dev/"],
+    "items": [
+      "Set up exception reporting in the appropriate log",
+      "Implement API unavailability handling",
+      "Use zod for data mapping",
+      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
+    ],
+    "title": "API Route Addition Checklist"
+  },
+  "feature:color:add": {
+    "docs": ["CSS: /app/global.css"],
+    "items": [
+      "Check if the color doesn't already exist in the global.css file",
+      "Reference the color as a variable in the global.css file",
+      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
+    ],
+    "title": "CSS Color Addition Checklist"
+  },
+  "feature:component:add": {
+    "docs": ["Next.js: https://nextjs.org/docs/app/api-reference/components"],
+    "items": [
+      "Update documentation",
+      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
+    ],
+    "title": "Component Addition Checklist"
+  },
+  "feature:lib:add": {
+    "docs": ["Documentation: GuidlineWiki branch"],
+    "items": ["Update documentation", "Check for known CVEs"],
+    "title": "Library Addition Checklist"
+  },
+  "feature:news:add": {
+    "docs": ["Repository directories: /content/fr/news | /content/en/news"],
+    "items": [
+      "Update documentation",
+      "Spell check",
+      "News must be in French and English in their respective directories with appropriate names",
+      "Verify tag names"
+    ],
+    "title": "News Addition Checklist"
+  },
+  "feature:page:add": {
+    "docs": [
+      "Sitemap: /DOC_SITEMAP.md",
+      "Schema-dts: https://github.com/google/schema-dts"
+    ],
+    "items": [
+      "Add the link in the Links.ts file",
+      "Add metadata",
+      "Add the corresponding JSON.LD to the page (Using JsonLd component and DynamicJsonLd component with schema-dts library)",
+      "Update the sitemap",
+      "Readable page elements must use locale and be present in [fr.json] and [en.json] files",
+      "Verify responsive page behavior (using tailwind)",
+      "Run 'make pnpm clean' and 'make pnpm build' at the end of development"
+    ],
+    "title": "New Page Addition Checklist"
+  }
+}

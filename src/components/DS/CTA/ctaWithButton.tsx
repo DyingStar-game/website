@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react";
+import type { ComponentProps, ElementType } from "react";
 
 import { Typography } from "@components/DS/typography";
 import { Layout, LayoutSection } from "@feat/page/layout";
@@ -14,12 +14,14 @@ type CtaButtonProps = ComponentProps<typeof Link> & {
 export type CtaWithButtonProps = React.ComponentProps<"section"> & {
   title: string;
   action?: CtaButtonProps;
+  titleAs?: ElementType;
 };
 
 export const CtaWithButton = ({
   title,
   action,
   className,
+  titleAs,
   ...props
 }: CtaWithButtonProps) => {
   return (
@@ -30,6 +32,7 @@ export const CtaWithButton = ({
       <Layout asChild padding="default">
         <div className="flex max-w-4xl flex-col justify-center gap-10 lg:gap-22">
           <Typography
+            as={titleAs}
             variant="h2"
             className="text-center text-4xl font-medium text-primary-foreground md:text-5xl lg:text-6xl"
           >

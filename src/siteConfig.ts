@@ -6,5 +6,6 @@ export const SiteConfig = {
   prodUrl: getServerUrl(),
   appId: "dyingstar",
   domain: getServerDomain(),
-  appIcon: "assets/images/icon.png",
+  metaImage: `${getServerUrl()}/assets/images/opengraph-image.png`,
+  metaImageAlt: "SplashScreen",
 };

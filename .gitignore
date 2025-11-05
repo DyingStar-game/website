@@ -53,3 +53,4 @@ gitkraken-amd64.deb
 .cache/
 
 !docker/.env
+act/

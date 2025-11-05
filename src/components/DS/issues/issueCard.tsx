@@ -73,15 +73,14 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
             />
           )}
         </div>
-        <div className={cn("relative aspect-[460/184] w-full self-center")}>
-          <Image
-            src={getProjectImage(issue.projectNumber)}
-            alt={issue.projectName}
-            fill
-            className="object-cover"
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 70vw, 512px" // Optimize for tailwind breakpoint size
-          />
-        </div>
+        <Image
+          src={getProjectImage(issue.projectNumber)}
+          alt={issue.projectName}
+          width={640}
+          height={256}
+          className="aspect-[460/184] h-auto w-full object-contain"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 640px, (max-width: 1280px) 480px, (max-width: 1536px) 640px, 480px"
+        />
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,9 +96,9 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
           </Typography>
         </motion.div>
 
-        {(issue.size ?? issue.priority) && (
+        {(issue.complexity ?? issue.priority) && (
           <div className="flex items-start justify-between gap-2">
-            {issue.size && <DifficultyBadge size={issue.size} />}
+            {issue.complexity && <DifficultyBadge size={issue.complexity} />}
             {issue.priority && (
               <Badge className="ml-auto" variant="outlineWhite">
                 {issue.priority}
@@ -144,7 +143,7 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
                       {assignee.avatarUrl && (
                         <AvatarImage
                           className="bg-white"
-                          src={assignee.avatarUrl}
+                          src={`${assignee.avatarUrl}&s=64`}
                           alt={assignee.login}
                         />
                       )}

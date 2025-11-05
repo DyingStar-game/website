@@ -17,7 +17,11 @@ const FOOTER_LINKS: NavigationLinksGroups = [
   },
   {
     title: "Layout.Footer.Community",
-    links: [LINKS.Community.Discord, LINKS.Community.Github],
+    links: [
+      LINKS.Community.Discord,
+      LINKS.Community.Github,
+      LINKS.Community.Rss,
+    ],
   },
 ];
 

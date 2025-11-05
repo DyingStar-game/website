@@ -184,3 +184,15 @@
   --tw-prose-kbd: var(--color-foreground);
   --tw-prose-kbd-shadows: var(--color-foreground);
 }
+
+/** Fix margin when LocaleSwitcher opened **/
+html {
+  scrollbar-gutter: stable;
+}
+
+@layer base {
+  html body[data-scroll-locked],
+  body[data-scroll-locked] {
+    margin-right: 0 !important;
+  }
+}

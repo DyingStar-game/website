@@ -1,0 +1,83 @@
+---
+title: Changelog du play test numéro 2
+titleIcon: 📋
+category: test
+description: Les modifications depuis le premier play test.
+keywords:
+  - news
+tags:
+  - Informations du projet
+  - play test
+  - Changelog
+coverUrl: /assets/images/news/playtest.png
+date: 2025-08-25T14:16:00
+author: ddurieux
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20250825-changelog-second-test }
+---
+
+# Changelog
+
+Voici le changelog de la version à tester ce soir (pour rappel, c'est à 20h30) :
+
+- Passage de la gestion joueur côté serveur
+- Réorganisation des fichiers
+- Correction de la caméra du joueur
+- Correction de la rotation du joueur
+- Ajout des boîtes de 50 cm et 4 m (à spawner avec les touches **E** et **R**)
+- Ajout d'un chat global, utilisant MQTT. Affichage avec **F12** et **ALT+T** pour écrire dedans
+- Ajout d'un vaisseau
+- Ajout de la persistance des objets dans la base dgraph
+- Ajout de la localisation (traduction) du jeu
+- Ajout de messages d'erreur (utilisé uniquement lors de la déconnexion au serveur actuellement)
+- Refonte du server meshing dynamique, passage du protocole HTTP à MQTT
+- Ajout de la réplication inter-serveurs des boîtes et du vaisseau (uniquement lors du spawn et seulement sur les serveurs déjà actifs)
+- Modification de l'UI joueur :
+  - Affichage des coordonnées de la zone gérée par le serveur
+  - Ajout d'un label au-dessus du joueur avec le nom du serveur sur lequel il se situe
+  - Correction des labels (nombre de serveurs, nombre de joueurs...)
+- Changement de la scène, 2 planètes de 5 km (1 grise et 1 orange) + 2 stations
+- Intégration du serveur audio FMOD, mais désactivé pour le moment (plusieurs problèmes identifiés)
+
+# Play test numéro 2
+
+Voici ce qu'il faudra tester
+
+## Reporter les soucis
+
+Faites une vidéo ou écrivez un texte sur le problème rencontré, et si possible comment le reproduire.
+
+## Server meshing dynamic
+
+On vous laisse tester, passer d'un serveur à l'autre, quels sont les problèmes rencontrés, qu'est-ce qui fonctionne.
+
+**ATTENTION** : les problèmes suivants sont déjà connus :
+
+- Écran noir de moins d'une seconde quand on change de serveurs
+- Problèmes quand on passe d'un serveur à l'autre trop lentement (bugs visuels pendant quelques secondes puis on reste bloqué sur un serveur)
+- Quand un serveur se sépare en deux, le second ne récupère pas les caisses et le vaisseau du premier serveur (code pas encore stable)
+
+## Chat Global
+
+Il y a un chat global, accessible via F12, vous pouvez écrire, les emojis fonctionnent. Écrivez un maximum de messages et voyez comment ça réagit.
+Pour écrire, faites ALT+T.
+
+## Spawn de caisses (Visu inter-serveurs)
+
+Vous pouvez spawner des petites caisses (50 cm) avec la touche R, les grosses caisses (4 m) avec la touche E, à tester sur les planètes, dans l'espace, entre serveurs.
+Il semble qu'il y a une limite vers 2000 caisses spawnées avec de la latence par serveur... on aimerait bien avoir des retours là-dessus 😉
+
+## Persistance
+
+On a la persistance des caisses et vaisseaux.
+
+On a essayé hier soir de relancer les serveurs et charger les milliers de caisses en base et ça a été très long et consommateur de ressources, on va regarder ce qu'il se passe après ce test.
+
+## Autres
+
+Si vous voyez d'autres choses pas ouf ou qui ne fonctionnent pas, reportez aussi 😉
+
+Merci à tous et à tout à l'heure, 20h30 !
+
+[Event Discord](https://discord.com/events/1399325839665004554/1402189058469396585)

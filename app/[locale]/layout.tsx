@@ -11,23 +11,45 @@ import { routing } from "@i18n/routing";
 import { getServerUrl } from "@lib/serverUrl";
 import { cn } from "@lib/utils";
 import type { Metadata } from "next";
+import type { Locale } from "next-intl";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
 import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { SiteConfig } from "siteConfig";
 
-import "./globals.css";
-
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: SiteConfig.title,
-  description: SiteConfig.description,
-  metadataBase: new URL(getServerUrl()),
+export const generateMetadata = async (): Promise<Metadata> => {
+  const t = await getTranslations("Layout.Metadata");
+  const locale = (await getLocale()) as Locale;
+
+  return {
+    title: SiteConfig.title,
+    description: t("description"),
+    metadataBase: new URL(getServerUrl(locale)),
+    robots: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+      googleBot: "index, follow",
+    },
+    applicationName: SiteConfig.title,
+    appleWebApp: {
+      title: SiteConfig.title,
+      statusBarStyle: "default",
+      capable: true,
+    },
+    twitter: {
+      creator: "@dyingstargame",
+      site: SiteConfig.prodUrl,
+    },
+  };
 };
 
 const PoppinsFont = Poppins({
@@ -74,7 +96,6 @@ export default async function LocaleLayout({
                 showSpinner={false}
                 color="hsl(var(--primary))"
               />
-              {/* <div className="relative z-10"> */}
               <Header />
               {children}
               <Footer />
@@ -84,7 +105,6 @@ export default async function LocaleLayout({
               <Suspense>
                 <ServerToaster />
               </Suspense>
-              {/* </div> */}
             </Providers>
           </NuqsAdapter>
         </NextIntlClientProvider>

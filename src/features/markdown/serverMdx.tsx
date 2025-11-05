@@ -1,5 +1,8 @@
+import type { OptimizedImageProps } from "@components/DS/optimizedImage/optimizeImage";
+import { OptimizedImage } from "@components/DS/optimizedImage/optimizeImage";
 import { rehypePlugins, remarkPlugins } from "@feat/markdown/markdown.config";
 import { cn } from "@lib/utils";
+import type { MDXComponents } from "next-mdx-remote-client/rsc";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 
 type ServerMdxProps = {
@@ -7,8 +10,13 @@ type ServerMdxProps = {
   className?: string;
 };
 
-// * If you want to add custom component, such as an "EmailForm", you can add it to the MdxComponent object.
-const MdxComponent = {} satisfies Record<string, React.ComponentType>;
+const MdxComponent: MDXComponents = {
+  img: ({ ...props }: OptimizedImageProps) => {
+    if (!props.src) return null;
+
+    return <OptimizedImage {...props} />;
+  },
+};
 
 export const ServerMdx = (props: ServerMdxProps) => {
   return (

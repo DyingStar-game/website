@@ -54,7 +54,9 @@ const LocaleSwitcherFallback = ({
     <Select disabled>
       <SelectPrimitive.Trigger
         className={cn(buttonVariants({ variant: "ghost", size, className }))}
+        aria-label={label}
       >
+        <span className="sr-only">{label}</span>
         <LoaderCircle className="size-6 animate-spin" aria-label={label} />
       </SelectPrimitive.Trigger>
     </Select>

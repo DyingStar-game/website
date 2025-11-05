@@ -1,5 +1,5 @@
 import { LINKS } from "@feat/navigation/Links";
-import NewsItem from "@feat/news/newsItem";
+import { NewsItem } from "@feat/news/newsItem";
 import NewsItemLight from "@feat/news/newsItemLight";
 import { getLastNews } from "@feat/news/newsManager";
 import { LayoutContentTitle, LayoutSection } from "@feat/page/layout";
@@ -19,7 +19,7 @@ export const NewsSection = async () => {
       <div className="divide-solide flex flex-col gap-7 divide-y divide-input border-b border-input">
         {lastNews.map((news, index) =>
           index < 2 ? (
-            <NewsItem key={news.slug} news={news} className="pb-7" />
+            <NewsItem key={news.slug} news={news} className="pb-7" priority />
           ) : (
             <NewsItemLight key={news.slug} news={news} className="pb-7" />
           ),

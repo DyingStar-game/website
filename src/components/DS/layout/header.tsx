@@ -11,6 +11,7 @@ import { Link } from "@i18n/navigation";
 import type { buttonVariants } from "@ui/button";
 import type { VariantProps } from "class-variance-authority";
 import { useMotionValueEvent, useScroll } from "framer-motion";
+import { SiteConfig } from "siteConfig";
 
 export const Header = () => {
   const [size, setSize] =
@@ -29,6 +30,7 @@ export const Header = () => {
       <Link
         href={LINKS.Landing.Landing.href()}
         className="order-first self-center transition-all hover:scale-95 xl:order-none"
+        aria-label={SiteConfig.title}
       >
         <LogoNameSvg className="h-10 w-auto xl:h-12" />
       </Link>

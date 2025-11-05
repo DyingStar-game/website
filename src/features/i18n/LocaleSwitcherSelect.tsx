@@ -62,6 +62,7 @@ export const LocaleSwitcherSelect = ({
     >
       <SelectPrimitive.Trigger
         className={cn(buttonVariants({ variant: "ghost", size, className }))}
+        aria-label={label}
       >
         <span className="sr-only">{label}</span>
         {isPending ? (
