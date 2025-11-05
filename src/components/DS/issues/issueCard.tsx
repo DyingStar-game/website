@@ -104,6 +104,11 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
                 {issue.priority}
               </Badge>
             )}
+            {issue.techno && (
+              <Badge key={1} variant="techno">
+                <Tag /> {issue.techno}
+              </Badge>
+            )}
           </div>
         )}
         {issue.labels.length > 0 && (
@@ -113,11 +118,6 @@ export const IssueCard = ({ className, issue, index }: TaskCardProps) => {
                 <Tag /> {label}
               </Badge>
             ))}
-            {issue.techno && (
-              <Badge key={1} variant="category">
-                <Tag /> {issue.techno}
-              </Badge>
-            )}
           </div>
         )}
       </div>
