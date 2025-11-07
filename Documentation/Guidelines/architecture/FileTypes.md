@@ -75,8 +75,8 @@ import { type VariantProps, cva } from "class-variance-authority";
 const buttonVariants = cva("justify-center... inline-flex items-center", {
   variants: {
     variant: {
-      default: "bg-primary text-primary-foreground...",
-      destructive: "bg-destructive text-white...",
+      default: "text-primary-foreground... bg-primary",
+      destructive: "text-white... bg-destructive",
     },
     size: {
       default: "px-6 py-2",
@@ -186,8 +186,6 @@ export const IssuesCountSchema = z.object({
 });
 
 export type IssuesCountType = z.infer<typeof IssuesCountSchema>;
-
-
 ```
 
 **Why This Pattern**:

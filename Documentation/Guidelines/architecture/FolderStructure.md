@@ -34,6 +34,7 @@ app/
 ```
 
 **Key Concepts:**
+
 - **Route Groups** `(name)`: Organize without affecting URL
 - **Parallel Routes** `@modal`: Display multiple pages simultaneously
 - **Intercepting Routes**: Modals that preserve history
@@ -54,13 +55,13 @@ src/
 ```
 
 **Feature-based architecture:**
+
 - Each feature in `features/` is **autonomous** and contains its logic, components, types
 - Clear separation between **UI** (`components/`), **logic** (`features/`), **utilities** (`lib/`, `hooks/`)
 
 ## 📁 `content/` - Editorial content
 
 MDX files (Markdown + JSX) for dynamic content organized by locale.
-
 
 ## 📁 `public/` - Static assets
 
@@ -77,9 +78,11 @@ messages/                      # JSON translation files per locale (en.json, fr.
 ```
 
 **Usage:**
+
 ```tsx
-import { useTranslations } from 'next-intl';
-const t = useTranslations('namespace');
+import { useTranslations } from "next-intl";
+
+const t = useTranslations("namespace");
 ```
 
 ## 📁 `docker/` - Containerization
@@ -106,5 +109,3 @@ Documentation/
 - [Next.js App Router](https://nextjs.org/docs/app)
 - [Next.js Project Structure](https://nextjs.org/docs/getting-started/project-structure)
 - [Complete structure details](./projectTreeFolder.md)
-
-

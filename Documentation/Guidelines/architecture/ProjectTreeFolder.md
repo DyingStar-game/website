@@ -111,6 +111,7 @@ app/[locale]/
 ```
 
 **Key Concepts:**
+
 - **Route Groups** `(name)`: Organize routes without affecting URL structure
 - **Parallel Routes** `@modal`: Render multiple pages simultaneously (modal overlays)
 - **Intercepting Routes**: Modals that preserve navigation history
@@ -330,6 +331,7 @@ content/
 ```
 
 **MDX Structure:**
+
 - Frontmatter with metadata (title, date, author, category, etc.)
 - Markdown body with JSX components support
 - Parsed by `features/news/news-manager.ts`
@@ -374,6 +376,7 @@ messages/
 ```
 
 **Structure:**
+
 ```json
 {
   "namespace": {
@@ -383,9 +386,11 @@ messages/
 ```
 
 **Usage:**
+
 ```tsx
-import { useTranslations } from 'next-intl';
-const t = useTranslations('namespace');
+import { useTranslations } from "next-intl";
+
+const t = useTranslations("namespace");
 ```
 
 ---

@@ -30,7 +30,7 @@ The DyingStar project uses the **git-flow** model for release and deployment man
 
 The project uses **Semantic Versioning** (SemVer):
 
-- `MAJOR.MINOR.PATCH` (e.g., `1.2.3`)
+- `vMAJOR.MINOR.PATCH` (e.g., `v1.2.3`)
 - **MAJOR**: Incompatible API changes
 - **MINOR**: New backwards-compatible features
 - **PATCH**: Backwards-compatible bug fixes

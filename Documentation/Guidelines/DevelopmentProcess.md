@@ -77,7 +77,7 @@ Edit `package.json`:
 
 ```bash
 git add .
-git commit -m "hotfix: fix critical bug in production"
+git commit -m "hotfix(Build Process): fix critical bug in production"
 git push origin hotfix/hotfix-1.2.4
 ```
 
