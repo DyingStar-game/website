@@ -1,0 +1,1 @@
+- [DOC_SITEMAP.md](DOC_SITEMAP.md) : Guide for updating the sitemap when modifying pages or URLs

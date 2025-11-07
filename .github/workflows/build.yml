@@ -60,7 +60,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .next/cache
-          key: next-cache-${{ runner.os }}-${{ hashFiles('next.config.mjs') }}
+          key: next-cache-${{ runner.os }}-${{ hashFiles('next.config.ts') }}
           restore-keys: |
             next-cache-${{ runner.os }}-
 
