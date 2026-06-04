@@ -1,6 +1,6 @@
 ### Quel moteur de jeu utilisez-vous ?
 
-- Nous utilisons actuellement la version 4.5 du moteur [Godot](https://godotengine.org/). Ce moteur est open-source, accessible à tous, et dispose d’une documentation de qualité.
+- Nous utilisons actuellement la version 4.6 du moteur [Godot](https://godotengine.org/). Ce moteur est open-source, accessible à tous, et dispose d’une documentation de qualité. Nous utilisons une version recompilées en double précision.
 
 ### Pourquoi ne pas utiliser Unity ou Unreal Engine ?
 
@@ -21,6 +21,5 @@
 
 ### Peut-on déjà jouer au jeu ?
 
-- Le jeu est actuellement en phase de conception et n’est pas encore jouable. Il faudra encore un certain temps avant d’atteindre cette étape.  
-  Toutefois, nous organisons régulièrement des sessions de test afin d’évaluer nos technologies et notre contenu.  
+- Le jeu n'est pas prêt pour la production. Depuis juin 2026, les serveurs de tests sont en ligne et vous pouvez jouer (on utilise le launcher pour ça). Nous organisons régulièrement des grosses sessions de test afin d’évaluer nos technologies et notre contenu.  
   Ces sessions sont annoncées sur le [serveur Discord](https://discord.gg/K4a2mwwBAM) ainsi que dans les actualités du projet.

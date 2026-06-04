@@ -1,6 +1,6 @@
 ### What game engine do you use?
 
-- Today, we’re using version 4.5 of the [Godot](https://godotengine.org/) engine. It’s easily accessible, open-source, and has great documentation.
+- Today, we’re using version 4.6 of the [Godot](https://godotengine.org/) engine. It’s easily accessible, open-source, and has great documentation. We use recompiled version in double precision.
 
 ### Why not use Unity or Unreal Engine?
 
@@ -16,4 +16,4 @@
 
 ### Can the game be played right now?
 
-- The game is currently in the design phase, so it isn’t playable yet — it’ll take some time before that happens. However, we do hold regular player tests to evaluate technologies and content. These are announced on the [Discord server](https://discord.gg/K4a2mwwBAM) and in the news section of this website.
+- The game is not yet ready for production. Since June 2026, the testing servers a online and you can play on it (we use the launcher for that). We do hold regular big player tests to evaluate technologies and content. These are announced on the [Discord server](https://discord.gg/K4a2mwwBAM) and in the news section of this website.
