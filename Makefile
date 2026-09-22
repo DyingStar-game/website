@@ -66,6 +66,13 @@ pnpm: ## Run any pnpm command (usage: make pnpm install, make pnpm dev, etc.)
 	@echo "$(CYAN)📦 Running: pnpm $(filter-out $@,$(MAKECMDGOALS))$(RESET)"
 	@$(COMPOSE) exec $(DEV_SERVICE) sh -c "corepack enable && corepack install && pnpm $(filter-out $@,$(MAKECMDGOALS))"
 
+# News sync from Discord. Runs on the host (not in Docker) because it relies on
+# the local `claude` CLI. Flags go through ARGS, make would parse them otherwise.
+.PHONY: news-sync
+news-sync: ## Import Discord #news posts as MDX (usage: make news-sync ARGS="--dry-run --limit=1")
+	@echo "$(CYAN)📰 Running: pnpm news:sync $(ARGS)$(RESET)"
+	@pnpm news:sync $(ARGS)
+
 # =============================================================================
 # Utility commands
 # =============================================================================
@@ -119,7 +126,7 @@ help: ## Show this help message
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(start|stop)"
 	@echo ""
 	@echo "$(YELLOW)Dev Profile (Development):$(RESET)"
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(up|down|pnpm)"
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(up|down|pnpm|news-sync)"
 	@echo ""
 	@echo "$(YELLOW)Utilities:$(RESET)"
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST) | grep -E "(logs|shell|status|clean-volumes)"

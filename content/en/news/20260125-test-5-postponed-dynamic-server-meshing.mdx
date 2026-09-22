@@ -1,0 +1,33 @@
+---
+title: "Test 5 Postponed: Dynamic Server Meshing"
+titleIcon: ⏳
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-01-25T23:33:12
+author: ddurieux
+discordMessageId: "1465112300250726421"
+description: Test 5 of dynamic server meshing is postponed to the following Monday due to a player coordinate mismatch between the horizon server and the Godot client.
+tags:
+  - play test
+  - Project information
+  - development
+authorRoles:
+  - Project founder
+alternates: { fr: 20260125-report-du-test-5-server-meshing-dynamic }
+---
+
+## Test 5 Postponed: Dynamic Server Meshing
+
+Good evening,
+
+**Bad news: I have to postpone test 5** to the following Monday. This test is meant to try out dynamic server meshing in production (back in August–September, it was only a POC). I've identified a major issue with player coordinates that breaks the zone calculations used to split dynamic server meshing.
+
+There seems to be a mismatch between the coordinates in the horizon server and the player's coordinates in the client (Godot), which throws the (clever :D) calculations into chaos.
+
+It should be fixed by the following Monday; the rest of the code is fine (a bit of code will still be missing in Godot, but that will be done during the week).
+
+Sorry for the delay, we'd rather not waste your time on a test that wouldn't be of any use.
+
+This is an important part, and we're taking the greatest care with it so that it works well in the future ^\_^

@@ -1,0 +1,75 @@
+---
+title: DNDS
+titleIcon: 🚀
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20260513-1.webp
+date: 2026-05-13T07:37:29
+author: ddurieux
+discordMessageId: "1503994575637975051"
+description: "Launcher quasi prêt pour le test #6, appartements de spawn, plugin bridge Horizon, premiers props, camion de transport et GDD du personnage."
+tags:
+  - DNDS
+  - Informations du projet
+  - développement
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260513-ldsn-launcher-spawn-network-truck }
+---
+
+## Launcher
+
+On en parlait la semaine dernière, les spécifications ont été faites, **le travail a grandement avancé en une semaine** 🚀
+
+Le launcher est quasiment prêt et sera utilisé lors du [test #6 du 27 mai](https://discord.com/events/1399325839665004554/1498914367117197423).
+
+Les fonctionnalités présentes et fonctionnelles :
+
+- login (via son compte Discord). Il n'y aura plus de demande de pseudo dans le jeu, on utilisera votre pseudo Discord
+- téléchargement et installation du jeu, un build du jeu a été automatisé (pour l'environnement de testing / preprod)
+- détection d'une nouvelle version du jeu
+- téléchargement et mise à jour du jeu
+- statut des serveurs (Operational, Performance Issues, Partial Outage, Major Outage, Unknown, Under maintenance). Page de statut en cours de construction, [accessible sur navigateur web](https://status.dyingstar-game.com/) également
+
+Présent mais non fonctionnel :
+
+- partie sociale avec liste d'amis, groupe, corpo, demandes. On a un visuel pour que vous vous rendiez compte. Ça requiert le développement de la partie serveur.
+
+Je vous ai mis 3 screenshots dans cette news.
+
+## Spawn & Planet tech
+
+Un test d'immeuble paramétrable a été fait et est encore en cours. Un appartement (vide pour l'instant) et paramétrable (x rangées sur y étages).
+Le but étant que l'on spawn dedans et qu'un appartement libre vous soit attribué et ne sera qu'à vous (il n'y aura que vous qui spawnerez dans cet appartement).
+On en placera beaucoup au cas où vous êtes nombreux à venir jouer au jeu.
+
+En faisant ces appartements de spawn, un problème au niveau de la planet tech et du terrain a été identifié. Des modifications et ré-exports sont en cours.
+
+## Réseau & serveur
+
+Le plugin _bridge_ dans Horizon est bien avancé et est codé en même temps que le service externe de persistance des données, il permet d'envoyer et recevoir les données (events) à un service externe simplement via un fichier de configuration. Ça fonctionne déjà bien, ça sera terminé dans la semaine.
+
+La persistance des objets sera testée lors du [test #6 du 27 mai](https://discord.com/events/1399325839665004554/1498914367117197423).
+
+## Props
+
+Les premiers props sont en cours de création (chaise, table...).
+
+## Camion
+
+Pour le MVP, on a besoin d'un camion de transport de rochers.
+
+L'équipe Gameplay s'attèle à la tâche depuis plusieurs jours et le camion commence à recevoir ses fonctionnalités et caractéristiques (composants de batterie, dimensions, 4 roues motrices, cabine de 2 personnes, benne...).
+
+**Appel codeur Godot**
+
+Pour le camion, on aimerait que le code commence, si vous avez envie de travailler là-dessus, manifestez-vous !!!
+
+## Personnage, composants
+
+Les fonctionnalités du personnage (couches de vêtements), inventaire (gestion sac à dos) et gestion des modules (tailles et types de modules pour les véhicules) sont en cours d'écriture pour le GDD, une première lecture a été faite hier soir lors de la réunion publique hebdomadaire des leads.
+
+![image](/assets/images/news/20260513-2.webp)
+
+![image](/assets/images/news/20260513-3.webp)

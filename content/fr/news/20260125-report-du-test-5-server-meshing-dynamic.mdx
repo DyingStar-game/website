@@ -1,0 +1,33 @@
+---
+title: "Report du test 5 : Server Meshing Dynamic"
+titleIcon: ⏳
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-01-25T23:33:12
+author: ddurieux
+discordMessageId: "1465112300250726421"
+description: Le test 5 du server meshing dynamic est reporté au lundi suivant à cause d'un souci de coordonnées des joueurs entre le serveur horizon et le client Godot.
+tags:
+  - play test
+  - Informations du projet
+  - développement
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260125-test-5-postponed-dynamic-server-meshing }
+---
+
+## Report du test 5 : Server Meshing Dynamic
+
+Bonsoir,
+
+**Mauvaise nouvelle, je suis obligé de reporter le test 5** au lundi suivant, test qui va permettre de tester le server meshing dynamic sur la prod (en août-septembre, c'était un POC). En effet, j'ai identifié un gros souci dans les coordonnées des joueurs, mettant KO les calculs de zones pour le split de server meshing dynamic.
+
+Il semble y avoir un décalage entre les coordonnées dans le serveur horizon et les coordonnées du joueur dans le client (Godot), mettant le bronx dans les calculs (savants :D).
+
+Ça devrait être corrigé le lundi suivant, le reste du code est ok (il manquera un peu de code dans Godot, mais ça sera fait dans la semaine).
+
+Désolé pour le report, on va éviter de vous faire perdre du temps sur un test qui ne servira à rien.
+
+C'est une partie importante, on la soigne du mieux possible pour que ça fonctionne bien dans le futur ^\_^

@@ -1,0 +1,101 @@
+---
+title: Réunion Dying Star du 11 août 2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-08-12T13:27:36
+author: ddurieux
+discordMessageId: "1537059979499143168"
+description: "Compte rendu de la réunion du 11 août 2026 : animations, planète, PNJ, lore, composants et batteries, tests de charge et actions à venir."
+tags:
+  - Informations du projet
+  - développement
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260812-dying-star-meeting-august-11-2026 }
+---
+
+## 📋 Réunion Dying Star — 11 août 2026
+
+72 min · ddurieux, Kainan, bitogno (Bardok absent)
+
+## 🎮 Client & gameplay
+
+**Animations** — warpzone_bar a intégré les animations : l'astronaute placeholder laisse place à un pantin animé (marche, course, emotes). Manquent encore s'accroupir et saisir/lâcher un objet. Premiers essais de MakeHuman pour poser un vrai modèle sur le rig.
+
+**Planète** — elle tourne en temps réel, journée de 25 h réelles (la nuit se décale au fil des jours). Déplacement orbital autour de l'étoile en cours. Reste un souci de distance des deux lunes.
+
+**Caisses** — seule la petite caisse jaune est portable, avec son numéro de série affiché. À corriger : elle se porte à 2 m du corps au lieu des mains.
+
+**Sons** — nouveaux sons signés Pierrot : perforateur, torche, phares de camion, moteur électrique, franchissement. Licences CC documentées comme pour les modèles et textures.
+
+**Déplacements** — travail de Bardock sur la vitesse, la hauteur de saut, le vaulting et le climb.
+
+**VOIP** — fonctionne, mais audible à 10 km et même depuis le menu 😅 Le principe est validé, les réglages restent à faire.
+
+**Dépôt** — grosse réorganisation des fichiers par warpzone_bar, conforme à l'architecture du wiki.
+
+**Build** — la MAJ d'hier a cassé chez beaucoup de monde ; piste du fichier de version désynchronisé, investigation en cours.
+
+## 🤖 PNJ
+
+Planning intégré : 5 PNJ, roulements sur 5 jours, trajets domicile ↔ travail.
+
+Point clé d'architecture : **les PNJ se connectent comme des joueurs**, même code et mêmes contraintes, pilotés par un service externe en Rust. Seule différence : la navigation d'un point A à un point B via navmesh. Conséquence sympa : même sans joueur connecté, les PNJ continuent leur vie.
+
+## 🌍 Lore & game design
+
+- Gestion des données de mission démarrée ; proposition d'ouvrir un chantier « vie sur Sandbox » (coutumes, nourriture).
+- **Sas** : l'air est respirable mais très sec. S'il y a un sas côté PNJ, il en faut un côté joueur. Présence de plastique et de filtres CO₂ confirmée.
+- **Cantine** : un simple bâtiment « 4 murs + plafond », ou plutôt une pièce fermée au fond du hangar façon salle de pause — aucune décoration à produire.
+- **Pads** : pas de téléphones. Tout le monde, PNJ compris, a un pad qui s'affiche par-dessus la combinaison, sans manipulation supplémentaire. Les missions se déclenchent via un écran mural dans le hangar (réutilise l'animation d'interaction existante).
+- **Tunnels magnétiques** : le champ magnétique de Sandbox et celui de la lune créent des colonnes électromagnétiques non fixes, visibles en UV, avec des éclairs bleus dans les tempêtes de poussière. Bonne nouvelle : les plateaux en alumine sont isolés, donc aucun conflit avec l'ascenseur spatial.
+
+## 🔋 Composants & batteries
+
+La discussion part dans tous les sens et n'aboutit pas au MVP. Ce qui a été posé :
+
+- **Réunion dédiée à planifier** dans les prochaines semaines, avec Bardok (c'est lui qui portait le sujet). Kainan prépare d'abord une synthèse du document.
+- Recadrage du concept : un composant est un élément **détachable ajouté** au véhicule, pas les roues ni le moteur intégré.
+- **2 batteries**, consommées **une à la fois** (la seconde prend le relais).
+- Recharge **uniquement en ville et village**, pas sur la route : le joueur doit préparer son trajet.
+- Point non tranché : **échange** de batterie (plus simple) vs **recharge de sa propre batterie** (permet plusieurs types de batteries). La durée de recharge relève du pur équilibrage.
+- La batterie T1 (60×40) doit être portable à la main, sinon la notion de composant démontable perd son sens.
+- **Panneaux de route** : pas besoin de passer par le game design, sauf pour la hauteur (éviter qu'un véhicule passe dessous). Les routes, en revanche, nécessitent une passe game design.
+
+## 🗺️ Monde & tests de charge
+
+La carte a été retrouvée : grande étoile = ville, petites étoiles = villages, gros rond = capitale. Les villages sont dans un rayon de 10-15 km de la ville, ~45 km entre grandes villes. Trois types de routes, la plus rapide supportant 150-180 km/h (gravité plus faible) — le camion actuel plafonne à 45-50 km/h.
+
+**Route de test** — ddurieux va créer un tronçon A → B mêlant lignes droites, virages et une colline, calibré sur ~10-15 min de trajet, avec des sorties kilométrées.
+
+**Test de charge fin août / début septembre** — spawn de 200 à 350 PNJ permanents pour simuler autant de joueurs et valider le server meshing. Prérequis : ajouter des habitations (~20 min, duplication + coordonnées) et retravailler la partie réseau. Cibles : les collisions d'UID au-delà d'une soixantaine de joueurs et le freeze au server meshing. Idée annexe : faire tourner des PNJ depuis le Québec pour tester la latence.
+
+La physique du camion reste perfectible (amortisseurs), mais des correctifs véhicules sont arrivés côté moteur Jolt/Godot.
+
+## 🔧 Divers
+
+- **Kanban Discord** : les droits sur `/task add` ont été ouverts aux leads et sublads. Il faut faire `/task add` puis `/board` pour rafraîchir l'affichage.
+- **Localisation** : tout s'écrit en anglais par défaut, la traduction se fait ensuite côté jeu.
+- **Chat in-game** : le texte blanc est illisible sur fond clair. Contour noir en premier essai, shader détectant la couleur du fond en solution de repli.
+
+## ✅ À faire
+
+**ddurieux**
+
+- Corriger le portage et le dépôt des caisses, puis mettre les PNJ en jeu (objectif ce week-end)
+- Appel aux animateurs la semaine prochaine pour les 2-3 animations manquantes
+- Route de test, ajout d'habitations, travail réseau avant le test de charge
+- Investiguer le bug de build / fichier de version
+
+**Kainan**
+
+- Caler la réunion « composants » avec Bardok
+
+**bitogno**
+
+- Synthèse du document composants
+- Récupérer les données nourriture
+- Restaurer l'élévation du biome 4.1

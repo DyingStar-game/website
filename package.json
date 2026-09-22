@@ -11,7 +11,8 @@
     "prettier": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "clean": "eslint . --fix && tsc --noEmit && prettier --write .",
-    "lint:ci": "eslint . --max-warnings 0 && tsc --noEmit && prettier --check ."
+    "lint:ci": "eslint . --max-warnings 0 && tsc --noEmit && prettier --check .",
+    "news:sync": "tsx scripts/news-sync/index.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -108,6 +109,7 @@
     "@typescript-eslint/parser": "^8.42.0",
     "@vitejs/plugin-react": "^5.0.2",
     "cross-fetch": "^4.1.0",
+    "discord.js": "^14.27.0",
     "dotenv": "^17.2.2",
     "eslint": "^9.35.0",
     "eslint-plugin-react": "^7.37.4",
@@ -124,7 +126,8 @@
     "tsx": "^4.20.5",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.42.0",
-    "unified": "^11.0.5"
+    "unified": "^11.0.5",
+    "yaml": "^2.9.1"
   },
   "packageManager": "pnpm@10.17.1"
 }
