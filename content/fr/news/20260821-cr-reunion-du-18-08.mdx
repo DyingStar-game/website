@@ -1,0 +1,68 @@
+---
+title: CR réunion du 18/08
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-08-21T16:05:22
+author: ddurieux
+discordMessageId: "1540361172694466681"
+description: "Compte rendu de la réunion du 18/08 : PNJ, résolution du terrain, routes QGIS, carte de démo, glissières anti-vent, griefing, panneaux, narratif et questions à trancher."
+tags:
+  - Informations du projet
+  - développement
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260821-meeting-notes-18-08 }
+---
+
+## ⚙️ Moteur & carte
+
+- **PNJ prêts**, mais leur mise en ligne est **repoussée à jeudi soir** : diagnostic de perfs en cours (LOD manquants sur les cailloux notamment).
+- Tous les **bâtiments d'habitation sont désormais posés directement sur la planète** (fini la plaque). Containers et crawlers pas encore migrés.
+- **Résolution du terrain : 42 km → 2 km.** Beaucoup plus de relief, poids de la planète 166 Mo → 650 Mo.
+- **Routes tracées dans QGIS → export automatique dans le moteur.** Largeur définie en propriété (4 m pour l'instant, ajustable, ça s'adapte tout seul en jeu).
+- Ponts automatiques au-dessus des canyons : codés, **pas sûrs d'être prêts pour jeudi**.
+- Chaîne casse-cailloux → machine → boîte → entrepôt : fonctionnelle.
+- ⚠️ **Bug d'échelle dans QGIS** : la scalebar est fausse (3 km affichés au lieu de 12-15). Piste : différence de version (3.44 stable vs plus récente). À confirmer.
+
+## 🗺️ La carte de démo
+
+- 4 villages/villes + une factory, un entrepôt par village, routes de 12-15 km, lacets sur la montagne pour tester le relief.
+- Deux grandes villes sont dans le bassin, **sous les poussières** → accès par tunnel ou canyon uniquement. La capitale est sur le même plateau mais très loin.
+- **Tunnels** : il faudra ajouter un type de route « tunnel », découpé en morceaux, avec élévation renseignée.
+- Sol en corindon pur = blanc, rendu cramé quand l'étoile est au zénith. On veillera à la variété de couleurs entre régions (pas de végétation pour la casser).
+
+## 🛣️ Glissières & protection contre le vent — débat ouvert
+
+- **bitogno** : le vent latéral + la poussière imposent une protection, surtout à grande vitesse. Murs pas forcément collés à la route ni permanents, seulement dans les zones ventées.
+- **Kainan** : une route fermée des deux côtés = couloir permanent, un joueur se met en travers et bloque tout. Problème de game design à anticiper.
+- **ddurieux** : les glissières du doc narratif visaient surtout les grosses autoroutes. Test possible avec un mur à ~200 m (mais 400 m d'emprise), ou trouver un mécanisme anti-vent qui ne ferme pas la route.
+- Le blocage restera possible de toute façon sur les tunnels, ponts, canyons et entrées de bâtiments.
+
+👉 **On continue sur le forum, balancez vos propositions.**
+
+## 🚧 Griefing & modération (pas tranché)
+
+Pistes évoquées : ban + système de report, PNJ patrouilleurs et dépanneuses, missions de déblocage confiées aux joueurs, despawn d'un véhicule immobile ~3 min (mais comment distinguer une vraie panne ?). Réserves soulevées : ça suppose une modération 24/24, et donner de l'autorité à des joueurs a ses propres dérives.
+
+## 🪧 Panneaux
+
+- 3-4 formes 3D réutilisables (triangle, carré, octogone), seule la texture change. Les panneaux à moitié troués font l'unanimité.
+- Clarification : le panneau « qui tourne » **ne pivote pas**, il s'incline sur ressort dans le sens du vent pour ne pas se faire ronger par le corindon, puis revient en position.
+- Taille à caler sur la vitesse max des véhicules, puis **tester la lisibilité en jeu** (les normes réelles = base d'inspiration, pas règle).
+- Style US (jaune) vs européen : laissé à la créa. Réserve : le jaune passera mal sur un sol clair.
+
+## 📚 Narratif & doc
+
+- Sujet « coutumes / comportements » ouvert et alimenté ; « gestion des données en mission » sera fermé faute de retours.
+- Ajout des nourritures, correction des Kelvin, ajout des grandes villes sur la carte, travail d'élévation en cours.
+- Incohérence à corriger : le doc explique pourquoi il n'y a pas de robots… alors qu'il y en a en jeu.
+- **Design des véhicules** : aucune charte écrite, les anciens docs semblent perdus. On partirait sur des **mots-clés directeurs** (industriel, formes carrées) plutôt qu'un thème imposé.
+
+## ❓ À trancher — vos retours bienvenus
+
+- Population d'un village : **250 ou 500 ?** (la doc dit 250)
+- De quel côté vient le vent (rotation rétrograde de la planète) → oriente le placement des routes
+- Vitesse max des véhicules

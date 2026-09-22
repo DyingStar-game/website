@@ -1,0 +1,68 @@
+---
+title: Meeting notes 18/08
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-08-21T16:05:22
+author: ddurieux
+discordMessageId: "1540361172694466681"
+description: "Notes from the 18/08 meeting: NPCs, terrain resolution, QGIS roads, demo map, wind barriers, griefing, road signs, lore and open questions."
+tags:
+  - Project information
+  - development
+authorRoles:
+  - Project founder
+alternates: { fr: 20260821-cr-reunion-du-18-08 }
+---
+
+## ⚙️ Engine & map
+
+- **NPCs are ready**, but their release is **pushed back to Thursday evening**: performance diagnosis in progress (missing LODs on rocks, in particular).
+- All **residential buildings are now placed directly on the planet** (no more base plate). Containers and crawlers not migrated yet.
+- **Terrain resolution: 42 km → 2 km.** Much more relief, planet size 166 MB → 650 MB.
+- **Roads drawn in QGIS → automatically exported into the engine.** Width is defined as a property (4 m for now, adjustable, it adapts on its own in-game).
+- Automatic bridges over canyons: coded, **not sure they'll be ready for Thursday**.
+- Rock crusher → machine → crate → warehouse chain: working.
+- ⚠️ **Scale bug in QGIS**: the scalebar is wrong (3 km shown instead of 12-15). Lead: version difference (3.44 stable vs. a more recent one). To be confirmed.
+
+## 🗺️ The demo map
+
+- 4 villages/towns + one factory, one warehouse per village, 12-15 km roads, switchbacks on the mountain to test the relief.
+- Two big cities sit in the basin, **beneath the dust** → access via tunnel or canyon only. The capital is on the same plateau but very far away.
+- **Tunnels**: we'll need to add a "tunnel" road type, split into segments, with elevation data.
+- Pure corundum ground = white, looks burnt out when the star is at its zenith. We'll make sure there's colour variety between regions (no vegetation to break it up).
+
+## 🛣️ Guardrails & wind protection — open debate
+
+- **bitogno**: crosswinds + dust require protection, especially at high speed. Walls don't necessarily have to hug the road or be permanent, only in windy areas.
+- **Kainan**: a road closed on both sides = a permanent corridor, one player parks sideways and blocks everything. A game design problem to anticipate.
+- **ddurieux**: the guardrails in the lore doc were mainly meant for the big highways. Possible test with a wall at ~200 m (but a 400 m footprint), or find an anti-wind mechanism that doesn't close off the road.
+- Blocking will remain possible anyway in tunnels, on bridges, in canyons and at building entrances.
+
+👉 **We'll continue on the forum, send in your proposals.**
+
+## 🚧 Griefing & moderation (not settled)
+
+Ideas raised: bans + a report system, patrolling NPCs and tow trucks, unblocking missions given to players, despawning a vehicle that has been stationary for ~3 min (but how do you tell a genuine breakdown apart?). Reservations raised: this assumes 24/7 moderation, and giving players authority comes with its own abuses.
+
+## 🪧 Road signs
+
+- 3-4 reusable 3D shapes (triangle, square, octagon), only the texture changes. The half-perforated signs won unanimous approval.
+- Clarification: the "spinning" sign **does not rotate**; it tilts on a spring in the direction of the wind so it doesn't get eaten away by the corundum, then springs back into position.
+- Size to be set according to the vehicles' max speed, then **test readability in-game** (real-world standards = a source of inspiration, not a rule).
+- US style (yellow) vs. European: left to the art team. Reservation: yellow won't read well on light-coloured ground.
+
+## 📚 Lore & documentation
+
+- The "customs / behaviours" topic is open and being filled in; "data management on missions" will be closed for lack of feedback.
+- Foods added, Kelvin values corrected, big cities added to the map, elevation work in progress.
+- Inconsistency to fix: the doc explains why there are no robots… while there are some in-game.
+- **Vehicle design**: no written style guide, the old docs seem to be lost. We'd go with **guiding keywords** (industrial, boxy shapes) rather than an imposed theme.
+
+## ❓ To be decided — your feedback is welcome
+
+- Village population: **250 or 500?** (the doc says 250)
+- Which direction does the wind come from (retrograde rotation of the planet) → determines road placement
+- Vehicles' max speed

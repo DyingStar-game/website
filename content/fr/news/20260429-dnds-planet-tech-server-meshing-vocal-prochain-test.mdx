@@ -1,0 +1,74 @@
+---
+title: DNDS
+titleIcon: 🚀
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20260429-1.png
+date: 2026-04-29T00:22:48
+author: ddurieux
+discordMessageId: "1498811751662223391"
+description: Planet Tech v1, server meshing dynamique, Kubernetes, audio Godot et vocal LiveKit, réunion personnage, vêtements Sandbox et date du prochain test.
+tags:
+  - DNDS
+  - Informations du projet
+  - développement
+  - play test
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260429-ldsn-planet-tech-server-meshing-voice-next-test }
+---
+
+Voici les informations sur l'avancée du projet ces derniers jours.
+
+## C'est technique, ça fait classe
+
+Au niveau tech, plusieurs nouveautés :
+
+- **Planet Tech v1** : elle a été poussée sur le dépôt de code. La génération des niveaux et des biomes sont dessinés dans QGIS, puis la planète est exportée (HEALPix) dans Godot. Il reste du travail encore sur les terrains, les biomes... La lune 1 de la planète Tarsis 5 (géante gazeuse) a commencé à revêtir ses biomes.
+- **Server Meshing Dynamic** : le code est poussé (serveur Godot + serveur Horizon). Il reste la suppression de serveurs Godot et un problème quand on marche et qu'on passe d'un serveur à l'autre : l'information d'avancement est perdue et on est stoppé net ; bonne nouvelle, une modification est définie et va être faite dans les prochains jours afin de corriger ce problème ^\_^
+- **Persistance non voulue** : quand un joueur se déconnectait du jeu (problème vu lors du dernier test), le joueur restait sur le serveur Godot. Un fix a été fait ^\_^
+- **Kubernetes** : les environnements locaux (pour les devs), pré-prod (pour les tests) et prod (pour la première version, pas encore là hein !) sont créés. Ça permet de lancer tous les services pareillement, quel que soit l'endroit.
+
+Pour plus d'informations, voir [ici](https://discord.com/channels/1399325839665004554/1428454518269677568/1497955022447841280).
+
+## Audio
+
+### Wwise
+
+Godot intègre le streaming, le mixage, les effets... De ce fait, on enlève la couche Wwise pour gérer directement dans l'audio de Godot (avec les sons dans le système de fichiers du jeu directement). Ça amène une grosse simplification de la gestion audio pour le même résultat.
+
+### Vocal in-game
+
+Le travail a débuté pour intégrer LiveKit et donc l'audio entre joueurs.
+
+Pour le moment, une room est créée par le serveur Horizon et intègre le joueur dedans. Le joueur reçoit son token de connexion et peut se connecter.
+
+Cette première itération permet de tester la techno et de se familiariser avec. Juste après, on modifiera pour gérer l'audio de proximité.
+
+Pour les vocaux de groupes / parties, ça sera un peu plus tard.
+
+## Gestion du personnage
+
+On souhaite lancer la création d'un personnage, cela inclut la modélisation 3D, l'animation, les sons...
+
+Pour ce faire, je vous propose une réunion ce mercredi 29 avril à 21h00 (demain / aujourd'hui selon où et quand vous lirez ce message).
+Le but, c'est de voir avec les sachants comment découper la création du personnage et créer les tâches, voire même de les attribuer.
+
+La réunion est créée, vous pouvez vous inscrire ici : [https://discord.gg/Sp7W9eDz?event=1496628659019059272](https://discord.gg/Sp7W9eDz?event=1496628659019059272)
+
+## Vêtements des ouvriers Sandbox
+
+On en parlait la semaine dernière, on a eu une contribution supplémentaire 💪
+
+Jarran a fait un [long message explicatif](https://discord.com/channels/1399325839665004554/1493862006346879077/1498431881161609237) des vêtements (différentes couches) qui est intéressant.
+
+L'idée est pas mal, on a besoin de voir si techniquement c'est faisable en premier lieu. Un POC sera fait ce week-end avec plusieurs couches de tissu afin de valider ou pas ce mille-feuille de vêtements. Godot intègre tout ce qu'il faut pour gérer assez bien les vêtements.
+
+## Prochain test
+
+OH ???? WHAT ????
+
+Oui, comme vous le voyez, ça avance sur plusieurs fronts, on vous propose la date du prochain test : **Mercredi 27 mai à 20h30**
+
+Si pas de problème bloquant (pas de serveur qui crashe), on va certainement laisser tourner plusieurs heures, voire jours.

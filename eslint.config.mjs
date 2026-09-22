@@ -367,6 +367,14 @@ export default [
     },
   },
 
+  // ---- CLI scripts (scripts/**): items are processed sequentially on purpose ----
+  {
+    files: ["scripts/**/*.ts"],
+    rules: {
+      "no-await-in-loop": "off",
+    },
+  },
+
   // ---- Global ignores ----
   {
     ignores: [

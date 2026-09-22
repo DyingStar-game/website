@@ -1,0 +1,64 @@
+---
+title: Réunion DyingStar — 08/09/2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20260910-1.webp
+date: 2026-09-10T19:33:07
+author: ddurieux
+discordMessageId: "1547661213071310858"
+description: "Compte rendu de la réunion du 08/09/2026 : élévations en streaming, moteur T1 et véhicules, densité des rochers, boucle de gameplay MVP, planète et économie."
+tags:
+  - Informations du projet
+  - développement
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260910-meeting-streamed-elevations-vehicles-mining-mvp }
+---
+
+## 🌍 Terrain : élévations en streaming
+
+Les élévations ne sont plus embarquées dans le build : elles sont téléchargées à la volée depuis un serveur web, tuile par tuile.
+
+- Résolution passée de 2 km à 700 m
+- Préchargement sur ~8 chunks, ajustable selon la vitesse du véhicule
+- Cache local de 128 Mo avec roulement (les tuiles les plus anciennes sautent)
+- Derrière le joueur, les tuiles repassent en LOD dégradé
+- Résultat : ~2× plus rapide qu'avant, moins d'I/O disque, et surtout des builds client beaucoup plus légers
+
+Côté serveur, chaque planète est maintenant dans son référentiel propre : les collisions ne sont calculées qu'autour des personnages, et les vieux problèmes liés aux grandes distances sont éliminés. Le cas du train rapide reste à tester (plutôt côté physique que chargement).
+
+## 🚚 Moteur T1 & véhicules
+
+- Nouveau doc de Jaran avec un tableur (puissance élec. + couple) par type de véhicule
+- Le petit camion sort à ~100 km/h, jugé peut-être trop rapide pour un véhicule chargé. La VMax ne change pas à vide ou chargé — seules l'accélération et la pente franchissable varient
+- On teste avec les valeurs actuelles et on affine ensuite
+- Ascenseur à véhicule : tests en cours, modèle 3D attendu dans la semaine
+- Panneaux : modèles 3D commencés
+
+## ⛏️ Minage : densité des rochers
+
+Le corindon est 2× plus lourd que le granit (~4 t/m³), et avec l'or dedans on monte très haut → on se retrouve avec des cailloux minuscules (une dizaine max dans le camion).
+
+➡️ **Piste retenue** : diviser toutes les densités par un facteur global pour garder les proportions entre matériaux tout en rendant le transport jouable. Le facteur reste à tester. La limite de volume (1 m) évite les rochers en polystyrène sur les astres à faible gravité.
+
+## 🔁 Boucle de gameplay MVP
+
+Minage → dépôt/concasseur au village → caisses vendables au PNJ → transport vers la ville (raffinerie) → caisse finale.
+
+- Débat sur l'intérêt du concasseur : il doit apporter quelque chose. Pistes : garder le minerai + ~20 % d'inerte, ou séparer les ressources. Aller direct en ville serait impossible ou non rentable
+- Les concasseurs restent des placeholders pour le MVP
+- Le PNJ revend les caisses → un joueur peut démarrer sa boucle à l'étape transport
+
+## 🗺️ Planète & Planet Tech
+
+- Palaka-Pital va être rapprochée (elle était à 140 km), ville + 4 villages déplacés à proximité
+- Autoroute de 45–50 km entre la ville et le Palais Capitale (~25 min à 100 km/h) pour tester routes et temps de trajet
+- Planet Tech : d'abord les régions de matériaux, puis POI, volcans, fumerolles, lacs et rivières de lave, falaises, puits de carrière
+- Ponts et tunnels générés automatiquement via une pente max définie sur les routes (4 routes = déjà 200 ponts auto 😅)
+- Couleur du plateau de Palaka-Pital : plutôt gris foncé / gris-bleu silex pour contraster (partie de droite sur l'image). Propositions et vote à venir
+
+## 💰 Économie
+
+Symbolique pour le MVP : un simple compteur de crédits dans le HUD, pas d'historique, aucun équilibrage. Le service joueur (identité, portefeuille) est en cours côté Tiger.

@@ -1,0 +1,75 @@
+---
+title: LDSN
+titleIcon: 🚀
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20260513-1.webp
+date: 2026-05-13T07:37:29
+author: ddurieux
+discordMessageId: "1503994575637975051"
+description: "Launcher almost ready for test #6, spawn apartments, Horizon bridge plugin, first props, transport truck and character GDD."
+tags:
+  - LDSN
+  - Project information
+  - development
+authorRoles:
+  - Project founder
+alternates: { fr: 20260513-dnds-launcher-spawn-reseau-camion }
+---
+
+## Launcher
+
+We mentioned it last week: the specifications were written, and **the work has made huge progress in a single week** 🚀
+
+The launcher is almost ready and will be used during [test #6 on May 27](https://discord.com/events/1399325839665004554/1498914367117197423).
+
+Features that are present and working:
+
+- login (through your Discord account). The game will no longer ask you for a nickname; your Discord nickname will be used instead
+- game download and installation; a game build has been automated (for the testing / pre-production environment)
+- detection of a new game version
+- game download and update
+- server status (Operational, Performance Issues, Partial Outage, Major Outage, Unknown, Under maintenance). The status page is under construction and is [also available in a web browser](https://status.dyingstar-game.com/)
+
+Present but not yet working:
+
+- social section with friends list, group, corp, requests. We have a mock-up so you can get an idea. It requires the server side to be developed.
+
+I've included 3 screenshots in this news post.
+
+## Spawn & Planet tech
+
+A configurable building test has been done and is still in progress: an apartment (empty for now) that is configurable (x rows by y floors).
+The goal is for you to spawn inside it, with a free apartment assigned to you that will be yours alone (you will be the only one spawning in that apartment).
+We'll place a lot of them in case many of you come to play the game.
+
+While building these spawn apartments, an issue with the planet tech and the terrain was identified. Changes and re-exports are in progress.
+
+## Network & server
+
+The _bridge_ plugin in Horizon is well advanced and is being coded alongside the external data persistence service. It allows sending and receiving data (events) to an external service simply through a configuration file. It already works well and will be finished within the week.
+
+Object persistence will be tested during [test #6 on May 27](https://discord.com/events/1399325839665004554/1498914367117197423).
+
+## Props
+
+The first props are being created (chair, table...).
+
+## Truck
+
+For the MVP, we need a rock transport truck.
+
+The Gameplay team has been hard at work on it for several days, and the truck is starting to get its features and characteristics (battery components, dimensions, 4-wheel drive, 2-seat cab, dump bed...).
+
+**Call for Godot coders**
+
+We'd like to get the code started for the truck. If you feel like working on it, let us know!!!
+
+## Character, components
+
+The character features (clothing layers), inventory (backpack management) and module management (module sizes and types for vehicles) are being written up for the GDD; a first read-through took place last night during the weekly public leads meeting.
+
+![image](/assets/images/news/20260513-2.webp)
+
+![image](/assets/images/news/20260513-3.webp)

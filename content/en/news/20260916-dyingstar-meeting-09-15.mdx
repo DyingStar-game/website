@@ -1,0 +1,69 @@
+---
+title: DyingStar Meeting of 09/15
+titleIcon: 🚚
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-09-16T10:31:45
+author: ddurieux
+discordMessageId: "1549699302194946112"
+description: "Recap of the September 15 meeting: truck, roads and tunnels, chunks, Godot 4.8, T1 engine game design, atmosphere, resources and MVP priorities."
+tags:
+  - Project information
+  - development
+  - godot
+authorRoles:
+  - Project founder
+alternates: { fr: 20260916-reunion-dyingstar-15-09 }
+---
+
+## 🛠️ Tech progress
+
+- **Truck**: new in-game model with **4 component slots**. Next steps: integrate the elevator and transcribe the engine formulas.
+- **Roads**: highways with rock fusion and an Ares Transport-style waffle pattern, taking on the biome's color. A road can follow the terrain or, beyond a maximum slope, **dig a tunnel** 🕳️ (turns and junctions not handled yet).
+- **Rail**: Creative Commons model simplified from ~35,000 down to **~3,600 triangles** (thanks The_Moye for the optimization).
+- **Chunks**: purple "skirts" removed, better stitching between LOD 0→4. Still a few performance issues (and part of the atmosphere shader will be adjustable in the settings).
+- **Entity streaming**: works well, much faster builds (no more gigabytes of elevation data bundled in).
+- **Rocks**: 10 to 12,000 rocks on the server side tested without a hitch 💪
+- **FPS bug fixed** 🎤: a LiveKit constant in seconds instead of milliseconds was making the game lag with the mic enabled.
+- **Ground**: **hex tiling** shader (random rotation per tile), avoids repetitive patterns, with no performance cost.
+- **Editor**: chunk loading just like in-game + a free-roam camera (thanks warpzone), ideal for level design 🗺️
+- **Godot 4.8**: texture streaming is coming, a big FPS gain is expected even on low-end machines. Godot 4.x version upgrades remain painless.
+
+https://www.youtube.com/watch?v=wClWgdIr6Vo
+
+## 🌍 PlanetTech
+
+- bitogno fixed the Sandbox density values and added colored biome generation (areas more or less blue/red/green depending on the ore, with noise).
+- Reference point added to the wiki for roads.
+
+## ⚙️ Game design
+
+- **T1 engine validated** (BARDOK's values): 100 electric / 600 torque → ~**103 km/h** top speed, 0-100 in **22-23 s**. A starting point, adjustable.
+- **Battery**: dedicated channel opened. Leads: ~100 km per engine, swap frequency, avoiding "full batteries" making everything too easy.
+- **Roads & driving**: the idea that the road type affects acceleration and sliding. The starter truck would be average everywhere.
+- **Speed limiter**: debate in progress (toggleable or not, scroll wheel, memorizing the current speed…).
+- **Vehicles in cities**: not decided yet. Leads: pedestrian cities, automatic restriction via zone markers, warehouses on the outskirts / right next to the elevator and the spaceport.
+
+## ☢️ Atmosphere & danger
+
+- 2% CO2 below the cloud + uranium/thorium in the ground: we want to avoid a starting planet that is deadly everywhere.
+- Direction: **localized** dangers (high-concentration areas) that block the player without the proper equipment.
+- **Datapad**: default readings (gravity, breathable air, radiation…).
+
+## ⛏️ Resources
+
+- We're keeping the current corundum types to stay simple (brown corundum for ferrous areas).
+- Rocks will take on the color of their ore. Rock weight ratio to be applied this week.
+
+## 🎯 MVP priorities
+
+1. Houses & prefabs
+2. Warehouse improvements (docks, shelves…)
+3. Mining and transport missions (full loop or separate missions)
+4. **A single vehicle** for now; we flesh out the gameplay before multiplying vehicles
+
+Inventory and wallet: not a priority for the MVP (batteries and rocks are carried by hand).
+
+Thanks everyone! 🚀

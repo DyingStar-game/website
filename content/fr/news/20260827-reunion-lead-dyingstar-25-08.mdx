@@ -1,0 +1,61 @@
+---
+title: Réunion Lead DyingStar — 25/08
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-08-27T20:23:39
+author: ddurieux
+discordMessageId: "1542600499583389746"
+description: "Compte rendu de la réunion des leads du 25 août : infra et serveur, composants MVP, routes, ascenseur à véhicules, lore, créa et réunions game design."
+tags:
+  - Informations du projet
+  - développement
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260827-dyingstar-lead-meeting-08-25 }
+---
+
+## ⚙️ Infra & serveur
+
+- Nouvelle version déployée jeudi dernier : le gros souci de perfs est **corrigé**, le serveur Godot tourne autour de **60 TPS**
+- Migration infra terminée dimanche/lundi → on est **100 % sur la nouvelle infra en prod**
+- Images de dev allégées : plus besoin de rebuild tout Horizon à chaque modif de config
+- Rework des cailloux en cours : zones de spawn, taille/poids cohérents, cassage en petits morceaux (et pas juste en 2 ou 4)
+- Test à ~95 joueurs : plus de problème de possession d'autres joueurs 🎉, mais quelques paquets qui n'arrivent pas → optimisations Horizon en cours, nouveau test d'ici quelques jours
+- Ponts à corriger (marche + glissement) avant d'allonger la route jusqu'à la grande ville et de rendre la route en lacets testable → visé la semaine prochaine
+- Pas encore de mode admin, le sujet est sur la table
+
+## 🔋 Composants MVP
+
+- Priorité validée : **batterie puis moteur**, sans sous-composants pour le MVP
+- **4 emplacements** demandés à la créa ; batteries sur les côtés, moteur dans la baie à composants (sous la benne sur le modèle actuel) — aucune contrainte imposée sur l'emplacement
+- Le channel moteur est ouvert, la batterie viendra ensuite (le moteur doit être défini d'abord)
+
+## 🛣️ Routes & vitesses
+
+- On part sur **3 types de routes → lent / moyen / rapide** plutôt que des valeurs chiffrées figées ; ça sera ajusté en jeu en fonction des distances réelles
+- Question ouverte : est-ce le véhicule qui bride la vitesse, ou le tracé de la route (virages, lacets) ?
+- Un build avec différents types de routes et des kilométrages définis sera préparé pour tester
+- Le débat continue dans le channel dédié, à vous de vous en emparer 👀
+
+## 🏗️ Ascenseur à véhicules & canyons
+
+- Retenu en **bonus** (hors MVP strict) : permet de remonter les camions tombés dans les canyons et pose les bases du système d'ascenseur côté code
+- Rappel : les canyons n'étaient pas prévus au MVP mais ils sont là, générés à 300 m sous le niveau du sol et reliés entre eux sur toute la planète
+
+## 🧩 Cohérence lore vs gameplay
+
+Grosse discussion sur le niveau de réalisme des moteurs (techno, taille, puissance). Consensus : on garde une **cohérence d'univers** — la base reste notre monde dans le futur — mais ça doit rester **non bloquant** et ne pas ralentir le dev. On simplifie ensuite pour que ce soit digeste.
+
+## 🎨 Créa & narratif
+
+- Panneaux de route ajoutés dans Créa, actuellement bloqués par une question lore
+- Nouvelle question narrative ouverte : pourquoi n'utilise-t-on pas d'IA sur Ares ?
+- Design d'Ares : les infos du Figma ont été perdues, il faut les retrouver
+- Trous dans le sol sur Tarsis en cours (très long) ; les points en double doublent la taille de la carte → un script de nettoyage sera fait
+
+## 🗓️ Réunions game design
+
+Accord de principe pour une réunion récurrente (toutes les 2 à 3 semaines), **avec un sujet défini à l'avance** pour que ce soit productif. Créneaux à varier (soir en semaine, week-end) pour toucher plus de monde. Ça ne remplace pas les channels écrits.

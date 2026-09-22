@@ -58,7 +58,7 @@ export const LINKS = {
 
   Project: {
     Contribute: createLink("/contribute", "Links.Project.Contribute", {}),
-    Launcher: createLink("/launcher", "Launcher", { disabled: true }, false),
+    Play: createLink("/play", "Links.Project.Play"),
     Configuration: createLink(
       "/configuration",
       "Configuration",

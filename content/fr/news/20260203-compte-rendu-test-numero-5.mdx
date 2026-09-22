@@ -1,0 +1,82 @@
+---
+title: Compte-rendu du test numéro 5
+titleIcon: 🧪
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-02-03T20:44:30
+author: ddurieux
+discordMessageId: "1468331333603557602"
+description: "Bilan du cinquième play test : architecture Horizon/Godot, trois scénarios de charge avec plus de 60 joueurs, résultats et prochaines étapes."
+tags:
+  - play test
+  - développement
+  - Informations du projet
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260203-play-test-5-report }
+---
+
+## Architecture
+
+Un petit point architecture pour ceux qui veulent un peu comprendre les différentes briques :
+
+```
+[client]--|                              |--[server godot]
+[client]--|--[Horizon server + plugins]--|--[server godot]
+[client]--|                              |--[server godot]
+```
+
+- _client_ : c'est vous, les joueurs
+- _Horizon server + plugins_ : gère tous les objets (position, rotation, propriétés diverses), intègre GORC (permet à un joueur de ne recevoir que les informations à proximité de lui), gestion des serveurs Godot
+- _server godot_ : il calcule toutes les collisions et dialogue avec le serveur Horizon
+
+## Scénario numéro 1
+
+Le scénario de test 1 :
+
+- 1 _serveur Horizon_ avec 30 CPU
+- 1 _serveur Godot_ avec 20 CPU
+
+Résultat :
+
+- plus de 60 clients connectés
+- pas de problème de connexion au serveur (donc c'est bien mieux que lors du test précédent)
+- pas de lag 😍 (mis à part les commandes des fois, mais je ne suis pas sûr que ça soit un problème dû au réseau, car ça le fait avec 1 joueur, mais à investiguer quand même)
+- au niveau du réseau, entre 45 et 60 Mo en sortie du serveur Horizon, les messages ne sont pas encore bien optimisés, il n'y a pas de compression, donc ça peut encore baisser un peu. Ça donne environ 1 Mbps / client
+
+## Scénario numéro 2
+
+Le scénario de test 2 :
+
+- 1 _serveur Horizon_ avec 30 CPU, split à 20 joueurs
+- 30 _serveurs Godot_ avec 2 CPU chacun
+
+Résultat :
+
+- le split fonctionne bien
+- les serveurs Godot sont à genoux avec les 2 CPU, à regarder pourquoi ? Quelques pistes à vérifier (peut-être trop de calculs aussi dans Godot sur la partie serveur, à vérifier)
+- certains joueurs freezent, ça arrive quand le joueur n'est physiquement sur aucun serveur Godot. Il y a quelques soucis qui traînent encore de ce côté-là. Il y a beaucoup de cas à gérer (un joueur se déplace et change de serveur, se retourne, rechange de serveur...).
+
+## Scénario numéro 3
+
+Le scénario de test 3 :
+
+- 1 _serveur Horizon_ avec 30 CPU, split à 50 joueurs
+- 30 _serveurs Godot_ avec 2 CPU chacun
+
+Résultat :
+
+- le split fonctionne bien
+- les serveurs Godot toujours à genoux
+
+## Conclusion
+
+Test concluant, ça avance bien, tout n'est pas encore parfait, mais c'est normal. Ces tests sont vraiment importants pour avancer sur le développement des technologies, donc un **GRAND MERCI À VOUS** 🔥 !
+
+Les prochaines étapes :
+
+- finir le code de split avec les problèmes rencontrés
+- faire le code pour le merge de serveurs (quand il n'y a plus personne ou presque sur un serveur, on peut réunir tout le monde sur un autre serveur)
+- optimiser les serveurs Godot (utilisation CPU)

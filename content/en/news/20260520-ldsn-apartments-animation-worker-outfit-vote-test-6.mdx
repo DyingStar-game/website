@@ -1,0 +1,89 @@
+---
+title: LDSN
+titleIcon: 📰
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-05-20T23:48:12
+author: ddurieux
+discordMessageId: "1506775577548558356"
+description: "3D models, character animation, the truck, a vote on worker outfits, a dev install party, apartment spawning and test #6 on May 27."
+tags:
+  - LDSN
+  - Project information
+  - play test
+  - community vote
+  - development
+authorRoles:
+  - Project founder
+alternates:
+  { fr: 20260520-dnds-appartements-animation-vote-tenue-ouvriers-test-6 }
+---
+
+Latest DyingStar News (LDSN :D)
+
+## Creative 3D
+
+3D models are starting to make their way into the game:
+
+- a studio apartment (pretty good :D)
+- a luxury apartment
+- props for an outpost / mission board office
+
+## Character animation
+
+Character animation is making huge progress.
+We're going to try to integrate it on Friday evening so it's ready for test #6 next Wednesday.
+
+## Vehicle
+
+The truck is almost fully defined by the game design team.
+
+A specification document is being written and will be finalized soon. It will then be handed over to the creative team to design it.
+
+## Worker outfits
+
+For the workers, we'd like your vote to choose their outfit.
+
+The vote is over here: [https://discord.com/channels/1399325839665004554/1506772620241276959/1506772620241276959](https://discord.com/channels/1399325839665004554/1506772620241276959/1506772620241276959)
+
+You have 3 days to make your choice.
+
+## Dev install party
+
+On Friday evening, we're hosting an install party for devs / future devs.
+
+The goal is for everyone to install the tools needed to run DyingStar fully on their own computer in order to develop it.
+
+If you're interested, it's over here: [https://discord.com/events/1399325839665004554/1505944361811312651](https://discord.com/events/1399325839665004554/1505944361811312651)
+
+## Spawning and apartments
+
+At the end of this week, the code for spawning in apartments will be pushed to the code repositories.
+
+How does it work?
+
+When you spawn for the first time, the server looks for an empty apartment. As soon as it finds one, it's assigned to you permanently (well, later in the game you'll be able to sell it to buy another one somewhere else).
+
+As a result, every time you log in, you'll respawn in your apartment.
+
+This is made possible thanks to the persistence service.
+
+## Test #6 on May 27
+
+The test is still scheduled for May 27: [https://discord.com/events/1399325839665004554/1498914367117197423](https://discord.com/events/1399325839665004554/1498914367117197423)
+
+As for integrations / things to test, the list is starting to take shape:
+
+- launcher: login with your Discord account, game download / update, game launch
+- new in-game menus:
+  - music and button sounds
+  - quick rework of the settings menu (fairly rough, but better than before)
+  - removal of the username prompt page (it now comes from the launcher and your Discord account)
+  - removal of the spawn choice, you spawn in your apartment
+- dynamic server meshing test
+- fix for the player count on the server
+- proximity voice chat
+- data persistence
+- server load testing

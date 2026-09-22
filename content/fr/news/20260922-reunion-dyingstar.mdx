@@ -1,0 +1,74 @@
+---
+title: Réunion DyingStar – 22/09/2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20260922-1.png
+date: 2026-09-22T23:30:56
+author: ddurieux
+discordMessageId: "1552069714921132152"
+description: "Compte rendu de la réunion du 22 septembre 2026 : site et API, server meshing jusqu'à 540 joueurs, terrain en corindon, véhicule, narratif et prochain test."
+tags:
+  - Informations du projet
+  - développement
+  - godot
+  - play test
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260922-dyingstar-meeting }
+---
+
+## 🌐 Site & API
+
+- Toutes les news du canal ont été migrées sur le site (FR + EN). Publication ce soir ou demain.
+- Anthony ajoute le bouton de téléchargement du launcher.
+- Démarrage du chantier Social (API REST) avec Tiger : infos joueurs, listes d'amis, guildes, modération (bans, etc.).
+
+## ⚙️ Infra & serveurs
+
+- Modifications côté Horizon pour gérer le server meshing dynamique.
+- Serveur Godot : **60 → 105 joueurs à 60 TPS** (et on peut probablement monter plus).
+- Server meshing : **~540 joueurs** (test avec ~500 PNJ, tous les serveurs à 60 TPS).
+- Le goulot d'étranglement est désormais le réseau / Horizon, pas la simulation Godot.
+- Optimisation client : plus de chute de FPS avec ~30 joueurs autour.
+- Split dynamique OK jusqu'à 8 serveurs, puis re-merge à 1-2 quand les joueurs partent. Problèmes restants : petit freeze au changement de serveur et joueurs parfois bloqués.
+- Fix temporaire : limite du moteur passée de 10 000 à 100 000 items (le sol ne se chargeait plus sous les pieds à cause des chunks + rochers).
+- Le blocage en montant/descendant du camion est corrigé, déploiement au prochain build.
+- L'élévation de la planète est streamée → builds beaucoup plus légers et rapides.
+
+## 🏔️ Terrain
+
+- Nouveau sol en corindon au spawn, montagnes générées au runtime depuis des zones QGIS.
+- Plusieurs variantes de corindon (blanc, rouge, jaune, bleu, vert, gris foncé), plus sombres en altitude.
+- Les montagnes rouges couvrent un carré d'environ 500 km de côté.
+- bitogno va placer les biomes via QGIS (calque Région > Outcrop > Plateau).
+- À venir : volcans, déformation du sol à la pose d'un bâtiment (habitations mal positionnées actuellement), rochers /4 en poids car trop lourd.
+
+## 🚚 Véhicule & batteries
+
+- Le véhicule a son moteur + calcul de physique : **~90-100 km/h**.
+- Batteries : on abandonne une conso basée sur la vitesse seule au profit d'une conso en **puissance (kW)**. En pente, on roule moins vite mais on consomme plus. Les valeurs exactes restent à clarifier avec Jaran (feuille tableur).
+- Pas de recharge en descente : la batterie ne fait que se vider.
+- Tableau de bord / phares : conso négligeable, tout fonctionne tant qu'il reste de la batterie.
+- Piste retenue : **2 batteries + 1 moteur + 1 slot libre**.
+- Tests en jeu : avec 1 moteur, max ~30 km/h en côte ; même avec 2 moteurs, impossible de monter la pente de la montagne ; le 3ᵉ donne un gros boost. → **On vérifie d'abord que les valeurs implémentées correspondent aux specs** avant de les modifier.
+- 4 emplacements : on pourra mettre 4 moteurs, mais sans batterie ça n'avancera pas.
+- Composants : design 3D pas prioritaire, placeholders cubes OK. Specs : forme fermée, 2 encoches latérales pour le port à deux mains, infos par picto/logo.
+
+## 📖 Narratif
+
+- Nouvelle sous-filiale **ARES Infra** : construction civile (villes, bâtiments spécifiques). Couleur proposée : marron (ouvert aux suggestions).
+- Les panneaux sont finis côté specs (3D en cours) → on passe aux specs des bâtiments/logements.
+- Le MVP véhicule doit être mis à jour suite au travail sur les moteurs.
+
+## 🐛 À corriger
+
+- Animation de course qui s'arrête en montée, perso qui glisse.
+- Placement des habitations (on doit se baisser pour sortir).
+
+## 📅 Prochain test du jeu
+
+**Lundi 19 octobre au soir (provisoire)** : server meshing, montagnes, volcans.
+
+![image](/assets/images/news/20260922-2.webp)
