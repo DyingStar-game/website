@@ -1,0 +1,59 @@
+---
+title: Réunion Lead du 01/09/2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20260902-1.png
+date: 2026-09-02T09:37:10
+author: ddurieux
+discordMessageId: "1544612133319479336"
+description: "Compte rendu de la réunion Lead du 1er septembre 2026 : dev et infra, atmosphère et ombrage, planétologie, game design et points à suivre."
+tags:
+  - Informations du projet
+  - développement
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260902-lead-meeting-2026-09-01 }
+---
+
+## 🛠️ Dev & infra
+
+- Problèmes de connexion partiellement corrigés, il reste quelques cas.
+- Environnement de dev local encore simplifié (mini-présentation + session Godot effectuée à plusieurs dans la semaine).
+- Les planètes sont maintenant dans un référentiel unique côté serveur → le server meshing dynamique doit être adapté, mais le code en ressortira plus simple.
+- Fichiers .blend → cloud dédié (lecture seule pour tous, écriture restreinte). Il ne sera ouvert qu'une fois les sauvegardes en place. Exports et textures restent dans le dépôt Git Godot.
+- Bugs en cours : joueurs qui ne se voient pas, et T-pose (joueurs comme PNJ) qui semble se déclencher quand quelqu'un était déjà connecté avant vous.
+- Doc + scripts pour les matériaux et l'export Blender livrés côté 3D.
+
+## 🌤️ Atmosphère & ombrage (warpzone_bar)
+
+- Précalcul des ombres en cours : la source de lumière est trop loin, les chunks sont mal éclairés. Une partie restera en temps réel. Un post détaillé arrive.
+- Atmosphère paramétrée par planète, luminosité ajoutée sur les lunes.
+- Vérification des données stellaires : température de l'étoile passée de 3555 K à 4831 K, températures d'équilibre de Gaïa et Sandbox recalculées, composition atmosphérique de Sandbox corrigée. Le nouveau JSON sera intégré et reset sur la pre-prod.
+
+## 🪐 Planétologie (bitogno)
+
+- Gaïa reçoit environ 2× les UV terrestres → végétation impossible. Proposition : inverser Gaïa et Sandbox, Sandbox étant protégée par son nuage de corindon. Une lune sera ajoutée à Gaïa (inclinaison / vitesse de rotation).
+- Voile de corindon : plafond vers 3500 m, épaisseur à revoir (jugée trop fine), blanc en plein jour et rosé au lever/coucher. À faire en nuages volumétriques. Kainan alerte sur le risque d'un rendu trop éblouissant.
+- Vents de l'équateur vers les pôles, anticyclone polaire, pôles très froids. Pas d'eau de surface sur Sandbox (sol riche en eau extractible, glace sur la lune 2).
+- L'étoile sera renommée Tarsis Alpha. Définitions de toutes les planètes + wiki à refaire.
+
+## 🎮 Game design (Kainan)
+
+- Réunion demain soir : stats moteurs en priorité, routes si le temps le permet.
+- PNJ casqués pour la protection UV → moins de visages à produire. Idée de dômes ou de zones couvertes en ville.
+- Ascenseur / monte-charge pour remonter des canyons, à ajouter au doc MVP. La tech servira aussi aux ascenseurs.
+- Véhicules : spawn en hangar fermé pour les missions de location, dépanneuse pour les gros dégâts, conséquences si le véhicule est rendu abîmé. Modules interchangeables à l'arrière du camion.
+- Habitations : conteneurs prêts, restent les matériaux et la disposition à trancher.
+
+## ✅ À suivre
+
+- **ddurieux** : cloud + sauvegardes, script d'export des falaises, adaptation du server meshing, biomes par zone.
+- **bitogno** : finaliser le JSON, listing des biomes, mise à jour du wiki.
+- **warpzone_bar** : post explicatif sur les ombres, validation des chiffres.
+- Vocal à caler dans la semaine sur les layers QGIS / biomes.
+
+![Gemini_Generated_Image__1](/assets/images/news/20260902-2.png)
+
+![ACRwjavrlgj4naAZ2Nje5l2h3C04gHWo2YMFmXIi5FtOvxbhP0OowsK057nlRe8E4DVLVuPVNkUvMr7r0cdGKu80d2K5HiqlZcXb60e5Iqm0wwdnZajwal7dZLHoMcPa0IlSi6FPKOfHjg0v4v_mRvVW9ugzfmvar2vKzJVsHBT97nWCoemkYJQNZSTop_H_XW17Cls4m3VVXrUZrPRHzQvTY29abhnw65liZaYW9ENjd1GK6_DTxQzPrnnw9uLuQ674mse979m2Rq1e6mxheYfVUUlggEKUJdiCTQ9jwcsh2yxtjQPm3OL5Ei1a4_6q4it0YaMvImwAFW7QPhRvjRrp2MUns1600](/assets/images/news/20260902-3.png)

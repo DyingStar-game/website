@@ -1,0 +1,61 @@
+---
+title: DyingStar Lead Meeting — 08/25
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-08-27T20:23:39
+author: ddurieux
+discordMessageId: "1542600499583389746"
+description: "Recap of the August 25 lead meeting: infra and server, MVP components, roads, vehicle elevator, lore, art and game design meetings."
+tags:
+  - Project information
+  - development
+authorRoles:
+  - Project founder
+alternates: { fr: 20260827-reunion-lead-dyingstar-25-08 }
+---
+
+## ⚙️ Infra & server
+
+- New version deployed last Thursday: the major performance issue is **fixed**, the Godot server now runs at around **60 TPS**
+- Infra migration completed Sunday/Monday → we are **100% on the new infra in production**
+- Slimmed-down dev images: no more need to rebuild all of Horizon for every config change
+- Rock rework in progress: spawn zones, consistent size/weight, breaking into small pieces (not just 2 or 4)
+- Test with ~95 players: no more issues with other players' possession 🎉, but a few packets not getting through → Horizon optimizations in progress, new test within a few days
+- Bridges to fix (step + sliding) before extending the road to the big city and making the switchback road testable → targeted for next week
+- No admin mode yet, the topic is on the table
+
+## 🔋 MVP components
+
+- Priority confirmed: **battery, then engine**, with no sub-components for the MVP
+- **4 slots** requested from the art team; batteries on the sides, engine in the component bay (under the dump bed on the current model) — no constraints imposed on placement
+- The engine channel is open, the battery will come next (the engine needs to be defined first)
+
+## 🛣️ Roads & speeds
+
+- We're going with **3 road types → slow / medium / fast** rather than fixed numerical values; this will be adjusted in-game based on actual distances
+- Open question: is it the vehicle that limits speed, or the road layout (turns, switchbacks)?
+- A build with different road types and defined distances will be prepared for testing
+- The debate continues in the dedicated channel, it's yours to take up 👀
+
+## 🏗️ Vehicle elevator & canyons
+
+- Kept as a **bonus** (outside the strict MVP): lets you bring back trucks that fell into the canyons and lays the groundwork for the elevator system on the code side
+- Reminder: canyons weren't planned for the MVP but they're there, generated 300 m below ground level and connected to each other across the whole planet
+
+## 🧩 Lore vs gameplay consistency
+
+Big discussion about the level of realism for engines (tech, size, power). Consensus: we keep **universe consistency** — the foundation remains our world in the future — but it must stay **non-blocking** and not slow down development. We then simplify to keep it digestible.
+
+## 🎨 Art & narrative
+
+- Road signs added in Art, currently blocked by a lore question
+- New narrative question opened: why don't we use AI on Ares?
+- Ares design: the Figma information was lost, it needs to be recovered
+- Holes in the ground on Tarsis in progress (very long); duplicate points double the map size → a cleanup script will be written
+
+## 🗓️ Game design meetings
+
+Agreement in principle for a recurring meeting (every 2 to 3 weeks), **with a topic defined in advance** to keep it productive. Time slots to be varied (weekday evenings, weekends) to reach more people. This doesn't replace the written channels.

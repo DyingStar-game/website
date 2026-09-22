@@ -1,0 +1,69 @@
+---
+title: Réunion DyingStar du 15/09
+titleIcon: 🚚
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-09-16T10:31:45
+author: ddurieux
+discordMessageId: "1549699302194946112"
+description: "Compte rendu de la réunion du 15 septembre : camion, routes et tunnels, chunks, Godot 4.8, game design du moteur T1, atmosphère, ressources et priorités MVP."
+tags:
+  - Informations du projet
+  - développement
+  - godot
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260916-dyingstar-meeting-09-15 }
+---
+
+## 🛠️ Avancement tech
+
+- **Camion** : nouveau modèle en jeu avec **4 emplacements de composants**. Prochaines étapes : intégrer l'ascenseur et transcrire les formules moteur.
+- **Routes** : autoroutes avec fusion de roche et motif gaufré style Ares Transport, qui prennent la couleur du biome. Une route peut suivre le relief ou, au-delà d'une pente max, **creuser un tunnel** 🕳️ (virages et embranchements pas encore traités).
+- **Rail** : modèle Creative Commons simplifié de ~35 000 à **~3 600 triangles** (merci The_Moye pour l'optimisation).
+- **Chunks** : suppression des « jupes » violettes, meilleure liaison entre LOD 0→4. Encore quelques soucis de perf (et une partie du shader d'atmosphère sera réglable dans les settings).
+- **Entity streaming** : fonctionne bien, builds bien plus rapides (on n'a plus des Gio d'élévation embarqués).
+- **Rochers** : 10 à 12 000 cailloux côté serveur testés sans broncher 💪
+- **Bug FPS corrigé** 🎤 : une constante LiveKit en secondes au lieu de millisecondes faisait ramer le jeu micro activé.
+- **Sol** : shader de **hex tiling** (rotation aléatoire par tuile), évite les motifs répétitifs, sans coût en perf.
+- **Éditeur** : chargement des chunks comme en jeu + caméra de balade (merci warpzone), idéal pour le level design 🗺️
+- **Godot 4.8** : le streaming de textures arrive, gros gain de FPS attendu même sur petites configs. Les montées de version Godot 4.x restent sans douleur.
+
+https://www.youtube.com/watch?v=wClWgdIr6Vo
+
+## 🌍 PlanetTech
+
+- bitogno a corrigé les valeurs de densité du Sandbox et ajouté la génération de biomes colorés (zones plus ou moins bleues/rouges/vertes selon le minerai, avec du bruit).
+- Point de référence ajouté sur le wiki pour les routes.
+
+## ⚙️ Game design
+
+- **Moteur T1 validé** (valeurs de BARDOK) : 100 en électrique / 600 de couple → ~**103 km/h** max, 0-100 en **22-23 s**. Point de départ, ajustable.
+- **Batterie** : channel dédié ouvert. Pistes : ~100 km par moteur, fréquence de changement, éviter que « full batteries » rende tout trop facile.
+- **Routes & conduite** : idée que le type de route influe sur l'accélération et la glisse. Le camion starter serait moyen partout.
+- **Limiteur de vitesse** : débat en cours (activable ou non, molette, mémorisation de la vitesse actuelle…).
+- **Véhicules en ville** : pas tranché. Pistes : villes piétonnes, restriction auto via les marqueurs de zones, entrepôts en périphérie / collés à l'ascenseur et au spatioport.
+
+## ☢️ Atmosphère & danger
+
+- CO2 à 2 % sous le nuage + uranium/thorium dans le sol : on veut éviter une planète de départ mortelle partout.
+- Direction : dangers **localisés** (zones à forte concentration) qui bloquent le joueur sans l'équipement adapté.
+- **Datapad** : relevés par défaut (gravité, air respirable, radiations…).
+
+## ⛏️ Ressources
+
+- On garde les types de corindon actuels pour rester simple (corindon brun pour les zones ferreuses).
+- Les rochers prendront la couleur de leur minerai. Ratio de poids des cailloux à appliquer cette semaine.
+
+## 🎯 Priorités MVP
+
+1. Maisons & préfabriqués
+2. Amélioration de l'entrepôt (quais, étagères…)
+3. Missions de minage et de transport (boucle complète ou missions séparées)
+4. **Un seul véhicule** pour l'instant, on étoffe le gameplay avant de multiplier les engins
+
+Inventaire et porte-monnaie : pas prioritaires pour le MVP (batteries et rochers se portent à la main).
+
+Merci à tous ! 🚀

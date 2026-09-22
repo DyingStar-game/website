@@ -1,0 +1,101 @@
+---
+title: Dying Star Meeting of August 11, 2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-08-12T13:27:36
+author: ddurieux
+discordMessageId: "1537059979499143168"
+description: "Minutes of the August 11, 2026 meeting: animations, planet, NPCs, lore, components and batteries, load tests and upcoming actions."
+tags:
+  - Project information
+  - development
+authorRoles:
+  - Project founder
+alternates: { fr: 20260812-reunion-dying-star-11-aout-2026 }
+---
+
+## 📋 Dying Star Meeting — August 11, 2026
+
+72 min · ddurieux, Kainan, bitogno (Bardok absent)
+
+## 🎮 Client & gameplay
+
+**Animations** — warpzone_bar has integrated the animations: the placeholder astronaut gives way to an animated mannequin (walking, running, emotes). Crouching and grabbing/dropping an object are still missing. First tests with MakeHuman to put a real model on the rig.
+
+**Planet** — it rotates in real time, with a day lasting 25 real hours (night shifts as the days go by). Orbital movement around the star is in progress. There is still a distance issue with the two moons.
+
+**Crates** — only the small yellow crate can be carried, with its serial number displayed. To fix: it's carried 2 m away from the body instead of in the hands.
+
+**Sounds** — new sounds by Pierrot: drill, torch, truck headlights, electric motor, crossing. CC licenses documented, as for models and textures.
+
+**Movement** — Bardock's work on speed, jump height, vaulting and climbing.
+
+**VOIP** — works, but can be heard from 10 km away and even from the menu 😅 The principle is validated, the tuning still needs to be done.
+
+**Repository** — major reorganization of the files by warpzone_bar, in line with the wiki architecture.
+
+**Build** — yesterday's update broke for a lot of people; the lead is a desynchronized version file, investigation in progress.
+
+## 🤖 NPCs
+
+Schedule integrated: 5 NPCs, 5-day rotations, home ↔ work commutes.
+
+Key architecture point: **NPCs connect just like players**, same code and same constraints, driven by an external service written in Rust. The only difference: navigation from point A to point B via navmesh. Nice consequence: even with no player connected, the NPCs carry on with their lives.
+
+## 🌍 Lore & game design
+
+- Mission data management has started; proposal to open a "life on Sandbox" workstream (customs, food).
+- **Airlock**: the air is breathable but very dry. If there's an airlock on the NPC side, there needs to be one on the player side too. Presence of plastic and CO₂ filters confirmed.
+- **Canteen**: a simple "4 walls + ceiling" building, or rather a closed room at the back of the hangar, break-room style — no decoration to produce.
+- **Pads**: no phones. Everyone, NPCs included, has a pad that displays over the suit, with no extra manipulation. Missions are triggered via a wall screen in the hangar (reusing the existing interaction animation).
+- **Magnetic tunnels**: Sandbox's magnetic field and the moon's create non-fixed electromagnetic columns, visible in UV, with blue lightning during dust storms. Good news: the alumina plateaus are insulated, so no conflict with the space elevator.
+
+## 🔋 Components & batteries
+
+The discussion went all over the place and didn't reach the MVP. What was established:
+
+- **Dedicated meeting to be scheduled** in the coming weeks, with Bardok (he's the one carrying the topic). Kainan will first prepare a summary of the document.
+- Concept reframing: a component is a **detachable element added** to the vehicle, not the wheels or the built-in engine.
+- **2 batteries**, consumed **one at a time** (the second one takes over).
+- Recharging **only in towns and villages**, not on the road: the player has to plan their trip.
+- Undecided point: battery **swapping** (simpler) vs **recharging your own battery** (allows several battery types). Recharge time is purely a balancing matter.
+- The T1 battery (60×40) must be carriable by hand, otherwise the notion of a removable component loses its meaning.
+- **Road signs**: no need to go through game design, except for the height (to prevent a vehicle from passing underneath). Roads, on the other hand, require a game design pass.
+
+## 🗺️ World & load tests
+
+The map has been found again: big star = town, small stars = villages, big circle = capital. Villages are within a 10-15 km radius of the town, ~45 km between major towns. Three types of roads, the fastest supporting 150-180 km/h (lower gravity) — the current truck tops out at 45-50 km/h.
+
+**Test road** — ddurieux will create an A → B section combining straight lines, curves and a hill, calibrated for a ~10-15 min trip, with kilometer-marked exits.
+
+**Load test late August / early September** — spawning 200 to 350 permanent NPCs to simulate as many players and validate server meshing. Prerequisites: add housing (~20 min, duplication + coordinates) and rework the network part. Targets: UID collisions beyond about sixty players and the freeze during server meshing. Side idea: run NPCs from Quebec to test latency.
+
+The truck physics can still be improved (shock absorbers), but vehicle fixes have landed on the Jolt/Godot engine side.
+
+## 🔧 Miscellaneous
+
+- **Discord Kanban**: `/task add` permissions have been opened to leads and subleads. You need to run `/task add` then `/board` to refresh the display.
+- **Localization**: everything is written in English by default, translation is then done on the game side.
+- **In-game chat**: white text is unreadable on a light background. Black outline as a first attempt, a shader detecting the background color as a fallback.
+
+## ✅ To do
+
+**ddurieux**
+
+- Fix crate carrying and dropping, then put the NPCs in game (goal: this weekend)
+- Call for animators next week for the 2-3 missing animations
+- Test road, adding housing, network work before the load test
+- Investigate the build / version file bug
+
+**Kainan**
+
+- Schedule the "components" meeting with Bardok
+
+**bitogno**
+
+- Summary of the components document
+- Gather the food data
+- Restore the elevation of biome 4.1

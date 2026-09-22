@@ -19,6 +19,7 @@
       "@i18n/*": ["i18n/*"],
       "@lib/*": ["lib/*"],
       "@messages/*": ["../messages/*"],
+      "@scripts/*": ["../scripts/*"],
       "@type/*": ["types/*"],
       "@ui/*": ["components/ui/*"]
     },

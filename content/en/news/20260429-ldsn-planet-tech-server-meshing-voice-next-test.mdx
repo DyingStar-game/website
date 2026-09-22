@@ -1,0 +1,74 @@
+---
+title: LDSN
+titleIcon: 🚀
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20260429-1.png
+date: 2026-04-29T00:22:48
+author: ddurieux
+discordMessageId: "1498811751662223391"
+description: Planet Tech v1, dynamic server meshing, Kubernetes, Godot audio and LiveKit voice chat, character meeting, Sandbox clothing and the next play test date.
+tags:
+  - LDSN
+  - Project information
+  - development
+  - play test
+authorRoles:
+  - Project founder
+alternates: { fr: 20260429-dnds-planet-tech-server-meshing-vocal-prochain-test }
+---
+
+Here is the latest on the project's progress over the past few days.
+
+## It's technical, it's classy
+
+On the tech side, several new things:
+
+- **Planet Tech v1**: it has been pushed to the code repository. Level generation and biomes are drawn in QGIS, then the planet is exported (HEALPix) into Godot. There is still work to do on terrains, biomes... Moon 1 of the planet Tarsis 5 (a gas giant) has started putting on its biomes.
+- **Dynamic Server Meshing**: the code has been pushed (Godot server + Horizon server). What remains is the removal of Godot servers and an issue when walking from one server to another: the movement information is lost and you stop dead in your tracks; good news, a change has been defined and will be made in the coming days to fix this problem ^\_^
+- **Unwanted persistence**: when a player disconnected from the game (issue seen during the last test), the player stayed on the Godot server. A fix has been made ^\_^
+- **Kubernetes**: the local (for devs), pre-prod (for tests) and prod (for the first release, not there yet, mind you!) environments have been created. This allows all services to be launched the same way, wherever they are.
+
+For more information, see [here](https://discord.com/channels/1399325839665004554/1428454518269677568/1497955022447841280).
+
+## Audio
+
+### Wwise
+
+Godot has built-in streaming, mixing, effects... So we are removing the Wwise layer to handle everything directly in Godot's audio system (with the sounds directly in the game's file system). This brings a major simplification of audio management for the same result.
+
+### In-game voice chat
+
+Work has started on integrating LiveKit, and therefore voice between players.
+
+For now, a room is created by the Horizon server, which puts the player in it. The player receives their connection token and can connect.
+
+This first iteration lets us test the technology and get familiar with it. Right after, we'll modify it to handle proximity voice.
+
+Group / party voice chat will come a bit later.
+
+## Character management
+
+We want to kick off the creation of a character, which includes 3D modelling, animation, sounds...
+
+To do this, I'm proposing a meeting this Wednesday, 29 April at 9:00 PM (tomorrow / today depending on where and when you read this message).
+The goal is to work out with those in the know how to break down character creation and create the tasks, or even assign them.
+
+The meeting has been created, you can sign up here: [https://discord.gg/Sp7W9eDz?event=1496628659019059272](https://discord.gg/Sp7W9eDz?event=1496628659019059272)
+
+## Sandbox workers' clothing
+
+We talked about it last week, and we've had an additional contribution 💪
+
+Jarran wrote a [long explanatory message](https://discord.com/channels/1399325839665004554/1493862006346879077/1498431881161609237) about the clothing (different layers), which is interesting.
+
+The idea is pretty good; first we need to see whether it's technically feasible. A POC will be done this weekend with several layers of fabric to validate (or not) this clothing mille-feuille. Godot has everything needed to handle clothing fairly well.
+
+## Next test
+
+OH???? WHAT????
+
+Yes, as you can see, things are moving forward on several fronts, so we're proposing the date for the next test: **Wednesday, 27 May at 8:30 PM**
+
+If there are no blocking issues (no server crashing), we'll most likely leave it running for several hours, or even days.

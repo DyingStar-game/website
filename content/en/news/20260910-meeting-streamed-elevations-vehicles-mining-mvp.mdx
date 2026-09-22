@@ -1,0 +1,64 @@
+---
+title: DyingStar Meeting — 08/09/2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20260910-1.webp
+date: 2026-09-10T19:33:07
+author: ddurieux
+discordMessageId: "1547661213071310858"
+description: "Recap of the 08/09/2026 meeting: streamed terrain elevations, T1 engine and vehicles, rock density, MVP gameplay loop, planet and economy."
+tags:
+  - Project information
+  - development
+authorRoles:
+  - Project founder
+alternates: { fr: 20260910-reunion-elevations-streaming-vehicules-minage-mvp }
+---
+
+## 🌍 Terrain: streamed elevations
+
+Elevation data is no longer bundled into the build: it is downloaded on the fly from a web server, tile by tile.
+
+- Resolution increased from 2 km to 700 m
+- Preloading over ~8 chunks, adjustable based on vehicle speed
+- 128 MB local rolling cache (the oldest tiles get evicted)
+- Behind the player, tiles fall back to a lower LOD
+- Result: ~2× faster than before, less disk I/O, and above all much lighter client builds
+
+On the server side, each planet now lives in its own reference frame: collisions are only computed around characters, and the old large-distance issues are gone. The high-speed train case still needs testing (more of a physics matter than a loading one).
+
+## 🚚 T1 engine & vehicles
+
+- New doc from Jaran with a spreadsheet (electric power + torque) per vehicle type
+- The small truck tops out at ~100 km/h, which may be too fast for a loaded vehicle. Top speed doesn't change between empty and loaded — only acceleration and the maximum climbable slope vary
+- We'll test with the current values and fine-tune afterwards
+- Vehicle elevator: testing in progress, 3D model expected this week
+- Signs: 3D models started
+
+## ⛏️ Mining: rock density
+
+Corundum is 2× heavier than granite (~4 t/m³), and with gold inside the numbers climb very high → we end up with tiny pebbles (a dozen at most in the truck).
+
+➡️ **Chosen approach**: divide all densities by a global factor to keep the proportions between materials while making transport playable. The factor still needs testing. The volume limit (1 m) prevents styrofoam-like rocks on low-gravity bodies.
+
+## 🔁 MVP gameplay loop
+
+Mining → drop-off/crusher at the village → sellable crates at the NPC → transport to the city (refinery) → final crate.
+
+- Debate about the crusher's purpose: it has to bring something to the table. Options: keep the ore + ~20% waste rock, or separate the resources. Going straight to the city should be impossible or unprofitable
+- Crushers remain placeholders for the MVP
+- The NPC resells the crates → a player can start their loop at the transport step
+
+## 🗺️ Planet & Planet Tech
+
+- Palaka-Pital will be moved closer (it was 140 km away), with the city + 4 villages relocated nearby
+- A 45–50 km highway between the city and the Capital Palace (~25 min at 100 km/h) to test roads and travel times
+- Planet Tech: material regions first, then POIs, volcanoes, fumaroles, lava lakes and rivers, cliffs, quarry pits
+- Bridges and tunnels generated automatically based on a max slope defined on roads (4 roads = already 200 auto-generated bridges 😅)
+- Color of the Palaka-Pital plateau: leaning towards dark grey / flint blue-grey for contrast (right-hand side of the image). Proposals and vote to come
+
+## 💰 Economy
+
+Symbolic for the MVP: a simple credit counter in the HUD, no history, no balancing. The player service (identity, wallet) is in progress on Tiger's side.

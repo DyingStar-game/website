@@ -11,6 +11,7 @@ This guide provides comprehensive instructions for developing the DyingStar webs
 - [Environment Setup](#environment-setup)
 - [Available Commands](#available-commands)
 - [Development Workflow](#development-workflow)
+- [News Sync from Discord](#news-sync-from-discord)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 
@@ -268,6 +269,37 @@ make pnpm remove package-name
    git commit -m "feat: your feature description"
    git push origin feature/your-feature-name
    ```
+
+## 📰 News Sync from Discord
+
+News articles live in `content/fr/news/` (French, source language) and `content/en/news/` (English translation), linked by the `alternates` frontmatter field. The `pnpm news:sync` script imports the posts of the Discord **#news** channel, cleans them into MDX with a generated frontmatter (title, description, tags, icon), and writes the English translation. The generation runs through [Claude Code](https://claude.com/claude-code) in headless mode (`claude -p`), so it is covered by your Claude subscription — no API key needed.
+
+### **One-time Setup**
+
+1. **Create a Discord bot**: [discord.com/developers](https://discord.com/developers/applications) → _New Application_ → _Bot_ → _Reset Token_ → copy it as `DISCORD_BOT_TOKEN`.
+2. **Enable the Message Content intent**: _Bot_ → _Privileged Gateway Intents_ → **Message Content Intent**. Without it, Discord returns empty message contents.
+3. **Invite the bot**: _OAuth2_ → _URL Generator_ → scope `bot`, permissions **View Channels** and **Read Message History** → open the generated URL and add the bot to the server.
+4. **Get the channel id**: Discord settings → _Advanced_ → _Developer Mode_, then right-click **#news** → _Copy Channel ID_ → `DISCORD_NEWS_CHANNEL_ID`.
+5. **Claude Code**: install it and log in once (`claude` must be in your `PATH`; run `claude` and follow the login flow).
+6. **Map Discord authors**: fill `scripts/news-sync/authors.ts` with the Discord user ids (right-click a user → _Copy User ID_), the `author` name used on the site and the FR/EN `authorRoles`. Unknown authors fall back to their Discord display name with no role.
+
+Add `DISCORD_BOT_TOKEN` and `DISCORD_NEWS_CHANNEL_ID` to `.env.local` (see `.env.sample`).
+
+### **Usage**
+
+```bash
+make news-sync ARGS="--dry-run --limit=1"   # Preview the generated MDX, write nothing
+make news-sync                              # Import every new post
+make news-sync ARGS="--since=2025-10-01"    # Override the start date
+```
+
+> Unlike the other commands, this one runs **on the host**, not in Docker, because it relies on your local `claude` CLI (`pnpm news:sync --dry-run --limit=1` works too). Flags must go through `ARGS`: `make news-sync --dry-run` does not work because `make` parses `--dry-run` and `--limit` as its own options.
+
+- By default, only messages posted **after the most recent news** in `content/fr/news/` are considered, so already published history is not re-imported.
+- Consecutive messages from the same author less than 10 minutes apart are merged into a single news.
+- Image attachments are downloaded to `public/assets/images/news/` (`YYYYMMDD-N.ext`); the first one becomes `coverUrl`, the others are embedded in the body. Without image, `coverUrl` falls back to `/assets/images/news/sample.png`.
+- Each generated FR file stores the `discordMessageId` of its source post; a post already imported is skipped on later runs.
+- Generated files are only a draft: **review the diff**, adjust the wording, the tags or the cover image by hand, run `make pnpm clean`, then commit.
 
 ## 🏗️ Technology Stack
 

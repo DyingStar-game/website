@@ -1,0 +1,59 @@
+---
+title: Lead Meeting of 2026-09-01
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20260902-1.png
+date: 2026-09-02T09:37:10
+author: ddurieux
+discordMessageId: "1544612133319479336"
+description: "Report from the September 1, 2026 Lead meeting: dev and infra, atmosphere and shading, planetology, game design and follow-up items."
+tags:
+  - Project information
+  - development
+authorRoles:
+  - Project founder
+alternates: { fr: 20260902-reunion-lead-du-01-09-2026 }
+---
+
+## 🛠️ Dev & infra
+
+- Connection issues partially fixed, a few cases remain.
+- Local dev environment simplified further (mini-presentation + group Godot session held during the week).
+- Planets are now in a single reference frame on the server side → dynamic server meshing needs to be adapted, but the code will end up simpler.
+- .blend files → dedicated cloud (read-only for everyone, restricted write access). It will only be opened once backups are in place. Exports and textures stay in the Godot Git repository.
+- Ongoing bugs: players not seeing each other, and T-pose (players as well as NPCs) that seems to trigger when someone was already connected before you.
+- Docs + scripts for materials and Blender export delivered on the 3D side.
+
+## 🌤️ Atmosphere & shading (warpzone_bar)
+
+- Shadow precomputation in progress: the light source is too far away, chunks are poorly lit. Part of it will remain real-time. A detailed post is coming.
+- Atmosphere configured per planet, brightness added on moons.
+- Stellar data check: star temperature changed from 3555 K to 4831 K, equilibrium temperatures of Gaïa and Sandbox recalculated, Sandbox atmospheric composition corrected. The new JSON will be integrated and reset on pre-prod.
+
+## 🪐 Planetology (bitogno)
+
+- Gaïa receives about 2× Earth's UV → vegetation impossible. Proposal: swap Gaïa and Sandbox, since Sandbox is protected by its corundum cloud. A moon will be added to Gaïa (tilt / rotation speed).
+- Corundum veil: ceiling around 3500 m, thickness to be reviewed (considered too thin), white in full daylight and pinkish at sunrise/sunset. To be done with volumetric clouds. Kainan warns about the risk of an overly dazzling render.
+- Winds from the equator toward the poles, polar anticyclone, very cold poles. No surface water on Sandbox (soil rich in extractable water, ice on moon 2).
+- The star will be renamed Tarsis Alpha. Definitions of all planets + wiki to be redone.
+
+## 🎮 Game design (Kainan)
+
+- Meeting tomorrow evening: engine stats as a priority, roads if time allows.
+- Helmeted NPCs for UV protection → fewer faces to produce. Idea of domes or covered areas in cities.
+- Elevator / freight lift to climb back up from canyons, to be added to the MVP doc. The tech will also be used for elevators.
+- Vehicles: spawn in a closed hangar for rental missions, tow truck for heavy damage, consequences if the vehicle is returned damaged. Interchangeable modules at the back of the truck.
+- Housing: containers ready, materials and layout still to be decided.
+
+## ✅ Follow-up
+
+- **ddurieux**: cloud + backups, cliff export script, server meshing adaptation, biomes per zone.
+- **bitogno**: finalize the JSON, biome listing, wiki update.
+- **warpzone_bar**: explanatory post on shadows, validation of the figures.
+- Voice call to schedule during the week on QGIS layers / biomes.
+
+![Gemini_Generated_Image__1](/assets/images/news/20260902-2.png)
+
+![ACRwjavrlgj4naAZ2Nje5l2h3C04gHWo2YMFmXIi5FtOvxbhP0OowsK057nlRe8E4DVLVuPVNkUvMr7r0cdGKu80d2K5HiqlZcXb60e5Iqm0wwdnZajwal7dZLHoMcPa0IlSi6FPKOfHjg0v4v_mRvVW9ugzfmvar2vKzJVsHBT97nWCoemkYJQNZSTop_H_XW17Cls4m3VVXrUZrPRHzQvTY29abhnw65liZaYW9ENjd1GK6_DTxQzPrnnw9uLuQ674mse979m2Rq1e6mxheYfVUUlggEKUJdiCTQ9jwcsh2yxtjQPm3OL5Ei1a4_6q4it0YaMvImwAFW7QPhRvjRrp2MUns1600](/assets/images/news/20260902-3.png)

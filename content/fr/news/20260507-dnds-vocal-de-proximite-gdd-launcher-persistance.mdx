@@ -1,0 +1,93 @@
+---
+title: DNDS
+titleIcon: 📰
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-05-07T00:33:14
+author: ddurieux
+discordMessageId: "1501713480376389682"
+description: "Vocal de proximité, GDD, planet tech, menu, tissus, launcher, backup Discord et persistance : le point sur l'avancée de DyingStar ces derniers jours."
+tags:
+  - DNDS
+  - développement
+  - Informations du projet
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20260507-ldsn-proximity-voice-gdd-launcher-persistence }
+---
+
+Voici les informations sur l'avancée du projet ces derniers jours.
+
+## GDD (Game Design Document)
+
+Les informations suivantes ont été publiées dans le GDD :
+
+- informations personnage : [lien](https://developer.dyingstar-game.com/docs/project/GDD/personnage/personnage_donn%C3%A9e/)
+- biomes tarsis_5_2 (lune 2 de la géante gazeuse Tarsis 5) : [lien](https://developer.dyingstar-game.com/docs/project/GDD/worldbuilding/5_01_geographie/system_tarsis/tarsis_V/#biomes-2)
+- biomes de ethane and tholin, vous pouvez aller [voir les biomes](https://developer.dyingstar-game.com/docs/project/GDD/worldbuilding/5_01_geographie/biome/active_volcano/)
+
+## Planet tech
+
+Les biomes ont été modifiés et améliorés sur tarsis_5_1 (lune 1) dans QGIS.
+
+Un test de génération de terrain a été effectué sur tarsis_4 (Sandbox) avec un détail plus élevé que pour tarsis_5_1. Ça semble être pas mal, à voir avec les textures des biomes.
+
+## Vocal de proximité
+
+La semaine dernière, le vocal de proximité a été implémenté dans DyingStar. Quand vous passez à côté de quelqu'un, vous l'entendrez (via son micro), et plus ou moins fort selon la distance qui vous sépare.
+
+On utilise LiveKit pour faire cela, il n'y a que la partie gestion de salon qui transite vers nos serveurs, l'audio est en WebRTC et passe donc directement entre joueurs.
+
+Les id participants sont générés pour chaque joueur, ceci améliore la sécurité (on évite d'utiliser l'id utilisateur directement).
+
+Vous avez une vidéo de test [ici](https://discord.com/channels/1399325839665004554/1399753890584330341/1500229322735095).
+
+## Menu
+
+Le menu a été retravaillé : image de fond à jour, modification des settings audio, ajout de la musique et des sons des boutons.
+
+## Assets : contributeur
+
+Avec l'audio et les assets 3D, chacun de ces fichiers a désormais un fichier texte associé au format _.txt_, avec dedans le(s) contributeur(s), et le site et la licence quand ça provient d'un site internet (toutes les licences ne sont pas compatibles avec la licence de nos assets !!).
+
+## Tissus
+
+On a fait un test dans Godot de plusieurs couches de tissus pour les personnages, on arrive à avoir un résultat plutôt correct, sans sacrifier les perfs.
+
+Il y a une vidéo de test [ici](https://discord.com/channels/1399325839665004554/1399753890584330341/1501163612838826004), sachant que j'ai amélioré le résultat depuis cette vidéo.
+
+## Véhicule & composants
+
+On prépare le véhicule pour le [MVP](https://developer.dyingstar-game.com/docs/project/GCD/scope/).
+
+Il y a un forum [gamedesign](https://discord.com/channels/1399325839665004554/1499762537405878474) et un forum [appel à créa](https://discord.com/channels/1399325839665004554/1501577301484376275).
+
+## Création personnage
+
+La réunion de la semaine dernière a tourné court, il n'y avait personne pour la réunion 😭
+
+On va faire autrement : si vous êtes intéressé pour travailler sur le personnage pour la 3D, ou l'animation ou l'audio, manifestez-vous dans le chan général ou contributeur-general ^\_^
+
+## Launcher
+
+Les spécifications fonctionnelles ont été rédigées pour le launcher et le travail a bien commencé. Les spécifications techniques vont être rédigées dans les prochains jours.
+
+Vous pouvez retrouver les informations [ici](https://discord.com/channels/1399325839665004554/1500899885744914525).
+
+## Backup du Discord
+
+Suite au problème de suppression des forums et messages, un backup régulier via un bot va être mis en place d'ici peu.
+
+## Horizon, services et persistance
+
+On a fait un point ce week-end sur les services et la persistance.
+
+Pour les services, on doit modifier le bridge websocket entre Horizon et les services extérieurs. Par exemple, la partie vocale de proximité est en plugin Horizon, mais il doit être en service extérieur. Mais on a besoin de modifier ce bridge pour l'externaliser. Travail à faire dans les prochaines semaines.
+
+Pour la persistance, étant donné que Horizon charge tout, et que l'outil Dgraph n'a pas de support officiel Rust, on étudie PostgreSQL. On est en train de regarder si ça peut convenir à notre besoin (scalabilité horizontale, gestion des parents/enfants, spatialisation).
+
+## Merci
+
+Je ne le fais pas souvent mais je n'en pense pas moins, c'est un vrai manque de ma part : je tiens à remercier les leads & sub-leads pour leur implication dans le projet, ainsi que tous les contributeurs réguliers et ponctuels, ça fait avancer le projet et c'est vraiment cool ❤️
