@@ -28,11 +28,11 @@ export const generateMetadata = async (
     description: t("description"),
     keywords: t("keywords"),
     openGraph: {
-      url: LINKS.Project.Project.href(),
+      url: LINKS.Project.Play.href(),
       type: "article",
     },
     alternates: {
-      canonical: LINKS.Project.Project.href(),
+      canonical: LINKS.Project.Play.href(),
     },
   });
   return mergeFn(props, parent);
@@ -44,7 +44,7 @@ export const generateStaticParams = async () => {
   }));
 };
 
-const PlayPage = async (props: PageProps<"/[locale]/project">) => {
+const PlayPage = async (props: PageProps<"/[locale]/play">) => {
   const { locale } = await props.params;
   const t = await getTranslations("Play");
 
