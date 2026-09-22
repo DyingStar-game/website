@@ -26,7 +26,8 @@ export const Header = () => {
   return (
     <HeaderBase>
       <NavLink link={LINKS.Project.Project} size={size} />
-      <NavLink link={LINKS.Lore.History} size={size} />
+      <NavLink link={LINKS.Project.Play} size={size} />
+
       <Link
         href={LINKS.Landing.Landing.href()}
         className="order-first self-center transition-all hover:scale-95 xl:order-none"
@@ -36,6 +37,7 @@ export const Header = () => {
       </Link>
       <NavLink link={LINKS.Project.Contribute} size={size} />
       <NavLink link={LINKS.News.All} size={size} />
+
       {/* <Button
         variant="ghost"
         size={size}

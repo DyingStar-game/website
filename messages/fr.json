@@ -112,6 +112,7 @@
     },
     "Project": {
       "Contribute": "Contribuer",
+      "Play": "Jouer",
       "Project": "Projet"
     }
   },
@@ -162,6 +163,15 @@
       "next": "Suivante",
       "previous": "Précédente"
     }
+  },
+  "Play": {
+    "Metadata": {
+      "description": "Téléchargez DyingStar et rejoignez le serveur de test actuellement en ligne. Connexion Discord requise. Suivez le guide d'installation et de mise à jour du launcher.",
+      "keywords": "DyingStar, télécharger DyingStar, DyingStar launcher, Universe Testing, serveur de test DyingStar, jeu communautaire, connexion Discord, installation jeu, mise à jour DyingStar",
+      "title": "Jouer à DyingStar"
+    },
+    "action": "Télécharger le jeu",
+    "title": "Jouer au jeu"
   },
   "Privacy": {
     "JsonLd": {
