@@ -1,5 +1,5 @@
 # Node.js version (should match .nvmrc)
-x-node-image: &node-image "node:22.20.0"
+x-node-image: &node-image "node:24.21.0"
 
 services:
   # App service for production/testing (CP/PO/Others profile)

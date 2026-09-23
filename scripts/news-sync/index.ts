@@ -301,7 +301,7 @@ main().catch((error: unknown) => {
       "Discord refused access to the channel (403): invite the bot to the server with the View Channels and Read Message History permissions.",
     );
   } else {
-    logger.error(error);
+    logger.error({ error });
   }
   process.exit(1);
 });

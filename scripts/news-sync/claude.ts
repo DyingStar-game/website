@@ -147,7 +147,7 @@ export const generateNews = async (
       error instanceof Error && "stderr" in error
         ? String(error.stderr).trim()
         : String(error);
-    throw new Error(`claude -p failed: ${details}`);
+    throw new Error(`claude -p failed: ${details}`, { cause: error });
   }
 
   const result = ClaudeResultSchema.parse(JSON.parse(stdout));
