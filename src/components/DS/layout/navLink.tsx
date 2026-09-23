@@ -12,10 +12,11 @@ import { usePathname } from "next/navigation";
 
 type NavLinkProps = {
   link: NavigationLink;
+  variant?: VariantProps<typeof buttonVariants>["variant"];
   size: VariantProps<typeof buttonVariants>["size"];
 };
 
-const NavLink = ({ link, size }: NavLinkProps) => {
+const NavLink = ({ link, variant = "ghost", size }: NavLinkProps) => {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations();
@@ -24,7 +25,7 @@ const NavLink = ({ link, size }: NavLinkProps) => {
     const expectedPath = locale === DEFAULT_LOCALE ? href : `/${locale}${href}`;
     const isActive = pathname.startsWith(expectedPath);
 
-    return cn(buttonVariants({ variant: "ghost", size }), isActive && "active");
+    return cn(buttonVariants({ variant, size }), isActive && "active");
   };
 
   return (
