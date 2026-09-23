@@ -1,10 +1,10 @@
 // eslint.config.mjs — with inline rule explanations (EN)
 import { fixupConfigRules } from "@eslint/compat";
 // Adapts legacy configs/plugins to Flat Config.
-import { FlatCompat } from "@eslint/eslintrc";
-// Lets us reuse "extends" presets in Flat Config.
 import pluginJs from "@eslint/js";
 // Official ESLint JS recommended rules.
+import nextPlugin from "@next/eslint-plugin-next";
+// Next.js core-web-vitals preset (native Flat Config).
 import importPlugin from "eslint-plugin-import";
 // Import hygiene/consistency rules.
 import preferArrow from "eslint-plugin-prefer-arrow";
@@ -21,8 +21,6 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 // TS parser + plugin + presets (Flat).
-
-const compat = new FlatCompat();
 
 export default [
   // Target all relevant source files
@@ -74,7 +72,7 @@ export default [
 
   // Next.js
   { ignores: [".next/"] }, // Ignore build output
-  ...fixupConfigRules(compat.extends("plugin:@next/next/core-web-vitals")), // Perf/A11y best practices
+  nextPlugin.configs["core-web-vitals"], // Perf/A11y best practices
 
   // ---- Custom rules (each explained) ----
   {
@@ -359,8 +357,8 @@ export default [
       "app/**/sitemap.{ts,tsx}",
       "app/**/manifest.{ts,tsx}",
       "app/**/unauthorized.{ts,tsx}",
-      "middleware.{ts,tsx}",
-      "src/middleware.{ts,tsx}",
+      "proxy.{ts,tsx}",
+      "src/proxy.{ts,tsx}",
     ],
     rules: {
       "prefer-arrow/prefer-arrow-functions": "off",
@@ -383,7 +381,6 @@ export default [
       "*.mjs",
       "zod",
       "*/**.mjs",
-      "vitest.config.ts",
       "next-env.d.ts",
       ".next",
       ".react-email",

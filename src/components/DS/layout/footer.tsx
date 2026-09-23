@@ -7,7 +7,7 @@ import { LINKS } from "@feat/navigation/Links";
 import { Layout } from "@feat/page/layout";
 import { Link } from "@i18n/navigation";
 import { env } from "@lib/env/client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { SiteConfig } from "siteConfig";
 

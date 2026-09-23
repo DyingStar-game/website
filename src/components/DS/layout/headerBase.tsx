@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import IconSwitch from "@components/DS/iconAnimate/iconSwitch";
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
@@ -16,7 +16,7 @@ import {
   useMotionValueEvent,
   useScroll,
   useTransform,
-} from "framer-motion";
+} from "motion/react";
 import { SiteConfig } from "siteConfig";
 
 type HeaderBaseProps = {
@@ -27,6 +27,13 @@ type HeaderBaseProps = {
 export const HeaderBase = ({ start, end }: HeaderBaseProps) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [lastPathname, setLastPathname] = useState(pathname);
+
+  // Close the mobile menu on navigation (React's "adjust state during render").
+  if (lastPathname !== pathname) {
+    setLastPathname(pathname);
+    setIsOpen(false);
+  }
   const [size, setSize] =
     useState<VariantProps<typeof buttonVariants>["size"]>("lg");
   const { scrollY } = useScroll();
@@ -37,10 +44,6 @@ export const HeaderBase = ({ start, end }: HeaderBaseProps) => {
   useMotionValueEvent(scrollY, "change", (latest) => {
     setSize(latest < 100 ? "lg" : "default");
   });
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   return (
     <>

@@ -21,7 +21,7 @@ jobs:
     name: Build Next.js runtime artifact
     runs-on: ubuntu-latest
     container:
-      image: node:22-alpine
+      image: node:24.21.0-alpine
       options: >-
         --cpus=2
     permissions:
@@ -68,11 +68,7 @@ jobs:
         env:
           PNPM_HOME: ~/.local/share/pnpm
         run: |
-          pnpm fetch --silent
           pnpm --reporter=append-only install --frozen-lockfile --prefer-offline
-
-      - name: Allow build scripts (non-interactive)
-        run: pnpm config set allow-scripts "@parcel/watcher,@tailwindcss/oxide,esbuild,sharp"
 
       - name: Recreate .env from secret
         run: |

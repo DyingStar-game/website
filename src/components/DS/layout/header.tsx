@@ -7,7 +7,7 @@ import NavLink from "@components/DS/layout/navLink";
 import { LINKS } from "@feat/navigation/Links";
 import type { buttonVariants } from "@ui/button";
 import type { VariantProps } from "class-variance-authority";
-import { useMotionValueEvent, useScroll } from "framer-motion";
+import { useMotionValueEvent, useScroll } from "motion/react";
 
 export const Header = () => {
   const [size, setSize] =

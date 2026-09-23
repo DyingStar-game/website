@@ -24,6 +24,19 @@ export const Issues = () => {
   const [page, setPage] = useState<number>(1);
   const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
   const debounced = useDebounce(query, 500);
+  const [lastFilters, setLastFilters] = useState({
+    debounced,
+    selectedProjects,
+  });
+
+  // Reset pagination when filters change (React's "adjust state during render").
+  if (
+    lastFilters.debounced !== debounced ||
+    lastFilters.selectedProjects !== selectedProjects
+  ) {
+    setLastFilters({ debounced, selectedProjects });
+    setPage(1);
+  }
   const t = useTranslations("Issue");
 
   const { data: projectIssues, isFetching } = usePaginatedIssuesQuery({
@@ -39,10 +52,6 @@ export const Issues = () => {
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     );
   };
-
-  useEffect(() => {
-    setPage(1);
-  }, [debounced, selectedProjects]);
 
   useEffect(() => {
     // Ignore first render

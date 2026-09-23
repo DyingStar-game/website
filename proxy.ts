@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
 
 const maintenanceEnd = env.MAINTENANCE_END && new Date(env.MAINTENANCE_END);
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   const excludeMaintenance = [
     "/api",
     "/_next/static",
@@ -49,5 +49,4 @@ export const config = {
   matcher: [
     "/((?!api|_next/static|_next/image|favicon.ico|apple-icon.png|icon|sitemap.xml|manifest|robots.txt|assets).*)",
   ],
-  runtime: "nodejs",
 };

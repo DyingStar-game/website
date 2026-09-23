@@ -16,9 +16,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
 import { Badge } from "@ui/badge";
 import { buttonVariants } from "@ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ui/tooltip";
-import { motion } from "framer-motion";
 import { ChevronRight, Tag, Users } from "lucide-react";
 import { DynamicIcon } from "lucide-react/dynamic";
+import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 

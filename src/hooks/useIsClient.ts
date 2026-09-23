@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
-export const useIsClient = () => {
-  const [isClient, setClient] = useState(false);
+// Nothing to subscribe to: the value only differs between server and client.
+const subscribe = () => () => undefined;
 
-  useEffect(() => {
-    setClient(true);
-  }, []);
-
-  return isClient;
-};
+export const useIsClient = () =>
+  useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
