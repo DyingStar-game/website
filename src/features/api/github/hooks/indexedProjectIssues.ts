@@ -7,9 +7,14 @@ import type {
 import { GetGithubIssue } from "@feat/issue/get/getGithubIssue.graphql";
 import { getGithubIssues } from "@feat/issue/get/getGithubIssues.graphql";
 import { meili } from "@lib/meilisearch/meilisearchClient";
-import type { FacetHit } from "meilisearch";
+import {
+  ErrorStatusCode,
+  type FacetHit,
+  MeilisearchApiError,
+} from "meilisearch";
 
 const ISSUES_INDEX = "gh_issues";
+const ISSUES_BUILD_INDEX = `${ISSUES_INDEX}_build`;
 
 const SORTABLE_ATTRIBUTES = [
   "priority",
@@ -36,28 +41,59 @@ const filterableAttribute = <K extends FilterableAttributeType>(key: K): K => {
 
 const DEFAULT_FILTER = `${filterableAttribute("status")} = "${IssueStatus.TODO}" OR ${filterableAttribute("status")} = "${IssueStatus.IN_PROGRESS}"`;
 
+const indexExists = async (uid: string) => {
+  try {
+    await meili.getRawIndex(uid);
+
+    return true;
+  } catch (error) {
+    if (
+      error instanceof MeilisearchApiError &&
+      error.cause?.code === ErrorStatusCode.INDEX_NOT_FOUND
+    ) {
+      return false;
+    }
+
+    throw error;
+  }
+};
+
 export const updateProjectIssues = async () => {
   const allIssues = await fetchAllProjectIssues();
 
-  await meili.deleteIndexIfExists(ISSUES_INDEX);
+  if (allIssues.length === 0) {
+    throw new Error("Refusing to rebuild gh_issues: GitHub returned no issue");
+  }
 
-  const createTask = await meili.createIndex(ISSUES_INDEX, {
+  await meili.deleteIndexIfExists(ISSUES_BUILD_INDEX);
+
+  const createTask = await meili.createIndex(ISSUES_BUILD_INDEX, {
     primaryKey: "id",
   });
   await meili.tasks.waitForTask(createTask.taskUid);
 
   const filterTask = await meili
-    .index(ISSUES_INDEX)
+    .index(ISSUES_BUILD_INDEX)
     .updateFilterableAttributes(FILTERABLE_ATTRIBUTES);
   await meili.tasks.waitForTask(filterTask.taskUid);
 
   const sortableTask = await meili
-    .index(ISSUES_INDEX)
+    .index(ISSUES_BUILD_INDEX)
     .updateSortableAttributes(SORTABLE_ATTRIBUTES);
   await meili.tasks.waitForTask(sortableTask.taskUid);
 
-  const addTask = await meili.index(ISSUES_INDEX).addDocuments(allIssues);
+  const addTask = await meili.index(ISSUES_BUILD_INDEX).addDocuments(allIssues);
   await meili.tasks.waitForTask(addTask.taskUid);
+
+  const swapTask = await meili.swapIndexes([
+    {
+      indexes: [ISSUES_BUILD_INDEX, ISSUES_INDEX],
+      rename: !(await indexExists(ISSUES_INDEX)),
+    },
+  ]);
+
+  await meili.tasks.waitForTask(swapTask.taskUid);
+  await meili.deleteIndexIfExists(ISSUES_BUILD_INDEX);
 };
 
 const fetchAllProjectIssues = async (
