@@ -118,28 +118,31 @@ const RoutePage = async (props: PageProps<"/[locale]/news/[slug]">) => {
 
   return (
     <LayoutMain>
-      <Link
-        href={LINKS.News.All.href()}
-        className={cn(
-          buttonVariants({
-            variant: "outline",
-          }),
-          "self-end",
-        )}
-      >
-        <ChevronLeft />
-        {t("button.viewAll")}
-      </Link>
       <LayoutSection className="gap-8 border-b border-input pb-8">
-        <Typography variant="h3" as="h1" className="flex items-center gap-4">
-          <span className="text-5xl">{attributes.titleIcon}</span>
-          {attributes.title}
-        </Typography>
+        <div className="flex flex-col-reverse justify-between gap-8 xl:flex-row">
+          <Typography variant="h3" as="h1" className="flex items-center gap-4">
+            <span className="text-5xl">{attributes.titleIcon}</span>
+            {attributes.title}
+          </Typography>
+          <Link
+            href={LINKS.News.All.href()}
+            className={cn(
+              buttonVariants({
+                variant: "outline",
+              }),
+              "self-end",
+            )}
+          >
+            <ChevronLeft />
+            {t("button.viewAll")}
+          </Link>
+        </div>
         <OptimizedImage
           src={attributes.coverUrl}
           alt={attributes.title}
           priority
           loading="eager"
+          className="aspect-video rounded object-cover"
         />
         <ServerMdx className="mb-8" source={news.content} />
         <NewsItemTags tags={attributes.tags} />
