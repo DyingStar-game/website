@@ -52,9 +52,7 @@ export type CustomDialogConfig = DialogBaseConfig & {
 };
 
 export type DialogConfig =
-  | ConfirmDialogConfig
-  | InputDialogConfig
-  | CustomDialogConfig;
+  ConfirmDialogConfig | InputDialogConfig | CustomDialogConfig;
 
 export type Dialog = DialogConfig & {
   id: string;

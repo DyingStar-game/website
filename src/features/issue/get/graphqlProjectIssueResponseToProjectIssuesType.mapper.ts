@@ -13,9 +13,8 @@ export const GraphqlProjectIssueResponseToProjectIssuesTypeMapper = (
     .filter((item) => Object.keys(item.content).length > 0)
     .map((item) => {
       const getFieldByName = (name: string) =>
-        item.fieldValues.nodes.find(
-          (field) => field.field && field.field.name === name,
-        ) ?? null;
+        item.fieldValues.nodes.find((field) => field.field?.name === name) ??
+        null;
 
       const issue: ProjectIssueType = {
         title: item.content.title,
