@@ -8,6 +8,7 @@ This guide explains the steps to keep the sitemap up to date when adding, modify
 - **Create a generator function** in `app/sitemap.tsx` for this new page, following the model of existing functions (`generateHomePageEntries`, etc.).
 - **Add a call** to this function in the main `sitemap` function to include the new page in the sitemap.
 - **Check language handling**: use `createSitemapEntries` to generate localized URLs.
+- **Update `llms.txt`** if the page is useful to AI agents: add a link in the matching section of `@feat/llms/llmsManager` (served at `/llms.txt` and `/fr/llms.txt`, see https://llmstxt.org). Secondary pages go in the `Optional` section.
 
 ## 2. Modifying a Page or URL
 
