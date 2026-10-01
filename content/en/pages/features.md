@@ -16,18 +16,36 @@ keywords:
 
 ## Star system
 
+![Star map showing the orbits of the system|sm](/assets/images/features/star-map-system.png)
+![A planet on the star map with its points of interest|sm](/assets/images/features/star-map-pois.png)
+![Roads, rails, bridges and tunnels on the star map|sm](/assets/images/features/star-map-roads.png)
+
 - Orbits of the 8 planets and their 10 moons (real Kepler laws)
-
-![Star map showing the orbits of the system|md](/assets/images/features/star-map.png)
-
 - Each body rotates on its own axis
 - 1:1 scale star system
 - Local time of the body you are standing on
-- Star map displaying orbits, day/night sides, distances and your position
+- Star map displaying orbits, day/night sides, distances, your position, POIs, roads, rails, bridges and tunnels
 - Altitude, longitude and latitude readout on the HUD
 - EVA free-flight tool to inspect bodies (debug)
 
 ![Planet surface with structures on the ground|md](/assets/images/features/planet-surface.png)
+
+## Planet Tech
+
+- Canyons
+
+![A canyon on a planet's surface|md](/assets/images/features/planet-canyon.png)
+
+- Volcanoes and lava flows
+
+![A volcano and its lava flow|md](/assets/images/features/planet-volcano.png)
+
+- Mountains
+
+![Mountain relief on the horizon|half](/assets/images/features/planet-mountains-relief.png)
+![A truck at the foot of the mountains|half](/assets/images/features/planet-mountains-road.png)
+
+- Automatically generated roads, bridges and tunnels
 
 ## Atmosphere, sky and light
 
@@ -43,6 +61,10 @@ keywords:
 - Day/night terminator
 
 ![Planet atmosphere seen from orbit|md](/assets/images/features/atmosphere-orbit.png)
+
+## Orbital station
+
+![An orbital station above a planet|md](/assets/images/features/orbital-station.png)
 
 ## Textures, materials and VFX
 
@@ -63,6 +85,7 @@ keywords:
 - Emote wheel
 - Rotate a carried object with the mouse wheel or freely on all axes
 - Footstep sounds per surface family, read from the material
+- EVA
 
 ## Vehicles
 
@@ -90,6 +113,9 @@ keywords:
 - Mining zones: rock fields generated server-side
 - Ore specific to each zone
 - Mining depot producing ore crates
+
+![Mining depot|md](/assets/images/features/mining-depot.png)
+
 - Networked crates, pallets and containers
 - Unique identifier visible on crates
 
@@ -100,6 +126,10 @@ keywords:
 ![3D teleporter interface|md](/assets/images/features/teleporter.png)
 
 ## Interface, settings and localization
+
+- "Scene" menu
+
+![The main menu on its 3D scene|md](/assets/images/features/menu-scene.png)
 
 - Fully localized: English and French
 - 46 fully remappable player actions

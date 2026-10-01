@@ -16,18 +16,36 @@ keywords:
 
 ## Système stellaire
 
+![Carte stellaire affichant les orbites du système|sm](/assets/images/features/star-map-system.png)
+![Planète sur la carte stellaire avec ses points d'intérêt|sm](/assets/images/features/star-map-pois.png)
+![Routes, rails, ponts et tunnels sur la carte stellaire|sm](/assets/images/features/star-map-roads.png)
+
 - Orbites des 8 planètes et de leurs 10 lunes (lois de Kepler réelles)
-
-![Carte stellaire affichant les orbites du système|md](/assets/images/features/star-map.png)
-
 - Rotation propre de chaque corps sur son axe
 - Taille du système à l'échelle 1:1
 - Heure locale du corps sur lequel on se tient
-- Carte stellaire permettant d'afficher les orbites, les faces jour/nuit, les distances et notre position
+- Carte stellaire permettant d'afficher les orbites, les faces jour/nuit, les distances, notre position, les POI, les routes, les rails, les ponts et les tunnels
 - Lecture de l'altitude, de la longitude et de la latitude au HUD
 - Outil de vol libre EVA pour inspecter les corps (debug)
 
 ![Surface d'une planète avec des structures au sol|md](/assets/images/features/planet-surface.png)
+
+## Planet Tech
+
+- Canyons
+
+![Canyon à la surface d'une planète|md](/assets/images/features/planet-canyon.png)
+
+- Volcans et coulées de lave
+
+![Volcan et coulée de lave|md](/assets/images/features/planet-volcano.png)
+
+- Montagnes
+
+![Relief montagneux à l'horizon|half](/assets/images/features/planet-mountains-relief.png)
+![Camion au pied des montagnes|half](/assets/images/features/planet-mountains-road.png)
+
+- Routes, ponts et tunnels générés automatiquement
 
 ## Atmosphère, ciel et lumière
 
@@ -43,6 +61,10 @@ keywords:
 - Terminateur jour/nuit
 
 ![Atmosphère d'une planète vue depuis l'orbite|md](/assets/images/features/atmosphere-orbit.png)
+
+## Station orbitale
+
+![Station orbitale au-dessus d'une planète|md](/assets/images/features/orbital-station.png)
 
 ## Textures, matériaux et VFX
 
@@ -63,6 +85,7 @@ keywords:
 - Roue d'emotes
 - Rotation d'un objet porté à la molette ou librement sur tous les axes
 - Sons de pas par famille de surface, lue dans le matériau
+- EVA
 
 ## Véhicules
 
@@ -90,6 +113,9 @@ keywords:
 - Zones de minage : champs de rochers générés côté serveur
 - Minerai propre à chaque zone
 - Dépôt minier produisant des caisses de minerai
+
+![Dépôt minier|md](/assets/images/features/mining-depot.png)
+
 - Caisses, palettes et conteneurs synchronisés en réseau
 - Identifiant unique visible sur les caisses
 
@@ -100,6 +126,10 @@ keywords:
 ![Interface 3D du téléporteur|md](/assets/images/features/teleporter.png)
 
 ## Interface, réglages et multilingue
+
+- Menu « Scène »
+
+![Menu principal sur sa scène 3D|md](/assets/images/features/menu-scene.png)
 
 - Multilingue complet : anglais et français
 - 46 actions joueur entièrement remappables
