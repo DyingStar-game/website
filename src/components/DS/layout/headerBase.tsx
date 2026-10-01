@@ -3,6 +3,7 @@
 import { type ReactNode, useState } from "react";
 
 import IconSwitch from "@components/DS/iconAnimate/iconSwitch";
+import { PulseIndicator } from "@components/DS/pulseIndicator";
 import { LogoNameSvg } from "@components/svg/logoNameSvg";
 import { LocaleSwitcher } from "@feat/i18n/LocaleSwitcher";
 import { LINKS } from "@feat/navigation/Links";
@@ -22,9 +23,10 @@ import { SiteConfig } from "siteConfig";
 type HeaderBaseProps = {
   start: ReactNode;
   end: ReactNode;
+  menuIndicator?: boolean;
 };
 
-export const HeaderBase = ({ start, end }: HeaderBaseProps) => {
+export const HeaderBase = ({ start, end, menuIndicator }: HeaderBaseProps) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [lastPathname, setLastPathname] = useState(pathname);
@@ -65,6 +67,9 @@ export const HeaderBase = ({ start, end }: HeaderBaseProps) => {
             onClick={() => setIsOpen(!isOpen)}
             isSwitch={isOpen}
           />
+          {menuIndicator && !isOpen && (
+            <PulseIndicator className="top-0 right-0" />
+          )}
         </div>
 
         <div className="col-start-2 row-start-1 flex items-center self-center">

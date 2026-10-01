@@ -1,7 +1,7 @@
 "use client";
 
 import { Typography } from "@components/DS/typography";
-import { buttonVariants } from "@components/ui/button";
+import { Button, buttonVariants } from "@components/ui/button";
 import type { NavigationLink } from "@feat/navigation/navigation.model";
 import { DEFAULT_LOCALE } from "@i18n/config";
 import { Link } from "@i18n/navigation";
@@ -14,31 +14,44 @@ type NavLinkProps = {
   link: NavigationLink;
   variant?: VariantProps<typeof buttonVariants>["variant"];
   size: VariantProps<typeof buttonVariants>["size"];
+  indicator?: boolean | string;
 };
 
-const NavLink = ({ link, variant = "ghost", size }: NavLinkProps) => {
+const NavLink = ({
+  link,
+  variant = "ghost",
+  size,
+  indicator,
+}: NavLinkProps) => {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations();
 
-  const getNavLinkClasses = (href: string) => {
+  const isActive = (href: string) => {
     const expectedPath = locale === DEFAULT_LOCALE ? href : `/${locale}${href}`;
-    const isActive = pathname.startsWith(expectedPath);
-
-    return cn(buttonVariants({ variant, size }), isActive && "active");
+    return pathname.startsWith(expectedPath);
   };
 
   return (
     <>
       {!link.disabled ? (
-        <Link href={link.href()} className={getNavLinkClasses(link.href())}>
-          {t(link.label)}
-        </Link>
+        <Button
+          asChild
+          variant={variant}
+          size={size}
+          indicator={indicator}
+          className={cn(isActive(link.href()) && "active")}
+        >
+          <Link href={link.href()}>{t(link.label)}</Link>
+        </Button>
       ) : (
         <Typography
           variant="default"
           aria-disabled
-          className={getNavLinkClasses(link.href())}
+          className={cn(
+            buttonVariants({ variant, size }),
+            isActive(link.href()) && "active",
+          )}
         >
           {t(link.label)}
         </Typography>

@@ -1,7 +1,8 @@
 import * as React from "react";
 
+import { PulseIndicator } from "@components/DS/pulseIndicator";
 import { cn } from "@lib/utils";
-import { Slot } from "@radix-ui/react-slot";
+import { Slot, Slottable } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
 
 const buttonVariants = cva(
@@ -48,6 +49,7 @@ const buttonVariants = cva(
 export type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    indicator?: boolean | string;
   };
 
 const Button = ({
@@ -55,6 +57,8 @@ const Button = ({
   variant,
   size,
   asChild = false,
+  indicator = false,
+  children,
   ...props
 }: ButtonProps) => {
   const Comp = asChild ? Slot : "button";
@@ -62,9 +66,19 @@ const Button = ({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        indicator && "relative",
+      )}
       {...props}
-    />
+    >
+      <Slottable>{children}</Slottable>
+      {indicator && (
+        <PulseIndicator
+          label={typeof indicator === "string" ? indicator : undefined}
+        />
+      )}
+    </Comp>
   );
 };
 

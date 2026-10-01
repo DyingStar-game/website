@@ -1,4 +1,29 @@
 {
+  "Changelog": {
+    "Channel": {
+      "release": "Universe",
+      "testing": "Universe Testing"
+    },
+    "JsonLd": {
+      "name": "Dying Star changelog"
+    },
+    "Metadata": {
+      "description": "Follow the Dying Star changelog: new features and fixes of the game, the Horizon server and services, on Universe and Universe Testing.",
+      "keywords": "Dying Star, DyingStar, changelog, patch notes, updates, Universe, Universe Testing, Horizon server, launcher, new features, fixes",
+      "title": "Changelog"
+    },
+    "Sidebar": {
+      "release": "Changes released on Universe.",
+      "testing": "Changes available for testing.",
+      "unreleased": "What's new"
+    },
+    "empty": "No changes on {channel} yet",
+    "heading": "{component} — What's new on {channel}",
+    "title": "Changelog",
+    "unavailable": "The changelog is currently unavailable, please try again later",
+    "unread": "New changes",
+    "version": "Version {version}"
+  },
   "Issue": {
     "Hero": {
       "description": "Join the crew and choose the missions that correspond to your skills. Each task strengthens the narrative universe of the space MMO and brings the community closer to the next step of the journey.",
@@ -111,6 +136,7 @@
       "All": "News"
     },
     "Project": {
+      "Changelog": "Changelog",
       "Contribute": "Contribute",
       "Play": "Play",
       "Project": "Project"
