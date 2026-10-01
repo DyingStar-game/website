@@ -1,3 +1,44 @@
+---
+title: "Présentation du projet"
+metaTitle: "Projet"
+description: "Découvrez le projet Dying Star : un MMO spatial open-source créé par la communauté, pour la communauté, avec un univers immersif et collaboratif."
+keywords:
+  - "Dying Star"
+  - "Dying Star Game"
+  - "DyingStar"
+  - "Star Deception"
+  - "projet open-source"
+  - "MMO spatial"
+  - "jeu communautaire"
+  - "univers narratif"
+  - "développement collaboratif"
+  - "simulation spatiale"
+  - "création participative"
+  - "jeu indépendant"
+  - "collectif de joueurs"
+---
+
+## Le projet
+
+Nous, joueurs, rêveurs et explorateurs de l'espace, nous unissons pour créer quelque chose d'unique:
+**le premier jeu de simulation spatiale, créé par la communauté, pour la communauté.**
+
+Aucun studio au monde ne peut réaliser une vision aussi ambitieuse sans un financement massif.
+Et c'est précisément pourquoi nous ne sommes pas un studio.
+Nous sommes un collectif de passionnés, unis par un rêve commun et la volonté de le construire ensemble.
+
+Un univers libre.
+Un univers transparent.
+Un univers fait de passion, de talent et de collaboration.
+
+Notre objectif: créer, ensemble, le jeu spatial ultime, un monde ouvert, vivant et évolutif, construit collectivement sur les principes de l'open source, de la démocratie participative et de l'intégrité artistique.
+
+## Description du jeu
+
+DyingStar est un jeu de simulation spatiale, avec un gameplay immersif et un univers narratif.
+
+## F.A.Q
+
 ### Quel moteur de jeu utilisez-vous ?
 
 - Nous utilisons actuellement la version 4.6 du moteur [Godot](https://godotengine.org/). Ce moteur est open-source, accessible à tous, et dispose d’une documentation de qualité. Nous utilisons une version recompilées en double précision.

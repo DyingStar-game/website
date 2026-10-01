@@ -33,6 +33,7 @@ export const Header = () => {
       start={
         <>
           <NavLink link={LINKS.Project.Project} size={size} />
+          <NavLink link={LINKS.Project.Features} size={size} />
           <NavLink link={LINKS.Project.Contribute} size={size} />
         </>
       }

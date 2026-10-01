@@ -2,8 +2,8 @@ import { createContentPage } from "@feat/contentPage/contentPage";
 import { LINKS } from "@feat/navigation/Links";
 
 const page = createContentPage({
-  slug: "privacy",
-  link: LINKS.Legal.privacy,
+  slug: "features",
+  link: LINKS.Project.Features,
 });
 
 export const dynamic = "force-static";

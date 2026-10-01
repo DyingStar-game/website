@@ -99,9 +99,6 @@
       "action": "Toutes les news",
       "title": "Actualités"
     },
-    "ProjectDescription": {
-      "title": "Présentation du projet"
-    },
     "Task": {
       "action": "Toutes les tâches",
       "title": "Tâches"
@@ -111,7 +108,7 @@
     "Footer": {
       "Community": "Communauté",
       "Contribute": "Contribuer",
-      "Lore": "Lore",
+      "Game": "Jeu",
       "News": "Actualités",
       "Project": "Projet"
     },
@@ -138,6 +135,7 @@
     "Project": {
       "Changelog": "Changelog",
       "Contribute": "Contribuer",
+      "Features": "Fonctionnalités",
       "Launcher": "Launcher",
       "Play": "Jouer",
       "Project": "Projet"
@@ -211,49 +209,10 @@
     }
   },
   "Play": {
-    "Metadata": {
-      "description": "Téléchargez DyingStar et rejoignez le serveur de test actuellement en ligne. Connexion Discord requise. Suivez le guide d'installation et de mise à jour du launcher.",
-      "keywords": "DyingStar, télécharger DyingStar, DyingStar launcher, Universe Testing, serveur de test DyingStar, jeu communautaire, connexion Discord, installation jeu, mise à jour DyingStar",
-      "title": "Jouer à DyingStar"
-    },
-    "action": "Télécharger le jeu",
-    "title": "Jouer au jeu"
-  },
-  "Privacy": {
-    "JsonLd": {
-      "Article": {
-        "headline": "Politique de confidentialité"
-      }
-    },
-    "Metadata": {
-      "description": "Découvrez la politique de confidentialité de Dying Star : comment nous collectons, utilisons et protégeons vos données tout en respectant votre vie privée.",
-      "keywords": "Dying Star, Jeu Dying Star, DyingStar, Star Deception, politique de confidentialité, données personnelles, vie privée, protection des données, RGPD, sécurité, informations utilisateurs",
-      "title": "Politique de confidentialité"
-    },
-    "title": "Politique de confidentialité"
-  },
-  "Project": {
-    "Metadata": {
-      "description": "Découvrez le projet Dying Star : un MMO spatial open-source créé par la communauté, pour la communauté, avec un univers immersif et collaboratif.",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, projet open-source, MMO spatial, jeu communautaire, univers narratif, développement collaboratif, simulation spatiale, création participative, jeu indépendant, collectif de joueurs",
-      "title": "Projet"
-    }
+    "action": "Télécharger le jeu"
   },
   "RSS": {
     "description": "Flux RSS du jeu communautaire Dying Star",
     "title": "Dying Star"
-  },
-  "Terms": {
-    "JsonLd": {
-      "Article": {
-        "headline": "Conditions d'utilisation"
-      }
-    },
-    "Metadata": {
-      "description": "Consultez les conditions d'utilisation de Dying Star : règles d'accès, droits et responsabilités des utilisateurs pour profiter du MMO spatial en toute sécurité.",
-      "keywords": "Dying Star, Jeu Dying Star, DyingStar, Star Deception, conditions d'utilisation, règles du jeu, droits utilisateurs, obligations, MMO spatial, sécurité, termes et conditions",
-      "title": "Conditions d'utilisation"
-    },
-    "title": "Conditions d'utilisation"
   }
 }

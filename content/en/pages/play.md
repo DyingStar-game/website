@@ -1,3 +1,19 @@
+---
+title: "Play game"
+metaTitle: "Play DyingStar"
+description: "Download DyingStar and join the currently online test server. Discord login required. Follow the launcher's installation and update guide."
+keywords:
+  - "DyingStar"
+  - "download DyingStar"
+  - "DyingStar launcher"
+  - "Universe Testing"
+  - "DyingStar test server"
+  - "community game"
+  - "Discord login"
+  - "game installation"
+  - "DyingStar update"
+---
+
 ## Current status of the game
 
 DyingStar is currently in **development**. Only the **Universe Testing** environment is online.

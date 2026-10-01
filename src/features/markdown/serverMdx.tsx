@@ -1,6 +1,5 @@
-import type { OptimizedImageProps } from "@components/DS/optimizedImage/optimizeImage";
-import { OptimizedImage } from "@components/DS/optimizedImage/optimizeImage";
 import { rehypePlugins, remarkPlugins } from "@feat/markdown/markdown.config";
+import { MdxImage } from "@feat/markdown/mdxImage";
 import { cn } from "@lib/utils";
 import type { MDXComponents } from "next-mdx-remote-client/rsc";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
@@ -11,11 +10,8 @@ type ServerMdxProps = {
 };
 
 const MdxComponent: MDXComponents = {
-  img: ({ ...props }: OptimizedImageProps) => {
-    if (!props.src) return null;
-
-    return <OptimizedImage {...props} />;
-  },
+  // ![alt](src), ![alt|md](src) or ![alt|sm](src)
+  img: MdxImage,
 };
 
 export const ServerMdx = (props: ServerMdxProps) => {
@@ -31,7 +27,8 @@ export const ServerMdx = (props: ServerMdxProps) => {
         // "prose-h3:text-xl prose-h3:font-normal md:prose-h3:text-2xl lg:prose-h3:text-3xl",
         // "prose-h4:text-xl prose-h4:font-normal",
         "prose-figure:flex prose-figure:flex-col prose-figure:items-center",
-        "prose-p:has-[img]:flex prose-p:has-[img]:flex-col prose-p:has-[img]:items-center",
+        // Consecutive images (same paragraph) are side by side when their sizes fit on one line
+        "prose-p:has-[img]:flex prose-p:has-[img]:flex-wrap prose-p:has-[img]:items-center prose-p:has-[img]:justify-center prose-p:has-[img]:gap-4",
         props.className,
       )}
     >
