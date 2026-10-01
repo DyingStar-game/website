@@ -9,11 +9,15 @@ import type {
 const FOOTER_LINKS: NavigationLinksGroups = [
   {
     title: "Layout.Footer.Project",
-    links: [LINKS.Project.Project, LINKS.Project.Contribute, LINKS.News.All],
+    links: [
+      LINKS.Project.Project,
+      LINKS.Project.Features,
+      LINKS.Project.Contribute,
+    ],
   },
   {
-    title: "Layout.Footer.Lore",
-    links: [LINKS.Lore.History],
+    title: "Layout.Footer.Game",
+    links: [LINKS.News.All, LINKS.Project.Changelog, LINKS.Project.Play],
   },
   {
     title: "Layout.Footer.Community",

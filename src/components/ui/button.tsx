@@ -1,7 +1,8 @@
 import * as React from "react";
 
+import { PulseIndicator } from "@components/DS/pulseIndicator";
 import { cn } from "@lib/utils";
-import { Slot } from "@radix-ui/react-slot";
+import { Slot, Slottable } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
 
 const buttonVariants = cva(
@@ -34,6 +35,8 @@ const buttonVariants = cva(
           "px-6 py-2 has-[>svg:not(:only-child)]:p-3 [&_svg:not([class*='size-'])]:size-5 xl:[&_svg:not([class*='size-'])]:size-6",
         sm: "px-5 py-2 leading-none has-[>svg]:px-5",
         lg: "px-8 py-5 text-base has-[>svg:not(:only-child)]:px-6 2xl:px-10 2xl:py-6 2xl:text-xl 2xl:has-[>svg:not(:only-child)]:px-6",
+        header:
+          "px-6 py-5 text-base has-[>svg:not(:only-child)]:px-6 xl:px-4 2xl:px-6",
         xl: "gap-4 rounded px-5 py-5 text-2xl leading-none font-extralight sm:text-3xl md:text-4xl lg:px-10 lg:py-6 lg:text-5xl lg:has-[>svg]:px-4 xl:leading-none [&_svg:not([class*='size-'])]:size-8 md:[&_svg:not([class*='size-'])]:size-9 lg:[&_svg:not([class*='size-'])]:size-12",
         icon: "size-9",
       },
@@ -48,6 +51,7 @@ const buttonVariants = cva(
 export type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    indicator?: boolean | string;
   };
 
 const Button = ({
@@ -55,6 +59,8 @@ const Button = ({
   variant,
   size,
   asChild = false,
+  indicator = false,
+  children,
   ...props
 }: ButtonProps) => {
   const Comp = asChild ? Slot : "button";
@@ -62,9 +68,19 @@ const Button = ({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        indicator && "relative",
+      )}
       {...props}
-    />
+    >
+      <Slottable>{children}</Slottable>
+      {indicator && (
+        <PulseIndicator
+          label={typeof indicator === "string" ? indicator : undefined}
+        />
+      )}
+    </Comp>
   );
 };
 

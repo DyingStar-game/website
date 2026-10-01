@@ -79,6 +79,18 @@ const generateContributePageEntries = (): SitemapEntry[] => {
   );
 };
 
+const generateChangelogPageEntries = (): SitemapEntry[] => {
+  return createSitemapEntries(
+    LINKS.Project.Changelog.href(),
+    new Date(),
+    "daily",
+  );
+};
+
+const generateFeaturesPageEntries = (): SitemapEntry[] => {
+  return createSitemapEntries(LINKS.Project.Features.href());
+};
+
 const generateProjectPageEntries = (): SitemapEntry[] => {
   return createSitemapEntries(LINKS.Project.Project.href());
 };
@@ -94,8 +106,10 @@ const generateTermsPageEntries = (): SitemapEntry[] => {
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const homepageEntries = generateHomePageEntries();
   const projectPageEntries = generateProjectPageEntries();
+  const featuresPageEntries = generateFeaturesPageEntries();
   const contributePageEntries = generateContributePageEntries();
   const newsPageEntries = generateNewsPageEntries();
+  const changelogPageEntries = generateChangelogPageEntries();
   const newsDetailPageEntries = await generateNewsDetailPageEntries();
   const privacyPageEntries = generatePrivacyPageEntries();
   const termsPageEntries = generateTermsPageEntries();
@@ -103,9 +117,11 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   return [
     ...homepageEntries,
     ...projectPageEntries,
+    ...featuresPageEntries,
     ...contributePageEntries,
     ...newsPageEntries,
     ...newsDetailPageEntries.flat(),
+    ...changelogPageEntries,
     ...privacyPageEntries,
     ...termsPageEntries,
   ];

@@ -1,4 +1,29 @@
 {
+  "Changelog": {
+    "Channel": {
+      "release": "Universe",
+      "testing": "Universe Testing"
+    },
+    "JsonLd": {
+      "name": "Dying Star changelog"
+    },
+    "Metadata": {
+      "description": "Follow the Dying Star changelog: new features and fixes of the game, the Horizon server and services, on Universe and Universe Testing.",
+      "keywords": "Dying Star, DyingStar, changelog, patch notes, updates, Universe, Universe Testing, Horizon server, launcher, new features, fixes",
+      "title": "Changelog"
+    },
+    "Sidebar": {
+      "release": "Changes released on Universe.",
+      "testing": "Changes available for testing.",
+      "unreleased": "What's new"
+    },
+    "empty": "No changes on {channel} yet",
+    "heading": "{component} — What's new on {channel}",
+    "title": "Changelog",
+    "unavailable": "The changelog is currently unavailable, please try again later",
+    "unread": "New changes",
+    "version": "Version {version}"
+  },
   "Issue": {
     "Hero": {
       "description": "Join the crew and choose the missions that correspond to your skills. Each task strengthens the narrative universe of the space MMO and brings the community closer to the next step of the journey.",
@@ -74,9 +99,6 @@
       "action": "All news",
       "title": "News"
     },
-    "ProjectDescription": {
-      "title": "Project overview"
-    },
     "Task": {
       "action": "All tasks",
       "title": "Tasks"
@@ -86,7 +108,7 @@
     "Footer": {
       "Community": "Community",
       "Contribute": "Contribute",
-      "Lore": "Lore",
+      "Game": "Game",
       "News": "News",
       "Project": "Project"
     },
@@ -111,10 +133,32 @@
       "All": "News"
     },
     "Project": {
+      "Changelog": "Changelog",
       "Contribute": "Contribute",
+      "Features": "Features",
+      "Launcher": "Launcher",
       "Play": "Play",
       "Project": "Project"
     }
+  },
+  "Llms": {
+    "Community": {
+      "discord": "Official community server: chat with contributors and team leads, get the test server access and follow the votes.",
+      "github": "Source code, issues and project organization of Dying Star."
+    },
+    "Project": {
+      "launcher": "Latest release of the DyingStar launcher (Windows and Linux), required to download the game, keep it up to date and join the test servers."
+    },
+    "Sections": {
+      "changelog": "Latest releases",
+      "community": "Community",
+      "news": "Latest news",
+      "project": "Project"
+    },
+    "alternateLocale": "Same content in the \"{locale}\" language.",
+    "details": "Dying Star is developed by volunteers on the Godot engine (open source, double precision build). The project relies on open source, participatory democracy (the community votes on major decisions) and artistic integrity: the use of AI in artistic creations is prohibited. Anyone can join and contribute, whatever their skills.",
+    "latestRelease": "released on {date}",
+    "summary": "Dying Star is an open-source space MMO simulation game, created by the community, for the community, with an immersive and collaborative narrative universe."
   },
   "LocaleSwitcher": {
     "en": "English",
@@ -165,49 +209,10 @@
     }
   },
   "Play": {
-    "Metadata": {
-      "description": "Download DyingStar and join the currently online test server. Discord login required. Follow the launcher's installation and update guide.",
-      "keywords": "DyingStar, download DyingStar, DyingStar launcher, Universe Testing, DyingStar test server, community game, Discord login, game installation, DyingStar update",
-      "title": "Play DyingStar"
-    },
-    "action": "Download game",
-    "title": "Play game"
-  },
-  "Privacy": {
-    "JsonLd": {
-      "Article": {
-        "headline": "Privacy Policy"
-      }
-    },
-    "Metadata": {
-      "description": "Discover Dying Star's privacy policy: how we collect, use, and protect your data while respecting your privacy.",
-      "keywords": "Dying Star, Dying Star game, DyingStar, Star Deception, privacy policy, personal data, privacy, data protection, GDPR, security, user information",
-      "title": "Privacy Policy"
-    },
-    "title": "Privacy Policy"
-  },
-  "Project": {
-    "Metadata": {
-      "description": "Discover the Dying Star project: an open-source space MMO created by the community, for the community, with an immersive and collaborative universe.",
-      "keywords": "Dying Star, Dying Star Game, DyingStar, Star Deception, open-source project, space MMO, community game, narrative universe, collaborative development, space simulation, participatory creation, independent game, player collective",
-      "title": "Project"
-    }
+    "action": "Download game"
   },
   "RSS": {
     "description": "RSS feed for the Dying Star community game",
     "title": "Dying Star"
-  },
-  "Terms": {
-    "JsonLd": {
-      "Article": {
-        "headline": "Terms of Use"
-      }
-    },
-    "Metadata": {
-      "description": "Check out the terms of use for Dying Star: access rules, user rights, and responsibilities to enjoy the space MMO safely.",
-      "keywords": "Dying Star, Dying Star game, DyingStar, Star Deception, terms of use, game rules, user rights, obligations, space MMO, security, terms and conditions",
-      "title": "Terms of Use"
-    },
-    "title": "Terms of Use"
   }
 }

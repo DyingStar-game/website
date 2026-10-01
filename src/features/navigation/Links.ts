@@ -59,13 +59,20 @@ export const LINKS = {
   Project: {
     Contribute: createLink("/contribute", "Links.Project.Contribute", {}),
     Play: createLink("/play", "Links.Project.Play"),
+    Launcher: createLink(
+      "https://github.com/DyingStar-game/launcher/releases/latest",
+      "Links.Project.Launcher",
+      { target: "_blank" },
+      false,
+    ),
     Configuration: createLink(
       "/configuration",
       "Configuration",
       { disabled: true },
       false,
     ),
-    Changelog: createLink("/changelog", "Changelog", { disabled: true }, false),
+    Changelog: createLink("/changelog", "Links.Project.Changelog"),
+    Features: createLink("/features", "Links.Project.Features"),
     Roadmap: createLink("/roadmap", "Roadmap", { disabled: true }, false),
     Project: createLink("/project", "Links.Project.Project", {}, false),
   },

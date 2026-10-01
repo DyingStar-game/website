@@ -18,7 +18,14 @@ export const Providers = ({ children }: PropsWithChildren) => {
   const queryClient = getQueryClient();
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      scriptProps={
+        typeof window === "undefined" ? undefined : { type: "application/json" }
+      }
+    >
       <QueryClientProvider client={queryClient}>
         <Toaster />
         <DialogManagerRenderer />
