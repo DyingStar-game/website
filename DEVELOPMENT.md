@@ -342,16 +342,18 @@ Images go in `public/assets/images/<page>/` and keep their own ratio. Their size
 | -------- | -------------------- |
 | `lg`     | full width (default) |
 | `md`     | 2/3 width, centered  |
+| `half`   | 1/2 width, centered  |
 | `sm`     | 1/3 width, centered  |
 
 ```md
-![Star map](/assets/images/features/star-map.png)
-![Star map|md](/assets/images/features/star-map.png)
-![Star map|sm](/assets/images/features/star-map.png)
+![Star map](/assets/images/features/star-map-system.png)
+![Star map|md](/assets/images/features/star-map-system.png)
+![Star map|half](/assets/images/features/star-map-system.png)
+![Star map|sm](/assets/images/features/star-map-system.png)
 ```
 
 - On mobile, images always take the full width.
-- Consecutive images (no blank line between them) are side by side when their sizes fit on one line: 3 `sm`, or 1 `md` + 1 `sm`.
+- Consecutive images (no blank line between them) are side by side when their sizes fit on one line: 3 `sm`, 2 `half`, or 1 `md` + 1 `sm`.
 - If a modifier is set twice, the last one wins. Parsing stops at the first unknown word, which stays in the alt text.
 
 ## 🏗️ Technology Stack

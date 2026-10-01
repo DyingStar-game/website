@@ -6,12 +6,13 @@ import { type VariantProps, cva } from "class-variance-authority";
 // Images keep their own ratio instead of the aspect-video of OptimizedImage,
 // 16:9 is only reserved while loading to limit layout shifts.
 // They always take the full width on mobile.
-// Widths subtract the paragraph gap-4 (1rem), so that 3 sm or 1 md + 1 sm fit on one line
+// Widths subtract the paragraph gap-4 (1rem), so that 3 sm, 2 half or 1 md + 1 sm fit on one line
 const mdxImageVariants = cva("aspect-[auto_16/9]", {
   variants: {
     size: {
       lg: "w-full",
       md: "w-full md:w-[calc((100%-1rem)*2/3)]",
+      half: "w-full md:w-[calc((100%-1rem)/2)]",
       sm: "w-full md:w-[calc((100%-2rem)/3)]",
     },
   },
@@ -30,6 +31,7 @@ type ImageModifiers = {
 const MDX_IMAGE_CONTAINER_SIZES: Record<MdxImageSize, string | undefined> = {
   lg: undefined,
   md: "(max-width: 768px) 100vw, 66vw",
+  half: "(max-width: 768px) 100vw, 50vw",
   sm: "(max-width: 768px) 100vw, 33vw",
 };
 
@@ -61,11 +63,11 @@ const parseImageModifiers = (alt: string): [string, ImageModifiers] => {
 
 /**
  * Image of the markdown content, configured with modifiers at the end of the alt text:
- * - size: lg (full width, default), md (2/3 width), sm (1/3 width)
+ * - size: lg (full width, default), md (2/3 width), half (1/2 width), sm (1/3 width)
  *
  * @example
  * ```md
- * ![Star map|md](/assets/images/features/star-map.png)
+ * ![Star map|md](/assets/images/features/star-map-system.png)
  * ![Teleporter|sm](/assets/images/features/teleporter.png)
  * ```
  */
