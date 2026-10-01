@@ -37,14 +37,14 @@ export const HeaderBase = ({ start, end, menuIndicator }: HeaderBaseProps) => {
     setIsOpen(false);
   }
   const [size, setSize] =
-    useState<VariantProps<typeof buttonVariants>["size"]>("lg");
+    useState<VariantProps<typeof buttonVariants>["size"]>("header");
   const { scrollY } = useScroll();
   const height = useTransform(scrollY, [0, 100], ["140px", "92px"]);
   const opacity = useTransform(scrollY, [0, 10], [0, 1]);
   const bg = useMotionTemplate`rgba(21, 20, 19, ${opacity})`; // match with background class
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setSize(latest < 100 ? "lg" : "default");
+    setSize(latest < 100 ? "header" : "default");
   });
 
   return (
@@ -53,7 +53,7 @@ export const HeaderBase = ({ start, end, menuIndicator }: HeaderBaseProps) => {
         id="fixed-header"
         style={{ height, backgroundColor: bg }}
         className={cn(
-          "fixed inset-x-0 top-0 z-50 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] content-start items-start gap-4 overflow-hidden p-4 shadow-md xl:content-center xl:items-center xl:p-7 2xl:gap-8",
+          "fixed inset-x-0 top-0 z-50 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] content-start items-start gap-4 overflow-hidden p-4 shadow-md xl:content-center xl:items-center xl:p-7 2xl:gap-6",
           "min-h-[72px] border-b border-input",
           isOpen
             ? "h-auto! max-h-screen bg-background!"
@@ -82,12 +82,12 @@ export const HeaderBase = ({ start, end, menuIndicator }: HeaderBaseProps) => {
           </Link>
         </div>
 
-        <nav className="col-span-3 col-start-1 row-start-2 flex flex-col gap-4 uppercase xl:col-span-1 xl:col-start-1 xl:row-start-1 xl:flex-row xl:items-center xl:justify-end xl:gap-3 2xl:gap-8">
+        <nav className="col-span-3 col-start-1 row-start-2 flex flex-col gap-4 uppercase xl:col-span-1 xl:col-start-1 xl:row-start-1 xl:flex-row xl:items-center xl:justify-end xl:gap-2 2xl:gap-4">
           {start}
         </nav>
 
-        <div className="col-span-3 col-start-1 row-start-3 flex flex-col gap-4 xl:col-span-1 xl:col-start-3 xl:row-start-1 xl:flex-row xl:items-center xl:gap-3 2xl:gap-8">
-          <nav className="flex flex-col gap-4 uppercase xl:flex-row xl:items-center xl:gap-3 2xl:gap-8">
+        <div className="col-span-3 col-start-1 row-start-3 flex flex-col gap-4 xl:col-span-1 xl:col-start-3 xl:row-start-1 xl:flex-row xl:items-center xl:gap-2 2xl:gap-4">
+          <nav className="flex flex-col gap-4 uppercase xl:flex-row xl:items-center xl:gap-2 2xl:gap-4">
             {end}
           </nav>
           <LocaleSwitcher size={size} className="xl:ml-auto" />

@@ -1,3 +1,19 @@
+---
+title: "Jouer au jeu"
+metaTitle: "Jouer à DyingStar"
+description: "Téléchargez DyingStar et rejoignez le serveur de test actuellement en ligne. Connexion Discord requise. Suivez le guide d'installation et de mise à jour du launcher."
+keywords:
+  - "DyingStar"
+  - "télécharger DyingStar"
+  - "DyingStar launcher"
+  - "Universe Testing"
+  - "serveur de test DyingStar"
+  - "jeu communautaire"
+  - "connexion Discord"
+  - "installation jeu"
+  - "mise à jour DyingStar"
+---
+
 ## État actuel du jeu
 
 DyingStar est actuellement en phase de **développement**. Seul l'environnement **Universe Testing** est en ligne

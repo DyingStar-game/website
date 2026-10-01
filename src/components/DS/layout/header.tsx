@@ -16,7 +16,7 @@ import { useTranslations } from "next-intl";
 
 export const Header = () => {
   const [size, setSize] =
-    useState<VariantProps<typeof buttonVariants>["size"]>("lg");
+    useState<VariantProps<typeof buttonVariants>["size"]>("header");
 
   const { scrollY } = useScroll();
   const t = useTranslations("Changelog");
@@ -24,7 +24,7 @@ export const Header = () => {
   const hasUnreadChangelog = hasUnread();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setSize(latest < 100 ? "lg" : "default");
+    setSize(latest < 100 ? "header" : "default");
   });
 
   return (
@@ -33,6 +33,7 @@ export const Header = () => {
       start={
         <>
           <NavLink link={LINKS.Project.Project} size={size} />
+          <NavLink link={LINKS.Project.Features} size={size} />
           <NavLink link={LINKS.Project.Contribute} size={size} />
         </>
       }

@@ -87,6 +87,10 @@ const generateChangelogPageEntries = (): SitemapEntry[] => {
   );
 };
 
+const generateFeaturesPageEntries = (): SitemapEntry[] => {
+  return createSitemapEntries(LINKS.Project.Features.href());
+};
+
 const generateProjectPageEntries = (): SitemapEntry[] => {
   return createSitemapEntries(LINKS.Project.Project.href());
 };
@@ -102,6 +106,7 @@ const generateTermsPageEntries = (): SitemapEntry[] => {
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const homepageEntries = generateHomePageEntries();
   const projectPageEntries = generateProjectPageEntries();
+  const featuresPageEntries = generateFeaturesPageEntries();
   const contributePageEntries = generateContributePageEntries();
   const newsPageEntries = generateNewsPageEntries();
   const changelogPageEntries = generateChangelogPageEntries();
@@ -112,6 +117,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   return [
     ...homepageEntries,
     ...projectPageEntries,
+    ...featuresPageEntries,
     ...contributePageEntries,
     ...newsPageEntries,
     ...newsDetailPageEntries.flat(),

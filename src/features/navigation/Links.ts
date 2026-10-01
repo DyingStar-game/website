@@ -72,6 +72,7 @@ export const LINKS = {
       false,
     ),
     Changelog: createLink("/changelog", "Links.Project.Changelog"),
+    Features: createLink("/features", "Links.Project.Features"),
     Roadmap: createLink("/roadmap", "Roadmap", { disabled: true }, false),
     Project: createLink("/project", "Links.Project.Project", {}, false),
   },

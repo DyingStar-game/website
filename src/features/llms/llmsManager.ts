@@ -1,5 +1,7 @@
 import { getChangelog } from "@feat/changelog/changelogManager";
+import { getContentPage } from "@feat/contentPage/contentPageManager";
 import { LINKS } from "@feat/navigation/Links";
+import type { NavigationLink } from "@feat/navigation/navigation.model";
 import { getLastNews } from "@feat/news/newsManager";
 import { LOCALES } from "@i18n/config";
 import { createLocalizedUrl } from "@lib/serverUrl";
@@ -38,22 +40,39 @@ const renderLink = ({ title, url, notes }: LlmsLink) =>
 const renderSection = ({ title, links }: LlmsSection) =>
   [`## ${title}`, "", ...links.map(renderLink)].join("\n");
 
+const createContentPageLinks = async (
+  locale: Locale,
+  pages: { slug: string; link: NavigationLink }[],
+): Promise<LlmsLink[]> => {
+  const links = await Promise.all(
+    pages.map(async ({ slug, link }) => {
+      const page = await getContentPage(slug, locale);
+      if (!page) return [];
+
+      return [
+        {
+          title: page.attributes.metaTitle ?? page.attributes.title,
+          url: createLocalizedUrl(locale, link.href()),
+          notes: page.attributes.description,
+        },
+      ];
+    }),
+  );
+
+  return links.flat();
+};
+
 const generateProjectSection = async (locale: Locale): Promise<LlmsSection> => {
   const t = await getTranslations({ locale });
 
   return {
     title: t("Llms.Sections.project"),
     links: [
-      {
-        title: t("Links.Project.Project"),
-        url: createLocalizedUrl(locale, LINKS.Project.Project.href()),
-        notes: t("Project.Metadata.description"),
-      },
-      {
-        title: t("Links.Project.Play"),
-        url: createLocalizedUrl(locale, LINKS.Project.Play.href()),
-        notes: t("Play.Metadata.description"),
-      },
+      ...(await createContentPageLinks(locale, [
+        { slug: "project", link: LINKS.Project.Project },
+        { slug: "features", link: LINKS.Project.Features },
+        { slug: "play", link: LINKS.Project.Play },
+      ])),
       {
         title: t("Links.Project.Launcher"),
         url: LINKS.Project.Launcher.href(),
@@ -162,16 +181,10 @@ const generateOptionalSection = async (
     // "Optional" is a keyword of the llms.txt spec, it must not be translated
     title: "Optional",
     links: [
-      {
-        title: t("Links.Legal.privacy"),
-        url: createLocalizedUrl(locale, LINKS.Legal.privacy.href()),
-        notes: t("Privacy.Metadata.description"),
-      },
-      {
-        title: t("Links.Legal.terms"),
-        url: createLocalizedUrl(locale, LINKS.Legal.terms.href()),
-        notes: t("Terms.Metadata.description"),
-      },
+      ...(await createContentPageLinks(locale, [
+        { slug: "privacy", link: LINKS.Legal.privacy },
+        { slug: "terms", link: LINKS.Legal.terms },
+      ])),
       ...alternateLocales.map((alternateLocale) => ({
         title: `llms.txt (${alternateLocale})`,
         url: createLocalizedUrl(alternateLocale, "/llms.txt"),
