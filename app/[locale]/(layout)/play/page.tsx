@@ -65,9 +65,7 @@ const PlayPage = async (props: PageProps<"/[locale]/play">) => {
 
       <div className="grid md:grid-cols-3">
         <Button asChild variant="default" className="md:col-start-2">
-          <Link href="https://github.com/DyingStar-game/launcher/releases/latest">
-            {t("action")}
-          </Link>
+          <Link href={LINKS.Project.Launcher.href()}>{t("action")}</Link>
         </Button>
       </div>
       <JsonLd data={playPageJsonLd} />

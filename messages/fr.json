@@ -138,9 +138,29 @@
     "Project": {
       "Changelog": "Changelog",
       "Contribute": "Contribuer",
+      "Launcher": "Launcher",
       "Play": "Jouer",
       "Project": "Projet"
     }
+  },
+  "Llms": {
+    "Community": {
+      "discord": "Serveur communautaire officiel : échanger avec les contributeurs et les leads, accéder au serveur de test et suivre les votes.",
+      "github": "Code source, tickets et organisation du projet Dying Star."
+    },
+    "Project": {
+      "launcher": "Dernière version du launcher DyingStar (Windows et Linux), nécessaire pour télécharger le jeu, le maintenir à jour et rejoindre les serveurs de test."
+    },
+    "Sections": {
+      "changelog": "Dernières versions",
+      "community": "Communauté",
+      "news": "Dernières actualités",
+      "project": "Projet"
+    },
+    "alternateLocale": "Même contenu dans la langue « {locale} ».",
+    "details": "Dying Star est développé par des bénévoles sur le moteur Godot (open source, compilé en double précision). Le projet repose sur l'open source, la démocratie participative (la communauté vote les décisions majeures) et l'intégrité artistique : l'usage de l'IA dans les créations artistiques est interdit. Tout le monde peut rejoindre le projet et contribuer, quelles que soient ses compétences.",
+    "latestRelease": "publiée le {date}",
+    "summary": "Dying Star est un MMO de simulation spatiale open source, créé par la communauté, pour la communauté, avec un univers narratif immersif et collaboratif."
   },
   "LocaleSwitcher": {
     "en": "Anglais",
