@@ -1,0 +1,75 @@
+---
+title: Lead meeting of October 6, 2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20261008-1.png
+date: 2026-10-08T10:45:49
+author: ddurieux
+discordMessageId: "1557675372978511894"
+description: "Minutes of the October 6, 2026 lead meeting: public test on October 19, feature freeze on the 13th, server meshing, truck, star map and spawn."
+tags:
+  - Project information
+  - development
+  - play test
+  - godot
+authorRoles:
+  - Project founder
+alternates: { fr: 20261008-lead-meeting-compte-rendu }
+---
+
+## ⚠️ Key takeaways
+
+- **Public test: October 19**
+- **Feature freeze: Tuesday, October 13**
+
+## 🖥️ Tech & server
+
+- **Server meshing**: test scaled up to 1,200 players. Smooth up to ~1,100, slight lag beyond that, in an unfavourable scenario (many groups of 50). A few network tweaks are planned, but not right away.
+- **Social services** (players, organisations, missions) from TigerSpace: deployment under way, with an F3 menu in Godot. Short outages are possible while it is being set up.
+- **WarpZone**: F1 controls menu, all the missing music tracks added, new menu and plenty of fixes.
+- **Caves**: Hugo is working on them.
+
+## 🏗️ Level design
+
+- New **mining village** and **factory** POIs. Each one is a Godot scene: you place the buildings and the game sets them on the ground by carving out the terrain. Very easy to use.
+- Housing requirements are being defined (bedroom, exterior, number of floors). Elevators inside villages are not convincing anyone.
+- **Containers** already modelled (untextured): reusable as the shell for housing.
+- **Two types of mines** eventually: direct access (by truck/on foot) and a shaft with an elevator.
+- 📦 A **shared list of the required 3D assets** is going to be created, since there is no 3D lead.
+
+## 🚚 Truck & batteries
+
+- **Target setup: 1 engine + 2 batteries**, with a free 4th slot (a battery for range or an engine for acceleration).
+- **Goal: ~1 h of range** (30 min per battery). Current estimate: 20 to 25 min per battery, to be measured.
+- Unloaded tests:
+  - 2 engines: 87 km/h top speed, 80 km/h in 25 s
+  - 1 engine: 45 km/h top speed, 40 km/h in 21 s, so a lack of power
+- Open question: do realistic values give the same result with Godot's vehicle system? ➜ **a technical session to schedule with WarpZone**.
+- The component system is going down very well 👍
+- Still to be framed: limiting spawning to 1 truck per player (or per mission) and handling the case of a lost truck (ravine, etc.).
+
+## 🗺️ Star map
+
+- Google Earth-style navigation, across three levels: star system ➜ planet and moons ➜ focus on a single body.
+- MVP: **navigation only**. Markers and GPS are out of scope for the MVP.
+
+## 🌍 Planettech & narrative
+
+- **Community biome map** now open ([link in the Planettech post](https://discord.com/channels/1399325839665004554/1547302526804688976/1556001742313750681), access on request): draw your zones and they will be integrated into QGIS.
+- Answers provided on the lore (city names; the factories will be renamed) and to WarpZone's questions about the atmosphere.
+- **Weather**: we are waiting for Jarran to finish his work to avoid duplicating effort.
+
+## 👥 Spawn & MVP
+
+- Random spawn in a village.
+- **Friend matchmaking**: on your first spawn, you appear in a friend's village.
+- Villages fill up at **50 players** for now, which leaves some room for friends.
+- Cities are too far apart (~800 km). **Closer cities and villages** are going to be added.
+- **Teleporters** kept for the test, so players can group up. They are currently broken with server meshing and will only teleport **the player** (no vehicle or cargo).
+- Later on: long-distance transport contracts to the railway city.
+
+![image](/assets/images/news/20261008-2.webp)
+
+![image](/assets/images/news/20261008-3.png)
