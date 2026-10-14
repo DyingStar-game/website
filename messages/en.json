@@ -21,8 +21,10 @@
     "heading": "{component} — What's new on {channel}",
     "title": "Changelog",
     "unavailable": "The changelog is currently unavailable, please try again later",
+    "uncategorized": "Other changes",
     "unread": "New changes",
-    "version": "Version {version}"
+    "version": "Version {version}",
+    "yanked": "Withdrawn"
   },
   "Issue": {
     "Hero": {

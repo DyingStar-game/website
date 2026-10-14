@@ -61,11 +61,15 @@ jobs:
       - name: Update PR body
         if: steps.build.outputs.newBody != ''
         uses: actions/github-script@v7
+        env:
+          # Through the environment: interpolated in the script, the PR body would be run as
+          # code (a backtick in it ends the template literal)
+          NEW_BODY: ${{ steps.build.outputs.newBody }}
         with:
           script: |
             await github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.issue.number,
-              body: `${{ steps.build.outputs.newBody }}`
+              body: process.env.NEW_BODY
             });
