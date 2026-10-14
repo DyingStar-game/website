@@ -19,6 +19,7 @@ import {
 } from "@feat/page/layout";
 import { combineWithParentMetadata } from "@lib/metadata";
 import { createLocalizedUrl } from "@lib/serverUrl";
+import { Badge } from "@ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@ui/card";
 import { FileQuestion } from "lucide-react";
 import type { ResolvingMetadata } from "next";
@@ -138,7 +139,7 @@ const ChangelogPage = async (props: PageProps<"/[locale]/changelog">) => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ChangelogEntries entries={currentComponent.unreleased} />
+                  <ChangelogEntries groups={currentComponent.unreleased} />
                 </CardContent>
               </Card>
             ) : (
@@ -149,9 +150,23 @@ const ChangelogPage = async (props: PageProps<"/[locale]/changelog">) => {
                   className="scroll-mt-28 xl:scroll-mt-40"
                 >
                   <CardHeader>
-                    <CardTitle className="text-primary">
+                    <CardTitle className="flex flex-wrap items-center gap-2 text-primary">
                       {currentComponent.name} —{" "}
-                      {t("version", { version: release.version })}
+                      {release.url ? (
+                        <a
+                          href={release.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          {t("version", { version: release.version })}
+                        </a>
+                      ) : (
+                        t("version", { version: release.version })
+                      )}
+                      {release.yanked && (
+                        <Badge variant="destructive">{t("yanked")}</Badge>
+                      )}
                     </CardTitle>
                     <Typography variant="muted">
                       {format.dateTime(release.date, {
@@ -161,7 +176,7 @@ const ChangelogPage = async (props: PageProps<"/[locale]/changelog">) => {
                     </Typography>
                   </CardHeader>
                   <CardContent>
-                    <ChangelogEntries entries={release.entries} />
+                    <ChangelogEntries groups={release.groups} />
                   </CardContent>
                 </Card>
               ))
