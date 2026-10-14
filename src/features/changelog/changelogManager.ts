@@ -12,12 +12,14 @@ import "server-only";
 import { z } from "zod";
 
 const CHANGELOG_URL =
-  "https://raw.githubusercontent.com/DyingStar-game/changelog/refs/heads/main/global.json";
+  "https://raw.githubusercontent.com/DyingStar-game/changelog/refs/heads/main/global.v2.json";
 
 // raw.githubusercontent.com caches the file for 5 minutes, refetching more often is useless
 const CHANGELOG_REVALIDATE_SECONDS = 300;
 
-// global.json schema version 2 (ADR 0001 of DyingStar-game/changelog)
+// global.v2.json, schema version 2 (ADRs 0001 and 0002 of
+// DyingStar-game/changelog); global.json stays a frozen version 1 snapshot for
+// launcher 1.0.0
 const LabelsSchema = z.partialRecord(z.string(), z.string());
 
 const EntrySchema = z.object({
