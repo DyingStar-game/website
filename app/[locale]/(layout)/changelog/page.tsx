@@ -26,6 +26,7 @@ import type { ResolvingMetadata } from "next";
 import { getFormatter, getTranslations } from "next-intl/server";
 import type { WebPage, WithContext } from "schema-dts";
 
+import { ChangelogBuild } from "./_components/changelogBuild";
 import { ChangelogChannelButton } from "./_components/changelogChannelButton";
 import { ChangelogEntries } from "./_components/changelogEntries";
 import { ChangelogMarkAsSeen } from "./_components/changelogMarkAsSeen";
@@ -129,19 +130,53 @@ const ChangelogPage = async (props: PageProps<"/[locale]/changelog">) => {
 
           <div className="flex min-w-0 flex-1 flex-col gap-6">
             {channel === "testing" ? (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-primary">
-                    {t("heading", {
-                      component: currentComponent.name,
-                      channel: t(`Channel.${channel}`),
-                    })}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ChangelogEntries groups={currentComponent.unreleased} />
-                </CardContent>
-              </Card>
+              <>
+                {currentComponent.unreleased.length > 0 && (
+                  <Card
+                    id="unreleased"
+                    className="scroll-mt-28 xl:scroll-mt-40"
+                  >
+                    <CardHeader>
+                      <CardTitle className="text-primary">
+                        {t("heading", {
+                          component: currentComponent.name,
+                          channel: t(`Channel.${channel}`),
+                        })}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ChangelogEntries groups={currentComponent.unreleased} />
+                    </CardContent>
+                  </Card>
+                )}
+                {/* The builds of each version, folded, the newest open */}
+                {currentComponent.devVersions.map(
+                  (devVersion, versionIndex) => (
+                    <section
+                      key={devVersion.version}
+                      id={`v${devVersion.version}`}
+                      className="flex scroll-mt-28 flex-col gap-4 xl:scroll-mt-40"
+                    >
+                      <Typography variant="h3" className="text-primary">
+                        {currentComponent.name} —{" "}
+                        {t(
+                          devVersion.released ? "version" : "versionInProgress",
+                          {
+                            version: devVersion.version,
+                          },
+                        )}
+                      </Typography>
+                      {devVersion.builds.map((build, buildIndex) => (
+                        <ChangelogBuild
+                          key={build.version}
+                          build={build}
+                          open={versionIndex === 0 && buildIndex === 0}
+                        />
+                      ))}
+                    </section>
+                  ),
+                )}
+              </>
             ) : (
               currentComponent.releases.map((release) => (
                 <Card
@@ -175,8 +210,25 @@ const ChangelogPage = async (props: PageProps<"/[locale]/changelog">) => {
                       })}
                     </Typography>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="flex flex-col gap-6">
                     <ChangelogEntries groups={release.groups} />
+                    {/* The builds that led to it, folded */}
+                    {release.builds.length > 0 && (
+                      <details className="group/builds">
+                        <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
+                          {t("builds", { count: release.builds.length })}
+                        </summary>
+                        <div className="mt-4 flex flex-col gap-4">
+                          {release.builds.map((build) => (
+                            <ChangelogBuild
+                              key={build.version}
+                              build={build}
+                              className="border"
+                            />
+                          ))}
+                        </div>
+                      </details>
+                    )}
                   </CardContent>
                 </Card>
               ))

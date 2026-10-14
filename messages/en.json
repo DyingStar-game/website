@@ -17,6 +17,8 @@
       "testing": "Changes available for testing.",
       "unreleased": "What's new"
     },
+    "build": "Build of {time} UTC",
+    "builds": "{count, plural, =1 {1 development build} other {# development builds}}",
     "empty": "No changes on {channel} yet",
     "heading": "{component} — What's new on {channel}",
     "title": "Changelog",
@@ -24,6 +26,7 @@
     "uncategorized": "Other changes",
     "unread": "New changes",
     "version": "Version {version}",
+    "versionInProgress": "Version {version} · in progress",
     "yanked": "Withdrawn"
   },
   "Issue": {

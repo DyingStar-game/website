@@ -45,6 +45,9 @@ const ChangelogComponentSchema = z.object({
       version: z.string(),
       date: z.string(),
       yanked: z.boolean(),
+      // Dev release, cut by a Universe Testing build (ADR 0003 of
+      // DyingStar-game/changelog); absent from an older JSON: not one
+      dev: z.boolean().optional(),
       url: z.string().nullable(),
       entries: LocalizedEntriesSchema,
     }),
@@ -60,6 +63,8 @@ const ChangelogSchema = z.object({
 });
 
 type Labels = z.infer<typeof LabelsSchema>;
+type LocalizedEntries = z.infer<typeof LocalizedEntriesSchema>;
+type RawRelease = z.infer<typeof ChangelogComponentSchema>["releases"][number];
 
 export type ChangelogEntry = {
   /** Localized label of the entry's area, null for older entries */
@@ -74,19 +79,39 @@ export type ChangelogGroup = {
   entries: ChangelogEntry[];
 };
 
+export type ChangelogBuild = {
+  version: string;
+  /** Build time, read from the version (`0.1.0-dev.<UTC yyyymmddhhmm>`) */
+  builtAt: Date | null;
+  groups: ChangelogGroup[];
+};
+
 export type ChangelogRelease = {
   version: string;
   date: Date;
   yanked: boolean;
   /** Compare link of the version on GitHub, when the component tags releases */
   url: string | null;
+  /** Its own entries and those of its dev releases */
   groups: ChangelogGroup[];
+  /** The dev releases that led to it, newest first */
+  builds: ChangelogBuild[];
+};
+
+/** The dev releases leading to a version, on Universe Testing */
+export type ChangelogDevVersion = {
+  version: string;
+  released: boolean;
+  builds: ChangelogBuild[];
 };
 
 export type ChangelogComponent = {
   key: string;
   name: string;
   unreleased: ChangelogGroup[];
+  /** Universe Testing: the dev releases by version, newest first */
+  devVersions: ChangelogDevVersion[];
+  /** Universe: the stable releases, newest first */
   releases: ChangelogRelease[];
   /**
    * Content hash per channel, used to detect unseen changes on the client.
@@ -118,19 +143,23 @@ const getLabel = (labels: Labels | undefined, locale: Locale) =>
   labels?.[locale] ?? labels?.[DEFAULT_LOCALE];
 
 /**
- * Groups the localized entries by type, in the order of `types`, the entries
- * without a type last. An entry's text is a headline followed by detail lines:
- * "Headline\nDetail 1\nDetail 2"
+ * Groups the localized entries of one or more sections by type, in the order
+ * of `types`, the entries without a type last. An entry's text is a headline
+ * followed by detail lines: "Headline\nDetail 1\nDetail 2"
  */
 const getLocalizedGroups = (
-  entries: z.infer<typeof LocalizedEntriesSchema>,
+  sections: LocalizedEntries[],
   changelog: z.infer<typeof ChangelogSchema>,
   areas: Record<string, Labels>,
   locale: Locale,
 ): ChangelogGroup[] => {
-  const localized = (
-    entries[locale]?.length ? entries[locale] : (entries[DEFAULT_LOCALE] ?? [])
-  ).filter((entry) => entry.text.trim());
+  const localized = sections
+    .flatMap((entries) =>
+      entries[locale]?.length
+        ? entries[locale]
+        : (entries[DEFAULT_LOCALE] ?? []),
+    )
+    .filter((entry) => entry.text.trim());
 
   return [...Object.keys(changelog.types), null].flatMap((type) => {
     const groupEntries = localized
@@ -155,6 +184,36 @@ const getLocalizedGroups = (
     return [{ label, entries: groupEntries }];
   });
 };
+
+/** The version a release leads to: `0.1.0-dev.…` -> `0.1.0` */
+const getVersionCore = (version: string) => version.split(/[-+]/)[0];
+
+/** Build time of a dev release, in its version: `0.1.0-dev.<UTC yyyymmddhhmm>` */
+const getBuildTime = (version: string) => {
+  const match = /-dev\.(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(?:\D|$)/.exec(
+    version,
+  );
+  if (!match) return null;
+  const [year, month, day, hour, minute] = match.slice(1).map(Number);
+
+  return new Date(Date.UTC(year, month - 1, day, hour, minute));
+};
+
+const hasEntries = (entries: LocalizedEntries) =>
+  Object.values(entries).some((list) => list?.length);
+
+/** Dev releases leading to `version`, with entries, newest build first */
+const getDevReleases = (releases: RawRelease[], version: string) =>
+  releases
+    .filter(
+      (release) =>
+        release.dev &&
+        getVersionCore(release.version) === version &&
+        hasEntries(release.entries),
+    )
+    .sort((a, b) =>
+      b.version.localeCompare(a.version, undefined, { numeric: true }),
+    );
 
 const getFingerprint = (data: unknown) =>
   createHash("sha1").update(JSON.stringify(data)).digest("hex").slice(0, 12);
@@ -190,32 +249,73 @@ export const getChangelog = async (
   if (!changelog) return null;
 
   return Object.entries(changelog.components).map(([key, component]) => {
-    const getGroups = (entries: z.infer<typeof LocalizedEntriesSchema>) =>
-      getLocalizedGroups(entries, changelog, component.areas, locale);
+    const getGroups = (...sections: LocalizedEntries[]) =>
+      getLocalizedGroups(sections, changelog, component.areas, locale);
+    const getBuild = (release: RawRelease): ChangelogBuild => ({
+      version: release.version,
+      builtAt: getBuildTime(release.version),
+      groups: getGroups(release.entries),
+    });
 
-    const unreleased = getGroups(component.unreleased.entries);
-    const releases = component.releases
+    const stable = component.releases.filter((release) => !release.dev);
+    const isReleased = (version: string) =>
+      stable.some((release) => release.version === version);
+
+    // Universe Testing: the dev releases by version, in the order of their
+    // newest build
+    const devTargets = new Set(
+      component.releases
+        .filter((release) => release.dev)
+        .map((release) => getVersionCore(release.version)),
+    );
+    const devReleases = [...devTargets].map((version) =>
+      getDevReleases(component.releases, version),
+    );
+    const devVersions = [...devTargets]
+      .map((version, index) => ({
+        version,
+        released: isReleased(version),
+        builds: devReleases[index].map(getBuild),
+      }))
+      .filter((devVersion) => devVersion.builds.length > 0);
+
+    // Universe: each stable release gathers the entries of its dev releases
+    const shownStable = stable
       .map((release) => ({
+        release,
+        devs: getDevReleases(component.releases, release.version),
+      }))
+      .filter(
+        ({ release, devs }) => hasEntries(release.entries) || devs.length,
+      );
+    const releases = shownStable
+      .map(({ release, devs }) => ({
         version: release.version,
         date: new Date(release.date),
         yanked: release.yanked,
         url: release.url,
-        groups: getGroups(release.entries),
+        groups: getGroups(release.entries, ...devs.map((dev) => dev.entries)),
+        builds: devs.map(getBuild),
       }))
-      .filter((release) => release.groups.length > 0)
       .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+    const unreleased = getGroups(component.unreleased.entries);
 
     return {
       key,
       name: getComponentName(key),
       unreleased,
+      devVersions,
       releases,
       fingerprints: {
-        ...(unreleased.length > 0 && {
-          testing: getFingerprint(component.unreleased.entries),
+        ...((unreleased.length > 0 || devVersions.length > 0) && {
+          testing: getFingerprint([
+            component.unreleased.entries,
+            devReleases.flat(),
+          ]),
         }),
         ...(releases.length > 0 && {
-          release: getFingerprint(component.releases),
+          release: getFingerprint(shownStable),
         }),
       },
     };
