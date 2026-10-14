@@ -52,27 +52,41 @@ export const ChangelogSidebar = async ({
             >
               {component.name}
             </Typography>
-            {channel === "testing" ? (
-              <ChangelogSidebarLink
-                href={href}
-                isActive={isActive}
-                unseen={unseen}
-              >
-                {t("Sidebar.unreleased")}
-              </ChangelogSidebarLink>
-            ) : (
-              component.releases.map((release, index) => (
-                <ChangelogSidebarLink
-                  key={release.version}
-                  href={{ ...href, hash: release.version }}
-                  isActive={false}
-                  // The indicator goes on the latest version only
-                  unseen={index === 0 ? unseen : undefined}
-                >
-                  {release.version}
-                </ChangelogSidebarLink>
-              ))
-            )}
+            {channel === "testing"
+              ? // What's new, then a link per version its builds lead to; the
+                // first one carries the selection and the indicator
+                [
+                  ...(component.unreleased.length > 0
+                    ? [{ hash: "unreleased", label: t("Sidebar.unreleased") }]
+                    : []),
+                  ...component.devVersions.map((devVersion) => ({
+                    hash: `v${devVersion.version}`,
+                    label: t(
+                      devVersion.released ? "version" : "versionInProgress",
+                      { version: devVersion.version },
+                    ),
+                  })),
+                ].map((link, index) => (
+                  <ChangelogSidebarLink
+                    key={link.hash}
+                    href={index === 0 ? href : { ...href, hash: link.hash }}
+                    isActive={isActive && index === 0}
+                    unseen={index === 0 ? unseen : undefined}
+                  >
+                    {link.label}
+                  </ChangelogSidebarLink>
+                ))
+              : component.releases.map((release, index) => (
+                  <ChangelogSidebarLink
+                    key={release.version}
+                    href={{ ...href, hash: release.version }}
+                    isActive={false}
+                    // The indicator goes on the latest version only
+                    unseen={index === 0 ? unseen : undefined}
+                  >
+                    {release.version}
+                  </ChangelogSidebarLink>
+                ))}
           </div>
         );
       })}

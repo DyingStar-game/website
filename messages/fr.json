@@ -17,12 +17,17 @@
       "testing": "Changements disponibles en test.",
       "unreleased": "Nouveautés"
     },
+    "build": "Build du {time} UTC",
+    "builds": "{count, plural, =1 {1 build de développement} other {# builds de développement}}",
     "empty": "Aucun changement sur {channel} pour le moment",
     "heading": "{component} — Nouveautés sur {channel}",
     "title": "Changelog",
     "unavailable": "Le changelog est momentanément indisponible, réessayez plus tard",
+    "uncategorized": "Autres changements",
     "unread": "Nouveaux changements",
-    "version": "Version {version}"
+    "version": "Version {version}",
+    "versionInProgress": "Version {version} · en cours",
+    "yanked": "Retirée"
   },
   "Issue": {
     "Hero": {
