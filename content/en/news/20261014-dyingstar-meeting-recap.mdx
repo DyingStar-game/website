@@ -1,0 +1,66 @@
+---
+title: DyingStar Meeting of October 13, 2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20261014-1.png
+date: 2026-10-14T22:59:35
+author: ddurieux
+discordMessageId: "1560034360256630866"
+description: "Meeting recap: social features, universe simulation, vehicles and batteries, map, bug reporting process and the Server Meshing test on the 19th."
+tags:
+  - Project information
+  - development
+  - play test
+authorRoles:
+  - Project founder
+alternates: { fr: 20261014-compte-rendu-reunion-dyingstar }
+---
+
+## 🚀 What's new
+
+- **Social** (1st iteration): profile, friends, missions, corps, groups, economy/wallet
+- **Universe simulation**: goods (ore, food…) simulated per village and warehouse, **recalculated every 5 min**. In case of a shortage, an **automatic mission** is generated (can be accepted, not yet completed)
+- **Launcher v1.0** (thanks Anthony): social features working (friends, corp)
+- 🧊 **Feature freeze**: until Monday, **bugs and optimization only**
+
+## 🚚 Vehicles and batteries
+
+- **Engine** and **Battery** wiki pages added (sub-pages of Components)
+- Bug fixed: **Godot's default engine braking**, which made 2 engines faster than 1
+- Now **103 km/h max** (empty, on flat ground) with 1 to 3 engines, only **acceleration** changes
+- ⚠️ Road roughness is at **0.5** versus **0.9** for the ground, so some slopes are harder on the road than next to it. Proposal: switch to 1 (ddurieux is looking into it)
+- 🔋 Recharging on the ground markings at **garages**: about **8 min from 0 to 100%**
+- A garage in every town/village, **factories every ~47 km** (versus ~250 before)
+- New game design channel: **battery charger** (in-game item for the MVP)
+
+## 🗺️ Map and level design
+
+- Main plateau updated with the real colors
+- Materials spreadsheet opened (sandbox)
+- Village: buildings and street furniture defined, 3D handoff coming soon
+- 📌 **List of 3D assets** pinned in the creative forum. Additions go through **WarpZone**
+- New 3D modelers have joined 🎉 Street lamps validated (designer look for big cities, industrial look for mining villages)
+- ~60-70 villages, ~20,000 spawn points
+
+## 🐛 Bug reporting process
+
+- **One post per bug** in the **QA-Report** forum, see [the news](https://discord.com/channels/1399325839665004554/1428454919861702726/1559664832431530115)
+- **Screenshot including the right-hand panel** (lat/long) for holes, stuttering, etc.
+- Emoji reactions (duplicate, fixed…) still to be defined and explained
+- Known bug: roads over canyons add dirt instead of building a bridge (fix in progress)
+
+## 🖥️ Monday the 19th test: Server Meshing Dynamic
+
+- Goal: **75 players/server**, then maybe 100-130
+- The point is to measure **server load and network**
+- ⚠️ **Teleporters do not work between servers**
+- **NPCs** will fill in if we're short on players. The more the better, so spread the word! (stream possible with Hugo)
+
+## 📅 Coming up
+
+- **QGIS export** Thursday or Friday, once the reported bugs are fixed (~15)
+- Drawing roads in QGIS: **never two people editing at the same time**
+- Post from bitogno about the **wiki corrections**
+- Post-test idea: a **camera mode** (no HUD, free flight) for videos

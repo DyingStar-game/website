@@ -1,0 +1,66 @@
+---
+title: Réunion DyingStar du 13 octobre 2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20261014-1.png
+date: 2026-10-14T22:59:35
+author: ddurieux
+discordMessageId: "1560034360256630866"
+description: "Compte rendu de la réunion : social, simulation d'univers, véhicules et batteries, map, process de report des bugs et test Server Meshing du 19."
+tags:
+  - Informations du projet
+  - développement
+  - play test
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20261014-dyingstar-meeting-recap }
+---
+
+## 🚀 Nouveautés
+
+- **Social** (1re itération) : profil, amis, missions, corpos, groupes, économie/portefeuille
+- **Simulation d'univers** : marchandises (minerai, bouffe…) simulées par village et entrepôt, **recalcul toutes les 5 min**. En cas de pénurie, une **mission auto** est générée (prenable, pas encore validable)
+- **Launcher v1.0** (merci Anthony) : social fonctionnel (amis, corpo)
+- 🧊 **Feature freeze** : jusqu'à lundi, uniquement **bugs et optimisation**
+
+## 🚚 Véhicules et batteries
+
+- Pages wiki **Moteur** et **Batterie** ajoutées (sous-pages Composants)
+- Bug corrigé : **frein moteur par défaut de Godot**, qui rendait 2 moteurs plus rapides qu'1
+- Désormais **103 km/h max** (à vide, sur le plat) avec 1 à 3 moteurs, seule l'**accélération** change
+- ⚠️ Rugosité des routes à **0,5** contre **0,9** pour le sol, donc certaines pentes sont plus dures sur la route qu'à côté. Proposition : passer à 1 (ddurieux regarde)
+- 🔋 Recharge sur les marquages au sol des **garages** : environ **8 min de 0 à 100 %**
+- Garage dans chaque ville/village, **factories tous les ~47 km** (contre ~250 avant)
+- Nouveau channel game design : **chargeur de batterie** (objet en jeu pour le MVP)
+
+## 🗺️ Map et level design
+
+- Plateau principal mis à jour avec les vraies couleurs
+- Excel des matériaux ouvert (sandbox)
+- Village : bâtiments et mobilier définis, envoi en 3D bientôt
+- 📌 **Liste des assets 3D** épinglée dans le forum créa. Les ajouts passent par **WarpZone**
+- Nouveaux modeleurs 3D arrivés 🎉 Lampadaires validés (design pour les grandes villes, industriel pour les villages miniers)
+- ~60-70 villages, ~20 000 points de spawn
+
+## 🐛 Process de report des bugs
+
+- **Un post par bug** dans le forum **QA-Report**, voir [la news](https://discord.com/channels/1399325839665004554/1428454919861702726/1559664832431530115)
+- **Screenshot avec le panneau de droite** (lat/long) pour les trous, sautillements, etc.
+- Réactions emoji (doublon, corrigé…) à définir et à expliquer
+- Bug connu : les routes sur les canyons ajoutent de la terre au lieu de faire un pont (correction en cours)
+
+## 🖥️ Test du lundi 19 : Server Meshing Dynamic
+
+- Objectif : **75 joueurs/serveur**, puis peut-être 100-130
+- Le but est de mesurer la **charge serveur et le réseau**
+- ⚠️ Les **téléporteurs ne fonctionnent pas entre serveurs**
+- Des **PNJ** compléteront si on manque de joueurs. Plus on est, mieux c'est, donc parlez-en autour de vous ! (stream possible avec Hugo)
+
+## 📅 À venir
+
+- **Export QGIS** jeudi ou vendredi, après correction des bugs remontés (~15)
+- Tracé des routes sur QGIS : **ne jamais être deux à modifier en même temps**
+- Post de bitogno pour les **corrections du wiki**
+- Idée post-test : **mode caméra** (sans HUD, vol libre) pour les vidéos
