@@ -1,0 +1,77 @@
+---
+title: DyingStar Meeting – 10/20/2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20261020-1.webp
+date: 2026-10-20T22:44:26
+author: ddurieux
+discordMessageId: "1562204873456615564"
+description: "Meeting report: infrastructure, NPCs, game design, lore, 3D, bugs and action items, with the MVP still on track for early 2027."
+tags:
+  - Project information
+  - development
+  - play test
+authorRoles:
+  - Project founder
+alternates: { fr: 20261020-compte-rendu-reunion-dyingstar }
+---
+
+## 🖥️ Infrastructure & servers
+
+- David's fiber connection is down (FDN ticket, news expected tomorrow) → Docker images and test pods moved to a data center, devs can keep working locally and merging code
+- Load testing: **1,800 players with no lag** (Horizon target: 1,000), ~70 Mb/s
+- Server meshing is almost seamless; a few slowdowns during splits when there is a massive influx, fix in progress
+- The teleporter doesn't survive meshing → it will be disabled for the test
+
+## 🤖 NPCs & simulation
+
+- NPCs are driving: garage → truck → road → next village (overtaking, honking, going around obstacles)
+- Pathfinding handled by the external NPC service, not by the server
+- Vehicle spawning limited to 1 every 30 s, no per-player limit yet
+- Universe simulation (cities, warehouses, inhabitants, food) → **supply missions generated automatically**
+- Big mission update tonight or tomorrow
+
+## 🎮 Game design
+
+- **Battery charger**: no consensus → Kainan is setting up a voice chat with the people behind the proposals (poll for the date) rather than a global vote. Not urgent, placeholder in game
+- **Star map**: the 50 cm zoom is considered excessive, possibly back to 1 m. Idea of fog of war for exploration; personal POIs already possible (sharing/reselling). Named regions via QGIS being considered
+- **Player progression**: game design meetings **every 2 weeks**, from macro (progression, early game) to micro (tutorial, unlocking vehicles). Starting again from the existing notes
+- **Reconnecting**: back to the apartment for now. Tent, bed, consequences of disconnecting: to be discussed
+- **Caves**: for the MVP, walkable on foot with no risk of getting stuck. Climbing not planned (possibly enabled in caves/canyons)
+- Cliff elevators placed by hand (village 1 + 6 near M0059), automatic placement to come
+
+## 🌍 Lore & Sandbox
+
+- ARES doc rewritten; work on populations, materials and buildable structures ([ARES documentation](https://developer.dyingstar-game.com/docs/narrativeDesign/1_01_factions_culture/Ares/))
+- About 10× more villages than expected → no problem on the server side, entities aren't loaded far from players, no hard limit
+- Local food: **60%** (instead of 80%), the rest imported (water, carbon, mineral salts). Farming villages still to be defined
+- Radioactive materials: handling to be defined, out of MVP scope
+- Building concepts using sintered spinel-alumina bricks
+- Updated doc needs reviewing (wiki PR pending)
+
+## 🏘️ 3D & audio
+
+- Furniture (bed, nightstand, wardrobe, mirror) and bathroom fixtures done; containers reworked; street lamp, canteen chair and signs in progress
+- Stackable modular containers for communal buildings and housing (village of ~250 inhabitants), tests next week
+- Still missing: large prefabs and factory warehouses
+- Audio: elevator, clothing, picking up/dropping items
+- Kilometer markers placed automatically along the roads (every 2–5 km)
+
+## 🐛 Bugs
+
+- Many fixed (terrain holes, stuttering on peaks…), ~15 left + 5 in progress
+- Review and close old tickets (one dating back to 09/2025)
+- Feature freeze until tomorrow evening, then fixes
+
+## ✅ Action items
+
+- **Kainan**: battery charger voice chat + game design meeting schedule
+- **David**: mission update, ARES/wiki doc review, old tickets, new biomes
+- **bitogno**: territorial mesh, farming villages, material composition
+- Track down WarpZone's changes on the moons (Tarsis V)
+
+🎯 MVP still well on track for **early 2027**
+
+![image](/assets/images/news/20261020-2.png)

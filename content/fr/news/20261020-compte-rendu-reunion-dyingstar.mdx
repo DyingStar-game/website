@@ -1,0 +1,77 @@
+---
+title: Réunion DyingStar du 20/10/2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20261020-1.webp
+date: 2026-10-20T22:44:26
+author: ddurieux
+discordMessageId: "1562204873456615564"
+description: "Compte rendu de la réunion : infra, PNJ, game design, lore, 3D, bugs et actions, avec un MVP toujours visé pour début 2027."
+tags:
+  - Informations du projet
+  - développement
+  - play test
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20261020-dyingstar-meeting-report }
+---
+
+## 🖥️ Infra & serveurs
+
+- Fibre de David coupée (ticket FDN, news attendues demain) → images Docker + pods de tests déplacés en data center, les devs peuvent continuer en local et merger le code
+- Tests de charge : **1 800 joueurs sans lag** (objectif Horizon : 1 000), ~70 Mb/s
+- Server meshing quasi transparent ; quelques ralentissements lors des splits en cas d'afflux massif, correction en cours
+- Le téléporteur ne passe pas le meshing → sera désactivé pour le test
+
+## 🤖 PNJ & simulation
+
+- Les PNJ conduisent : garage → camion → route → village suivant (dépassement, klaxon, contournement)
+- Pathfinding géré par le service PNJ externe, pas par le serveur
+- Spawn véhicule limité à 1 / 30 s, pas encore de limite par joueur
+- Simulation d'univers (villes, entrepôts, habitants, nourriture) → **missions de ravitaillement générées automatiquement**
+- Grosse MAJ des missions ce soir ou demain
+
+## 🎮 Game design
+
+- **Chargeur de batterie** : pas de consensus → Kainan organise un vocal avec les porteurs de propositions (sondage pour la date) plutôt qu'un vote global. Pas urgent, placeholder en jeu
+- **Star map** : zoom 50 cm jugé excessif, retour possible à 1 m. Idée de brouillard de guerre pour l'exploration ; POI perso déjà possibles (partage/revente). Régions nommées via QGIS envisagées
+- **Progression joueur** : réunions game design **toutes les 2 semaines**, du macro (progression, début de jeu) au micro (tuto, déblocage véhicules). Repartir des notes existantes
+- **Reconnexion** : retour à l'appartement pour l'instant. Tente, lit, conséquences de déco : à discuter
+- **Grottes** : pour le MVP, praticables à pied sans risque de blocage. Escalade non prévue (éventuellement activable en grotte/canyon)
+- Ascenseurs de falaise posés à la main (village 1 + 6 près de M0059), placement auto à venir
+
+## 🌍 Lore & Sandbox
+
+- Doc ARES réécrite ; travail sur populations, matériaux et bâtiments constructibles ([documentation ARES](https://developer.dyingstar-game.com/docs/narrativeDesign/1_01_factions_culture/Ares/))
+- Villages ~10× plus nombreux que prévu → pas de souci côté serveur, entités non chargées loin des joueurs, pas de limite dure
+- Nourriture locale : **60 %** (au lieu de 80 %), le reste importé (eau, carbone, sels minéraux). Villages fermes à définir
+- Matériaux radioactifs : gestion à définir, hors MVP
+- Concepts de bâtiments en briques spinelle-alumine frittées
+- Doc mise à jour à relire (PR wiki en attente)
+
+## 🏘️ 3D & audio
+
+- Mobilier (lit, chevet, armoire, miroir) et sanitaires faits ; conteneurs retravaillés ; lampadaire, chaise réfectoire et panneaux en cours
+- Conteneurs modulaires empilables pour bâtiments communs et logements (village ~250 hab.), tests la semaine prochaine
+- Manquent : gros préfabriqués et entrepôts de factories
+- Audio : ascenseur, vêtements, ramassage/dépôt d'objets
+- Bornes kilométriques placées auto le long des routes (tous les 2–5 km)
+
+## 🐛 Bugs
+
+- Beaucoup corrigés (trous terrain, sautillement sur pics…), ~15 restants + 5 en cours
+- Revoir et clôturer les vieux tickets (un datant de 09/2025)
+- Freeze features jusqu'à demain soir, puis corrections
+
+## ✅ Actions
+
+- **Kainan** : vocal chargeur de batterie + planning réunions game design
+- **David** : MAJ missions, review doc ARES/wiki, vieux tickets, nouveaux biomes
+- **bitogno** : maillage territorial, villages fermes, composition des matériaux
+- Retrouver les modifs de WarpZone sur les lunes (Tarsis V)
+
+🎯 MVP toujours en bonne voie pour **début 2027**
+
+![image](/assets/images/news/20261020-2.png)
