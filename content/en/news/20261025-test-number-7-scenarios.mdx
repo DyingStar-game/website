@@ -1,0 +1,87 @@
+---
+title: "Test number 7: scenarios"
+titleIcon: 🧪
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20261025-1.png
+date: 2026-10-25T21:39:18
+author: ddurieux
+discordMessageId: "1564015522071449681"
+description: "Monday evening at 8:30 PM, we're testing dynamic server meshing: 5 scenarios, 30 Godot servers, split, merge and a connection queue."
+tags:
+  - play test
+  - development
+  - godot
+authorRoles:
+  - Project founder
+alternates: { fr: 20261025-test-numero-7-scenarii }
+---
+
+This **Monday evening at 8:30 PM**, we're going to test **dynamic server meshing**.
+
+We'll run several tests to check how it behaves:
+
+- the health of the Godot servers
+- the issues players run into (stuttering, complete freezes...)
+- network traffic
+
+## Moving from one server to another
+
+I know some of you will want to move from one server to another: you'll be able to! In the debug panel, you'll see in real time how far the server border is from wherever you're looking.
+
+It works well both on foot and in a vehicle. You may get a mini freeze if the server you're moving onto is running below 50 - 55 TPS (yes, the servers run at 60 TPS ❤️).
+
+## Split, merge and connection queue
+
+For your information, server split and merge have already been working for several weeks. We have **30 Godot servers** that can start on demand: everything is automated and managed by the Horizon server.
+
+There is a queue if there are too many connections at the same time. Normally, you'll get onto one of the servers within a few seconds to a few dozen seconds (it will depend on whether there are 200 or 1000 of you :D).
+
+## The scenarios
+
+So here are the scenarios, with their settings and what they will test.
+
+### Scenario 1
+
+- **Persistence:** reset
+- **Max village fill:** 50
+- **Server split:** `players:65 or tps:50`
+
+### Scenario 2
+
+- **Persistence:** reset
+- **Max village fill:** 25
+- **Server split:** `players:65 or tps:50`
+
+### Scenario 3
+
+- **Persistence:** reset
+- **Max village fill:** 25
+- **Server split:** `players:45 or tps:50`
+
+### Scenario 4
+
+- **Persistence:** reset
+- **Max village fill:** 50
+- **Server split:** `players:50 or tps:50`
+
+### Scenario 5
+
+We take the best values from the 4 previous tests, and we add NPCs (connected just like players) **until it breaks**.
+
+- **Persistence:** reset
+
+## Things to do
+
+To keep you busy, here's a list of things to do:
+
+- mining
+- crate transport
+- vehicle components
+- the elevator to the left of the bridge between villages M0001 and F0001
+- missions and contracts (services tablet)
+- the freight depot and its shelves
+- the garage: vehicle terminal
+- the ARES vending machines
+- the DataPad's star map and its markers
