@@ -1,0 +1,87 @@
+---
+title: "Test numéro 7 : scenarii"
+titleIcon: 🧪
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20261025-1.png
+date: 2026-10-25T21:39:18
+author: ddurieux
+discordMessageId: "1564015522071449681"
+description: "Lundi soir à 20h30, on teste le server meshing dynamic : 5 scenarii, 30 serveurs Godot, split, merge et file d'attente."
+tags:
+  - play test
+  - développement
+  - godot
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20261025-test-number-7-scenarios }
+---
+
+Ce **lundi soir à 20h30**, on va tester le **server meshing dynamic**.
+
+On va faire plusieurs tests pour vérifier le fonctionnement :
+
+- la santé des serveurs Godot
+- les problèmes rencontrés par les joueurs (saccades, blocages complets...)
+- le trafic réseau
+
+## Passer d'un serveur à l'autre
+
+Je sais que certains vont vouloir passer d'un serveur à l'autre : vous pourrez ! Dans le panneau de debug, vous verrez en temps réel à quelle distance se situe la frontière du serveur par rapport à là où vous regardez.
+
+Ça fonctionne bien à pied comme en véhicule. Vous pouvez avoir un mini freeze si le serveur sur lequel vous passez tourne en dessous de 50 - 55 TPS (oui, les serveurs tournent à 60 TPS ❤️).
+
+## Split, merge et file d'attente
+
+Sachez que le split et le merge de serveurs fonctionnent déjà depuis plusieurs semaines. On a **30 serveurs Godot** qui peuvent démarrer à la demande : tout est automatisé et géré par le serveur Horizon.
+
+Il y a une file d'attente s'il y a trop de connexions en même temps. Normalement, vous entrez sur un des serveurs en quelques secondes à quelques dizaines de secondes (ça va dépendre si vous êtes 200 ou 1000 :D).
+
+## Les scenarii
+
+Voici donc les scenarii, avec leurs paramètres et ce qu'ils testeront.
+
+### Scenario 1
+
+- **Persistence :** reset
+- **Remplissage max des villages :** 50
+- **Split des serveurs :** `players:65 or tps:50`
+
+### Scenario 2
+
+- **Persistence :** reset
+- **Remplissage max des villages :** 25
+- **Split des serveurs :** `players:65 or tps:50`
+
+### Scenario 3
+
+- **Persistence :** reset
+- **Remplissage max des villages :** 25
+- **Split des serveurs :** `players:45 or tps:50`
+
+### Scenario 4
+
+- **Persistence :** reset
+- **Remplissage max des villages :** 50
+- **Split des serveurs :** `players:50 or tps:50`
+
+### Scenario 5
+
+On prend les meilleures valeurs des 4 tests précédents, et on ajoute des PNJ (connectés comme les joueurs) **jusqu'à rupture**.
+
+- **Persistence :** reset
+
+## Occupation
+
+Pour vous occuper, voici une liste des choses à faire :
+
+- le minage
+- le transport de caisses
+- les composants des véhicules
+- l'ascenseur à gauche du pont entre le village M0001 et F0001
+- les missions et contrats (tablette des services)
+- le dépôt de fret et ses étagères
+- le garage : terminal des véhicules
+- les distributeurs ARES
+- la carte stellaire du DataPad et ses marqueurs
