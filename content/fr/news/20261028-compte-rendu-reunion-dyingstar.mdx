@@ -1,0 +1,135 @@
+---
+title: Réunion DyingStar du 27/10/2026
+titleIcon: 📋
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/20261028-1.png
+date: 2026-10-28T07:42:01
+author: ddurieux
+discordMessageId: "1564891975684194316"
+description: "Compte rendu de la réunion du 27 octobre 2026 : avancement technique, bilan du test réseau, lore, village MVP, contrôles et actions."
+tags:
+  - Informations du projet
+  - développement
+  - play test
+  - godot
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20261028-dyingstar-meeting-report }
+---
+
+## 🛠️ Avancement technique
+
+- **Conteneurs aménagés** : lits, tables de chevet et armoire. Les cabines douche/toilettes ont été retirées car trop encombrantes et empêchent les PNJ de sortir des habitations.
+- **Missions d'exploration fonctionnelles** : on place un point sur la carte avec une récompense débitée du compte du créateur. La mission se valide automatiquement à l'arrivée sur la zone.
+- **Panel admin** : routines et activités avec calendriers, planning par défaut, roulement sur 5 PNJ par poste (journée de 25 h).
+- **Cailloux** : densité réduite via un facteur global (×30), ce qui donne des blocs volumineux de moins de 50 kg. C'est facilement ajustable.
+- **Falaises** : bien présentes (environ 800 m de haut, en bordure de zone montagne vers M0059).
+- Plusieurs corrections effectuées et performances améliorées (miroirs dans les conteneurs).
+
+## 🌐 Bilan du test réseau
+
+- ✅ Le **server meshing (Horizon + Godot) tient bien**.
+- 🐛 Certains joueurs ne pouvaient plus se connecter (problème côté Horizon), un correctif est prévu.
+- ⚠️ **Le lag vient du réseau client ↔ Horizon** : certains joueurs avaient **plus de 6 Mo en file d'attente** d'envoi.
+  - Piste principale : passer les **déplacements en UDP** pour n'envoyer que les dernières valeurs. Deux solutions sont à l'étude.
+  - La latence des joueurs sur d'autres continents sera traitée en même temps.
+  - Hypothèse d'un anti-DDoS sur la connexion de David, d'où un **test en datacenter** à prévoir (Horizon + serveurs Godot). Coût : quelques centaines d'€/mois au maximum, environ 20–30 € en usage ponctuel.
+- 📊 Avec 25 joueurs par village au lieu de 50, le trafic sortant baisse nettement.
+- 🔁 Le problème réseau devrait être **reproductible avec environ 5 joueurs et beaucoup de PNJ**. Un petit test sera organisé un soir après les correctifs.
+- 🛗 **Changement de serveur dans l'ascenseur** : il y a un accroc visible, mais rien n'a cassé.
+- 📈 Rappel : le test longue durée de 4 jours (montée à 30, avec 1 200 PNJ) était stable.
+- 🧠 À investiguer : la **mémoire Godot ne redescend pas** quand le nombre de joueurs baisse.
+- 📰 Un rapport détaillé est disponible [ici](https://discord.com/channels/1399325839665004554/1399737844830044241/1564711466312011887).
+
+## 🔋 Game design / organisation
+
+- Pas d'avancée cette semaine.
+- **Réunion « chargeur de batterie » ce mercredi à 20h30.** Le sondage a eu peu de réponses, donc venez nombreux pour qu'on tranche enfin sur une approche.
+- Ensuite, le travail sur les **routes** sera mis en avant.
+- **Priorités MVP** : chargeur de batterie, village, missions.
+
+## 📜 Lore & world design
+
+- Grosse réécriture de la doc (Arès), en attente de publication sur le wiki. **Lisez-la et donnez votre avis !**
+- **Statuts sociaux** en réécriture. David demande de **garder un seul terme** pour « ambulant » et « intérimaire ». ([document](https://docs.google.com/document/d/14JvLqjkMmY-pYKpNWkxsonVAcYzcxDb2ED_Qg7ei1fQ/edit?tab=t.0#heading=h.20r3zc2b6y9d))
+- **Recadrage de l'univers** : robots, IA, armes, prothèses. Le lien entre prospérité et densité de population explique pourquoi il n'y a pas de robots partout. ([document](https://docs.google.com/document/d/1Qs77g1MmIACr4noInPRZTAxEadx3TwdBUf56Nx2FW9E/edit?tab=t.0#heading=h.20r3zc2b6y9d))
+- Nouvelle proposition d'introduction. ([document](https://docs.google.com/document/d/11P7_hLg_fMFUSSyvkyzW3NmmPBdeW-aeM8EENpK_ncU/edit?usp=sharing))
+- **Villages** :
+  - Nouvelle nomenclature.
+  - Organigrammes des tâches pour le village minier.
+  - **Villages de transit** (repos, réparation, entrepôt), pour éviter de multiplier les villages inutiles le long des routes.
+  - **Villages agricoles confirmés** (recyclage de la biomasse).
+- Livret de travail et promotions de statut via les missions, à travailler avec le game design (Kainan, BARDOK).
+- Section nourriture réécrite. Les boîtes de nourriture devraient porter le logo **Living** plutôt que Corp (un placeholder reste OK).
+- Liste des décorations cohérentes avec la planète en cours.
+- **Régions** : David va modifier QGIS pour tracer une zone nommée, avec affichage sur la minicarte.
+- **Terrain, trois types de zones** :
+  - Hauts plateaux : poussière ou cailloux de régolithe.
+  - Zones de tempête : affleurements lisses, souvent les zones dangereuses.
+  - Bassins : sable ou rochers.
+  - Montagnes et volcans suivent les **lignes sismiques**, surtout aux croisements de plaques (il y en a une près des premières villes).
+- **Minéraux** : ajout du dédurium et hausse du vanadium. David doit fournir la **liste des composants, minéraux et nourritures** hors du code pour validation. Les minéraux absents de la planète (comme l'eau) sont importés ou viennent des lunes.
+
+## ☀️ Sol trop lumineux
+
+- Kainan trouve le sol blanc « cramé » et éblouissant (vers M001), ce qui pose un problème de confort sur un cycle de 25 h.
+- David explique que c'est normal pour un sol très blanc et très lisse. Il va **retravailler l'habillage du sol** (graviers, surface moins lisse) et le **matériau** (réflexion de la lumière).
+- Ce n'est pas une priorité pour le MVP, mais le point est noté.
+- On peut essayer quand même de le rendre moins lumineux.
+
+## 🧱 Assets à intégrer
+
+- **Grottes** : David voit le travail de Hugo pour l'intégrer.
+- **Kankan** : conteneurs en pièces détachées (pour faire des bâtiments) et première version des **panneaux de route**. Le code de positionnement dynamique peut commencer.
+
+## 🏘️ Village MVP
+
+- Peu de participation sur le post « village ». BARDOK liste les éléments utiles par bâtiment : entrepôt/stockage, comptoir PNJ, spawn de véhicules, **hôtel de ville** avec panneau de missions et PNJ (éventuellement quelques dialogues).
+- **Broyeur et raffinerie utilisent la même machine** en placeholder, avec seulement un panneau différent.
+- **Bâtiments déco** : gros blocs gris avec leur nom (restaurant, école…) pour donner un effet de ville. Warpzone pourra faire les enseignes néon.
+  - Plan de village minier : [lien](https://discord.com/channels/1399325839665004554/1518594752650547260/1518678187750457384)
+  - Plan de ville factory : [lien](https://discord.com/channels/1399325839665004554/1518594752650547260/1518670918988070944)
+- **Circulation** : une grande allée accessible aux véhicules et des ruelles piétonnes (bornes, passages serrés).
+- Le plan se trouve dans **level design › village MVP** (message épinglé). L'autre plan correspond à la ville industrielle (fonderie).
+- **Appartements 3 m ou 6 m** : David va tester des conteneurs coupés en deux (3 m) et des 6 m. Kainan suggère des couleurs différentes (jaune pour 6 m, noir pour 3 m) pendant les tests.
+- La **boucle de minage est quasi complète**. Il manque surtout les lieux. Une mission « dépôt de boîte » est facile à ajouter.
+- Les missions seront prises sur les écrans de l'hôtel de ville, puis apparaîtront dans le datapad (F3).
+
+## 🗑️ Retour et destruction d'objets
+
+- Il n'existe pas encore de moyen de se débarrasser d'un objet.
+- Deux options : une **poubelle ou un broyeur « suppression d'objets »**, ou une **machine distributrice qui reprend le matériel** en fin de mission, avec une liste blanche d'objets acceptés.
+- Aucun despawn automatique n'est prévu.
+
+## 🖱️ Contrôles
+
+- BARDOK préfère le **clic gauche** à **F** pour les interactions. Kainan défend F/E, qui sont des standards.
+- Les écrans fonctionnent déjà au clic.
+- ➡️ **On teste le clic gauche en parallèle de F.** Un double bind dans le mapping serait idéal. David voit ça avec Warpzone.
+- Le joystick est détecté comme une manette et provoque un comportement erratique.
+
+## 💬 Divers
+
+- L'écran central du véhicule (star map) est décoratif et **pas prioritaire**. Le datapad actuel convient comme placeholder.
+- Hors scope MVP : vaisseaux, combat, système de vie/dégâts/mort.
+- La connexion à la base QGIS redemande l'identifiant à chaque fois chez certains. David va regarder.
+
+## ✅ Actions
+
+- **ddurieux** :
+  - Passer le réseau en partie en UDP.
+  - Corriger la connexion Horizon.
+  - Monter le test en datacenter.
+  - Investiguer la mémoire Godot.
+  - Retravailler le sol (habillage et matériau).
+  - Créer l'outil de régions.
+  - Intégrer les conteneurs de Cancan (test 3 m / 6 m).
+  - Fournir les listes de composants, minéraux et nourritures.
+  - Ajouter le clic gauche en parallèle de F.
+  - Préparer les bâtiments déco avec Warpzone.
+- **Kainan** : animer la réunion chargeur de batterie (mercredi 20h30), puis lancer le travail sur les routes.
+- **bitogno** : publier la doc lore sur le wiki, transmettre la doc sur les lignes sismiques, retrouver le document sur les bâtiments pour BARDOK.
+- **BARDOK** : finaliser la liste des éléments du village et l'envoyer en 3D.
+- **Tous** : lire la nouvelle doc lore et donner votre avis, venir à la réunion de mercredi.

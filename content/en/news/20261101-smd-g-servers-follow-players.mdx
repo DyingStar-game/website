@@ -1,0 +1,135 @@
+---
+title: "SMD-G: when servers follow the players"
+titleIcon: 🌍
+category: test
+keywords:
+  - news
+  - server meshing
+coverUrl: /assets/images/news/20261101-smdg-architecture-en.png
+date: 2026-11-01T10:30:00
+author: ddurieux
+description: "Server Meshing Dynamic Gravity (SMD-G) will let players from several continents share the same universe, on a server close to home. Here is how it will work for players."
+tags:
+  - Project information
+  - development
+  - godot
+authorRoles:
+  - Project founder
+alternates: { fr: 20261101-smd-g-les-serveurs-suivent-les-joueurs }
+---
+
+During the last tests, players from other continents suffered from a lot of latency. So we designed the next step of our server meshing: **Server Meshing Dynamic Gravity**, or **SMD-G**.
+
+The idea: **servers "fall" towards the players**. The part of the universe around a group of players can be simulated in the datacenter closest to most of them, while keeping **one single universe shared by everyone**.
+
+⚠️ This is still a **design**: nothing is coded yet. The numbers below are targets, and they will be measured during the tests.
+
+## 🧱 Preamble: what we already have
+
+Today, the game uses **Server Meshing Dynamic (SMD)**. The universe is split into **zones**, and each zone is simulated by a Godot game server. **Horizon**, our central server, is the conductor:
+
+- **At startup**, a single Godot server handles space and the planets.
+- **Split**: when there are too many players or the server slows down, the zone is cut in two and a new server takes one half. The cut avoids going through the middle of a village.
+- **Handover**: when you cross the border between two zones, you move from one server to the other, along with what you carry or transport.
+- **Merge**: when the load drops, the zones are joined again and the extra server is released.
+
+![Server Meshing Dynamic: start, split, then handover and merge](/assets/images/news/20261101-smdg-smd-today-en.png)
+
+It works well, and the load tests proved it. But **everything runs in Paris** (actually in Propières, France, for now).
+
+## 🐢 The problem: distance
+
+DyingStar is an **authoritative** game: your client guesses nothing, it waits for the server to send your new position. Every step makes the round trip to the server.
+
+For a player in Montreal, that means crossing the Atlantic twice on every step, about **95 ms of network**. If the space around them were simulated in Montreal, it would be about **10 ms**.
+
+![Today, the input crosses the Atlantic; with a bubble handed to Montreal, everything stays local](/assets/images/news/20261101-smdg-latency-en.png)
+
+From click to screen, including the server's processing time, we go from about **130 to 140 ms** down to about **40 to 50 ms**.
+
+Just moving the connection closer would not be enough: as long as the simulation stays in Paris, the trip stays the same. **The space around the players has to be simulated close to them.**
+
+## 🌍 SMD-G: several datacenters, one universe
+
+In this design, there are three sites: **Paris**, **Montreal** and **Hong Kong**. Two words to keep apart:
+
+- **Zone**: the geographic area of a Godot server in Paris, as today with SMD.
+- **Bubble**: a part of the universe that Paris delegates to another datacenter, where it is simulated.
+
+And each site has its role:
+
+- **Paris stays the core.** Its servers simulate the zones. It decides which bubbles to hand to which site, handles accounts and the universe's save, and keeps a copy of everything.
+- **Montreal and Hong Kong are edges.** They welcome the players of their region and run their own Godot servers for the bubbles handed to them.
+- **Everyone stays in the same universe.** There is no separate "US" or "Asia" server: a player in Montreal can join a friend in Paris at any time.
+
+![Architecture: a core in Paris, edges in Montreal and Hong Kong](/assets/images/news/20261101-smdg-architecture-en.png)
+
+If an edge is unavailable, everything falls back to Paris, like today. Handing a bubble to another site is an optimization, never an obligation.
+
+## 🎮 In practice, for you as a player
+
+### 🔌 When you log in
+
+- The game measures your ping to each site and connects you to the fastest one. That is your **home site** for the whole session.
+- If nobody from another continent is close to your spawn point, a bubble is **created directly around you on your site**. You arrive without any switch.
+- If your site has no server available (at night, for example), you play in a Paris zone, and your bubble is created as soon as a server is ready.
+
+### 🫧 Alone or in a small group: the bubble
+
+Players explore, go on missions and move their habitation: after a few hours, everyone is scattered. So SMD-G keeps following your real positions.
+
+- **Bubble**: a Montreal player alone, far from any Parisian, gets a bubble around them, simulated in Montreal.
+- **Moving border**: when they get close to the edge of their bubble and nobody is waiting on the other side, the edge moves with them, instead of making them change server.
+- **Pre-emptive merge**: when two groups from different continents get closer (less than 2 km on foot), they are gathered on a single site **before** they meet.
+
+![The three mechanisms: bubble, moving border and pre-emptive merge](/assets/images/news/20261101-smdg-bubbles-en.png)
+
+Why the pre-emptive merge? Two players on two different servers cannot interact directly. That is already the case today. So SMD-G makes sure a border between sites **never runs through a group**, a fight or a trade.
+
+Distances adapt to speed: on foot, a few hundred meters of margin are enough. In a fast spaceship, the margin is counted in tens of kilometers.
+
+### ⚖️ Across continents: the bubble goes where most people play
+
+When players from different regions play in the same place, the core computes every 5 seconds which site gives them **the lowest total latency**.
+
+![Example: 3 Montreal players and 1 from Paris, the group moves into a bubble in Montreal](/assets/images/news/20261101-smdg-score-en.png)
+
+- **3 Montreal players and 1 Parisian**: the group moves into a bubble in Montreal. The Parisian gets about 90 ms, that is the price of being the minority.
+- **2 vs 2**: it's a tie, nothing moves.
+- **Three continents**: Paris often wins, because it sits in the middle.
+- **Fairness cap**: if another option exists, no player should go above 180 ms.
+- **A ship's pilot counts double**, an AFK player barely counts, and NPCs don't count.
+- **A big event** (100 players from everywhere) stays on a single site, the best one for the whole crowd. It is then spread across several servers of that site.
+
+And no cheating: inflating your ping or switching VPN mid-game does not let you pull a bubble away from your opponents.
+
+### 🔄 When you change site
+
+- The new site **prepares the bubble in the background** while you keep playing normally.
+- Then the bubble is frozen for about **150 to 250 ms**, the time to send the final state. No reconnection, nothing lost, and no action is played twice.
+- No ping-pong: a bubble only changes site if the gain is clear (at least 25 ms per player) and lasts at least 30 seconds. It then stays put for at least 3 minutes.
+- If you cross a border between two sites (leaving your bubble for a Paris zone, for example), you are frozen for about 50 ms.
+
+### 🛟 What about outages?
+
+- The golden rule: **never two servers writing the same part of the universe at the same time**. No item duplication, even if the network breaks.
+- If Montreal loses its link to Paris, your bubble keeps going for at most 30 seconds, then you see "reconnecting" and you resume on Paris.
+- If a Godot server in Montreal crashes, its bubbles are restarted on another Montreal server, or on Paris if none is available.
+- If the Paris core goes down, it is like today: players connected to Paris are disconnected, those on other sites hold for at most 30 seconds, and the universe restarts from the save.
+
+## 🗺️ The steps
+
+1. **Measure**: the client measures its ping to test servers in each region. We will know how many players would really benefit before investing.
+2. **Edges**: connections go through the closest site, but everything is still simulated in Paris.
+3. **Fixed delegation**: a fixed bubble (a planet, for example) is handed to Montreal by configuration, to test switches and outages.
+4. **Dynamic delegation**: computing the best site and switching automatically.
+5. **Dynamic bubbles**: bubbles that follow the players, moving border and pre-emptive merge. This is where most of the gain is.
+6. **Resilience and polish**: direct link between Montreal and Hong Kong, backup core, etc.
+
+Alongside SMD-G, another lead is planned: sending you your own position as soon as it is computed, without waiting for the next batched send. That could save up to 20 or 25 ms **for every player**, even in Paris.
+
+## 📚 Going further
+
+For the curious, the full design document (protocols, leases, outages, Kubernetes, metrics…) is available here: **[Server Meshing Dynamic Gravity (SMD-G)](https://claude.ai/artifact/2wsBxdEX612j1o4F9pTXnR)**.
+
+Your questions and feedback are welcome on Discord! 🚀
