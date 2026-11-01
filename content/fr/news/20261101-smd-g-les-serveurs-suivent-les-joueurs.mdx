@@ -1,0 +1,135 @@
+---
+title: "SMD-G : quand les serveurs suivent les joueurs"
+titleIcon: 🌍
+category: test
+keywords:
+  - news
+  - server meshing
+coverUrl: /assets/images/news/20261101-smdg-architecture-fr.png
+date: 2026-11-01T10:30:00
+author: ddurieux
+description: "Le Server Meshing Dynamic Gravity (SMD-G) va permettre de jouer dans le même univers depuis plusieurs continents, avec un serveur proche de chez vous. Voici comment ça va fonctionner côté joueur."
+tags:
+  - Informations du projet
+  - développement
+  - godot
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20261101-smd-g-servers-follow-players }
+---
+
+Lors des derniers tests, les joueurs d'autres continents ont subi beaucoup de latence. On a donc conçu la suite de notre server meshing : le **Server Meshing Dynamic Gravity**, ou **SMD-G**.
+
+Le principe : **les serveurs « tombent » vers les joueurs**. La portion d'univers autour d'un groupe de joueurs peut être simulée dans le datacenter le plus proche de la majorité d'entre eux, tout en gardant **un seul univers commun à tout le monde**.
+
+⚠️ C'est encore de la **conception** : rien n'est codé pour l'instant. Les chiffres ci-dessous sont des objectifs, et ils seront mesurés lors des tests.
+
+## 🧱 Préambule : ce qu'on a déjà
+
+Aujourd'hui, le jeu utilise le **Server Meshing Dynamic (SMD)**. L'univers est découpé en **zones**, et chaque zone est simulée par un serveur de jeu Godot. **Horizon**, notre serveur central, joue le chef d'orchestre :
+
+- **Au démarrage**, un seul serveur Godot gère l'espace et les planètes.
+- **Split** : quand il y a trop de joueurs ou que le serveur ralentit, la zone est coupée en deux et un nouveau serveur prend une moitié. La coupe évite de passer au milieu d'un village.
+- **Handover** : quand vous franchissez la frontière entre deux zones, vous passez d'un serveur à l'autre, avec ce que vous portez ou transportez.
+- **Merge** : quand la charge baisse, les zones sont réunies et le serveur en trop est libéré.
+
+![Le Server Meshing Dynamic : démarrage, split, puis handover et merge](/assets/images/news/20261101-smdg-smd-today-fr.png)
+
+Ça fonctionne bien, et les tests de charge l'ont montré. Mais **tout tourne à Paris** (en fait à Propières en France pour le moment).
+
+## 🐢 Le problème : la distance
+
+DyingStar est un jeu **autoritaire** : votre client ne devine rien, il attend que le serveur lui donne votre nouvelle position. Chaque pas fait donc l'aller-retour jusqu'au serveur.
+
+Pour un joueur de Montréal, ça veut dire traverser l'Atlantique deux fois à chaque pas, soit environ **95 ms de réseau**. Si l'espace autour de lui était simulé à Montréal, ce serait environ **10 ms**.
+
+![Aujourd'hui, l'input traverse l'Atlantique ; avec une bulle confiée à Montréal, tout reste local](/assets/images/news/20261101-smdg-latency-fr.png)
+
+Du clic à l'écran, en comptant aussi le temps de calcul du serveur, on passe d'environ **130 à 140 ms** à environ **40 à 50 ms**.
+
+Rapprocher seulement la connexion ne suffirait pas : tant que la simulation reste à Paris, le trajet reste le même. **Il faut simuler l'espace autour des joueurs près de chez eux.**
+
+## 🌍 SMD-G : plusieurs datacenters, un seul univers
+
+Dans cette conception, on a trois sites : **Paris**, **Montréal** et **Hong Kong**. Deux mots à bien distinguer :
+
+- **Zone** : la zone géographique d'un serveur Godot de Paris, comme aujourd'hui avec le SMD.
+- **Bulle** : une portion d'univers que Paris délègue à un autre datacenter, et qui y est simulée.
+
+Et chaque site a son rôle :
+
+- **Paris reste le cœur.** Ses serveurs simulent les zones. Il décide quelles bulles confier à quel site, gère les comptes et la sauvegarde de l'univers, et garde une copie de tout.
+- **Montréal et Hong Kong sont des relais.** Ils accueillent les joueurs de leur région et font tourner leurs propres serveurs Godot pour les bulles qu'on leur confie.
+- **Tout le monde reste dans le même univers.** Il n'y a pas de serveur « US » ou « Asie » séparé : un joueur de Montréal peut rejoindre un ami parisien n'importe quand.
+
+![Architecture : un cœur à Paris, des relais à Montréal et Hong Kong](/assets/images/news/20261101-smdg-architecture-fr.png)
+
+Si un relais n'est pas disponible, tout retombe sur Paris, comme aujourd'hui. Confier une bulle à un autre site, c'est une optimisation, jamais une obligation.
+
+## 🎮 Concrètement, pour vous en tant que joueur
+
+### 🔌 À la connexion
+
+- Le jeu mesure votre ping vers chaque site et vous connecte au plus rapide. Ce sera votre **site maison** pour toute la session.
+- Si personne d'un autre continent n'est proche de votre point d'apparition, une bulle est **directement créée autour de vous sur votre site**. Vous arrivez sans aucune bascule.
+- Si votre site n'a pas de serveur disponible (la nuit, par exemple), vous jouez dans une zone de Paris, et votre bulle est créée dès qu'un serveur est prêt.
+
+### 🫧 Seul ou en petit groupe : la bulle
+
+Les joueurs explorent, partent en mission et déplacent leur habitation : au bout de quelques heures, tout le monde est dispersé. SMD-G suit donc vos positions réelles en continu.
+
+- **Bulle** : un joueur de Montréal seul, loin de tout Parisien, obtient une bulle autour de lui, simulée à Montréal.
+- **Frontière mobile** : quand il s'approche du bord de sa bulle et que personne n'attend de l'autre côté, le bord se déplace avec lui, au lieu de le faire changer de serveur.
+- **Fusion préventive** : quand deux groupes de continents différents se rapprochent (à moins de 2 km à pied), ils sont regroupés sur un seul site **avant** de se rencontrer.
+
+![Les trois mécanismes : bulle, frontière mobile et fusion préventive](/assets/images/news/20261101-smdg-bubbles-fr.png)
+
+Pourquoi la fusion préventive ? Deux joueurs sur deux serveurs différents ne peuvent pas interagir directement. C'est déjà le cas aujourd'hui. SMD-G fait donc en sorte qu'une frontière entre sites ne passe **jamais au milieu d'un groupe**, d'un combat ou d'un échange.
+
+Les distances s'adaptent à la vitesse : à pied, quelques centaines de mètres de marge suffisent. En vaisseau spatial rapide, la marge se compte en dizaines de kilomètres.
+
+### ⚖️ Entre continents : la bulle va là où joue la majorité
+
+Quand des joueurs de régions différentes jouent au même endroit, le cœur calcule toutes les 5 secondes quel site leur donne **le moins de latence au total**.
+
+![Exemple : 3 joueurs de Montréal et 1 de Paris, le groupe part dans une bulle à Montréal](/assets/images/news/20261101-smdg-score-fr.png)
+
+- **3 Montréalais et 1 Parisien** : le groupe part dans une bulle à Montréal. Le Parisien a environ 90 ms, c'est le prix de la minorité.
+- **2 contre 2** : égalité, rien ne bouge.
+- **Trois continents** : c'est souvent Paris qui l'emporte, parce qu'il est au milieu.
+- **Plafond d'équité** : si une autre solution existe, aucun joueur ne doit dépasser 180 ms.
+- **Le pilote d'un vaisseau compte double**, un joueur AFK ne compte presque plus, et les PNJ ne comptent pas.
+- **Un grand événement** (100 joueurs de partout) reste sur un seul site, celui qui est le meilleur pour l'ensemble. Il est ensuite réparti entre plusieurs serveurs de ce site.
+
+Et pas de triche possible : gonfler son ping ou changer de VPN en cours de partie ne permet pas d'attirer une bulle loin de ses adversaires.
+
+### 🔄 Quand vous changez de site
+
+- Le nouveau site **prépare la bulle en arrière-plan** pendant que vous continuez à jouer normalement.
+- Ensuite, la bulle est figée pendant environ **150 à 250 ms**, le temps de transmettre l'état final. Pas de reconnexion, rien de perdu, et aucune action n'est jouée deux fois.
+- Pas de ping-pong : une bulle ne change de site que si le gain est net (au moins 25 ms par joueur) et dure au moins 30 secondes. Elle reste ensuite en place au moins 3 minutes.
+- Si vous traversez une frontière entre deux sites (en sortant de votre bulle vers une zone de Paris, par exemple), vous êtes figé environ 50 ms.
+
+### 🛟 Et en cas de panne ?
+
+- La règle d'or : **jamais deux serveurs qui écrivent la même portion d'univers en même temps**. Pas de duplication d'objets, même si le réseau se coupe.
+- Si Montréal perd le lien avec Paris, votre bulle continue au plus 30 secondes, puis vous voyez « reconnexion » et vous reprenez sur Paris.
+- Si un serveur Godot de Montréal plante, ses bulles sont relancées sur un autre serveur de Montréal, ou sur Paris s'il n'y en a pas.
+- Si le cœur de Paris tombe, c'est comme aujourd'hui : les joueurs connectés à Paris sont déconnectés, ceux des autres sites tiennent au plus 30 secondes, et l'univers repart depuis la sauvegarde.
+
+## 🗺️ Les étapes
+
+1. **Mesurer** : le client mesure son ping vers des serveurs de test dans chaque région. On saura combien de joueurs y gagneraient vraiment avant d'investir.
+2. **Relais** : les connexions passent par le site le plus proche, mais tout reste simulé à Paris.
+3. **Délégation fixe** : une bulle fixe (une planète, par exemple) est confiée à Montréal par configuration, pour tester les bascules et les pannes.
+4. **Délégation dynamique** : le calcul du meilleur site et les bascules automatiques.
+5. **Bulles dynamiques** : bulles qui suivent les joueurs, frontière mobile et fusion préventive. C'est là qu'est l'essentiel du gain.
+6. **Résilience et finitions** : liaison directe entre Montréal et Hong Kong, cœur de secours, etc.
+
+À côté de SMD-G, une autre piste est prévue : envoyer votre propre position dès qu'elle est calculée, sans attendre le prochain envoi groupé. Ça pourrait faire gagner jusqu'à 20 ou 25 ms **à tous les joueurs**, même à Paris.
+
+## 📚 Pour aller plus loin
+
+Pour les curieux, le document de conception complet (protocoles, baux, pannes, Kubernetes, métriques…) est disponible ici : **[Server Meshing Dynamic Gravity (SMD-G)](https://claude.ai/artifact/YRoB5Zew5pNhah6ahDi19E)**.
+
+Vos questions et retours sont les bienvenus sur Discord ! 🚀
