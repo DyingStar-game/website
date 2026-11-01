@@ -1,0 +1,52 @@
+---
+title: "Tests de charge du test 7 : le bilan"
+titleIcon: 📊
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-10-27T19:44:44
+author: ddurieux
+discordMessageId: "1564711466312011887"
+description: "Bilan des tests de charge du 26 octobre : ce qui a tenu, ce qui a coincé et les correctifs prévus pour la suite."
+tags:
+  - play test
+  - développement
+  - Informations du projet
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20261027-test-7-load-tests-results }
+---
+
+## 📊 Tests de charge du test 7 du 26 octobre : le bilan
+
+Merci à tous ceux qui sont venus hier soir ! Deux tests au programme :
+
+- **Test 1** : ~35 joueurs et jusqu'à 600 PNJ, villages de 50
+- **Test 2** : ~30 joueurs et 200 PNJ, villages de 25
+
+**✅ Ce qui a tenu**
+
+- Les serveurs de jeu : ~50 joueurs par serveur à 60 tps, sans broncher
+- Le serveur central (Horizon) : 640 connexions, de la marge en CPU, pas de fuite mémoire
+- Le server meshing dynamic fonctionne plutôt bien
+
+**❌ Ce qui a coincé**
+
+- 🔒 **Plus personne ne pouvait rejoindre** (test 1, vers 20h49) : un joueur dont la connexion était bloquée s'est reconnecté, et ça a bloqué Horizon. Seul un redémarrage pouvait le débloquer.
+- 🧊 **Joueurs figés**, notamment sur voluptas : quand une connexion décroche, Horizon garde tout ce qu'il doit lui envoyer pendant 60 s avant de la couper. Pendant ce temps, plus rien ne bouge chez vous.
+- 🐌 **Gros lag dès l'arrivée des PNJ**, mais seulement pour les joueurs à distance : 20 ms avant les PNJ, jusqu'à 1,7 s après. Notre piste principale : le trafic des PNJ (jusqu'à 224 Mbit/s) passe par la même connexion internet.
+- 💾 **La mémoire des serveurs de jeu (godot)** n'est jamais rendue après le départ des joueurs.
+
+**🔧 La suite**
+
+- Corriger le blocage à la connexion
+- Ne plus empiler les positions en retard : un joueur qui décroche rattrapera d'un coup au lieu de rester figé une minute
+- Déplacer Horizon et les serveurs godot en datacenter pour avoir une vraie connexion
+- Je prépare des spécifications pour (publication dans environ une semaine) :
+  - changer le protocole réseau (passer une partie en UDP pour éviter les blocages)
+  - gestion de la latence au mieux pour ceux qui sont sur d'autres continents (tant qu'à faire)
+
+Le rapport complet : [https://claude.ai/artifact/BpCLehLC8ySeeBnEFeGdX5](https://claude.ai/artifact/BpCLehLC8ySeeBnEFeGdX5)
+
+Un grand merci à Kainan qui avait activé le debug côté client : c'est grâce à ses fichiers qu'on a pu mesurer le lag précisément 🙏

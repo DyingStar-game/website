@@ -1,0 +1,58 @@
+---
+title: Launcher 1.1.0 & build test 7
+titleIcon: 🚀
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-10-26T19:08:52
+author: ddurieux
+discordMessageId: "1564340054149824552"
+description: Le launcher 1.1.0 et le build Linux/Windows du test de ce soir sont disponibles, avec le changelog complet du launcher.
+tags:
+  - Changelog
+  - développement
+  - play test
+  - Informations du projet
+authorRoles:
+  - Fondateur du projet
+alternates: { en: 20261026-launcher-1-1-0-and-build-test-7 }
+---
+
+Le launcher 1.1.0 est disponible, le build (linux / windows) pour le test de ce soir est dispo.
+
+A télécharger ici :
+
+https://github.com/DyingStar-game/launcher/releases/latest
+
+## Changelog du launcher
+
+**Added**
+
+- **Compte** : Connexion affichée comme indisponible quand le serveur de connexion est en panne, au lieu d'un bouton de connexion qui échoue.
+- **Changelog** : Bouton « Tout marquer comme lu ».
+- **Téléchargement et installation** : Le launcher se met à jour tout seul : la nouvelle version se télécharge en arrière-plan et s'installe au redémarrage, ou à la fermeture du launcher.
+- **Interface** : La version du launcher est affichée à côté du logo.
+- **Téléchargement et installation** : La sortie du jeu est conservée dans un fichier de log à côté de celui du launcher, pour aider à comprendre un plantage.
+
+**Changed**
+
+- **Interface** : Le lien Discord ouvre l'application Discord quand elle est installée, directement sur le serveur pour ses membres ; sinon la page web.
+- **Social** : Statut des amis rafraîchi toutes les minutes.
+- **Interface** : Launcher réduit pendant que le jeu tourne, de retour à sa fermeture.
+- **Changelog** : Noms des builds raccourcis, versions non lues signalées par un point ; le changelog s'ouvre sur la version la plus récente.
+- **Interface** : Boutons désactivés affichés avec un curseur d'interdiction et, quand la raison n'est pas visible, une infobulle qui l'explique.
+- **Téléchargement et installation** : Les launchers installés depuis un paquet .deb ou .rpm téléchargent directement le nouveau paquet.
+
+**Fixed**
+
+- **Téléchargement et installation** : Disque plein signalé clairement, avec la place à libérer, au lieu d'un téléchargement interrompu ; le téléchargement est conservé pour reprendre.
+- **Interface** : Serveur plus affiché comme indisponible après des changements d'univers rapides.
+- **Compte** : Connexion avec Discord de retour dans le navigateur, où Discord connaît déjà le compte, au lieu d'une fenêtre du launcher qui le redemande.
+- **Téléchargement et installation** : Le jeu ne plante plus quand il est lancé depuis le launcher AppImage.
+- **Interface** : Le statut des serveurs revient tout seul au retour de la connexion, sans relancer le launcher.
+
+**Security**
+
+- **Téléchargement et installation** : Une archive du jeu ne peut plus écrire de fichiers hors du dossier du jeu.
+- **Interface** : Composants du launcher mis à jour pour corriger des failles de sécurité connues.

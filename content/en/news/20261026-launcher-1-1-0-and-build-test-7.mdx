@@ -1,0 +1,58 @@
+---
+title: Launcher 1.1.0 & build test 7
+titleIcon: 🚀
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-10-26T19:08:52
+author: ddurieux
+discordMessageId: "1564340054149824552"
+description: Launcher 1.1.0 and the Linux/Windows build for tonight's test are available, along with the full launcher changelog.
+tags:
+  - Changelog
+  - development
+  - play test
+  - Project information
+authorRoles:
+  - Project founder
+alternates: { fr: 20261026-launcher-1-1-0-et-build-test-7 }
+---
+
+Launcher 1.1.0 is available, and the build (linux / windows) for tonight's test is ready.
+
+Download it here:
+
+https://github.com/DyingStar-game/launcher/releases/latest
+
+## Launcher changelog
+
+**Added**
+
+- **Account**: Login shown as unavailable when the login server is down, instead of a login button that fails.
+- **Changelog**: "Mark all as read" button.
+- **Download and installation**: The launcher updates itself: the new version is downloaded in the background and installed on restart, or when the launcher is closed.
+- **Interface**: The launcher version is displayed next to the logo.
+- **Download and installation**: The game's output is kept in a log file next to the launcher's own, to help understand a crash.
+
+**Changed**
+
+- **Interface**: The Discord link opens the Discord application when it is installed, going straight to the server for its members; otherwise the web page.
+- **Social**: Friends' status refreshed every minute.
+- **Interface**: Launcher minimised while the game is running, back when the game closes.
+- **Changelog**: Shortened build names, unread versions marked with a dot; the changelog opens on the most recent version.
+- **Interface**: Disabled buttons shown with a "not allowed" cursor and, when the reason is not visible, a tooltip explaining it.
+- **Download and installation**: Launchers installed from a .deb or .rpm package download the new package directly.
+
+**Fixed**
+
+- **Download and installation**: Full disk clearly reported, with the amount of space to free up, instead of an interrupted download; the download is kept so it can be resumed.
+- **Interface**: Server no longer shown as unavailable after quick universe switches.
+- **Account**: Discord login back in the browser, where Discord already knows the account, instead of a launcher window asking for it again.
+- **Download and installation**: The game no longer crashes when it is launched from the AppImage launcher.
+- **Interface**: Server status comes back on its own when the connection returns, without restarting the launcher.
+
+**Security**
+
+- **Download and installation**: A game archive can no longer write files outside the game folder.
+- **Interface**: Launcher components updated to fix known security vulnerabilities.
