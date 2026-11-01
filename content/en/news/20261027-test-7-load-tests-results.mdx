@@ -1,0 +1,52 @@
+---
+title: "Test 7 load tests: the results"
+titleIcon: 📊
+category: test
+keywords:
+  - news
+coverUrl: /assets/images/news/sample.png
+date: 2026-10-27T19:44:44
+author: ddurieux
+discordMessageId: "1564711466312011887"
+description: "Results of the October 26 load tests: what held up, what broke, and the fixes planned next."
+tags:
+  - play test
+  - development
+  - Project information
+authorRoles:
+  - Project founder
+alternates: { fr: 20261027-tests-de-charge-test-7-bilan }
+---
+
+## 📊 Test 7 load tests of October 26: the results
+
+Thanks to everyone who showed up last night! Two tests were on the program:
+
+- **Test 1**: ~35 players and up to 600 NPCs, villages of 50
+- **Test 2**: ~30 players and 200 NPCs, villages of 25
+
+**✅ What held up**
+
+- The game servers: ~50 players per server at 60 tps, without flinching
+- The central server (Horizon): 640 connections, CPU headroom to spare, no memory leak
+- Dynamic server meshing works pretty well
+
+**❌ What broke**
+
+- 🔒 **Nobody could join anymore** (test 1, around 8:49 PM): a player whose connection was stuck reconnected, and that locked up Horizon. Only a restart could unblock it.
+- 🧊 **Frozen players**, especially on voluptas: when a connection drops, Horizon holds on to everything it needs to send for 60 s before cutting it off. During that time, nothing moves on your end.
+- 🐌 **Heavy lag as soon as the NPCs arrived**, but only for remote players: 20 ms before the NPCs, up to 1.7 s afterwards. Our main lead: NPC traffic (up to 224 Mbit/s) goes through the same internet connection.
+- 💾 **The memory of the game servers (godot)** is never released after players leave.
+
+**🔧 What's next**
+
+- Fix the connection lockup
+- Stop stacking up late positions: a player who drops will catch up all at once instead of staying frozen for a minute
+- Move Horizon and the godot servers to a datacenter to get a real connection
+- I'm preparing specifications for (to be published in about a week):
+  - changing the network protocol (moving part of it to UDP to avoid lockups)
+  - handling latency as best as possible for those on other continents (while we're at it)
+
+The full report: [https://claude.ai/artifact/BpCLehLC8ySeeBnEFeGdX5](https://claude.ai/artifact/BpCLehLC8ySeeBnEFeGdX5)
+
+A big thank you to Kainan, who had enabled client-side debugging: it's thanks to his files that we were able to measure the lag precisely 🙏
